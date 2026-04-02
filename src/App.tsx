@@ -8,6 +8,7 @@ import Register from "./pages/Register.tsx";
 import About from "./pages/About.tsx";
 import Tracks from "./pages/Tracks.tsx";
 import Sponsors from "./pages/Sponsors.tsx";
+import SponsorUs from "./pages/SponsorUs.tsx";
 import Partner from "./pages/Partner.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/tracks" element={<Tracks />} />
           <Route path="/sponsors" element={<Sponsors />} />
+          <Route path="/sponsor-us" element={<SponsorUs />} />
           <Route path="/partner" element={<Partner />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

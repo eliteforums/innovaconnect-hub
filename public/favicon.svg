@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="12" fill="#080808"/>
+  <rect x="2" y="2" width="60" height="60" rx="10" stroke="#E6395E" stroke-width="2"/>
+  <text x="32" y="28" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="22" fill="#F5F5F5">IH</text>
+  <rect x="14" y="34" width="36" height="3" rx="1.5" fill="#E6395E"/>
+  <text x="32" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="8" fill="#888888" letter-spacing="3">HACK</text>
+</svg>

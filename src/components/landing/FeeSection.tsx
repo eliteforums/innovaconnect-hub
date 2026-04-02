@@ -7,11 +7,11 @@ const FeeSection = () => {
             SECTION 06
           </p>
           <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-4">
-            WHY ₹100?
+            REGISTRATION FEE
           </h2>
-          <p className="text-7xl md:text-9xl font-black text-editorial-pink">₹100</p>
+          <p className="text-2xl md:text-3xl font-black text-muted-foreground">₹100</p>
           <p className="text-xs tracking-widest uppercase text-muted-foreground mt-2">
-            ONE-TIME COMMITMENT FEE
+            ONE-TIME REGISTRATION FEE (NON-REFUNDABLE)
           </p>
         </div>
 
@@ -22,7 +22,7 @@ const FeeSection = () => {
                 SERIOUS APPLICANTS ONLY
               </h3>
               <p className="text-sm text-muted-foreground">
-                We receive 10,000+ applications. The fee ensures every applicant is
+                We receive 10,000+ applications. The registration fee ensures every applicant is
                 genuinely committed to participating and building something meaningful.
               </p>
             </div>
@@ -31,7 +31,7 @@ const FeeSection = () => {
                 NOT A REVENUE MODEL
               </h3>
               <p className="text-sm text-muted-foreground">
-                ₹100 doesn't cover our costs. It's a filter — a small commitment that
+                The registration fee doesn't cover our costs. It's a filter — a small commitment that
                 dramatically improves the quality of our applicant pool.
               </p>
             </div>
@@ -47,11 +47,11 @@ const FeeSection = () => {
             </div>
             <div>
               <h3 className="font-black uppercase text-sm tracking-wider mb-1">
-                REFUND POLICY
+                FEE POLICY
               </h3>
               <p className="text-sm text-muted-foreground">
-                If your application is not shortlisted, the fee is fully refundable.
-                Zero risk.
+                The ₹100 registration fee is non-refundable. It is a one-time commitment
+                to ensure quality participation.
               </p>
             </div>
           </div>

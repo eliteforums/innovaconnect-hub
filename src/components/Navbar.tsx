@@ -7,6 +7,7 @@ const navLinks = [
   { label: "ABOUT", href: "/about", isRoute: true },
   { label: "TRACKS", href: "/tracks", isRoute: true },
   { label: "SPONSORS", href: "/sponsors", isRoute: true },
+  { label: "SPONSOR US", href: "/sponsor-us", isRoute: true },
   { label: "PARTNER WITH US", href: "/partner", isRoute: true },
   { label: "FAQ", href: "/#faq", isRoute: false },
 ];
@@ -30,7 +31,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-5">
           {navLinks.map((link) =>
             link.isRoute ? (
               <Link
@@ -52,7 +53,7 @@ const Navbar = () => {
           )}
         </div>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           <Link
             to="/register"
             className="border-2 border-foreground px-5 py-2 text-xs font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
@@ -62,14 +63,14 @@ const Navbar = () => {
         </div>
 
         {/* Mobile toggle */}
-        <button className="md:hidden" onClick={() => setOpen(!open)}>
+        <button className="lg:hidden" onClick={() => setOpen(!open)}>
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t-2 border-foreground">
+        <div className="lg:hidden border-t-2 border-foreground">
           {navLinks.map((link) =>
             link.isRoute ? (
               <Link

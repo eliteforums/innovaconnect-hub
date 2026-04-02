@@ -8,7 +8,7 @@ const stats = [
   { number: "TOP 1%", label: "SELECTED BUILDERS" },
   { number: "30 HRS", label: "NON-STOP HACKING" },
   { number: "5", label: "DOMAIN TRACKS" },
-  { number: "₹100", label: "COMMITMENT FEE" },
+  { number: "₹100", label: "REGISTRATION FEE" },
   { number: "100+", label: "HIRING COMPANIES" },
 ];
 
@@ -172,14 +172,14 @@ const About = () => {
             PARTICIPANT FEE
           </p>
           <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">
-            WHY ₹100?
+            REGISTRATION FEE
           </h2>
         </div>
         <div className="p-8 md:p-16 max-w-4xl mx-auto">
           <div className="space-y-6 text-sm text-muted-foreground leading-relaxed">
             <p>
-              Participants pay a small ₹100 commitment fee because we assure that the
-              finalists will get <span className="text-foreground font-bold">huge benefits</span> —
+              Participants pay a ₹100 registration fee because we assure that the
+              finalists will get huge benefits —
               job offers, internships, incubation, investment, and more.
             </p>
             <p>
@@ -188,9 +188,8 @@ const About = () => {
               meaningful. It's not a revenue model — it's a quality filter.
             </p>
             <p>
-              If your application is not shortlisted, the fee is{" "}
-              <span className="text-editorial-green font-bold">fully refundable</span>.
-              Zero risk.
+              The ₹100 registration fee is non-refundable. It is a one-time commitment
+              that ensures only serious applicants participate.
             </p>
           </div>
         </div>

@@ -19,8 +19,8 @@ const faqs = [
     a: "We review every application based on skills, experience, and potential. Only the top 1% (approximately 80–100 participants) are shortlisted for the final 30-hour hackathon.",
   },
   {
-    q: "Is the ₹100 fee refundable?",
-    a: "Yes. If your application is not shortlisted for the final hackathon, the fee is fully refundable. If you are selected and choose not to attend, the fee is non-refundable.",
+    q: "What is the ₹100 registration fee?",
+    a: "The ₹100 is a non-refundable registration fee. It helps us filter serious applicants and ensures every participant in the final hackathon is genuinely committed to building something meaningful.",
   },
   {
     q: "What happens after the hackathon?",
