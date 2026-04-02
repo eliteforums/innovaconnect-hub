@@ -31,12 +31,12 @@ const CTASection = () => {
           >
             APPLY NOW →
           </Link>
-          <a
-            href="#sponsors"
+          <Link
+            to="/partner"
             className="border-2 border-foreground px-10 py-4 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
           >
             PARTNER WITH US
-          </a>
+          </Link>
         </div>
       </motion.div>
     </section>

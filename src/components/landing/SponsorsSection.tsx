@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const categories = [
   "TITLE SPONSOR",
   "DOMAIN SPONSORS",
@@ -22,12 +24,12 @@ const SponsorsSection = () => {
               SPONSORS & PARTNERS
             </h2>
           </div>
-          <a
-            href="#"
+          <Link
+            to="/partner"
             className="text-xs font-bold uppercase tracking-widest text-editorial-blue hover:underline hidden md:block"
           >
             BECOME A PARTNER →
-          </a>
+          </Link>
         </div>
       </div>
 

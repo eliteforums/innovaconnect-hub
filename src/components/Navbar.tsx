@@ -3,11 +3,12 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "HOME", href: "/" },
-  { label: "ABOUT", href: "#about" },
-  { label: "TRACKS", href: "#domains" },
-  { label: "SPONSORS", href: "#sponsors" },
-  { label: "FAQ", href: "#faq" },
+  { label: "HOME", href: "/", isRoute: true },
+  { label: "ABOUT", href: "/about", isRoute: true },
+  { label: "TRACKS", href: "/tracks", isRoute: true },
+  { label: "SPONSORS", href: "/sponsors", isRoute: true },
+  { label: "PARTNER WITH US", href: "/partner", isRoute: true },
+  { label: "FAQ", href: "/#faq", isRoute: false },
 ];
 
 const Navbar = () => {
@@ -30,15 +31,25 @@ const Navbar = () => {
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-xs font-bold tracking-widest uppercase text-foreground hover:text-editorial-blue transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.label}
+                to={link.href}
+                className="text-xs font-bold tracking-widest uppercase text-foreground hover:text-editorial-blue transition-colors"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-xs font-bold tracking-widest uppercase text-foreground hover:text-editorial-blue transition-colors"
+              >
+                {link.label}
+              </a>
+            )
+          )}
         </div>
 
         <div className="hidden md:flex items-center gap-3">
@@ -59,20 +70,31 @@ const Navbar = () => {
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden border-t-2 border-foreground">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block px-6 py-3 text-sm font-bold uppercase tracking-widest border-b border-border hover:bg-secondary transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.label}
+                to={link.href}
+                onClick={() => setOpen(false)}
+                className="block px-6 py-3 text-sm font-bold uppercase tracking-widest border-b border-border hover:bg-secondary transition-colors"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="block px-6 py-3 text-sm font-bold uppercase tracking-widest border-b border-border hover:bg-secondary transition-colors"
+              >
+                {link.label}
+              </a>
+            )
+          )}
           <Link
             to="/register"
             onClick={() => setOpen(false)}
-            className="block px-6 py-3 text-sm font-black uppercase tracking-widest bg-editorial-pink text-foreground"
+            className="block px-6 py-3 text-sm font-black uppercase tracking-widest bg-editorial-pink text-background"
           >
             REGISTER NOW →
           </Link>

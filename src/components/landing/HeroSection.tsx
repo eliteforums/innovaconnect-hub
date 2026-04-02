@@ -46,12 +46,12 @@ const HeroSection = () => {
               >
                 REGISTER NOW →
               </Link>
-              <a
-                href="#sponsors"
+              <Link
+                to="/partner"
                 className="border-2 border-foreground px-8 py-3 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
               >
                 PARTNER WITH US
-              </a>
+              </Link>
             </motion.div>
           </div>
 
