@@ -31,6 +31,14 @@ const HeroSection = () => {
                   top 1% of India's builders meet hiring companies, investors, and
                   incubators.
                 </p>
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <span className="bg-editorial-pink px-4 py-2 text-sm font-black uppercase tracking-wider text-background">
+                    🏆 Prize Pool of ₹3 Lakhs (Cash + Goodies)
+                  </span>
+                  <span className="border-2 border-editorial-blue px-4 py-2 text-sm font-black uppercase tracking-wider text-editorial-blue">
+                    🎯 Assured Placement Assistance to Top 1% Finalists
+                  </span>
+                </div>
               </div>
             </motion.div>
 
@@ -70,6 +78,7 @@ const HeroSection = () => {
                 {[
                   { number: "10,000+", label: "APPLICANTS" },
                   { number: "TOP 1%", label: "SELECTED" },
+                  { number: "₹3 LAKHS", label: "PRIZE POOL (CASH + GOODIES)" },
                   { number: "30 HRS", label: "OF HACKING" },
                   { number: "₹100", label: "REGISTRATION FEE" },
                   { number: "MUMBAI", label: "LOCATION" },

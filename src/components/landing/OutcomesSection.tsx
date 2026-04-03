@@ -2,8 +2,13 @@ import { motion } from "framer-motion";
 
 const outcomes = [
   {
-    title: "HIRING EXPOSURE",
-    desc: "Get direct exposure to hiring companies actively looking for top engineering talent. Fast-track your interview process.",
+    title: "₹3 LAKHS PRIZE POOL",
+    desc: "Compete for a massive prize pool of ₹3 Lakhs including cash prizes and exciting goodies for top performers and winners.",
+    accent: "border-editorial-pink",
+  },
+  {
+    title: "ASSURED PLACEMENT ASSISTANCE",
+    desc: "Top 1% selected finalists receive assured placement assistance with direct exposure to hiring companies actively looking for elite engineering talent.",
     accent: "border-editorial-blue",
   },
   {
@@ -15,11 +20,6 @@ const outcomes = [
     title: "INVESTOR ACCESS",
     desc: "Pitch to angel investors and VCs during Demo Day. Get introductions that could change your startup journey.",
     accent: "border-editorial-green",
-  },
-  {
-    title: "NATIONAL RECOGNITION",
-    desc: "Win awards, get featured in media, and build a portfolio project that stands out on any resume or pitch deck.",
-    accent: "border-editorial-pink",
   },
 ];
 

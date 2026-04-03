@@ -4,27 +4,27 @@ const steps = [
   {
     num: "01",
     title: "APPLY",
-    desc: "Submit your application with your skills, experience, and what you want to build. It takes 5 minutes.",
+    desc: "Submit your application with your skills, experience, and what you want to build. It takes just 5 minutes to get started.",
   },
   {
     num: "02",
-    title: "SCREENING",
-    desc: "Our panel reviews every application. Only the top 1% — roughly 80–100 builders — make it through.",
+    title: "ONLINE 24-HOUR HACKATHON",
+    desc: "Participate in an intense 24-hour online hackathon. Build, innovate, and showcase your skills from anywhere in India.",
   },
   {
     num: "03",
-    title: "ELITE HACK",
-    desc: "30 hours of non-stop building. Solo or team. Mentors, APIs, and resources at your disposal.",
+    title: "SCREENING OF TOP 1%",
+    desc: "Our expert panel screens all submissions and selects the top 1% candidates — the elite builders who stand out.",
   },
   {
     num: "04",
-    title: "DEMO DAY",
-    desc: "Present your hack to a jury of industry leaders, investors, and hiring managers. This is your moment.",
+    title: "30-HOUR HYBRID HACKATHON",
+    desc: "The selected top 1% compete in a 30-hour hybrid hackathon. Build with mentors, APIs, and resources at your disposal.",
   },
   {
     num: "05",
-    title: "OPPORTUNITIES",
-    desc: "Fast-track interviews, startup incubation consideration, investor introductions, and national recognition.",
+    title: "WINNERS & PLACEMENT",
+    desc: "Winner announcement, assured placement assistance for top finalists, award ceremony, and national recognition.",
   },
 ];
 
