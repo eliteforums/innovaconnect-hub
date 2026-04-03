@@ -73,6 +73,27 @@ const partnerTypes = [
       "Access to our Job Database and HR connections for student placements",
       "Direct pipeline for students to participate in future hackathons",
     ],
+    tiers: [
+      {
+        rank: "🥇 1st Place",
+        target: "1,000+ Applications",
+        reward: "₹20,000 INR sponsorship for their next event + highlighted on our website",
+        accent: "bg-yellow-500/10 border-yellow-500",
+      },
+      {
+        rank: "🥈 2nd Place",
+        target: "825+ Applications",
+        reward: "₹15,000 INR sponsorship for their next event + highlighted on our website",
+        accent: "bg-gray-300/10 border-gray-400",
+      },
+      {
+        rank: "🥉 3rd Place",
+        target: "650+ Applications",
+        reward: "₹10,000 INR sponsorship for their next event + highlighted on our website",
+        accent: "bg-orange-500/10 border-orange-400",
+      },
+    ],
+    tierNote: "Top 3 colleges with maximum participation will get sponsorship for their next event and will be highlighted on our website.",
   },
   {
     type: "COMMUNITY PARTNERS",
@@ -86,6 +107,27 @@ const partnerTypes = [
       "Cross-promotion across Elite Forums network",
       "Co-branding opportunities for future events",
     ],
+    tiers: [
+      {
+        rank: "🥇 1st Place",
+        target: "1,000+ Applications",
+        reward: "Direct invite to event, Momento & Felicitation, Techy Gifts + Special Mention",
+        accent: "bg-yellow-500/10 border-yellow-500",
+      },
+      {
+        rank: "🥈 2nd Place",
+        target: "825+ Applications",
+        reward: "Direct invite to event, Momento, Swags + Special Mention",
+        accent: "bg-gray-300/10 border-gray-400",
+      },
+      {
+        rank: "🥉 3rd Place",
+        target: "650+ Applications",
+        reward: "Direct invite to event, Memento + Special Mention",
+        accent: "bg-orange-500/10 border-orange-400",
+      },
+    ],
+    tierNote: "Top 3 communities with maximum participation receive exclusive rewards and recognition.",
   },
 ];
 
@@ -174,7 +216,44 @@ const Partner = () => {
               </div>
             </div>
 
+            {/* Tiered Rewards Section for College & Community Partners */}
+            {"tiers" in partner && partner.tiers && (
+              <div className="px-6 md:px-8 lg:px-12 pt-8">
+                <div className="border-2 border-foreground p-6 md:p-8 mb-2">
+                  <p className="text-xs font-bold tracking-[0.3em] uppercase text-editorial-pink mb-2">
+                    🏆 TOP PERFORMER REWARDS
+                  </p>
+                  <p className="text-sm text-muted-foreground mb-6">
+                    {partner.tierNote}
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {partner.tiers.map((tier) => (
+                      <div
+                        key={tier.rank}
+                        className={`border-2 ${tier.accent} p-5 rounded-sm`}
+                      >
+                        <p className="text-lg font-black uppercase tracking-tight mb-1">
+                          {tier.rank}
+                        </p>
+                        <p className="text-xs font-bold tracking-[0.2em] uppercase text-muted-foreground mb-3">
+                          {tier.target}
+                        </p>
+                        <p className="text-sm text-foreground leading-relaxed font-medium">
+                          {tier.reward}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="p-6 md:p-8 lg:p-12">
+              {"tiers" in partner && partner.tiers && (
+                <p className="text-xs font-bold tracking-[0.3em] uppercase text-muted-foreground mb-4">
+                  BENEFITS FOR ALL PARTNERS
+                </p>
+              )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {partner.benefits.map((benefit, i) => (
                   <div
