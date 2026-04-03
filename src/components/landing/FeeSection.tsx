@@ -101,19 +101,19 @@ const FeeSection = () => {
             {roiBenefits.map((item, i) => (
               <motion.div
                 key={item.benefit}
-                className="flex items-center justify-between py-3 border-b border-border last:border-b-0"
+                className="flex items-start justify-between py-3 border-b border-border last:border-b-0 gap-3"
                 initial={{ opacity: 0, x: -15 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: i * 0.08 }}
               >
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <span className="text-lg flex-shrink-0">{item.icon}</span>
-                  <span className="text-xs md:text-sm font-bold uppercase tracking-wide truncate">
+                <div className="flex items-start gap-3 flex-1 min-w-0">
+                  <span className="text-lg flex-shrink-0 leading-none mt-0.5">{item.icon}</span>
+                  <span className="text-xs md:text-sm font-bold uppercase tracking-wide break-words leading-snug">
                     {item.benefit}
                   </span>
                 </div>
-                <span className="text-sm font-black text-editorial-green ml-3 flex-shrink-0">
+                <span className="text-sm font-black text-editorial-green flex-shrink-0 whitespace-nowrap">
                   {item.value}
                 </span>
               </motion.div>
@@ -132,7 +132,7 @@ const FeeSection = () => {
             </p>
             <p className="text-3xl md:text-4xl font-black text-editorial-green">₹90,000+</p>
             <p className="text-xs tracking-widest uppercase text-muted-foreground mt-1">
-              FOR JUST ₹100 — THAT'S <span className="text-editorial-pink font-black">900x ROI</span>
+              FOR JUST ₹100 — THAT&apos;S <span className="text-editorial-pink font-black">900x ROI</span>
             </p>
           </motion.div>
         </div>
@@ -154,7 +154,7 @@ const FeeSection = () => {
                 NOT A REVENUE MODEL
               </h3>
               <p className="text-sm text-muted-foreground">
-                The registration fee doesn't cover our costs. It's a filter — a small commitment that
+                The registration fee doesn&apos;t cover our costs. It&apos;s a filter — a small commitment that
                 dramatically improves the quality of our applicant pool.
               </p>
             </div>
@@ -163,7 +163,12 @@ const FeeSection = () => {
                 EVERY PARTICIPANT GETS REWARDED
               </h3>
               <p className="text-sm text-muted-foreground">
-                Every individual who registers receives guaranteed rewards in exchange for the ₹100 participation fee — including a <strong className="text-foreground">Certificate of Participation</strong> and exclusive <strong className="text-foreground">access to workshops &amp; mentorship sessions</strong> with industry experts. On top of that, you get exposure to hiring companies, investor introductions, incubation opportunities, and national recognition.
+                Every individual who registers receives guaranteed rewards in exchange for the ₹100
+                participation fee — including a{" "}
+                <strong className="text-foreground">Certificate of Participation</strong> and exclusive{" "}
+                <strong className="text-foreground">access to workshops &amp; mentorship sessions</strong>{" "}
+                with industry experts. On top of that, you get exposure to hiring companies, investor
+                introductions, incubation opportunities, and national recognition.
               </p>
             </div>
             <div>
