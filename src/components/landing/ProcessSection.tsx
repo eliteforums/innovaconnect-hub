@@ -23,7 +23,7 @@ const steps = [
   },
   {
     num: "05",
-    title: "WINNERS & PLACEMENT",
+    title: "DEMO DAY AND WINNER DECLARATION",
     desc: "Winner announcement, assured placement assistance for top finalists, award ceremony, and national recognition.",
   },
 ];
