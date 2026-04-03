@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const roiBenefits = [
   {
     benefit: "Certificate of Participation",
-    value: "₹500+",
+    value: "Priceless",
     icon: "🎓",
   },
   {
