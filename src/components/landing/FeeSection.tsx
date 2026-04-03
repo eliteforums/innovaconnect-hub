@@ -37,12 +37,10 @@ const FeeSection = () => {
             </div>
             <div className="border-b border-border pb-4">
               <h3 className="font-black uppercase text-sm tracking-wider mb-1">
-                WHAT YOU GET IN RETURN
+                EVERY PARTICIPANT GETS REWARDED
               </h3>
               <p className="text-sm text-muted-foreground">
-                Access to hiring companies, investor introductions, incubation
-                opportunities, mentorship, and national recognition. The ROI is
-                immeasurable.
+                Every individual who registers receives guaranteed rewards in exchange for the ₹100 participation fee — including a <strong className="text-foreground">Certificate of Participation</strong> and exclusive <strong className="text-foreground">access to workshops &amp; mentorship sessions</strong> with industry experts. On top of that, you get exposure to hiring companies, investor introductions, incubation opportunities, and national recognition.
               </p>
             </div>
             <div>

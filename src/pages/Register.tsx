@@ -275,7 +275,7 @@ const Register = () => {
                   CONFIRM
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  Review your details and submit.
+                  Review your details and submit. Every participant receives a <strong className="text-foreground">Certificate of Participation</strong> and <strong className="text-foreground">access to workshops &amp; mentorship</strong> in exchange for the ₹100 registration fee.
                 </p>
 
                 <div className="border-2 border-foreground divide-y divide-border">
