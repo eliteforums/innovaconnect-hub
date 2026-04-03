@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav className="w-full border-b-2 border-foreground sticky top-0 z-50 bg-background">
       {/* Top bar */}
       <div className="border-b border-border px-4 py-1 flex items-center justify-between text-xs tracking-widest uppercase text-muted-foreground">
-        <span>EST. 2025</span>
+        <span>EST. 2026</span>
         <span>BY ELITE FORUMS</span>
         <span className="hidden sm:inline">NATIONAL LEVEL</span>
       </div>

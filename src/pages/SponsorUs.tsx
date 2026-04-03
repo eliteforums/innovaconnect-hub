@@ -139,12 +139,12 @@ const SponsorUs = () => {
               our 10,000+ applicant pool.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
-              <a
-                href="mailto:sponsors@eliteforums.in"
+              <Link
+                to="/contact"
                 className="bg-editorial-pink px-8 py-3 text-sm font-black uppercase tracking-wider text-background hover:opacity-90 transition-opacity"
               >
                 GET IN TOUCH →
-              </a>
+              </Link>
               <Link
                 to="/sponsors"
                 className="border-2 border-foreground px-8 py-3 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
@@ -299,12 +299,12 @@ const SponsorUs = () => {
             to discuss sponsorship opportunities.
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-8">
-            <a
-              href="mailto:sponsors@eliteforums.in"
+            <Link
+              to="/email-us"
               className="bg-editorial-pink px-10 py-4 text-sm font-black uppercase tracking-wider text-background hover:opacity-90 transition-opacity"
             >
               EMAIL US →
-            </a>
+            </Link>
             <Link
               to="/partner"
               className="border-2 border-foreground px-10 py-4 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"

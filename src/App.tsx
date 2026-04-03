@@ -10,6 +10,8 @@ import Tracks from "./pages/Tracks.tsx";
 import Sponsors from "./pages/Sponsors.tsx";
 import SponsorUs from "./pages/SponsorUs.tsx";
 import Partner from "./pages/Partner.tsx";
+import Contact from "./pages/Contact.tsx";
+import EmailUs from "./pages/EmailUs.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ const App = () => (
           <Route path="/sponsors" element={<Sponsors />} />
           <Route path="/sponsor-us" element={<SponsorUs />} />
           <Route path="/partner" element={<Partner />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/email-us" element={<EmailUs />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
