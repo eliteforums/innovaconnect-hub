@@ -9,7 +9,7 @@ const navLinks = [
   { label: "SPONSORS", href: "/sponsors", isRoute: true },
   { label: "SPONSOR US", href: "/sponsor-us", isRoute: true },
   { label: "PARTNER WITH US", href: "/partner", isRoute: true },
-  { label: "FAQ", href: "/#faq", isRoute: false },
+  { label: "CONTACT", href: "/contact", isRoute: true },
 ];
 
 const Navbar = () => {
