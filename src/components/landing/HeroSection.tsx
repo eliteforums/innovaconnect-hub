@@ -72,6 +72,8 @@ const HeroSection = () => {
                   { number: "TOP 1%", label: "SELECTED" },
                   { number: "30 HRS", label: "OF HACKING" },
                   { number: "₹100", label: "REGISTRATION FEE" },
+                  { number: "MUMBAI", label: "LOCATION" },
+                  { number: "HYBRID", label: "IN-PERSON + ONLINE" },
                 ].map((item) => (
                   <div key={item.label} className="border-b border-border pb-2">
                     <p className="text-2xl md:text-3xl font-black">{item.number}</p>

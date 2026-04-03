@@ -50,7 +50,7 @@ const Register = () => {
     consent: false,
   });
 
-  const update = (field: keyof FormData, value: any) =>
+  const update = (field: keyof FormData, value: string | string[] | boolean) =>
     setForm((prev) => ({ ...prev, [field]: value }));
 
   const toggleSkill = (skill: string) => {
