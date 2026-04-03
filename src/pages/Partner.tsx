@@ -111,13 +111,13 @@ const partnerTypes = [
       {
         rank: "🥇 1st Place",
         target: "1,000+ Applications",
-        reward: "Direct invite to event, Momento & Felicitation, Techy Gifts + Special Mention",
+        reward: "Direct invite to event, Memento & Felicitation, Techy Gifts + Special Mention",
         accent: "bg-yellow-500/10 border-yellow-500",
       },
       {
         rank: "🥈 2nd Place",
         target: "825+ Applications",
-        reward: "Direct invite to event, Momento, Swags + Special Mention",
+        reward: "Direct invite to event, Memento, Swags + Special Mention",
         accent: "bg-gray-300/10 border-gray-400",
       },
       {
