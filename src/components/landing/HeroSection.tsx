@@ -31,14 +31,35 @@ const HeroSection = () => {
                   top 1% of India's builders meet hiring companies, investors, and
                   incubators.
                 </p>
-                <div className="mt-4 flex flex-wrap gap-3">
-                  <span className="bg-editorial-pink px-4 py-2 text-sm font-black uppercase tracking-wider text-background">
-                    🏆 Prize Pool of ₹3 Lakhs (Cash + Goodies)
+                <motion.div
+                  className="mt-6 bg-editorial-pink p-5 md:p-6 relative overflow-hidden"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+                  <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
+                  <p className="text-xs font-bold tracking-[0.3em] uppercase text-background/70 mb-1">
+                    🏆 TOTAL PRIZE POOL
+                  </p>
+                  <p className="text-4xl md:text-5xl font-black text-background leading-tight">
+                    ₹3 LAKHS<span className="text-background/80">+</span>
+                  </p>
+                  <p className="text-sm md:text-base font-bold uppercase tracking-wider text-background/90 mt-1">
+                    Including Cash Prizes, Goodies & More
+                  </p>
+                </motion.div>
+                <motion.div
+                  className="mt-3 border-2 border-editorial-blue px-4 py-3 flex items-center gap-2"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                >
+                  <span className="text-editorial-blue text-lg">🎯</span>
+                  <span className="text-sm font-black uppercase tracking-wider text-editorial-blue">
+                    Assured Placement Assistance to Top 1% Selected Finalists
                   </span>
-                  <span className="border-2 border-editorial-blue px-4 py-2 text-sm font-black uppercase tracking-wider text-editorial-blue">
-                    🎯 Assured Placement Assistance to Top 1% Finalists
-                  </span>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
 
@@ -76,17 +97,24 @@ const HeroSection = () => {
               </p>
               <div className="space-y-4">
                 {[
-                  { number: "10,000+", label: "APPLICANTS" },
-                  { number: "TOP 1%", label: "SELECTED" },
-                  { number: "₹3 LAKHS", label: "PRIZE POOL (CASH + GOODIES)" },
-                  { number: "30 HRS", label: "OF HACKING" },
-                  { number: "₹100", label: "REGISTRATION FEE" },
-                  { number: "MUMBAI", label: "LOCATION" },
-                  { number: "R1: ONLINE", label: "R2: HYBRID" },
+                  { number: "10,000+", label: "APPLICANTS", highlight: false },
+                  { number: "TOP 1%", label: "SELECTED", highlight: false },
+                  { number: "₹3 LAKHS+", label: "PRIZE POOL — CASH, GOODIES & MORE", highlight: true },
+                  { number: "30 HRS", label: "OF HACKING", highlight: false },
+                  { number: "₹100", label: "REGISTRATION FEE", highlight: false },
+                  { number: "MUMBAI", label: "LOCATION", highlight: false },
+                  { number: "R1: ONLINE", label: "R2: HYBRID", highlight: false },
                 ].map((item) => (
-                  <div key={item.label} className="border-b border-border pb-2">
-                    <p className="text-2xl md:text-3xl font-black">{item.number}</p>
-                    <p className="text-xs tracking-widest text-muted-foreground">{item.label}</p>
+                  <div
+                    key={item.label}
+                    className={`border-b pb-2 ${item.highlight ? "border-editorial-pink bg-editorial-pink/10 -mx-2 px-2 py-2 rounded" : "border-border"}`}
+                  >
+                    <p className={`text-2xl md:text-3xl font-black ${item.highlight ? "text-editorial-pink" : ""}`}>
+                      {item.number}
+                    </p>
+                    <p className={`text-xs tracking-widest ${item.highlight ? "text-editorial-pink/80 font-bold" : "text-muted-foreground"}`}>
+                      {item.label}
+                    </p>
                   </div>
                 ))}
               </div>
