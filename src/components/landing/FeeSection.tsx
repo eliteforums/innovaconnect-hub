@@ -72,7 +72,10 @@ const FeeSection = () => {
                 <div>
                   <h4 className="font-black uppercase text-sm tracking-wider">MODE</h4>
                   <p className="text-sm text-muted-foreground mt-0.5">
-                    Hybrid — Attend in-person in Mumbai or participate online from anywhere
+                    <strong className="text-foreground">Round 1:</strong> Fully Online — participate from anywhere
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    <strong className="text-foreground">Round 2:</strong> Hybrid — in-person in Mumbai or online
                   </p>
                 </div>
               </div>
