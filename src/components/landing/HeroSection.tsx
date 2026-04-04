@@ -15,7 +15,7 @@ const HeroSection = () => {
               transition={{ duration: 0.6 }}
             >
               <p className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-muted-foreground mb-4">
-                CHAPTER 01 — 2025
+                CHAPTER 01 — 2026
               </p>
               <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase leading-[0.85] tracking-tighter">
                 INNOVA
