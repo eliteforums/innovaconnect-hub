@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import PortalResetPassword from "./pages/portal/PortalResetPassword.tsx";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -61,6 +62,10 @@ const App = () => (
               />
               <Route path="/portal" element={<Portal />} />
               <Route path="/portal/login" element={<PortalLogin />} />
+              <Route
+                path="/portal/reset-password"
+                element={<PortalResetPassword />}
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

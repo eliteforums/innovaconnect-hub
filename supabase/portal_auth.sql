@@ -114,17 +114,47 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 
 -- ============================================================
--- NOTE ON SUPABASE AUTH MAGIC LINK SETUP
+-- NOTE ON SUPABASE AUTH SETUP (Password-Based Login)
 -- ============================================================
--- In your Supabase Dashboard:
--- 1. Go to Authentication → Settings
--- 2. Make sure "Enable Email" is turned ON
--- 3. Under "Email Templates", you can customize the magic link email
--- 4. The redirect URL should be: https://your-domain.com/portal
--- 5. Add your domain to the "Redirect URLs" allowlist in Authentication → URL Configuration
+-- The portal uses EMAIL + PASSWORD authentication.
+-- Users set their password the first time via "Forgot Password".
 --
--- For local development, add: http://localhost:5173/portal
--- For production, add: https://innovahack.in/portal
+-- STEP 1 — Enable Email Auth
+--   Supabase Dashboard → Authentication → Providers
+--   Make sure "Email" is enabled.
+--   Turn OFF "Confirm email" if you want users to log in without
+--   email verification (recommended for hackathon speed).
+--
+-- STEP 2 — Create portal user accounts
+--   For each participant / partner who needs portal access, create
+--   a Supabase Auth user with their registered email address.
+--   Dashboard → Authentication → Users → "Add user"
+--   OR use the bulk invite / admin API if you have many users.
+--
+--   Participants: use the email from the registrations table.
+--   Community partners: use the email from community_partners table.
+--   College partners / sponsors: use the email from partner_proposals.
+--
+-- STEP 3 — Password Reset redirect URL
+--   Dashboard → Authentication → URL Configuration → Redirect URLs
+--   Add ALL of the following:
+--     http://localhost:5173/portal/reset-password   (local dev)
+--     https://innovahack.in/portal/reset-password   (production)
+--     https://your-vercel-preview.vercel.app/portal/reset-password
+--
+--   The Site URL should be set to your production domain:
+--     https://innovahack.in
+--
+-- STEP 4 — Customize the password reset email template (optional)
+--   Dashboard → Authentication → Email Templates → Reset Password
+--   You can add your branding, logo, and custom copy here.
+--
+-- STEP 5 — First-time user flow
+--   Users visit /portal/login → enter email + password.
+--   If they don't know their password, they click "Forgot Password",
+--   enter their email, and receive a reset link.
+--   The reset link redirects to /portal/reset-password where they
+--   set a new password, then are auto-redirected to /portal.
 -- ============================================================
 
 

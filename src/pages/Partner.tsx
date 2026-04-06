@@ -430,10 +430,11 @@ const Partner = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
           {partnerFormLinks.map((link, i) => (
             <motion.div
               key={link.href}
+              className="h-full"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -441,11 +442,11 @@ const Partner = () => {
             >
               <Link
                 to={link.href}
-                className={`group flex flex-col justify-between border-b border-r border-border p-7 md:p-9 min-h-[200px] hover:bg-secondary/40 transition-colors border-t-4 ${link.accent}`}
+                className={`group h-full flex flex-col justify-between border-b border-r border-border p-7 md:p-9 hover:bg-secondary/40 transition-colors border-t-4 ${link.accent}`}
               >
                 <div>
                   <span
-                    className={`inline-block text-xs font-bold tracking-[0.3em] uppercase mb-3 ${link.textAccent}`}
+                    className={`inline-block text-[10px] font-black tracking-[0.3em] uppercase mb-4 px-2 py-1 border ${link.accent} ${link.textAccent}`}
                   >
                     {link.tag}
                   </span>
@@ -456,9 +457,9 @@ const Partner = () => {
                     {link.desc}
                   </p>
                 </div>
-                <div className="flex items-center gap-2 mt-6">
+                <div className="flex items-center gap-2 mt-8 pt-6 border-t border-border">
                   <span
-                    className={`w-6 h-6 flex items-center justify-center ${link.bgAccent}`}
+                    className={`w-7 h-7 flex items-center justify-center shrink-0 ${link.bgAccent}`}
                   >
                     <ArrowRight size={13} className="text-background" />
                   </span>

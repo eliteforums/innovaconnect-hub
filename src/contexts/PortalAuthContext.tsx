@@ -12,7 +12,10 @@ type PortalAuthContextValue = {
   user: PortalUser | null;
   session: Session | null;
   loading: boolean;
-  signIn: (email: string) => Promise<{ error: string | null }>;
+  signIn: (
+    email: string,
+    password: string,
+  ) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 };
@@ -51,7 +54,7 @@ export const PortalAuthProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     });
 
-    // Listen for auth state changes (magic link callback, sign out, etc.)
+    // Listen for auth state changes (sign in, sign out, password recovery, etc.)
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (_event, sess) => {
@@ -67,16 +70,18 @@ export const PortalAuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return () => subscription.unsubscribe();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const signIn = async (email: string): Promise<{ error: string | null }> => {
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        // Only allow sign-in for existing users (those who registered / applied)
-        shouldCreateUser: false,
-        emailRedirectTo: `${window.location.origin}/portal`,
-      },
+  const signIn = async (
+    email: string,
+    password: string,
+  ): Promise<{ error: string | null }> => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.trim().toLowerCase(),
+      password,
     });
     if (error) return { error: error.message };
+    if (data.session?.user) {
+      await loadProfile(data.session.user);
+    }
     return { error: null };
   };
 
