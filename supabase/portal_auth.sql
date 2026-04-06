@@ -2,41 +2,41 @@
 -- InnovaHack 2026 — Portal Auth SQL
 -- ============================================================
 -- Run this AFTER schema.sql and referral_system.sql.
--- Sets up RLS policies so portal users (authenticated via magic link)
--- can only read THEIR OWN data.
+-- This file is fully IDEMPOTENT — safe to run multiple times.
+-- Every policy is dropped before being recreated.
 -- ============================================================
 
 
 -- ============================================================
--- POLICY: Participants can read their own registration
+-- SECTION 1: registrations — portal owner-read policy
 -- ============================================================
--- First drop the existing admin-only select policy on registrations
--- (We need to allow authenticated users to also read their own row)
 
--- Drop existing admin-only SELECT policy if it exists
-DROP POLICY IF EXISTS "registrations_admin_read" ON registrations;
+-- Drop ALL existing SELECT policies on registrations so we can
+-- replace them cleanly without conflicts
+DROP POLICY IF EXISTS "registrations_admin_read"   ON registrations;
+DROP POLICY IF EXISTS "registrations_owner_read"   ON registrations;
 
--- New policy: authenticated users can read rows where email matches their auth email
+-- Authenticated users can read:
+--   • Their own row (email matches auth session email)
+--   • Admins can read all rows (handled by admin panel using
+--     service role key — not needed here via anon/user key)
 CREATE POLICY "registrations_owner_read"
   ON registrations FOR SELECT
   USING (
     auth.role() = 'authenticated'
-    AND (
-      -- Admins can read all rows (auth.email() is an admin email)
-      -- Participants can only read their own row
-      email = auth.email()
-      -- Note: for proper admin separation, see INSTRUCTIONS.md
-      -- In practice, add admins to a separate admin_users table
-    )
+    AND email = auth.email()
   );
 
--- ============================================================
--- POLICY: Community partners can read their own row
--- ============================================================
-DROP POLICY IF EXISTS "community_partners_public_read_approved" ON community_partners;
-DROP POLICY IF EXISTS "community_partners_admin_all" ON community_partners;
 
--- Authenticated users can read their own row OR all rows if admin
+-- ============================================================
+-- SECTION 2: community_partners — self-read + admin policies
+-- ============================================================
+
+DROP POLICY IF EXISTS "community_partners_public_read_approved" ON community_partners;
+DROP POLICY IF EXISTS "community_partners_admin_all"            ON community_partners;
+DROP POLICY IF EXISTS "community_partners_self_read"            ON community_partners;
+
+-- Authenticated users can read their own community partner row
 CREATE POLICY "community_partners_self_read"
   ON community_partners FOR SELECT
   USING (
@@ -44,122 +44,141 @@ CREATE POLICY "community_partners_self_read"
     AND email = auth.email()
   );
 
--- Admin full access
+-- Authenticated users (admins) have full write access
 CREATE POLICY "community_partners_admin_all"
   ON community_partners FOR ALL
   USING (auth.role() = 'authenticated')
   WITH CHECK (auth.role() = 'authenticated');
 
--- Public can read approved partners (for ref code validation on register page)
+-- Public (anon) can read approved partners
+-- Required for ref code validation on the /register page
 CREATE POLICY "community_partners_public_read_approved"
   ON community_partners FOR SELECT
   USING (status = 'approved');
 
 
 -- ============================================================
--- POLICY: Partner proposals — users can read their own proposals
+-- SECTION 3: partner_proposals — owner-read + admin policies
 -- ============================================================
-DROP POLICY IF EXISTS "partner_proposals_admin_read" ON partner_proposals;
 
+DROP POLICY IF EXISTS "partner_proposals_admin_read"  ON partner_proposals;
+DROP POLICY IF EXISTS "partner_proposals_owner_read"  ON partner_proposals;
+
+-- Authenticated users can read their own proposal rows
+-- (matches on either email or work_email field)
 CREATE POLICY "partner_proposals_owner_read"
   ON partner_proposals FOR SELECT
   USING (
     auth.role() = 'authenticated'
     AND (
-      email = auth.email()
+      email      = auth.email()
       OR work_email = auth.email()
     )
   );
 
--- Admin can read all
+-- Authenticated admins can read ALL proposals
 CREATE POLICY "partner_proposals_admin_read"
   ON partner_proposals FOR SELECT
   USING (auth.role() = 'authenticated');
 
 
 -- ============================================================
--- ADMIN USERS TABLE
--- Store admin emails so we can distinguish admins from portal users
+-- SECTION 4: admin_users table
+-- Stores admin email addresses for role separation
 -- ============================================================
+
 CREATE TABLE IF NOT EXISTS admin_users (
-  id         UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-  email      TEXT NOT NULL UNIQUE,
+  id         UUID        DEFAULT uuid_generate_v4() PRIMARY KEY,
+  email      TEXT        NOT NULL UNIQUE,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
 
--- Only authenticated users can read (to check if current user is admin)
+-- Drop before recreating to stay idempotent
+DROP POLICY IF EXISTS "admin_users_authenticated_read" ON admin_users;
+
 CREATE POLICY "admin_users_authenticated_read"
   ON admin_users FOR SELECT
   USING (auth.role() = 'authenticated');
 
--- Insert your admin email(s) here:
--- INSERT INTO admin_users (email) VALUES ('your-admin@email.com');
--- You can add multiple admins by running more INSERT statements.
+-- ── Add your admin email(s) here ────────────────────────────
+-- Run these INSERT statements manually after creating the file.
+-- Replace the placeholder with your real admin email address.
+-- Example:
+--   INSERT INTO admin_users (email)
+--   VALUES ('admin@eliteforums.in')
+--   ON CONFLICT (email) DO NOTHING;
+-- ────────────────────────────────────────────────────────────
 
 
 -- ============================================================
--- FUNCTION: is_admin() — returns true if the current authenticated
--- user's email is in the admin_users table
+-- SECTION 5: is_admin() helper function
+-- Returns TRUE when the current authenticated user's email
+-- is in the admin_users table.
+-- Usage in RLS: USING ( is_admin() )
 -- ============================================================
+
 CREATE OR REPLACE FUNCTION is_admin()
 RETURNS BOOLEAN AS $$
 BEGIN
   RETURN EXISTS (
-    SELECT 1 FROM admin_users WHERE email = auth.email()
+    SELECT 1
+    FROM   admin_users
+    WHERE  email = auth.email()
   );
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 
 -- ============================================================
--- NOTE ON SUPABASE AUTH SETUP (Password-Based Login)
+-- SECTION 6: GRANT anon SELECT on community_partners
+-- The /register page calls validateRefCode() as an anonymous
+-- (not-logged-in) user, so anon must be able to SELECT rows
+-- where status = 'approved' (covered by the policy above).
 -- ============================================================
+
+GRANT SELECT ON community_partners TO anon;
+
+
+-- ============================================================
+-- SETUP NOTES — Password-Based Portal Login
+-- ============================================================
+--
 -- The portal uses EMAIL + PASSWORD authentication.
--- Users set their password the first time via "Forgot Password".
+-- Users set their password for the first time via "Forgot Password".
 --
 -- STEP 1 — Enable Email Auth
---   Supabase Dashboard → Authentication → Providers
---   Make sure "Email" is enabled.
---   Turn OFF "Confirm email" if you want users to log in without
---   email verification (recommended for hackathon speed).
+--   Supabase Dashboard → Authentication → Providers → Email
+--   • Toggle ON
+--   • Optionally turn OFF "Confirm email" for faster onboarding
 --
 -- STEP 2 — Create portal user accounts
---   For each participant / partner who needs portal access, create
---   a Supabase Auth user with their registered email address.
+--   For every person who needs portal access, create a Supabase
+--   Auth user with their registered email.
 --   Dashboard → Authentication → Users → "Add user"
---   OR use the bulk invite / admin API if you have many users.
 --
---   Participants: use the email from the registrations table.
---   Community partners: use the email from community_partners table.
---   College partners / sponsors: use the email from partner_proposals.
+--   Participants   → email from the registrations table
+--   Community Ptrs → email from the community_partners table
+--   College / Spns → email from the partner_proposals table
 --
--- STEP 3 — Password Reset redirect URL
+-- STEP 3 — Password Reset redirect URLs
 --   Dashboard → Authentication → URL Configuration → Redirect URLs
---   Add ALL of the following:
---     http://localhost:5173/portal/reset-password   (local dev)
---     https://innovahack.in/portal/reset-password   (production)
---     https://your-vercel-preview.vercel.app/portal/reset-password
+--   Add ALL of:
+--     http://localhost:5173/portal/reset-password
+--     https://innovahack.in/portal/reset-password
+--     https://<your-preview>.vercel.app/portal/reset-password
 --
---   The Site URL should be set to your production domain:
+--   Set Site URL to your production domain:
 --     https://innovahack.in
 --
--- STEP 4 — Customize the password reset email template (optional)
+-- STEP 4 — Customise the reset email (optional)
 --   Dashboard → Authentication → Email Templates → Reset Password
---   You can add your branding, logo, and custom copy here.
 --
 -- STEP 5 — First-time user flow
---   Users visit /portal/login → enter email + password.
---   If they don't know their password, they click "Forgot Password",
---   enter their email, and receive a reset link.
---   The reset link redirects to /portal/reset-password where they
---   set a new password, then are auto-redirected to /portal.
+--   User visits /portal/login → enters email + password.
+--   If no password is set → clicks "Forgot Password" →
+--   receives reset link → lands on /portal/reset-password →
+--   sets password → auto-redirected to /portal.
+--
 -- ============================================================
-
-
--- ============================================================
--- GRANT: Allow anon users to call validate ref code
--- (the validateRefCode function queries community_partners as anon)
--- ============================================================
-GRANT SELECT ON community_partners TO anon;
