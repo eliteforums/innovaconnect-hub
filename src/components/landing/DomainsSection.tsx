@@ -1,44 +1,19 @@
 import { motion } from "framer-motion";
+import { useContent } from "@/contexts/ContentContext";
 
-const domains = [
-  {
-    name: "GENERATIVE AI",
-    description: "Build the next wave of AI-powered applications. From LLMs to creative AI — push the boundaries of what machines can create.",
-    color: "border-editorial-purple",
-    accent: "text-editorial-purple",
-    tag: "AI/ML",
-  },
-  {
-    name: "FINTECH",
-    description: "Reinvent how money moves. Payments, lending, insurance, DeFi — build solutions that disrupt traditional finance.",
-    color: "border-editorial-blue",
-    accent: "text-editorial-blue",
-    tag: "FINANCE",
-  },
-  {
-    name: "HEALTHTECH",
-    description: "Technology that saves lives. Digital health, diagnostics, telemedicine — solve real problems in healthcare delivery.",
-    color: "border-editorial-green",
-    accent: "text-editorial-green",
-    tag: "HEALTH",
-  },
-  {
-    name: "BLOCKCHAIN",
-    description: "Decentralize everything. Smart contracts, Web3, tokenization — build trustless systems for the future.",
-    color: "border-editorial-orange",
-    accent: "text-editorial-orange",
-    tag: "WEB3",
-  },
-  {
-    name: "STARTUP TRACK",
-    description: "Open innovation. Any idea, any domain. Build something that could become the next big startup. Impress investors and incubators.",
-    color: "border-editorial-pink",
-    accent: "text-editorial-pink",
-    tag: "OPEN",
-  },
-];
+type Domain = {
+  name: string;
+  description: string;
+  tag: string;
+  color: string;
+  accent: string;
+};
 
 const DomainsSection = () => {
+  const { getSection } = useContent();
+  const c = getSection<{ domains: Domain[] }>("domains");
+  const domains = c.domains ?? [];
+
   return (
     <section id="domains" className="border-b-2 border-foreground">
       {/* Section header */}
@@ -53,7 +28,7 @@ const DomainsSection = () => {
             </h2>
           </div>
           <p className="text-xs tracking-widest uppercase text-muted-foreground hidden md:block">
-            5 TRACKS • CHOOSE YOUR ARENA
+            {domains.length} TRACKS • CHOOSE YOUR ARENA
           </p>
         </div>
       </div>
@@ -75,14 +50,18 @@ const DomainsSection = () => {
         {domains.map((domain, i) => (
           <motion.div
             key={domain.name}
-            className={`border-b border-r border-border p-6 md:p-8 hover:bg-secondary/50 transition-colors`}
+            className="border-b border-r border-border p-6 md:p-8 hover:bg-secondary/50 transition-colors"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.1 }}
           >
-            <div className={`w-8 h-1 mb-4 ${domain.color.replace("border-", "bg-")}`} />
-            <p className={`text-xs font-bold tracking-[0.3em] uppercase mb-2 ${domain.accent}`}>
+            <div
+              className={`w-8 h-1 mb-4 ${domain.color.replace("border-", "bg-")}`}
+            />
+            <p
+              className={`text-xs font-bold tracking-[0.3em] uppercase mb-2 ${domain.accent}`}
+            >
               {domain.tag}
             </p>
             <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight mb-3">

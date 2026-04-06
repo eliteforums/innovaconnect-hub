@@ -6,9 +6,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Check, Send } from "lucide-react";
+import { submitContactInquiry } from "@/lib/supabase";
+import { useContent } from "@/contexts/ContentContext";
 
 const Contact = () => {
+  const { getSection } = useContent();
+  const settings = getSection<{
+    sponsor_email: string;
+    general_email: string;
+    twitter_url: string;
+    linkedin_url: string;
+    instagram_url: string;
+  }>("settings");
+
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -20,8 +33,25 @@ const Contact = () => {
   const update = (field: string, value: string) =>
     setForm((prev) => ({ ...prev, [field]: value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
+    setSubmitError(null);
+    const { error } = await submitContactInquiry({
+      name: form.name,
+      email: form.email,
+      company: form.company,
+      subject: form.subject,
+      message: form.message,
+      status: "new",
+    });
+    setSubmitting(false);
+    if (error) {
+      setSubmitError(
+        "Failed to send message. Please try again or email us directly.",
+      );
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -142,11 +172,24 @@ const Contact = () => {
                   />
                 </div>
 
+                {submitError && (
+                  <div className="border-2 border-red-500 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                    {submitError}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="flex items-center gap-2 bg-editorial-pink px-8 py-3 text-sm font-black uppercase tracking-wider text-background hover:opacity-90 transition-opacity w-full justify-center"
+                  disabled={submitting}
+                  className="flex items-center gap-2 bg-editorial-pink px-8 py-3 text-sm font-black uppercase tracking-wider text-background hover:opacity-90 transition-opacity w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  SEND MESSAGE <Send size={14} />
+                  {submitting ? (
+                    "SENDING..."
+                  ) : (
+                    <>
+                      <span>SEND MESSAGE</span> <Send size={14} />
+                    </>
+                  )}
                 </button>
               </motion.form>
             ) : (
@@ -184,10 +227,10 @@ const Contact = () => {
                   EMAIL
                 </h3>
                 <a
-                  href="mailto:sponsors@eliteforums.in"
+                  href={`mailto:${settings.sponsor_email}`}
                   className="text-editorial-pink text-sm hover:underline"
                 >
-                  sponsors@eliteforums.in
+                  {settings.sponsor_email}
                 </a>
               </div>
 
@@ -196,10 +239,10 @@ const Contact = () => {
                   GENERAL INQUIRIES
                 </h3>
                 <a
-                  href="mailto:hello@eliteforums.in"
+                  href={`mailto:${settings.general_email}`}
                   className="text-editorial-blue text-sm hover:underline"
                 >
-                  hello@eliteforums.in
+                  {settings.general_email}
                 </a>
               </div>
 
@@ -218,13 +261,19 @@ const Contact = () => {
                   SOCIAL MEDIA
                 </h3>
                 <div className="flex gap-4">
-                  {["TWITTER", "LINKEDIN", "INSTAGRAM"].map((s) => (
+                  {[
+                    { label: "TWITTER", url: settings.twitter_url },
+                    { label: "LINKEDIN", url: settings.linkedin_url },
+                    { label: "INSTAGRAM", url: settings.instagram_url },
+                  ].map((s) => (
                     <a
-                      key={s}
-                      href="#"
+                      key={s.label}
+                      href={s.url || "#"}
+                      target={s.url && s.url !== "#" ? "_blank" : undefined}
+                      rel="noopener noreferrer"
                       className="text-xs font-bold tracking-widest text-muted-foreground hover:text-foreground transition-colors border-2 border-border px-3 py-2 hover:border-foreground"
                     >
-                      {s}
+                      {s.label}
                     </a>
                   ))}
                 </div>

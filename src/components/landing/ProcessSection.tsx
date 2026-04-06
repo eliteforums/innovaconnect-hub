@@ -1,34 +1,17 @@
 import { motion } from "framer-motion";
+import { useContent } from "@/contexts/ContentContext";
 
-const steps = [
-  {
-    num: "01",
-    title: "APPLY",
-    desc: "Submit your application with your skills, experience, and what you want to build. It takes just 5 minutes to get started.",
-  },
-  {
-    num: "02",
-    title: "ONLINE 24-HOUR HACKATHON",
-    desc: "Participate in an intense 24-hour online hackathon. Build, innovate, and showcase your skills from anywhere in India.",
-  },
-  {
-    num: "03",
-    title: "SCREENING OF TOP 1%",
-    desc: "Our expert panel screens all submissions and selects the top 1% candidates — the elite builders who stand out.",
-  },
-  {
-    num: "04",
-    title: "30-HOUR HYBRID HACKATHON",
-    desc: "The selected top 1% compete in a 30-hour hybrid hackathon. Build with mentors, APIs, and resources at your disposal.",
-  },
-  {
-    num: "05",
-    title: "DEMO DAY AND WINNER DECLARATION",
-    desc: "Winner announcement, assured placement assistance for top finalists, award ceremony, and national recognition.",
-  },
-];
+type Step = {
+  num: string;
+  title: string;
+  desc: string;
+};
 
 const ProcessSection = () => {
+  const { getSection } = useContent();
+  const c = getSection<{ steps: Step[] }>("process");
+  const steps = c.steps ?? [];
+
   return (
     <section className="border-b-2 border-foreground">
       <div className="border-b border-border px-4 md:px-8 py-6">
@@ -60,7 +43,9 @@ const ProcessSection = () => {
               {step.desc}
             </p>
             {i < steps.length - 1 && (
-              <div className="mt-4 text-editorial-pink font-black text-lg">→</div>
+              <div className="mt-4 text-editorial-pink font-black text-lg">
+                →
+              </div>
             )}
           </motion.div>
         ))}

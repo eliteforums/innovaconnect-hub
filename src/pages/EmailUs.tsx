@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Check, Mail } from "lucide-react";
+import { submitContactInquiry } from "@/lib/supabase";
+import { useContent } from "@/contexts/ContentContext";
 
 const emailCategories = [
   { value: "sponsorship", label: "SPONSORSHIP INQUIRY" },
@@ -16,7 +18,15 @@ const emailCategories = [
 ];
 
 const EmailUs = () => {
+  const { getSection } = useContent();
+  const settings = getSection<{
+    sponsor_email: string;
+    general_email: string;
+  }>("settings");
+
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -29,8 +39,24 @@ const EmailUs = () => {
   const update = (field: string, value: string) =>
     setForm((prev) => ({ ...prev, [field]: value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
+    setSubmitError(null);
+    const { error } = await submitContactInquiry({
+      name: form.name,
+      email: form.email,
+      company: form.company,
+      category: form.category,
+      subject: form.subject,
+      message: form.message,
+      status: "new",
+    });
+    setSubmitting(false);
+    if (error) {
+      setSubmitError("Failed to send. Please try again or email us directly.");
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -171,27 +197,40 @@ const EmailUs = () => {
                   <span className="font-bold text-foreground">NOTE:</span> You
                   can also email us directly at{" "}
                   <a
-                    href="mailto:sponsors@eliteforums.in"
+                    href={`mailto:${settings.sponsor_email}`}
                     className="text-editorial-pink hover:underline"
                   >
-                    sponsors@eliteforums.in
+                    {settings.sponsor_email}
                   </a>{" "}
                   for sponsorship inquiries or{" "}
                   <a
-                    href="mailto:hello@eliteforums.in"
+                    href={`mailto:${settings.general_email}`}
                     className="text-editorial-blue hover:underline"
                   >
-                    hello@eliteforums.in
+                    {settings.general_email}
                   </a>{" "}
                   for general questions.
                 </p>
               </div>
 
+              {submitError && (
+                <div className="border-2 border-red-500 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                  {submitError}
+                </div>
+              )}
+
               <button
                 type="submit"
-                className="flex items-center gap-2 bg-editorial-pink px-10 py-4 text-sm font-black uppercase tracking-wider text-background hover:opacity-90 transition-opacity w-full justify-center"
+                disabled={submitting}
+                className="flex items-center gap-2 bg-editorial-pink px-10 py-4 text-sm font-black uppercase tracking-wider text-background hover:opacity-90 transition-opacity w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                SEND EMAIL <Mail size={14} />
+                {submitting ? (
+                  "SENDING..."
+                ) : (
+                  <>
+                    SEND EMAIL <Mail size={14} />
+                  </>
+                )}
               </button>
             </motion.form>
           ) : (

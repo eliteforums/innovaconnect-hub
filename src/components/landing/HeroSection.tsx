@@ -1,7 +1,26 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useContent } from "@/contexts/ContentContext";
+
+type KeyFact = { number: string; label: string; highlight?: boolean };
 
 const HeroSection = () => {
+  const { getSection } = useContent();
+  const c = getSection<{
+    chapter: string;
+    title_line1: string;
+    title_line2: string;
+    tagline: string;
+    description: string;
+    prize_pool: string;
+    prize_label: string;
+    placement_text: string;
+    ticker_text: string;
+    key_facts: KeyFact[];
+    cta_primary: string;
+    cta_secondary: string;
+  }>("hero");
+
   return (
     <section className="relative overflow-hidden border-b-2 border-foreground">
       {/* Main hero */}
@@ -15,21 +34,19 @@ const HeroSection = () => {
               transition={{ duration: 0.6 }}
             >
               <p className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-muted-foreground mb-4">
-                CHAPTER 01 — 2026
+                {c.chapter}
               </p>
               <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase leading-[0.85] tracking-tighter">
-                INNOVA
+                {c.title_line1}
                 <br />
-                <span className="text-editorial-pink">HACK</span>
+                <span className="text-editorial-pink">{c.title_line2}</span>
               </h1>
               <div className="mt-6 md:mt-8 border-t-2 border-foreground pt-4 max-w-xl">
                 <p className="text-lg md:text-xl font-bold uppercase tracking-wide">
-                  India's Largest Hiring & Startup Hackathon
+                  {c.tagline}
                 </p>
                 <p className="text-muted-foreground mt-2 text-sm md:text-base">
-                  Hack. Get Hired. Get Funded. — A 30-hour elite hackathon where the
-                  top 1% of India's builders meet hiring companies, investors, and
-                  incubators.
+                  {c.description}
                 </p>
                 <motion.div
                   className="mt-6 bg-editorial-pink p-5 md:p-6 relative overflow-hidden"
@@ -43,10 +60,10 @@ const HeroSection = () => {
                     🏆 TOTAL PRIZE POOL
                   </p>
                   <p className="text-4xl md:text-5xl font-black text-background leading-tight">
-                    ₹3 LAKHS<span className="text-background/80">+</span>
+                    {c.prize_pool}
                   </p>
                   <p className="text-sm md:text-base font-bold uppercase tracking-wider text-background/90 mt-1">
-                    Including Cash Prizes, Goodies & More
+                    {c.prize_label}
                   </p>
                 </motion.div>
                 <motion.div
@@ -57,7 +74,7 @@ const HeroSection = () => {
                 >
                   <span className="text-editorial-blue text-lg">🎯</span>
                   <span className="text-sm font-black uppercase tracking-wider text-editorial-blue">
-                    Assured Placement Assistance to Top 1% Selected Finalists
+                    {c.placement_text}
                   </span>
                 </motion.div>
               </div>
@@ -73,13 +90,13 @@ const HeroSection = () => {
                 to="/register"
                 className="bg-editorial-pink px-8 py-3 text-sm font-black uppercase tracking-wider hover:opacity-90 transition-opacity"
               >
-                REGISTER NOW →
+                {c.cta_primary}
               </Link>
               <Link
                 to="/partner"
                 className="border-2 border-foreground px-8 py-3 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
               >
-                PARTNER WITH US
+                {c.cta_secondary}
               </Link>
             </motion.div>
           </div>
@@ -96,23 +113,29 @@ const HeroSection = () => {
                 KEY FACTS
               </p>
               <div className="space-y-4">
-                {[
-                  { number: "10,000+", label: "APPLICANTS", highlight: false },
-                  { number: "TOP 1%", label: "SELECTED", highlight: false },
-                  { number: "₹3 LAKHS+", label: "PRIZE POOL — CASH, GOODIES & MORE", highlight: true },
-                  { number: "30 HRS", label: "OF HACKING", highlight: false },
-                  { number: "₹100", label: "REGISTRATION FEE", highlight: false },
-                  { number: "MUMBAI", label: "LOCATION", highlight: false },
-                  { number: "R1: ONLINE", label: "R2: HYBRID", highlight: false },
-                ].map((item) => (
+                {(c.key_facts ?? []).map((item) => (
                   <div
                     key={item.label}
-                    className={`border-b pb-2 ${item.highlight ? "border-editorial-pink bg-editorial-pink/10 -mx-2 px-2 py-2 rounded" : "border-border"}`}
+                    className={`border-b pb-2 ${
+                      item.highlight
+                        ? "border-editorial-pink bg-editorial-pink/10 -mx-2 px-2 py-2 rounded"
+                        : "border-border"
+                    }`}
                   >
-                    <p className={`text-2xl md:text-3xl font-black ${item.highlight ? "text-editorial-pink" : ""}`}>
+                    <p
+                      className={`text-2xl md:text-3xl font-black ${
+                        item.highlight ? "text-editorial-pink" : ""
+                      }`}
+                    >
                       {item.number}
                     </p>
-                    <p className={`text-xs tracking-widest ${item.highlight ? "text-editorial-pink/80 font-bold" : "text-muted-foreground"}`}>
+                    <p
+                      className={`text-xs tracking-widest ${
+                        item.highlight
+                          ? "text-editorial-pink/80 font-bold"
+                          : "text-muted-foreground"
+                      }`}
+                    >
                       {item.label}
                     </p>
                   </div>
@@ -130,11 +153,12 @@ const HeroSection = () => {
       <div className="border-t-2 border-foreground bg-editorial-pink overflow-hidden py-2">
         <div className="animate-marquee whitespace-nowrap flex">
           {Array(4)
-            .fill(
-              "GENERATIVE AI • FINTECH • HEALTHTECH • BLOCKCHAIN • STARTUP TRACK • HACK. GET HIRED. GET FUNDED. • "
-            )
+            .fill(c.ticker_text)
             .map((text, i) => (
-              <span key={i} className="text-sm font-black tracking-widest uppercase mx-4 text-background">
+              <span
+                key={i}
+                className="text-sm font-black tracking-widest uppercase mx-4 text-background"
+              >
                 {text}
               </span>
             ))}

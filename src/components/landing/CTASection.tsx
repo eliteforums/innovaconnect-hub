@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useContent } from "@/contexts/ContentContext";
 
 const CTASection = () => {
+  const { getSection } = useContent();
+  const c = getSection<{
+    eyebrow: string;
+    headline_line1: string;
+    headline_line2: string;
+    description: string;
+    cta_primary: string;
+    cta_secondary: string;
+  }>("cta");
+
   return (
     <section className="border-b-2 border-foreground">
       <motion.div
@@ -12,30 +23,28 @@ const CTASection = () => {
         transition={{ duration: 0.6 }}
       >
         <p className="text-xs font-bold tracking-[0.3em] uppercase text-editorial-pink mb-4">
-          LIMITED SEATS • TOP 1% ONLY
+          {c.eyebrow}
         </p>
         <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.9]">
-          READY TO
+          {c.headline_line1}
           <br />
-          BUILD?
+          <span className="text-editorial-pink">{c.headline_line2}</span>
         </h2>
         <p className="text-muted-foreground mt-6 max-w-lg mx-auto text-sm md:text-base">
-          10,000 will apply. 100 will be chosen. Don't just watch from the
-          sidelines — this is your shot at getting hired, getting funded, and
-          getting noticed.
+          {c.description}
         </p>
         <div className="flex flex-wrap justify-center gap-4 mt-8">
           <Link
             to="/register"
             className="bg-editorial-pink px-10 py-4 text-sm font-black uppercase tracking-wider hover:opacity-90 transition-opacity"
           >
-            APPLY NOW →
+            {c.cta_primary}
           </Link>
           <Link
             to="/partner"
             className="border-2 border-foreground px-10 py-4 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
           >
-            PARTNER WITH US
+            {c.cta_secondary}
           </Link>
         </div>
       </motion.div>
