@@ -1,12 +1,16 @@
-import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, ArrowRight, Check, Upload, X, User } from "lucide-react";
 import { useContent } from "@/contexts/ContentContext";
-import { submitRegistration, uploadResume } from "@/lib/supabase";
+import {
+  submitRegistration,
+  uploadResume,
+  validateRefCode,
+} from "@/lib/supabase";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -270,6 +274,21 @@ const Register = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const [searchParams] = useSearchParams();
+  const refCodeParam = searchParams.get("ref") || "";
+  const [refCode, setRefCode] = useState<string>("");
+  const [refCodeValid, setRefCodeValid] = useState<boolean | null>(null);
+  // null = not checked yet, true = valid, false = invalid
+
+  // Validate ref code on mount if one is present
+  useEffect(() => {
+    if (!refCodeParam) return;
+    validateRefCode(refCodeParam).then((valid) => {
+      setRefCode(valid ? refCodeParam.toLowerCase().trim() : "");
+      setRefCodeValid(valid);
+    });
+  }, [refCodeParam]);
+
   const [form, setForm] = useState<FormData>({
     full_name: "",
     email: "",
@@ -338,6 +357,8 @@ const Register = () => {
         team_members: form.team_members,
         consent: form.consent,
         status: "pending",
+        ref_code: refCode || undefined,
+        referral_source: refCodeParam || undefined,
       });
 
       if (regError) {
@@ -425,8 +446,13 @@ const Register = () => {
         <span className="text-xl font-black uppercase tracking-tighter">
           INNOVA<span className="text-editorial-pink">HACK</span>
         </span>
-        <span className="text-xs tracking-widest uppercase text-muted-foreground">
+        <span className="text-xs tracking-widest uppercase text-muted-foreground flex items-center gap-2">
           REGISTRATION
+          {refCodeParam && refCodeValid === true && (
+            <span className="text-[10px] font-bold bg-editorial-green/20 text-editorial-green px-2 py-0.5 tracking-wider">
+              REFERRED
+            </span>
+          )}
         </span>
       </div>
 
@@ -742,6 +768,42 @@ const Register = () => {
                 <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tighter">
                   CONFIRM
                 </h2>
+                {refCodeParam && (
+                  <div
+                    className={`border-2 px-4 py-3 flex items-center gap-3 ${
+                      refCodeValid === true
+                        ? "border-editorial-green bg-editorial-green/10"
+                        : refCodeValid === false
+                          ? "border-red-500 bg-red-500/10"
+                          : "border-border bg-secondary/30"
+                    }`}
+                  >
+                    <span className="text-lg">
+                      {refCodeValid === true
+                        ? "✅"
+                        : refCodeValid === false
+                          ? "❌"
+                          : "⏳"}
+                    </span>
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-widest">
+                        {refCodeValid === true
+                          ? "REFERRED BY COMMUNITY PARTNER"
+                          : refCodeValid === false
+                            ? "INVALID REFERRAL CODE"
+                            : "VALIDATING REFERRAL CODE..."}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {refCodeValid === true
+                          ? `Code: ${refCodeParam} — This registration will be tracked under the community partner.`
+                          : refCodeValid === false
+                            ? `Code "${refCodeParam}" is not a valid or active community partner code.`
+                            : "Checking referral code validity..."}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 <p className="text-sm text-muted-foreground">
                   Review your details and submit. Every participant receives a{" "}
                   <strong className="text-foreground">

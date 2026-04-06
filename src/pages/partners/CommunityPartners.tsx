@@ -16,15 +16,15 @@ const CommunityPartners = () => {
   const [form, setForm] = useState({
     community_name: "",
     community_platform: "",
-    community_website: "",
+    community_website_link: "",
     contact_person_name: "",
     role_in_community: "",
     email: "",
     phone_number: "",
     community_size: "",
     community_focus: "",
-    promotion_plan: "",
-    open_to_sponsorship_outreach: "",
+    how_will_you_promote: "",
+    sponsorship_outreach: "",
     additional_message: "",
   });
 
@@ -36,7 +36,22 @@ const CommunityPartners = () => {
     setSubmitting(true);
     setError(null);
     const { error } = await supabase.from("partner_proposals").insert({
-      ...form,
+      community_name: form.community_name,
+      community_platform: form.community_platform,
+      community_website_link: form.community_website_link,
+      contact_person_name: form.contact_person_name,
+      email: form.email,
+      phone_number: form.phone_number,
+      community_size: form.community_size,
+      community_focus: form.community_focus,
+      how_will_you_promote: form.how_will_you_promote,
+      sponsorship_outreach: form.sponsorship_outreach,
+      additional_message: [
+        form.role_in_community ? "Role: " + form.role_in_community : "",
+        form.additional_message,
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
       proposal_type: "community_partner",
     });
     if (error) {
@@ -134,9 +149,9 @@ const CommunityPartners = () => {
               <span className="text-editorial-orange">PARTNERS</span>
             </h1>
             <p className="text-muted-foreground mt-6 max-w-2xl text-sm md:text-base leading-relaxed">
-              Drive participation from your community and earn exclusive rewards.
-              Top communities get event invites, mementos, techy gifts, and
-              special mentions.
+              Drive participation from your community and earn exclusive
+              rewards. Top communities get event invites, mementos, techy gifts,
+              and special mentions.
             </p>
           </motion.div>
         </div>
@@ -256,7 +271,9 @@ const CommunityPartners = () => {
                     <option value="Facebook Group">Facebook Group</option>
                     <option value="Twitter/X">Twitter / X</option>
                     <option value="YouTube">YouTube</option>
-                    <option value="Multiple Platforms">Multiple Platforms</option>
+                    <option value="Multiple Platforms">
+                      Multiple Platforms
+                    </option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
@@ -268,9 +285,9 @@ const CommunityPartners = () => {
                   <Input
                     required
                     type="url"
-                    value={form.community_website}
+                    value={form.community_website_link}
                     onChange={(e) =>
-                      update("community_website", e.target.value)
+                      update("community_website_link", e.target.value)
                     }
                     className="bg-secondary border-border focus:border-editorial-orange"
                     placeholder="Discord invite / LinkedIn group / website"
@@ -359,9 +376,7 @@ const CommunityPartners = () => {
                     <select
                       required
                       value={form.community_size}
-                      onChange={(e) =>
-                        update("community_size", e.target.value)
-                      }
+                      onChange={(e) => update("community_size", e.target.value)}
                       className="w-full bg-secondary border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:border-editorial-orange"
                     >
                       <option value="">Select community size</option>
@@ -410,8 +425,10 @@ const CommunityPartners = () => {
                   <Textarea
                     required
                     rows={3}
-                    value={form.promotion_plan}
-                    onChange={(e) => update("promotion_plan", e.target.value)}
+                    value={form.how_will_you_promote}
+                    onChange={(e) =>
+                      update("how_will_you_promote", e.target.value)
+                    }
                     className="bg-secondary border-border focus:border-editorial-orange resize-none"
                     placeholder="e.g. Newsletter, Discord announcements, social media posts, weekly meetup..."
                   />
@@ -421,9 +438,9 @@ const CommunityPartners = () => {
                     Are you open to helping with sponsorship outreach?
                   </Label>
                   <select
-                    value={form.open_to_sponsorship_outreach}
+                    value={form.sponsorship_outreach}
                     onChange={(e) =>
-                      update("open_to_sponsorship_outreach", e.target.value)
+                      update("sponsorship_outreach", e.target.value)
                     }
                     className="w-full bg-secondary border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:border-editorial-orange"
                   >

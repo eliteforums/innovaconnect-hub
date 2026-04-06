@@ -22,9 +22,9 @@ const HiringPartners = () => {
     work_email: "",
     phone_number: "",
     number_of_roles: "",
-    roles_profiles: "",
+    roles_job_profiles: "",
     hiring_timeline: "",
-    hiring_commitment: "",
+    assured_hiring_commitment: "",
     additional_message: "",
   });
 
@@ -36,7 +36,18 @@ const HiringPartners = () => {
     setSubmitting(true);
     setError(null);
     const { error } = await supabase.from("partner_proposals").insert({
-      ...form,
+      company_name: form.company_name,
+      industry_sector: form.industry_sector,
+      company_website: form.company_website,
+      contact_person_name: form.contact_person_name,
+      designation: form.designation,
+      work_email: form.work_email,
+      phone_number: form.phone_number,
+      number_of_roles: form.number_of_roles,
+      roles_job_profiles: form.roles_job_profiles,
+      hiring_timeline: form.hiring_timeline,
+      assured_hiring_commitment: form.assured_hiring_commitment,
+      additional_message: form.additional_message,
       proposal_type: "hiring_partner",
     });
     if (error) {
@@ -192,7 +203,8 @@ const HiringPartners = () => {
                 </div>
                 <div className="space-y-2">
                   <Label className="text-xs font-bold uppercase tracking-wider">
-                    Industry / Sector <span className="text-editorial-pink">*</span>
+                    Industry / Sector{" "}
+                    <span className="text-editorial-pink">*</span>
                   </Label>
                   <Input
                     required
@@ -204,7 +216,8 @@ const HiringPartners = () => {
                 </div>
                 <div className="space-y-2 md:col-span-2">
                   <Label className="text-xs font-bold uppercase tracking-wider">
-                    Company Website <span className="text-editorial-pink">*</span>
+                    Company Website{" "}
+                    <span className="text-editorial-pink">*</span>
                   </Label>
                   <Input
                     required
@@ -226,12 +239,15 @@ const HiringPartners = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label className="text-xs font-bold uppercase tracking-wider">
-                    Contact Person Name <span className="text-editorial-pink">*</span>
+                    Contact Person Name{" "}
+                    <span className="text-editorial-pink">*</span>
                   </Label>
                   <Input
                     required
                     value={form.contact_person_name}
-                    onChange={(e) => update("contact_person_name", e.target.value)}
+                    onChange={(e) =>
+                      update("contact_person_name", e.target.value)
+                    }
                     className="bg-secondary border-border focus:border-editorial-blue"
                     placeholder="Full name"
                   />
@@ -285,7 +301,8 @@ const HiringPartners = () => {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <Label className="text-xs font-bold uppercase tracking-wider">
-                    Number of Roles to Fill <span className="text-editorial-pink">*</span>
+                    Number of Roles to Fill{" "}
+                    <span className="text-editorial-pink">*</span>
                   </Label>
                   <Input
                     required
@@ -297,20 +314,24 @@ const HiringPartners = () => {
                 </div>
                 <div className="space-y-2">
                   <Label className="text-xs font-bold uppercase tracking-wider">
-                    Roles / Job Profiles <span className="text-editorial-pink">*</span>
+                    Roles / Job Profiles{" "}
+                    <span className="text-editorial-pink">*</span>
                   </Label>
                   <Textarea
                     required
                     rows={3}
-                    value={form.roles_profiles}
-                    onChange={(e) => update("roles_profiles", e.target.value)}
+                    value={form.roles_job_profiles}
+                    onChange={(e) =>
+                      update("roles_job_profiles", e.target.value)
+                    }
                     className="bg-secondary border-border focus:border-editorial-blue resize-none"
                     placeholder="Describe the roles you're looking to hire for..."
                   />
                 </div>
                 <div className="space-y-2">
                   <Label className="text-xs font-bold uppercase tracking-wider">
-                    Hiring Timeline <span className="text-editorial-pink">*</span>
+                    Hiring Timeline{" "}
+                    <span className="text-editorial-pink">*</span>
                   </Label>
                   <select
                     required
@@ -332,8 +353,10 @@ const HiringPartners = () => {
                   </Label>
                   <select
                     required
-                    value={form.hiring_commitment}
-                    onChange={(e) => update("hiring_commitment", e.target.value)}
+                    value={form.assured_hiring_commitment}
+                    onChange={(e) =>
+                      update("assured_hiring_commitment", e.target.value)
+                    }
                     className="w-full bg-secondary border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:border-editorial-blue"
                   >
                     <option value="">Select an option</option>
@@ -353,7 +376,9 @@ const HiringPartners = () => {
                   <Textarea
                     rows={3}
                     value={form.additional_message}
-                    onChange={(e) => update("additional_message", e.target.value)}
+                    onChange={(e) =>
+                      update("additional_message", e.target.value)
+                    }
                     className="bg-secondary border-border focus:border-editorial-blue resize-none"
                     placeholder="Any other information you'd like to share..."
                   />

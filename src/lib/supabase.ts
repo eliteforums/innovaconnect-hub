@@ -73,6 +73,9 @@ export type Registration = {
   consent: boolean;
   status?: "pending" | "shortlisted" | "rejected" | "confirmed";
   notes?: string;
+  ref_code?: string; // validated referral code from ?ref= URL param
+  referral_source?: string; // raw ?ref= value (even if unvalidated)
+  updated_at?: string;
   created_at?: string;
 };
 
@@ -182,6 +185,18 @@ export const submitRegistration = async (registration: Registration) => {
     .select()
     .single();
   return { data, error };
+};
+
+// Validate that a ref_code exists in community_partners table and is approved
+export const validateRefCode = async (code: string): Promise<boolean> => {
+  if (!code) return false;
+  const { data, error } = await supabase
+    .from("community_partners")
+    .select("ref_code")
+    .eq("ref_code", code.toLowerCase().trim())
+    .eq("status", "approved")
+    .single();
+  return !error && !!data;
 };
 
 export const fetchRegistrations = async () => {

@@ -19,6 +19,7 @@ import {
   Info,
   Building2,
   Handshake,
+  Link as LinkIcon,
 } from "lucide-react";
 import { adminSignOut, getSession } from "@/lib/supabase";
 
@@ -37,6 +38,7 @@ import AboutEditor from "@/components/admin/sections/AboutEditor";
 import SponsorsManager from "@/components/admin/sections/SponsorsManager";
 import SettingsEditor from "@/components/admin/sections/SettingsEditor";
 import ProposalsSection from "@/components/admin/sections/ProposalsSection";
+import ReferralsSection from "@/components/admin/sections/ReferralsSection";
 
 // ─── Nav Config ───────────────────────────────────────────────────────────────
 
@@ -71,6 +73,12 @@ const NAV_ITEMS: NavItem[] = [
     id: "proposals",
     label: "Proposals",
     icon: <Handshake size={16} />,
+    group: "DATA",
+  },
+  {
+    id: "referrals",
+    label: "Referrals",
+    icon: <LinkIcon size={16} />,
     group: "DATA",
   },
   // Home Page
@@ -143,6 +151,7 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   registrations: <RegistrationsSection />,
   inquiries: <InquiriesSection />,
   proposals: <ProposalsSection />,
+  referrals: <ReferralsSection />,
   hero: <HeroEditor />,
   domains: <DomainsEditor />,
   process: <ProcessEditor />,
