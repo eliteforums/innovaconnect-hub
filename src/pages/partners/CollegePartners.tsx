@@ -14,18 +14,18 @@ const CollegePartners = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
-    college_name: "",
+    college_university_name: "",
     city: "",
     state: "",
     college_website: "",
     contact_person_name: "",
     designation: "",
-    college_email: "",
+    work_email: "",
     phone_number: "",
-    estimated_participation: "",
-    has_tech_club: "",
+    estimated_student_participation: "",
+    technical_coding_club: "",
     club_society_name: "",
-    promotion_plan: "",
+    how_will_you_promote: "",
     additional_message: "",
   });
 
@@ -37,7 +37,19 @@ const CollegePartners = () => {
     setSubmitting(true);
     setError(null);
     const { error } = await supabase.from("partner_proposals").insert({
-      ...form,
+      college_university_name: form.college_university_name,
+      city: form.city,
+      state: form.state,
+      college_website: form.college_website,
+      contact_person_name: form.contact_person_name,
+      designation: form.designation,
+      work_email: form.work_email,
+      phone_number: form.phone_number,
+      estimated_student_participation: form.estimated_student_participation,
+      technical_coding_club: form.technical_coding_club,
+      club_society_name: form.club_society_name,
+      how_will_you_promote: form.how_will_you_promote,
+      additional_message: form.additional_message,
       proposal_type: "college_partner",
     });
     if (error) {
@@ -228,8 +240,10 @@ const CollegePartners = () => {
                   </Label>
                   <Input
                     required
-                    value={form.college_name}
-                    onChange={(e) => update("college_name", e.target.value)}
+                    value={form.college_university_name}
+                    onChange={(e) =>
+                      update("college_university_name", e.target.value)
+                    }
                     className="bg-secondary border-border focus:border-editorial-green"
                     placeholder="Full name of your college or university"
                   />
@@ -314,8 +328,8 @@ const CollegePartners = () => {
                   <Input
                     required
                     type="email"
-                    value={form.college_email}
-                    onChange={(e) => update("college_email", e.target.value)}
+                    value={form.work_email}
+                    onChange={(e) => update("work_email", e.target.value)}
                     className="bg-secondary border-border focus:border-editorial-green"
                     placeholder="you@college.edu.in"
                   />
@@ -349,9 +363,9 @@ const CollegePartners = () => {
                   </Label>
                   <select
                     required
-                    value={form.estimated_participation}
+                    value={form.estimated_student_participation}
                     onChange={(e) =>
-                      update("estimated_participation", e.target.value)
+                      update("estimated_student_participation", e.target.value)
                     }
                     className="w-full bg-secondary border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:border-editorial-green"
                   >
@@ -372,8 +386,10 @@ const CollegePartners = () => {
                     </Label>
                     <select
                       required
-                      value={form.has_tech_club}
-                      onChange={(e) => update("has_tech_club", e.target.value)}
+                      value={form.technical_coding_club}
+                      onChange={(e) =>
+                        update("technical_coding_club", e.target.value)
+                      }
                       className="w-full bg-secondary border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:border-editorial-green"
                     >
                       <option value="">Select an option</option>
@@ -404,8 +420,10 @@ const CollegePartners = () => {
                   <Textarea
                     required
                     rows={3}
-                    value={form.promotion_plan}
-                    onChange={(e) => update("promotion_plan", e.target.value)}
+                    value={form.how_will_you_promote}
+                    onChange={(e) =>
+                      update("how_will_you_promote", e.target.value)
+                    }
                     className="bg-secondary border-border focus:border-editorial-green resize-none"
                     placeholder="e.g. Email blasts, notice boards, social media posts, classroom announcements..."
                   />

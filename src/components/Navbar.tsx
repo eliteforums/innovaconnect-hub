@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn } from "lucide-react";
 
 const navLinks = [
   { label: "HOME", href: "/", isRoute: true },
@@ -26,7 +26,10 @@ const Navbar = () => {
 
       {/* Main nav */}
       <div className="flex items-center justify-between px-4 md:px-8 py-3">
-        <Link to="/" className="text-xl md:text-2xl font-black tracking-tighter uppercase">
+        <Link
+          to="/"
+          className="text-xl md:text-2xl font-black tracking-tighter uppercase"
+        >
           INNOVA<span className="text-editorial-pink">HACK</span>
         </Link>
 
@@ -49,11 +52,17 @@ const Navbar = () => {
               >
                 {link.label}
               </a>
-            )
+            ),
           )}
         </div>
 
         <div className="hidden lg:flex items-center gap-3">
+          <Link
+            to="/portal/login"
+            className="text-xs font-bold tracking-widest uppercase text-foreground hover:text-editorial-pink transition-colors flex items-center gap-1.5"
+          >
+            <LogIn size={14} /> LOGIN
+          </Link>
           <Link
             to="/register"
             className="border-2 border-foreground px-5 py-2 text-xs font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
@@ -90,8 +99,15 @@ const Navbar = () => {
               >
                 {link.label}
               </a>
-            )
+            ),
           )}
+          <Link
+            to="/portal/login"
+            onClick={() => setOpen(false)}
+            className="block px-6 py-3 text-sm font-bold uppercase tracking-widest border-b border-border hover:bg-secondary transition-colors flex items-center gap-2"
+          >
+            <LogIn size={14} /> LOGIN / MY PORTAL
+          </Link>
           <Link
             to="/register"
             onClick={() => setOpen(false)}
