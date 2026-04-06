@@ -15,6 +15,12 @@ import Contact from "./pages/Contact.tsx";
 import EmailUs from "./pages/EmailUs.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import HiringPartners from "./pages/partners/HiringPartners.tsx";
+import TechPartners from "./pages/partners/TechPartners.tsx";
+import EducationPartners from "./pages/partners/EducationPartners.tsx";
+import DomainSponsors from "./pages/partners/DomainSponsors.tsx";
+import CollegePartners from "./pages/partners/CollegePartners.tsx";
+import CommunityPartners from "./pages/partners/CommunityPartners.tsx";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +43,12 @@ const App = () => (
             <Route path="/email-us" element={<EmailUs />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/*" element={<Admin />} />
+            <Route path="/hiring-partners" element={<HiringPartners />} />
+            <Route path="/tech-partners" element={<TechPartners />} />
+            <Route path="/education-partners" element={<EducationPartners />} />
+            <Route path="/domain-sponsors" element={<DomainSponsors />} />
+            <Route path="/college-partners" element={<CollegePartners />} />
+            <Route path="/community-partners" element={<CommunityPartners />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

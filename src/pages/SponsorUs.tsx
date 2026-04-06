@@ -134,9 +134,9 @@ const SponsorUs = () => {
               <span className="text-editorial-pink">INNOVAHACK</span>
             </h1>
             <p className="text-muted-foreground mt-6 max-w-2xl text-sm md:text-base">
-              Put your brand in front of India's top 1% builders. Sponsor InnovaHack
-              and get unmatched visibility, hiring access, and PR coverage across
-              our 10,000+ applicant pool.
+              Put your brand in front of India's top 1% builders. Sponsor
+              InnovaHack and get unmatched visibility, hiring access, and PR
+              coverage across our 10,000+ applicant pool.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               <Link
@@ -213,7 +213,9 @@ const SponsorUs = () => {
             <div className="flex items-center gap-4 px-4 md:px-8 py-5 border-b border-border">
               <div className={`w-3 h-10 ${tier.bgAccent}`} />
               <div className="flex-1">
-                <p className={`text-sm font-black uppercase tracking-wider ${tier.textAccent}`}>
+                <p
+                  className={`text-sm font-black uppercase tracking-wider ${tier.textAccent}`}
+                >
                   {tier.tier}
                 </p>
                 <p className="text-xs text-muted-foreground">{tier.price}</p>
@@ -221,12 +223,11 @@ const SponsorUs = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 px-4 md:px-8 py-6">
               {tier.perks.map((perk, i) => (
-                <div
-                  key={i}
-                  className={`border-2 ${tier.accent} p-4`}
-                >
+                <div key={i} className={`border-2 ${tier.accent} p-4`}>
                   <div className="flex items-start gap-3">
-                    <span className={`mt-1 w-2 h-2 ${tier.bgAccent} shrink-0`} />
+                    <span
+                      className={`mt-1 w-2 h-2 ${tier.bgAccent} shrink-0`}
+                    />
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {perk}
                     </p>
@@ -250,10 +251,26 @@ const SponsorUs = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4">
           {[
-            { num: "01", title: "REACH OUT", desc: "Email us at sponsors@eliteforums.in or fill the contact form. Tell us about your company and goals." },
-            { num: "02", title: "CHOOSE TIER", desc: "Pick a sponsorship tier that aligns with your budget and objectives. We're flexible and open to custom packages." },
-            { num: "03", title: "CONFIRM", desc: "Finalize the sponsorship agreement. We'll add your logo to the website and start the PR campaign immediately." },
-            { num: "04", title: "ENGAGE", desc: "Get access to participants, attend the hackathon, hire talent, and enjoy massive brand visibility." },
+            {
+              num: "01",
+              title: "REACH OUT",
+              desc: "Email us at sponsors@eliteforums.in or fill the contact form. Tell us about your company and goals.",
+            },
+            {
+              num: "02",
+              title: "CHOOSE TIER",
+              desc: "Pick a sponsorship tier that aligns with your budget and objectives. We're flexible and open to custom packages.",
+            },
+            {
+              num: "03",
+              title: "CONFIRM",
+              desc: "Finalize the sponsorship agreement. We'll add your logo to the website and start the PR campaign immediately.",
+            },
+            {
+              num: "04",
+              title: "ENGAGE",
+              desc: "Get access to participants, attend the hackathon, hire talent, and enjoy massive brand visibility.",
+            },
           ].map((step, i) => (
             <motion.div
               key={step.num}
@@ -300,16 +317,16 @@ const SponsorUs = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <Link
-              to="/email-us"
+              to="/partner"
               className="bg-editorial-pink px-10 py-4 text-sm font-black uppercase tracking-wider text-background hover:opacity-90 transition-opacity"
             >
-              EMAIL US →
+              PARTNER WITH US →
             </Link>
             <Link
-              to="/partner"
+              to="/sponsors"
               className="border-2 border-foreground px-10 py-4 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
             >
-              PARTNER WITH US
+              VIEW CURRENT SPONSORS
             </Link>
           </div>
         </motion.div>

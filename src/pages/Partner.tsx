@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const sponsorBenefits = [
   {
@@ -77,23 +78,27 @@ const partnerTypes = [
       {
         rank: "🥇 1st Place",
         target: "1,000+ Applications",
-        reward: "₹20,000 INR sponsorship for their next event + highlighted on our website",
+        reward:
+          "₹20,000 INR sponsorship for their next event + highlighted on our website",
         accent: "bg-yellow-500/10 border-yellow-500",
       },
       {
         rank: "🥈 2nd Place",
         target: "825+ Applications",
-        reward: "₹15,000 INR sponsorship for their next event + highlighted on our website",
+        reward:
+          "₹15,000 INR sponsorship for their next event + highlighted on our website",
         accent: "bg-gray-300/10 border-gray-400",
       },
       {
         rank: "🥉 3rd Place",
         target: "650+ Applications",
-        reward: "₹10,000 INR sponsorship for their next event + highlighted on our website",
+        reward:
+          "₹10,000 INR sponsorship for their next event + highlighted on our website",
         accent: "bg-orange-500/10 border-orange-400",
       },
     ],
-    tierNote: "Top 3 colleges with maximum participation will get sponsorship for their next event and will be highlighted on our website.",
+    tierNote:
+      "Top 3 colleges with maximum participation will get sponsorship for their next event and will be highlighted on our website.",
   },
   {
     type: "COMMUNITY PARTNERS",
@@ -111,7 +116,8 @@ const partnerTypes = [
       {
         rank: "🥇 1st Place",
         target: "1,000+ Applications",
-        reward: "Direct invite to event, Memento & Felicitation, Techy Gifts + Special Mention",
+        reward:
+          "Direct invite to event, Memento & Felicitation, Techy Gifts + Special Mention",
         accent: "bg-yellow-500/10 border-yellow-500",
       },
       {
@@ -127,7 +133,66 @@ const partnerTypes = [
         accent: "bg-orange-500/10 border-orange-400",
       },
     ],
-    tierNote: "Top 3 communities with maximum participation receive exclusive rewards and recognition.",
+    tierNote:
+      "Top 3 communities with maximum participation receive exclusive rewards and recognition.",
+  },
+];
+
+// Partnership form links — each type has a dedicated proposal page
+const partnerFormLinks = [
+  {
+    label: "HIRING PARTNERS",
+    desc: "Looking to hire India's top 1% builders? Submit your hiring proposal.",
+    href: "/hiring-partners",
+    accent: "border-editorial-blue",
+    bgAccent: "bg-editorial-blue",
+    textAccent: "text-editorial-blue",
+    tag: "HIRING",
+  },
+  {
+    label: "TECH PARTNERS",
+    desc: "Offer your APIs, tools, or credits to 10,000+ builders.",
+    href: "/tech-partners",
+    accent: "border-editorial-blue",
+    bgAccent: "bg-editorial-blue",
+    textAccent: "text-editorial-blue",
+    tag: "TECH",
+  },
+  {
+    label: "EDUCATION PARTNERS",
+    desc: "Provide courses, certifications, or scholarships to participants.",
+    href: "/education-partners",
+    accent: "border-editorial-green",
+    bgAccent: "bg-editorial-green",
+    textAccent: "text-editorial-green",
+    tag: "EDUCATION",
+  },
+  {
+    label: "DOMAIN SPONSORS",
+    desc: "Exclusively brand a hackathon track aligned with your industry.",
+    href: "/domain-sponsors",
+    accent: "border-editorial-purple",
+    bgAccent: "bg-editorial-purple",
+    textAccent: "text-editorial-purple",
+    tag: "DOMAIN",
+  },
+  {
+    label: "COLLEGE PARTNERS",
+    desc: "Drive campus participation and win cash rewards for your college.",
+    href: "/college-partners",
+    accent: "border-editorial-green",
+    bgAccent: "bg-editorial-green",
+    textAccent: "text-editorial-green",
+    tag: "COLLEGE",
+  },
+  {
+    label: "COMMUNITY PARTNERS",
+    desc: "Mobilise your community and earn exclusive event rewards.",
+    href: "/community-partners",
+    accent: "border-editorial-orange",
+    bgAccent: "bg-editorial-orange",
+    textAccent: "text-editorial-orange",
+    tag: "COMMUNITY",
   },
 ];
 
@@ -153,10 +218,24 @@ const Partner = () => {
               <span className="text-editorial-pink">WITH US</span>
             </h1>
             <p className="text-muted-foreground mt-6 max-w-2xl text-sm md:text-base">
-              Join India's largest hiring & startup hackathon as a partner. Whether
-              you're a company, investor, college, or community — there's a partnership
-              tier designed for you.
+              Join India's largest hiring &amp; startup hackathon as a partner.
+              Whether you're a company, investor, college, or community —
+              there's a partnership tier designed for you.
             </p>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <a
+                href="#apply"
+                className="bg-editorial-pink px-8 py-3 text-sm font-black uppercase tracking-wider text-background hover:opacity-90 transition-opacity"
+              >
+                APPLY AS PARTNER →
+              </a>
+              <Link
+                to="/sponsors"
+                className="border-2 border-foreground px-8 py-3 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
+              >
+                VIEW CURRENT PARTNERS
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -195,7 +274,7 @@ const Partner = () => {
         </div>
       </section>
 
-      {/* Partner Types */}
+      {/* Partner Types — info sections */}
       {partnerTypes.map((partner, idx) => (
         <section key={partner.type} className="border-b-2 border-foreground">
           <motion.div
@@ -204,7 +283,7 @@ const Partner = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className={`border-b border-border px-4 md:px-8 py-6 flex items-center gap-4`}>
+            <div className="border-b border-border px-4 md:px-8 py-6 flex items-center gap-4">
               <div className={`w-3 h-12 ${partner.bgAccent}`} />
               <div>
                 <p className="text-xs font-bold tracking-[0.3em] uppercase text-muted-foreground mb-1">
@@ -216,7 +295,7 @@ const Partner = () => {
               </div>
             </div>
 
-            {/* Tiered Rewards Section for College & Community Partners */}
+            {/* Tiered Rewards for College & Community */}
             {"tiers" in partner && partner.tiers && (
               <div className="px-6 md:px-8 lg:px-12 pt-8">
                 <div className="border-2 border-foreground p-6 md:p-8 mb-2">
@@ -261,7 +340,9 @@ const Partner = () => {
                     className={`border-2 ${partner.accent} p-4 md:p-6`}
                   >
                     <div className="flex items-start gap-3">
-                      <span className={`mt-1 w-2 h-2 ${partner.bgAccent} shrink-0`} />
+                      <span
+                        className={`mt-1 w-2 h-2 ${partner.bgAccent} shrink-0`}
+                      />
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         {benefit}
                       </p>
@@ -321,13 +402,72 @@ const Partner = () => {
               key={item.track}
               className={`border-b md:border-b-0 md:border-r border-border p-6 md:p-8 last:border-r-0 border-t-4 ${item.accent}`}
             >
-              <p className={`text-sm font-black uppercase tracking-wider ${item.textAccent} mb-3`}>
+              <p
+                className={`text-sm font-black uppercase tracking-wider ${item.textAccent} mb-3`}
+              >
                 {item.track}
               </p>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 {item.sponsors}
               </p>
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── APPLY AS PARTNER — dedicated form links ─────────────────────── */}
+      <section id="apply" className="border-b-2 border-foreground">
+        <div className="border-b border-border px-4 md:px-8 py-6">
+          <p className="text-xs font-bold tracking-[0.3em] uppercase text-editorial-pink mb-1">
+            SUBMIT YOUR PROPOSAL
+          </p>
+          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">
+            APPLY AS PARTNER
+          </h2>
+          <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
+            Select the partnership type that best fits your organisation. Each
+            type has a dedicated proposal form tailored to your specific goals.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {partnerFormLinks.map((link, i) => (
+            <motion.div
+              key={link.href}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.07 }}
+            >
+              <Link
+                to={link.href}
+                className={`group flex flex-col justify-between border-b border-r border-border p-7 md:p-9 min-h-[200px] hover:bg-secondary/40 transition-colors border-t-4 ${link.accent}`}
+              >
+                <div>
+                  <span
+                    className={`inline-block text-xs font-bold tracking-[0.3em] uppercase mb-3 ${link.textAccent}`}
+                  >
+                    {link.tag}
+                  </span>
+                  <h3 className="text-xl font-black uppercase tracking-tight mb-3 group-hover:text-editorial-pink transition-colors">
+                    {link.label}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {link.desc}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 mt-6">
+                  <span
+                    className={`w-6 h-6 flex items-center justify-center ${link.bgAccent}`}
+                  >
+                    <ArrowRight size={13} className="text-background" />
+                  </span>
+                  <span className="text-xs font-black uppercase tracking-wider group-hover:text-editorial-pink transition-colors">
+                    SUBMIT PROPOSAL
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -350,21 +490,22 @@ const Partner = () => {
             PARTNER?
           </h2>
           <p className="text-muted-foreground mt-6 max-w-lg mx-auto text-sm md:text-base">
-            Reach out to us to discuss partnership opportunities. We're transparent,
-            flexible, and committed to creating value for every partner.
+            Reach out to us to discuss partnership opportunities. We're
+            transparent, flexible, and committed to creating value for every
+            partner.
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-8">
-            <a
-              href="mailto:partnerships@eliteforums.in"
+            <Link
+              to="/partner#apply"
               className="bg-editorial-pink px-10 py-4 text-sm font-black uppercase tracking-wider text-background hover:opacity-90 transition-opacity"
             >
-              EMAIL US →
-            </a>
+              PARTNER WITH US →
+            </Link>
             <Link
               to="/sponsors"
               className="border-2 border-foreground px-10 py-4 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
             >
-              VIEW SPONSORS
+              VIEW CURRENT PARTNERS
             </Link>
           </div>
         </motion.div>

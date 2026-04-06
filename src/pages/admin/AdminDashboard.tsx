@@ -18,6 +18,7 @@ import {
   Trophy,
   Info,
   Building2,
+  Handshake,
 } from "lucide-react";
 import { adminSignOut, getSession } from "@/lib/supabase";
 
@@ -35,6 +36,7 @@ import CTAEditor from "@/components/admin/sections/CTAEditor";
 import AboutEditor from "@/components/admin/sections/AboutEditor";
 import SponsorsManager from "@/components/admin/sections/SponsorsManager";
 import SettingsEditor from "@/components/admin/sections/SettingsEditor";
+import ProposalsSection from "@/components/admin/sections/ProposalsSection";
 
 // ─── Nav Config ───────────────────────────────────────────────────────────────
 
@@ -47,38 +49,110 @@ type NavItem = {
 
 const NAV_ITEMS: NavItem[] = [
   // Data
-  { id: "overview",      label: "Overview",       icon: <LayoutDashboard size={16} />, group: "DATA" },
-  { id: "registrations", label: "Registrations",  icon: <Users size={16} />,           group: "DATA" },
-  { id: "inquiries",     label: "Inquiries",       icon: <Mail size={16} />,            group: "DATA" },
+  {
+    id: "overview",
+    label: "Overview",
+    icon: <LayoutDashboard size={16} />,
+    group: "DATA",
+  },
+  {
+    id: "registrations",
+    label: "Registrations",
+    icon: <Users size={16} />,
+    group: "DATA",
+  },
+  {
+    id: "inquiries",
+    label: "Inquiries",
+    icon: <Mail size={16} />,
+    group: "DATA",
+  },
+  {
+    id: "proposals",
+    label: "Proposals",
+    icon: <Handshake size={16} />,
+    group: "DATA",
+  },
   // Home Page
-  { id: "hero",          label: "Hero Section",    icon: <Star size={16} />,            group: "HOME PAGE" },
-  { id: "domains",       label: "Domains",         icon: <Layers size={16} />,          group: "HOME PAGE" },
-  { id: "process",       label: "Process Steps",   icon: <ChevronRight size={16} />,    group: "HOME PAGE" },
-  { id: "outcomes",      label: "Outcomes",        icon: <Trophy size={16} />,          group: "HOME PAGE" },
-  { id: "faq",           label: "FAQ",             icon: <HelpCircle size={16} />,      group: "HOME PAGE" },
-  { id: "fee",           label: "Fee Section",     icon: <DollarSign size={16} />,      group: "HOME PAGE" },
-  { id: "cta",           label: "CTA Section",     icon: <Megaphone size={16} />,       group: "HOME PAGE" },
+  {
+    id: "hero",
+    label: "Hero Section",
+    icon: <Star size={16} />,
+    group: "HOME PAGE",
+  },
+  {
+    id: "domains",
+    label: "Domains",
+    icon: <Layers size={16} />,
+    group: "HOME PAGE",
+  },
+  {
+    id: "process",
+    label: "Process Steps",
+    icon: <ChevronRight size={16} />,
+    group: "HOME PAGE",
+  },
+  {
+    id: "outcomes",
+    label: "Outcomes",
+    icon: <Trophy size={16} />,
+    group: "HOME PAGE",
+  },
+  {
+    id: "faq",
+    label: "FAQ",
+    icon: <HelpCircle size={16} />,
+    group: "HOME PAGE",
+  },
+  {
+    id: "fee",
+    label: "Fee Section",
+    icon: <DollarSign size={16} />,
+    group: "HOME PAGE",
+  },
+  {
+    id: "cta",
+    label: "CTA Section",
+    icon: <Megaphone size={16} />,
+    group: "HOME PAGE",
+  },
   // Other Pages
-  { id: "about",         label: "About Page",      icon: <Info size={16} />,            group: "PAGES" },
-  { id: "sponsors",      label: "Sponsors",        icon: <Building2 size={16} />,       group: "PAGES" },
+  {
+    id: "about",
+    label: "About Page",
+    icon: <Info size={16} />,
+    group: "PAGES",
+  },
+  {
+    id: "sponsors",
+    label: "Sponsors",
+    icon: <Building2 size={16} />,
+    group: "PAGES",
+  },
   // Config
-  { id: "settings",      label: "Settings",        icon: <Settings size={16} />,        group: "CONFIG" },
+  {
+    id: "settings",
+    label: "Settings",
+    icon: <Settings size={16} />,
+    group: "CONFIG",
+  },
 ];
 
 const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
-  overview:      <OverviewSection />,
+  overview: <OverviewSection />,
   registrations: <RegistrationsSection />,
-  inquiries:     <InquiriesSection />,
-  hero:          <HeroEditor />,
-  domains:       <DomainsEditor />,
-  process:       <ProcessEditor />,
-  faq:           <FAQEditor />,
-  outcomes:      <OutcomesEditor />,
-  fee:           <FeeEditor />,
-  cta:           <CTAEditor />,
-  about:         <AboutEditor />,
-  sponsors:      <SponsorsManager />,
-  settings:      <SettingsEditor />,
+  inquiries: <InquiriesSection />,
+  proposals: <ProposalsSection />,
+  hero: <HeroEditor />,
+  domains: <DomainsEditor />,
+  process: <ProcessEditor />,
+  faq: <FAQEditor />,
+  outcomes: <OutcomesEditor />,
+  fee: <FeeEditor />,
+  cta: <CTAEditor />,
+  about: <AboutEditor />,
+  sponsors: <SponsorsManager />,
+  settings: <SettingsEditor />,
 };
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
@@ -92,7 +166,14 @@ type SidebarProps = {
   onClose: () => void;
 };
 
-const Sidebar = ({ active, onSelect, adminEmail, onSignOut, open, onClose }: SidebarProps) => {
+const Sidebar = ({
+  active,
+  onSelect,
+  adminEmail,
+  onSignOut,
+  open,
+  onClose,
+}: SidebarProps) => {
   const groups = [...new Set(NAV_ITEMS.map((i) => i.group))];
 
   return (
@@ -226,7 +307,9 @@ const AdminDashboard = ({ onLogout }: Props) => {
           <div className="flex items-center gap-2 text-xs text-muted-foreground uppercase tracking-widest">
             <span>Admin</span>
             <ChevronRight size={12} />
-            <span className="text-foreground font-bold">{activeItem?.label}</span>
+            <span className="text-foreground font-bold">
+              {activeItem?.label}
+            </span>
           </div>
 
           <div className="ml-auto flex items-center gap-3">
