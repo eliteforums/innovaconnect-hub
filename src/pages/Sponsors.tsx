@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 
 const trackSponsors = [
   {
-    track: "EDTECH — GENERATIVE AI TRACK",
+    track: "GENERATIVE AI TRACK",
     accent: "border-editorial-purple",
     bgAccent: "bg-editorial-purple",
     textAccent: "text-editorial-purple",
-    description: "EdTech companies powering the AI track",
+    description: "Companies powering the AI track",
     slots: 6,
   },
   {
