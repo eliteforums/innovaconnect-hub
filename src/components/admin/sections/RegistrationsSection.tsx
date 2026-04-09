@@ -16,7 +16,9 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
+  supabase,
   fetchRegistrations,
+  fetchAllRegistrations,
   updateRegistrationStatus,
   deleteRegistration,
 } from "@/lib/supabase";
@@ -27,7 +29,8 @@ import type { Registration } from "@/lib/supabase";
 const StatusBadge = ({ status }: { status?: string }) => {
   const map: Record<string, string> = {
     pending: "bg-yellow-500/20 text-yellow-400 border-yellow-500/40",
-    shortlisted: "bg-editorial-pink/20 text-editorial-pink border-editorial-pink/40",
+    shortlisted:
+      "bg-editorial-pink/20 text-editorial-pink border-editorial-pink/40",
     confirmed: "bg-green-500/20 text-green-400 border-green-500/40",
     rejected: "bg-red-500/20 text-red-400 border-red-500/40",
   };
@@ -52,7 +55,11 @@ const DetailModal = ({
 }: {
   reg: Registration;
   onClose: () => void;
-  onStatusChange: (id: string, status: Registration["status"], notes?: string) => void;
+  onStatusChange: (
+    id: string,
+    status: Registration["status"],
+    notes?: string,
+  ) => void;
 }) => {
   const [notes, setNotes] = useState(reg.notes ?? "");
   const [saving, setSaving] = useState(false);
@@ -139,12 +146,18 @@ const DetailModal = ({
                     </span>
                   ))
                 ) : (
-                  <span className="text-xs text-muted-foreground">None selected</span>
+                  <span className="text-xs text-muted-foreground">
+                    None selected
+                  </span>
                 )}
               </div>
             </div>
-            {reg.github_url && <Row label="GitHub" value={reg.github_url} link />}
-            {reg.linkedin_url && <Row label="LinkedIn" value={reg.linkedin_url} link />}
+            {reg.github_url && (
+              <Row label="GitHub" value={reg.github_url} link />
+            )}
+            {reg.linkedin_url && (
+              <Row label="LinkedIn" value={reg.linkedin_url} link />
+            )}
           </Section>
 
           {/* Team */}
@@ -160,21 +173,37 @@ const DetailModal = ({
                     MEMBER {i + 2}
                   </p>
                   <div className="grid grid-cols-2 gap-1 text-xs">
-                    <span className="text-muted-foreground uppercase tracking-wider font-bold">Name</span>
+                    <span className="text-muted-foreground uppercase tracking-wider font-bold">
+                      Name
+                    </span>
                     <span>{m.full_name}</span>
-                    <span className="text-muted-foreground uppercase tracking-wider font-bold">Email</span>
+                    <span className="text-muted-foreground uppercase tracking-wider font-bold">
+                      Email
+                    </span>
                     <span>{m.email}</span>
-                    <span className="text-muted-foreground uppercase tracking-wider font-bold">Contact</span>
+                    <span className="text-muted-foreground uppercase tracking-wider font-bold">
+                      Contact
+                    </span>
                     <span>{m.contact_no}</span>
-                    <span className="text-muted-foreground uppercase tracking-wider font-bold">City</span>
+                    <span className="text-muted-foreground uppercase tracking-wider font-bold">
+                      City
+                    </span>
                     <span>{m.city}</span>
-                    <span className="text-muted-foreground uppercase tracking-wider font-bold">Org</span>
+                    <span className="text-muted-foreground uppercase tracking-wider font-bold">
+                      Org
+                    </span>
                     <span>{m.organisation_name}</span>
-                    <span className="text-muted-foreground uppercase tracking-wider font-bold">Year/Exp</span>
+                    <span className="text-muted-foreground uppercase tracking-wider font-bold">
+                      Year/Exp
+                    </span>
                     <span>{m.year_or_experience}</span>
-                    <span className="text-muted-foreground uppercase tracking-wider font-bold">Branch</span>
+                    <span className="text-muted-foreground uppercase tracking-wider font-bold">
+                      Branch
+                    </span>
                     <span>{m.branch_or_department}</span>
-                    <span className="text-muted-foreground uppercase tracking-wider font-bold">Skills</span>
+                    <span className="text-muted-foreground uppercase tracking-wider font-bold">
+                      Skills
+                    </span>
                     <span>{m.skills?.join(", ") || "—"}</span>
                   </div>
                 </div>
@@ -197,22 +226,22 @@ const DetailModal = ({
                   Update Status
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {(["pending", "shortlisted", "confirmed", "rejected"] as const).map(
-                    (s) => (
-                      <button
-                        key={s}
-                        onClick={() => saveStatus(s)}
-                        disabled={saving || reg.status === s}
-                        className={`text-xs font-bold uppercase tracking-wider px-3 py-1.5 border-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
-                          reg.status === s
-                            ? "border-editorial-pink bg-editorial-pink/10"
-                            : "border-border hover:border-foreground"
-                        }`}
-                      >
-                        {s}
-                      </button>
-                    )
-                  )}
+                  {(
+                    ["pending", "shortlisted", "confirmed", "rejected"] as const
+                  ).map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => saveStatus(s)}
+                      disabled={saving || reg.status === s}
+                      className={`text-xs font-bold uppercase tracking-wider px-3 py-1.5 border-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
+                        reg.status === s
+                          ? "border-editorial-pink bg-editorial-pink/10"
+                          : "border-border hover:border-foreground"
+                      }`}
+                    >
+                      {s}
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -301,39 +330,58 @@ const RegistrationsSection = () => {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [teamFilter, setTeamFilter] = useState("all");
-  const [sortField, setSortField] = useState<"created_at" | "full_name">("created_at");
+  const [sortField, setSortField] = useState<"created_at" | "full_name">(
+    "created_at",
+  );
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [selectedReg, setSelectedReg] = useState<Registration | null>(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  const PAGE_SIZE = 50;
 
-  const load = async () => {
+  const load = async (page = 0) => {
     setLoading(true);
-    const { data } = await fetchRegistrations();
+    const { data, count } = await fetchRegistrations(page, PAGE_SIZE);
     setRegistrations((data ?? []) as Registration[]);
+    setTotalCount(count ?? 0);
+    setCurrentPage(page);
     setLoading(false);
   };
 
   useEffect(() => {
-    load();
+    load(0);
   }, []);
+
+  // Reset to page 0 when filters change
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [search, statusFilter, teamFilter]);
 
   const handleStatusChange = async (
     id: string,
     status: Registration["status"],
-    notes?: string
+    notes?: string,
   ) => {
     await updateRegistrationStatus(id, status, notes);
     setRegistrations((prev) =>
-      prev.map((r) => (r.id === id ? { ...r, status, notes: notes ?? r.notes } : r))
+      prev.map((r) =>
+        r.id === id ? { ...r, status, notes: notes ?? r.notes } : r,
+      ),
     );
     if (selectedReg?.id === id) {
       setSelectedReg((prev) =>
-        prev ? { ...prev, status, notes: notes ?? prev.notes } : prev
+        prev ? { ...prev, status, notes: notes ?? prev.notes } : prev,
       );
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this registration? This cannot be undone.")) return;
+    if (
+      !confirm(
+        "Are you sure you want to delete this registration? This cannot be undone.",
+      )
+    )
+      return;
     await deleteRegistration(id);
     setRegistrations((prev) => prev.filter((r) => r.id !== id));
     if (selectedReg?.id === id) setSelectedReg(null);
@@ -348,34 +396,68 @@ const RegistrationsSection = () => {
           r.full_name.toLowerCase().includes(q) ||
           r.email.toLowerCase().includes(q) ||
           r.city?.toLowerCase().includes(q) ||
-          r.organisation_name?.toLowerCase().includes(q)
+          r.organisation_name?.toLowerCase().includes(q),
       );
     }
-    if (statusFilter !== "all") list = list.filter((r) => (r.status ?? "pending") === statusFilter);
-    if (teamFilter !== "all") list = list.filter((r) => r.team_type === teamFilter);
+    if (statusFilter !== "all")
+      list = list.filter((r) => (r.status ?? "pending") === statusFilter);
+    if (teamFilter !== "all")
+      list = list.filter((r) => r.team_type === teamFilter);
     list.sort((a, b) => {
-      const av = sortField === "created_at" ? (a.created_at ?? "") : a.full_name;
-      const bv = sortField === "created_at" ? (b.created_at ?? "") : b.full_name;
+      const av =
+        sortField === "created_at" ? (a.created_at ?? "") : a.full_name;
+      const bv =
+        sortField === "created_at" ? (b.created_at ?? "") : b.full_name;
       return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
     });
     return list;
   }, [registrations, search, statusFilter, teamFilter, sortField, sortDir]);
 
-  const exportCSV = () => {
+  const exportCSV = async () => {
+    // For CSV we need all rows, not just current page
+    const { data: allData } = await supabase
+      .from("registrations")
+      .select("*")
+      .order("created_at", { ascending: false });
     const headers = [
-      "Full Name", "Email", "Contact No", "City", "Organisation",
-      "Year/Exp", "Branch", "Skills", "GitHub", "LinkedIn",
-      "Team Type", "Team Members Count", "Status", "Consent", "Registered At",
+      "Full Name",
+      "Email",
+      "Contact No",
+      "City",
+      "Organisation",
+      "Year/Exp",
+      "Branch",
+      "Skills",
+      "GitHub",
+      "LinkedIn",
+      "Team Type",
+      "Team Members Count",
+      "Status",
+      "Consent",
+      "Registered At",
     ];
-    const rows = filtered.map((r) => [
-      r.full_name, r.email, r.contact_no, r.city, r.organisation_name,
-      r.year_or_experience, r.branch_or_department, (r.skills ?? []).join("; "),
-      r.github_url ?? "", r.linkedin_url ?? "", r.team_type,
-      r.team_members?.length ?? 0, r.status ?? "pending",
+    const rows = (allData ?? []).map((r: Registration) => [
+      r.full_name,
+      r.email,
+      r.contact_no,
+      r.city,
+      r.organisation_name,
+      r.year_or_experience,
+      r.branch_or_department,
+      (r.skills ?? []).join("; "),
+      r.github_url ?? "",
+      r.linkedin_url ?? "",
+      r.team_type,
+      r.team_members?.length ?? 0,
+      r.status ?? "pending",
       r.consent ? "Yes" : "No",
       r.created_at ? new Date(r.created_at).toLocaleString("en-IN") : "",
     ]);
-    const csv = [headers, ...rows].map((row) => row.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const csv = [headers, ...rows]
+      .map((row) =>
+        row.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(","),
+      )
+      .join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -387,7 +469,10 @@ const RegistrationsSection = () => {
 
   const toggleSort = (field: typeof sortField) => {
     if (sortField === field) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
-    else { setSortField(field); setSortDir("asc"); }
+    else {
+      setSortField(field);
+      setSortDir("asc");
+    }
   };
 
   return (
@@ -402,19 +487,19 @@ const RegistrationsSection = () => {
             REGISTRATIONS
           </h2>
           <p className="text-sm text-muted-foreground mt-1">
-            {registrations.length} total · {filtered.length} shown
+            {totalCount} total · {filtered.length} shown
           </p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <button
-            onClick={load}
+            onClick={() => load(currentPage)}
             className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider border-2 border-border px-3 py-2 hover:border-foreground transition-colors"
           >
             <RefreshCw size={13} /> Refresh
           </button>
           <button
             onClick={exportCSV}
-            disabled={filtered.length === 0}
+            disabled={totalCount === 0}
             className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider border-2 border-editorial-pink bg-editorial-pink/10 px-3 py-2 hover:bg-editorial-pink/20 transition-colors disabled:opacity-40"
           >
             <Download size={13} /> Export CSV
@@ -425,7 +510,10 @@ const RegistrationsSection = () => {
       {/* Filters */}
       <div className="flex flex-wrap gap-3 items-center">
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <Search
+            size={14}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+          />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -480,7 +568,11 @@ const RegistrationsSection = () => {
           </p>
           {(search || statusFilter !== "all" || teamFilter !== "all") && (
             <button
-              onClick={() => { setSearch(""); setStatusFilter("all"); setTeamFilter("all"); }}
+              onClick={() => {
+                setSearch("");
+                setStatusFilter("all");
+                setTeamFilter("all");
+              }}
               className="mt-4 text-xs font-bold uppercase tracking-wider text-editorial-pink hover:underline"
             >
               CLEAR FILTERS
@@ -499,7 +591,11 @@ const RegistrationsSection = () => {
                   <span className="flex items-center gap-1">
                     Name
                     {sortField === "full_name" ? (
-                      sortDir === "asc" ? <ChevronUp size={12} /> : <ChevronDown size={12} />
+                      sortDir === "asc" ? (
+                        <ChevronUp size={12} />
+                      ) : (
+                        <ChevronDown size={12} />
+                      )
                     ) : null}
                   </span>
                 </th>
@@ -522,7 +618,11 @@ const RegistrationsSection = () => {
                   <span className="flex items-center gap-1">
                     Date
                     {sortField === "created_at" ? (
-                      sortDir === "asc" ? <ChevronUp size={12} /> : <ChevronDown size={12} />
+                      sortDir === "asc" ? (
+                        <ChevronUp size={12} />
+                      ) : (
+                        <ChevronDown size={12} />
+                      )
                     ) : null}
                   </span>
                 </th>
@@ -584,15 +684,64 @@ const RegistrationsSection = () => {
         </div>
       )}
 
+      {/* Pagination */}
+      {totalCount > PAGE_SIZE && (
+        <div className="flex items-center justify-between pt-2">
+          <p className="text-xs text-muted-foreground">
+            Showing {currentPage * PAGE_SIZE + 1}–
+            {Math.min((currentPage + 1) * PAGE_SIZE, totalCount)} of{" "}
+            {totalCount}
+          </p>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => load(currentPage - 1)}
+              disabled={currentPage === 0 || loading}
+              className="text-xs font-bold uppercase tracking-wider border-2 border-border px-3 py-1.5 hover:border-foreground transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              ← PREV
+            </button>
+            <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              PAGE {currentPage + 1} / {Math.ceil(totalCount / PAGE_SIZE)}
+            </span>
+            <button
+              onClick={() => load(currentPage + 1)}
+              disabled={(currentPage + 1) * PAGE_SIZE >= totalCount || loading}
+              className="text-xs font-bold uppercase tracking-wider border-2 border-border px-3 py-1.5 hover:border-foreground transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              NEXT →
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Quick status legend */}
       <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
         {[
-          { icon: <Clock size={12} />, label: "Pending", color: "text-yellow-400" },
-          { icon: <Star size={12} />, label: "Shortlisted", color: "text-editorial-pink" },
-          { icon: <Check size={12} />, label: "Confirmed", color: "text-green-400" },
-          { icon: <XCircle size={12} />, label: "Rejected", color: "text-red-400" },
+          {
+            icon: <Clock size={12} />,
+            label: "Pending",
+            color: "text-yellow-400",
+          },
+          {
+            icon: <Star size={12} />,
+            label: "Shortlisted",
+            color: "text-editorial-pink",
+          },
+          {
+            icon: <Check size={12} />,
+            label: "Confirmed",
+            color: "text-green-400",
+          },
+          {
+            icon: <XCircle size={12} />,
+            label: "Rejected",
+            color: "text-red-400",
+          },
         ].map((item) => (
-          <span key={item.label} className={`flex items-center gap-1 ${item.color}`}>
+          <span
+            key={item.label}
+            className={`flex items-center gap-1 ${item.color}`}
+          >
             {item.icon} {item.label}
           </span>
         ))}

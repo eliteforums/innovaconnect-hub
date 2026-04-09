@@ -1,128 +1,186 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- Primary SEO Meta Tags -->
-    <title>InnovaHack — India's Largest Hiring & Startup Hackathon | By Elite Forums</title>
-    <meta name="title" content="InnovaHack — India's Largest Hiring & Startup Hackathon | By Elite Forums" />
-    <meta name="description" content="Hack. Get Hired. Get Funded. InnovaHack is a 30-hour elite hackathon by Elite Forums where the top 1% of India's builders meet hiring companies, investors, and incubators. 5 tracks: Gen AI, FinTech, HealthTech, Blockchain, Startup." />
-    <meta name="keywords" content="InnovaHack, hackathon, India hackathon, hiring hackathon, startup hackathon, Elite Forums, generative AI, fintech, healthtech, blockchain, coding competition, tech event India, hack get hired get funded, national hackathon, developer event, innovation challenge" />
-    <meta name="author" content="Elite Forums" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="googlebot" content="index, follow" />
-    <meta name="bingbot" content="index, follow" />
-    <meta name="language" content="English" />
-    <meta name="revisit-after" content="3 days" />
-    <meta name="rating" content="general" />
-    <meta name="distribution" content="global" />
-    <link rel="canonical" href="https://innovahack.eliteforums.in/" />
+        <!-- DNS prefetch + preconnect for Supabase (eliminates 100-300ms cold-start latency) -->
+        <link
+            rel="preconnect"
+            href="https://zmatxpelvspcmulxjcdw.supabase.co"
+            crossorigin
+        />
+        <link
+            rel="dns-prefetch"
+            href="https://zmatxpelvspcmulxjcdw.supabase.co"
+        />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://innovahack.eliteforums.in/" />
-    <meta property="og:title" content="InnovaHack — India's Largest Hiring & Startup Hackathon" />
-    <meta property="og:description" content="Hack. Get Hired. Get Funded. A 30-hour elite hackathon by Elite Forums. 10,000+ applicants, top 1% selected. 5 tracks: Gen AI, FinTech, HealthTech, Blockchain, Startup." />
-    <meta property="og:image" content="https://innovahack.eliteforums.in/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="InnovaHack - India's Largest Hiring & Startup Hackathon by Elite Forums" />
-    <meta property="og:site_name" content="InnovaHack" />
-    <meta property="og:locale" content="en_IN" />
+        <!-- Preconnect for Supabase storage CDN -->
+        <link
+            rel="preconnect"
+            href="https://zmatxpelvspcmulxjcdw.supabase.in"
+            crossorigin
+        />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://innovahack.eliteforums.in/" />
-    <meta name="twitter:title" content="InnovaHack — India's Largest Hiring & Startup Hackathon" />
-    <meta name="twitter:description" content="Hack. Get Hired. Get Funded. A 30-hour elite hackathon by Elite Forums. Top 1% builders. 5 tracks. Hiring + Funding opportunities." />
-    <meta name="twitter:image" content="https://innovahack.eliteforums.in/og-image.png" />
-    <meta name="twitter:site" content="@EliteForums" />
-    <meta name="twitter:creator" content="@EliteForums" />
+        <!-- Performance hints -->
+        <meta http-equiv="x-dns-prefetch-control" content="on" />
+        <meta name="theme-color" content="#000000" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+        <!-- Primary SEO Meta Tags -->
+        <title>
+            InnovaHack — India's Largest Hiring & Startup Hackathon | By Elite
+            Forums
+        </title>
+        <meta
+            name="title"
+            content="InnovaHack — India's Largest Hiring & Startup Hackathon | By Elite Forums"
+        />
+        <meta
+            name="description"
+            content="Hack. Get Hired. Get Funded. InnovaHack is a 30-hour elite hackathon by Elite Forums where the top 1% of India's builders meet hiring companies, investors, and incubators. 5 tracks: Gen AI, FinTech, HealthTech, Blockchain, Startup."
+        />
+        <meta
+            name="keywords"
+            content="InnovaHack, hackathon, India hackathon, hiring hackathon, startup hackathon, Elite Forums, generative AI, fintech, healthtech, blockchain, coding competition, tech event India, hack get hired get funded, national hackathon, developer event, innovation challenge"
+        />
+        <meta name="author" content="Elite Forums" />
+        <meta
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="bingbot" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="3 days" />
+        <meta name="rating" content="general" />
+        <meta name="distribution" content="global" />
+        <link rel="canonical" href="https://innovahack.eliteforums.in/" />
 
-    <!-- Sitemap -->
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://innovahack.eliteforums.in/" />
+        <meta
+            property="og:title"
+            content="InnovaHack — India's Largest Hiring & Startup Hackathon"
+        />
+        <meta
+            property="og:description"
+            content="Hack. Get Hired. Get Funded. A 30-hour elite hackathon by Elite Forums. 10,000+ applicants, top 1% selected. 5 tracks: Gen AI, FinTech, HealthTech, Blockchain, Startup."
+        />
+        <meta
+            property="og:image"
+            content="https://innovahack.eliteforums.in/og-image.png"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta
+            property="og:image:alt"
+            content="InnovaHack - India's Largest Hiring & Startup Hackathon by Elite Forums"
+        />
+        <meta property="og:site_name" content="InnovaHack" />
+        <meta property="og:locale" content="en_IN" />
 
-    <!-- Structured Data / JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Event",
-      "name": "InnovaHack — India's Largest Hiring & Startup Hackathon",
-      "description": "A 30-hour elite hackathon where the top 1% of India's builders meet hiring companies, investors, and incubators. 5 tracks: Generative AI, FinTech, HealthTech, Blockchain, and Startup.",
-      "startDate": "2025-09-01",
-      "endDate": "2025-09-02",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "location": {
-        "@type": "Place",
-        "name": "To Be Announced",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "IN"
-        }
-      },
-      "organizer": {
-        "@type": "Organization",
-        "name": "Elite Forums",
-        "url": "https://eliteforums.in"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "100",
-        "priceCurrency": "INR",
-        "url": "https://innovahack.eliteforums.in/register",
-        "availability": "https://schema.org/InStock",
-        "validFrom": "2025-01-01"
-      },
-      "image": "https://innovahack.eliteforums.in/og-image.png",
-      "url": "https://innovahack.eliteforums.in/"
-    }
-    </script>
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://innovahack.eliteforums.in/" />
+        <meta
+            name="twitter:title"
+            content="InnovaHack — India's Largest Hiring & Startup Hackathon"
+        />
+        <meta
+            name="twitter:description"
+            content="Hack. Get Hired. Get Funded. A 30-hour elite hackathon by Elite Forums. Top 1% builders. 5 tracks. Hiring + Funding opportunities."
+        />
+        <meta
+            name="twitter:image"
+            content="https://innovahack.eliteforums.in/og-image.png"
+        />
+        <meta name="twitter:site" content="@EliteForums" />
+        <meta name="twitter:creator" content="@EliteForums" />
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Elite Forums",
-      "url": "https://eliteforums.in",
-      "logo": "https://innovahack.eliteforums.in/favicon.svg",
-      "sameAs": [
-        "https://twitter.com/EliteForums",
-        "https://linkedin.com/company/eliteforums",
-        "https://instagram.com/eliteforums"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "partnerships@eliteforums.in",
-        "contactType": "partnerships"
-      }
-    }
-    </script>
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "InnovaHack",
-      "url": "https://innovahack.eliteforums.in/",
-      "description": "India's Largest Hiring & Startup Hackathon by Elite Forums",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Elite Forums"
-      }
-    }
-    </script>
-  </head>
+        <!-- Sitemap -->
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+        <!-- Structured Data / JSON-LD -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Event",
+                "name": "InnovaHack — India's Largest Hiring & Startup Hackathon",
+                "description": "A 30-hour elite hackathon where the top 1% of India's builders meet hiring companies, investors, and incubators. 5 tracks: Generative AI, FinTech, HealthTech, Blockchain, and Startup.",
+                "startDate": "2025-09-01",
+                "endDate": "2025-09-02",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "location": {
+                    "@type": "Place",
+                    "name": "To Be Announced",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressCountry": "IN"
+                    }
+                },
+                "organizer": {
+                    "@type": "Organization",
+                    "name": "Elite Forums",
+                    "url": "https://eliteforums.in"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "price": "100",
+                    "priceCurrency": "INR",
+                    "url": "https://innovahack.eliteforums.in/register",
+                    "availability": "https://schema.org/InStock",
+                    "validFrom": "2025-01-01"
+                },
+                "image": "https://innovahack.eliteforums.in/og-image.png",
+                "url": "https://innovahack.eliteforums.in/"
+            }
+        </script>
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Elite Forums",
+                "url": "https://eliteforums.in",
+                "logo": "https://innovahack.eliteforums.in/favicon.svg",
+                "sameAs": [
+                    "https://twitter.com/EliteForums",
+                    "https://linkedin.com/company/eliteforums",
+                    "https://instagram.com/eliteforums"
+                ],
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "email": "partnerships@eliteforums.in",
+                    "contactType": "partnerships"
+                }
+            }
+        </script>
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "InnovaHack",
+                "url": "https://innovahack.eliteforums.in/",
+                "description": "India's Largest Hiring & Startup Hackathon by Elite Forums",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Elite Forums"
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.tsx"></script>
+    </body>
 </html>

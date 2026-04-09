@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/landing/HeroSection";
 import DomainsSection from "@/components/landing/DomainsSection";
@@ -9,7 +10,7 @@ import FAQSection from "@/components/landing/FAQSection";
 import CTASection from "@/components/landing/CTASection";
 import Footer from "@/components/Footer";
 
-const Index = () => {
+const Index = memo(() => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -24,6 +25,7 @@ const Index = () => {
       <Footer />
     </div>
   );
-};
+});
+Index.displayName = "Index";
 
 export default Index;

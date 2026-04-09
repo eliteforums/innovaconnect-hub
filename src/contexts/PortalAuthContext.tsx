@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { supabase } from "@/lib/supabase";
 import type { User, Session } from "@supabase/supabase-js";
 import { resolveUserRole } from "@/lib/portalAuth";
@@ -33,7 +40,7 @@ export const PortalAuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const loadProfile = async (authUser: User) => {
+  const loadProfile = useCallback(async (authUser: User) => {
     const { role, profileData } = await resolveUserRole(authUser.email ?? "");
     setUser({
       id: authUser.id,
@@ -41,23 +48,14 @@ export const PortalAuthProvider: React.FC<{ children: React.ReactNode }> = ({
       role,
       profileData,
     });
-  };
+  }, []);
 
   useEffect(() => {
-    // Get initial session on mount
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      if (data.session?.user) {
-        loadProfile(data.session.user).finally(() => setLoading(false));
-      } else {
-        setLoading(false);
-      }
-    });
-
-    // Listen for auth state changes (sign in, sign out, password recovery, etc.)
+    // onAuthStateChange fires INITIAL_SESSION on mount with the current session
+    // so we don't need a separate getSession() call — that causes double loadProfile
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, sess) => {
+    } = supabase.auth.onAuthStateChange(async (event, sess) => {
       setSession(sess);
       if (sess?.user) {
         await loadProfile(sess.user);
@@ -70,35 +68,48 @@ export const PortalAuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return () => subscription.unsubscribe();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const signIn = async (
-    email: string,
-    password: string,
-  ): Promise<{ error: string | null }> => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email.trim().toLowerCase(),
-      password,
-    });
-    if (error) return { error: error.message };
-    if (data.session?.user) {
-      await loadProfile(data.session.user);
-    }
-    return { error: null };
-  };
+  const signIn = useCallback(
+    async (
+      email: string,
+      password: string,
+    ): Promise<{ error: string | null }> => {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.trim().toLowerCase(),
+        password,
+      });
+      if (error) return { error: error.message };
+      if (data.session?.user) {
+        await loadProfile(data.session.user);
+      }
+      return { error: null };
+    },
+    [loadProfile],
+  );
 
-  const signOut = async () => {
+  const signOut = useCallback(async () => {
     await supabase.auth.signOut();
     setUser(null);
     setSession(null);
-  };
+  }, []);
 
-  const refreshProfile = async () => {
+  const refreshProfile = useCallback(async () => {
     if (session?.user) await loadProfile(session.user);
-  };
+  }, [session, loadProfile]);
+
+  const contextValue = useMemo(
+    () => ({
+      user,
+      session,
+      loading,
+      signIn,
+      signOut,
+      refreshProfile,
+    }),
+    [user, session, loading, signIn, signOut, refreshProfile],
+  );
 
   return (
-    <PortalAuthContext.Provider
-      value={{ user, session, loading, signIn, signOut, refreshProfile }}
-    >
+    <PortalAuthContext.Provider value={contextValue}>
       {children}
     </PortalAuthContext.Provider>
   );

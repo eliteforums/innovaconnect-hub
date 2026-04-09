@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo, useCallback } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import {
   submitRegistration,
   uploadResume,
   validateRefCode,
+  checkRateLimit,
 } from "@/lib/supabase";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -77,189 +78,195 @@ const emptyMember = (): MemberDetails => ({
 
 // ─── Skill Selector ───────────────────────────────────────────────────────────
 
-const SkillSelector = ({
-  selected,
-  onChange,
-  skills,
-}: {
-  selected: string[];
-  onChange: (skills: string[]) => void;
-  skills: string[];
-}) => {
-  const toggle = (skill: string) => {
-    onChange(
-      selected.includes(skill)
-        ? selected.filter((s) => s !== skill)
-        : [...selected, skill],
-    );
-  };
+const SkillSelector = memo(
+  ({
+    selected,
+    onChange,
+    skills,
+  }: {
+    selected: string[];
+    onChange: (skills: string[]) => void;
+    skills: string[];
+  }) => {
+    const toggle = (skill: string) => {
+      onChange(
+        selected.includes(skill)
+          ? selected.filter((s) => s !== skill)
+          : [...selected, skill],
+      );
+    };
 
-  return (
-    <div className="flex flex-wrap gap-2">
-      {skills.map((skill) => (
-        <button
-          key={skill}
-          type="button"
-          onClick={() => toggle(skill)}
-          className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider border-2 transition-all ${
-            selected.includes(skill)
-              ? "border-editorial-pink bg-editorial-pink/20 text-foreground"
-              : "border-border text-muted-foreground hover:border-foreground"
-          }`}
-        >
-          {skill}
-        </button>
-      ))}
-    </div>
-  );
-};
+    return (
+      <div className="flex flex-wrap gap-2">
+        {skills.map((skill) => (
+          <button
+            key={skill}
+            type="button"
+            onClick={() => toggle(skill)}
+            className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider border-2 transition-all ${
+              selected.includes(skill)
+                ? "border-editorial-pink bg-editorial-pink/20 text-foreground"
+                : "border-border text-muted-foreground hover:border-foreground"
+            }`}
+          >
+            {skill}
+          </button>
+        ))}
+      </div>
+    );
+  },
+);
+SkillSelector.displayName = "SkillSelector";
 
 // ─── Member Detail Form ───────────────────────────────────────────────────────
 
-const MemberForm = ({
-  index,
-  member,
-  onChange,
-  skills,
-}: {
-  index: number;
-  member: MemberDetails;
-  onChange: (updated: MemberDetails) => void;
-  skills: string[];
-}) => {
-  const upd = (field: keyof MemberDetails, value: string | string[]) =>
-    onChange({ ...member, [field]: value });
+const MemberForm = memo(
+  ({
+    index,
+    member,
+    onChange,
+    skills,
+  }: {
+    index: number;
+    member: MemberDetails;
+    onChange: (updated: MemberDetails) => void;
+    skills: string[];
+  }) => {
+    const upd = (field: keyof MemberDetails, value: string | string[]) =>
+      onChange({ ...member, [field]: value });
 
-  return (
-    <div className="border-2 border-border p-6 space-y-4">
-      <div className="flex items-center gap-3 mb-2">
-        <div className="w-8 h-8 bg-editorial-pink flex items-center justify-center">
-          <User size={14} className="text-background" />
+    return (
+      <div className="border-2 border-border p-6 space-y-4">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-8 h-8 bg-editorial-pink flex items-center justify-center">
+            <User size={14} className="text-background" />
+          </div>
+          <h4 className="text-sm font-black uppercase tracking-widest">
+            MEMBER {index + 2} DETAILS
+          </h4>
         </div>
-        <h4 className="text-sm font-black uppercase tracking-widest">
-          MEMBER {index + 2} DETAILS
-        </h4>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <Label className="text-xs font-bold uppercase tracking-widest">
-            Full Name *
-          </Label>
-          <Input
-            value={member.full_name}
-            onChange={(e) => upd("full_name", e.target.value)}
-            placeholder="Full name"
-            className="mt-1 bg-secondary border-border"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <Label className="text-xs font-bold uppercase tracking-widest">
+              Full Name *
+            </Label>
+            <Input
+              value={member.full_name}
+              onChange={(e) => upd("full_name", e.target.value)}
+              placeholder="Full name"
+              className="mt-1 bg-secondary border-border"
+            />
+          </div>
+          <div>
+            <Label className="text-xs font-bold uppercase tracking-widest">
+              Email ID *
+            </Label>
+            <Input
+              type="email"
+              value={member.email}
+              onChange={(e) => upd("email", e.target.value)}
+              placeholder="member@email.com"
+              className="mt-1 bg-secondary border-border"
+            />
+          </div>
+          <div>
+            <Label className="text-xs font-bold uppercase tracking-widest">
+              Contact No *
+            </Label>
+            <Input
+              value={member.contact_no}
+              onChange={(e) => upd("contact_no", e.target.value)}
+              placeholder="+91 XXXXXXXXXX"
+              className="mt-1 bg-secondary border-border"
+            />
+          </div>
+          <div>
+            <Label className="text-xs font-bold uppercase tracking-widest">
+              City of Living *
+            </Label>
+            <Input
+              value={member.city}
+              onChange={(e) => upd("city", e.target.value)}
+              placeholder="e.g. Mumbai"
+              className="mt-1 bg-secondary border-border"
+            />
+          </div>
+          <div>
+            <Label className="text-xs font-bold uppercase tracking-widest">
+              Organisation Name *
+            </Label>
+            <Input
+              value={member.organisation_name}
+              onChange={(e) => upd("organisation_name", e.target.value)}
+              placeholder="College or company"
+              className="mt-1 bg-secondary border-border"
+            />
+          </div>
+          <div>
+            <Label className="text-xs font-bold uppercase tracking-widest">
+              Year / Experience *
+            </Label>
+            <Input
+              value={member.year_or_experience}
+              onChange={(e) => upd("year_or_experience", e.target.value)}
+              placeholder="e.g. 3rd Year or 2 years exp"
+              className="mt-1 bg-secondary border-border"
+            />
+          </div>
+          <div className="md:col-span-2">
+            <Label className="text-xs font-bold uppercase tracking-widest">
+              Branch / Department *
+            </Label>
+            <Input
+              value={member.branch_or_department}
+              onChange={(e) => upd("branch_or_department", e.target.value)}
+              placeholder="e.g. Computer Science"
+              className="mt-1 bg-secondary border-border"
+            />
+          </div>
         </div>
-        <div>
-          <Label className="text-xs font-bold uppercase tracking-widest">
-            Email ID *
-          </Label>
-          <Input
-            type="email"
-            value={member.email}
-            onChange={(e) => upd("email", e.target.value)}
-            placeholder="member@email.com"
-            className="mt-1 bg-secondary border-border"
-          />
-        </div>
-        <div>
-          <Label className="text-xs font-bold uppercase tracking-widest">
-            Contact No *
-          </Label>
-          <Input
-            value={member.contact_no}
-            onChange={(e) => upd("contact_no", e.target.value)}
-            placeholder="+91 XXXXXXXXXX"
-            className="mt-1 bg-secondary border-border"
-          />
-        </div>
-        <div>
-          <Label className="text-xs font-bold uppercase tracking-widest">
-            City of Living *
-          </Label>
-          <Input
-            value={member.city}
-            onChange={(e) => upd("city", e.target.value)}
-            placeholder="e.g. Mumbai"
-            className="mt-1 bg-secondary border-border"
-          />
-        </div>
-        <div>
-          <Label className="text-xs font-bold uppercase tracking-widest">
-            Organisation Name *
-          </Label>
-          <Input
-            value={member.organisation_name}
-            onChange={(e) => upd("organisation_name", e.target.value)}
-            placeholder="College or company"
-            className="mt-1 bg-secondary border-border"
-          />
-        </div>
-        <div>
-          <Label className="text-xs font-bold uppercase tracking-widest">
-            Year / Experience *
-          </Label>
-          <Input
-            value={member.year_or_experience}
-            onChange={(e) => upd("year_or_experience", e.target.value)}
-            placeholder="e.g. 3rd Year or 2 years exp"
-            className="mt-1 bg-secondary border-border"
-          />
-        </div>
-        <div className="md:col-span-2">
-          <Label className="text-xs font-bold uppercase tracking-widest">
-            Branch / Department *
-          </Label>
-          <Input
-            value={member.branch_or_department}
-            onChange={(e) => upd("branch_or_department", e.target.value)}
-            placeholder="e.g. Computer Science"
-            className="mt-1 bg-secondary border-border"
-          />
-        </div>
-      </div>
 
-      <div>
-        <Label className="text-xs font-bold uppercase tracking-widest mb-3 block">
-          Skills
-        </Label>
-        <SkillSelector
-          selected={member.skills}
-          onChange={(s) => upd("skills", s)}
-          skills={skills}
-        />
-      </div>
+        <div>
+          <Label className="text-xs font-bold uppercase tracking-widest mb-3 block">
+            Skills
+          </Label>
+          <SkillSelector
+            selected={member.skills}
+            onChange={(s) => upd("skills", s)}
+            skills={skills}
+          />
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <Label className="text-xs font-bold uppercase tracking-widest">
-            GitHub URL
-          </Label>
-          <Input
-            value={member.github_url}
-            onChange={(e) => upd("github_url", e.target.value)}
-            placeholder="https://github.com/..."
-            className="mt-1 bg-secondary border-border"
-          />
-        </div>
-        <div>
-          <Label className="text-xs font-bold uppercase tracking-widest">
-            LinkedIn URL
-          </Label>
-          <Input
-            value={member.linkedin_url}
-            onChange={(e) => upd("linkedin_url", e.target.value)}
-            placeholder="https://linkedin.com/in/..."
-            className="mt-1 bg-secondary border-border"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <Label className="text-xs font-bold uppercase tracking-widest">
+              GitHub URL
+            </Label>
+            <Input
+              value={member.github_url}
+              onChange={(e) => upd("github_url", e.target.value)}
+              placeholder="https://github.com/..."
+              className="mt-1 bg-secondary border-border"
+            />
+          </div>
+          <div>
+            <Label className="text-xs font-bold uppercase tracking-widest">
+              LinkedIn URL
+            </Label>
+            <Input
+              value={member.linkedin_url}
+              onChange={(e) => upd("linkedin_url", e.target.value)}
+              placeholder="https://linkedin.com/in/..."
+              className="mt-1 bg-secondary border-border"
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
+MemberForm.displayName = "MemberForm";
 
 // ─── Main Register Component ──────────────────────────────────────────────────
 
@@ -309,6 +316,11 @@ const Register = () => {
   const update = <K extends keyof FormData>(field: K, value: FormData[K]) =>
     setForm((prev) => ({ ...prev, [field]: value }));
 
+  const handleSkillsChange = useCallback(
+    (s: string[]) => update("skills", s),
+    [],
+  );
+
   const handleTeamTypeChange = (type: TeamType) => {
     const count = TEAM_SIZE[type] - 1; // extra members beyond leader
     const current = form.team_members;
@@ -338,6 +350,11 @@ const Register = () => {
   const prev = () => step > 0 && setStep(step - 1);
 
   const handleSubmit = async () => {
+    // Rate limit: prevent resubmission within 30 seconds
+    if (!checkRateLimit(`register:${form.email}`, 30_000)) {
+      setSubmitError("Please wait before submitting again.");
+      return;
+    }
     setIsSubmitting(true);
     setSubmitError(null);
     try {
@@ -674,7 +691,7 @@ const Register = () => {
                   </Label>
                   <SkillSelector
                     selected={form.skills}
-                    onChange={(s) => update("skills", s)}
+                    onChange={handleSkillsChange}
                     skills={SKILLS}
                   />
                 </div>

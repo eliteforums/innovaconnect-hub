@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { fetchAllSiteContent } from "@/lib/supabase";
 
 // ─────────────────────────────────────────────
@@ -21,7 +28,11 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     key_facts: [
       { number: "10,000+", label: "APPLICANTS" },
       { number: "TOP 1%", label: "SELECTED" },
-      { number: "₹3 LAKHS+", label: "PRIZE POOL — CASH, GOODIES & MORE", highlight: true },
+      {
+        number: "₹3 LAKHS+",
+        label: "PRIZE POOL — CASH, GOODIES & MORE",
+        highlight: true,
+      },
       { number: "30 HRS", label: "OF HACKING" },
       { number: "₹100", label: "REGISTRATION FEE" },
       { number: "MUMBAI", label: "LOCATION" },
@@ -106,7 +117,12 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
   outcomes: {
     prize_pool_amount: "₹3 LAKHS+",
     prize_pool_sub: "Including Cash Prizes, Goodies, Swag Kits & More",
-    prize_tags: ["💰 Cash Prizes", "🎁 Goodies", "👕 Swag Kits", "🏅 Certificates"],
+    prize_tags: [
+      "💰 Cash Prizes",
+      "🎁 Goodies",
+      "👕 Swag Kits",
+      "🏅 Certificates",
+    ],
     outcomes: [
       {
         title: "₹3 LAKHS PRIZE POOL",
@@ -176,12 +192,36 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     roi_total: "₹90,000+",
     roi_multiplier: "900x ROI",
     roi_benefits: [
-      { benefit: "Certificate of Participation", value: "Priceless", icon: "🎓" },
-      { benefit: "Workshops & Mentorship Sessions", value: "₹5,000+", icon: "🧑‍🏫" },
-      { benefit: "Hiring Exposure & Fast-Track Interviews", value: "₹10,000+", icon: "💼" },
-      { benefit: "Investor Introductions & Pitch Access", value: "₹25,000+", icon: "🚀" },
-      { benefit: "Startup Incubation Opportunities", value: "₹50,000+", icon: "🏢" },
-      { benefit: "National Recognition & Media Features", value: "Priceless", icon: "🏆" },
+      {
+        benefit: "Certificate of Participation",
+        value: "Priceless",
+        icon: "🎓",
+      },
+      {
+        benefit: "Workshops & Mentorship Sessions",
+        value: "₹5,000+",
+        icon: "🧑‍🏫",
+      },
+      {
+        benefit: "Hiring Exposure & Fast-Track Interviews",
+        value: "₹10,000+",
+        icon: "💼",
+      },
+      {
+        benefit: "Investor Introductions & Pitch Access",
+        value: "₹25,000+",
+        icon: "🚀",
+      },
+      {
+        benefit: "Startup Incubation Opportunities",
+        value: "₹50,000+",
+        icon: "🏢",
+      },
+      {
+        benefit: "National Recognition & Media Features",
+        value: "Priceless",
+        icon: "🏆",
+      },
     ],
   },
   cta: {
@@ -287,16 +327,21 @@ type ContentContextValue = {
 
 const ContentContext = createContext<ContentContextValue | null>(null);
 
-export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [content, setContent] = useState<ContentMap>(DEFAULT_CONTENT);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const loadContent = async () => {
+  const loadContent = useCallback(async () => {
     setIsLoading(true);
     try {
       const { data, error } = await fetchAllSiteContent();
       if (error || !data) {
-        console.warn("[ContentContext] Failed to load site content from Supabase, using defaults.", error?.message);
+        console.warn(
+          "[ContentContext] Failed to load site content from Supabase, using defaults.",
+          error?.message,
+        );
         setIsLoading(false);
         return;
       }
@@ -312,24 +357,39 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []); // no deps — function is stable
 
   useEffect(() => {
     loadContent();
-  }, []);
+  }, [loadContent]);
 
-  const getSection = <T = Record<string, unknown>>(section: string): T => {
-    return (content[section] ?? DEFAULT_CONTENT[section] ?? {}) as T;
-  };
+  const getSection = useCallback(
+    <T = Record<string, unknown>,>(section: string): T => {
+      return (content[section] ?? DEFAULT_CONTENT[section] ?? {}) as T;
+    },
+    [content],
+  );
 
-  const updateSection = (section: string, data: Record<string, unknown>) => {
-    setContent((prev) => ({ ...prev, [section]: data }));
-  };
+  const updateSection = useCallback(
+    (section: string, data: Record<string, unknown>) => {
+      setContent((prev) => ({ ...prev, [section]: data }));
+    },
+    [],
+  );
+
+  const contextValue = useMemo(
+    () => ({
+      content,
+      isLoading,
+      getSection,
+      refreshContent: loadContent,
+      updateSection,
+    }),
+    [content, isLoading, getSection, loadContent, updateSection],
+  );
 
   return (
-    <ContentContext.Provider
-      value={{ content, isLoading, getSection, refreshContent: loadContent, updateSection }}
-    >
+    <ContentContext.Provider value={contextValue}>
       {children}
     </ContentContext.Provider>
   );

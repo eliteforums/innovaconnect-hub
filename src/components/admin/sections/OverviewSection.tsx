@@ -1,7 +1,16 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Users, Mail, Clock, CheckCircle, XCircle, Star, TrendingUp, UserCheck } from "lucide-react";
-import { fetchRegistrations, fetchContactInquiries } from "@/lib/supabase";
+import {
+  Users,
+  Mail,
+  Clock,
+  CheckCircle,
+  XCircle,
+  Star,
+  TrendingUp,
+  UserCheck,
+} from "lucide-react";
+import { supabase } from "@/lib/supabase";
 import type { Registration, ContactInquiry } from "@/lib/supabase";
 
 type Stats = {
@@ -51,41 +60,99 @@ const StatCard = ({
 const OverviewSection = () => {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [recentRegistrations, setRecentRegistrations] = useState<Registration[]>([]);
+  const [recentRegistrations, setRecentRegistrations] = useState<
+    Registration[]
+  >([]);
 
   useEffect(() => {
     const load = async () => {
       setLoading(true);
-      const [{ data: regs }, { data: inqs }] = await Promise.all([
-        fetchRegistrations(),
-        fetchContactInquiries(),
-      ]);
+      try {
+        // Fetch small paginated slices — we only need counts and recent rows
+        // Use count:exact to get totals without transferring all data
+        const [regsResult, inqsResult] = await Promise.all([
+          supabase
+            .from("registrations")
+            .select("id, full_name, email, team_type, status, created_at", {
+              count: "exact",
+            })
+            .order("created_at", { ascending: false })
+            .limit(8),
+          supabase
+            .from("contact_inquiries")
+            .select("id, status", { count: "exact" })
+            .limit(1),
+        ]);
 
-      const registrations = (regs ?? []) as Registration[];
-      const inquiries = (inqs ?? []) as ContactInquiry[];
+        // Also get status/team breakdown aggregates with separate targeted queries
+        const [statusCounts, teamCounts] = await Promise.all([
+          supabase
+            .from("registrations")
+            .select("status")
+            .then(({ data }) => {
+              const counts = {
+                pending: 0,
+                shortlisted: 0,
+                rejected: 0,
+                confirmed: 0,
+              };
+              (data ?? []).forEach((r: { status: string }) => {
+                const s = r.status as keyof typeof counts;
+                if (s in counts) counts[s]++;
+              });
+              return counts;
+            }),
+          supabase
+            .from("registrations")
+            .select("team_type")
+            .then(({ data }) => {
+              const counts = { solo: 0, duo: 0, trio: 0, quad: 0 };
+              (data ?? []).forEach((r: { team_type: string }) => {
+                const t = r.team_type as keyof typeof counts;
+                if (t in counts) counts[t]++;
+              });
+              return counts;
+            }),
+        ]);
 
-      const today = new Date().toDateString();
+        const totalRegs = regsResult.count ?? 0;
+        const totalInqs = inqsResult.count ?? 0;
+        const today = new Date().toDateString();
+        const recentRegs = (regsResult.data ?? []) as Registration[];
+        const todayCount = recentRegs.filter(
+          (r) =>
+            r.created_at && new Date(r.created_at).toDateString() === today,
+        ).length;
 
-      const s: Stats = {
-        total: registrations.length,
-        pending: registrations.filter((r) => r.status === "pending").length,
-        shortlisted: registrations.filter((r) => r.status === "shortlisted").length,
-        rejected: registrations.filter((r) => r.status === "rejected").length,
-        confirmed: registrations.filter((r) => r.status === "confirmed").length,
-        solo: registrations.filter((r) => r.team_type === "solo").length,
-        duo: registrations.filter((r) => r.team_type === "duo").length,
-        trio: registrations.filter((r) => r.team_type === "trio").length,
-        quad: registrations.filter((r) => r.team_type === "quad").length,
-        todayCount: registrations.filter(
-          (r) => r.created_at && new Date(r.created_at).toDateString() === today
-        ).length,
-        inquiries: inquiries.length,
-        newInquiries: inquiries.filter((i) => i.status === "new").length,
-      };
+        const s: Stats = {
+          total: totalRegs,
+          pending: statusCounts.pending,
+          shortlisted: statusCounts.shortlisted,
+          rejected: statusCounts.rejected,
+          confirmed: statusCounts.confirmed,
+          solo: teamCounts.solo,
+          duo: teamCounts.duo,
+          trio: teamCounts.trio,
+          quad: teamCounts.quad,
+          todayCount,
+          inquiries: totalInqs,
+          newInquiries: 0, // computed below
+        };
 
-      setStats(s);
-      setRecentRegistrations(registrations.slice(0, 8));
-      setLoading(false);
+        // Count new inquiries separately
+        const { count: newInqCount } = await supabase
+          .from("contact_inquiries")
+          .select("id", { count: "exact", head: true })
+          .eq("status", "new");
+        s.newInquiries = newInqCount ?? 0;
+
+        setStats(s);
+        setRecentRegistrations(recentRegs);
+      } catch (err) {
+        console.error("[OverviewSection] Failed to load stats:", err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     load();
@@ -196,7 +263,8 @@ const OverviewSection = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {(["solo", "duo", "trio", "quad"] as const).map((type, i) => {
             const count = stats[type];
-            const pct = stats.total > 0 ? Math.round((count / stats.total) * 100) : 0;
+            const pct =
+              stats.total > 0 ? Math.round((count / stats.total) * 100) : 0;
             return (
               <motion.div
                 key={type}
@@ -230,8 +298,16 @@ const OverviewSection = () => {
         <div className="border-2 border-border">
           {[
             { label: "Pending", count: stats.pending, color: "bg-yellow-500" },
-            { label: "Shortlisted", count: stats.shortlisted, color: "bg-editorial-pink" },
-            { label: "Confirmed", count: stats.confirmed, color: "bg-editorial-green" },
+            {
+              label: "Shortlisted",
+              count: stats.shortlisted,
+              color: "bg-editorial-pink",
+            },
+            {
+              label: "Confirmed",
+              count: stats.confirmed,
+              color: "bg-editorial-green",
+            },
             { label: "Rejected", count: stats.rejected, color: "bg-red-500" },
           ].map((item, i) => {
             const pct = stats.total > 0 ? (item.count / stats.total) * 100 : 0;
@@ -240,7 +316,9 @@ const OverviewSection = () => {
                 key={item.label}
                 className={`flex items-center gap-4 px-5 py-4 ${i > 0 ? "border-t border-border" : ""}`}
               >
-                <div className={`w-2 h-2 rounded-full ${item.color} shrink-0`} />
+                <div
+                  className={`w-2 h-2 rounded-full ${item.color} shrink-0`}
+                />
                 <span className="text-xs font-bold uppercase tracking-widest w-24 shrink-0">
                   {item.label}
                 </span>
@@ -249,7 +327,11 @@ const OverviewSection = () => {
                     className={`h-2 ${item.color} rounded`}
                     initial={{ width: 0 }}
                     animate={{ width: `${pct}%` }}
-                    transition={{ duration: 0.8, delay: 0.5 + i * 0.1, ease: "easeOut" }}
+                    transition={{
+                      duration: 0.8,
+                      delay: 0.5 + i * 0.1,
+                      ease: "easeOut",
+                    }}
                   />
                 </div>
                 <span className="text-sm font-black w-8 text-right shrink-0">
@@ -334,7 +416,8 @@ const OverviewSection = () => {
           </div>
           <p className="text-xs text-muted-foreground mt-2">
             Showing latest 8 registrations. Go to{" "}
-            <span className="font-bold text-foreground">Registrations</span> tab for full list.
+            <span className="font-bold text-foreground">Registrations</span> tab
+            for full list.
           </p>
         </div>
       )}
@@ -346,7 +429,10 @@ const OverviewSection = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <UserCheck size={40} className="text-muted-foreground/30 mx-auto mb-4" />
+          <UserCheck
+            size={40}
+            className="text-muted-foreground/30 mx-auto mb-4"
+          />
           <p className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
             NO REGISTRATIONS YET
           </p>

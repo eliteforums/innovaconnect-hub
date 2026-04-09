@@ -4,10 +4,12 @@ import { createClient } from "@supabase/supabase-js";
 // regardless of which one is set in .env / .env.local
 const supabaseUrl: string = import.meta.env.VITE_SUPABASE_URL || "";
 
+// IMPORTANT: Never use VITE_SUPABASE_SERVICE_ROLE_KEY here.
+// The service role key bypasses ALL Row Level Security and would be
+// exposed in the public JS bundle. Use only the anon/publishable key.
 const supabaseAnonKey: string =
   import.meta.env.VITE_SUPABASE_ANON_KEY ||
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY ||
-  import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY ||
   "";
 
 if (!supabaseUrl) {
@@ -30,6 +32,19 @@ export const supabase = createClient(
   supabaseUrl || "https://placeholder.supabase.co",
   supabaseAnonKey || "placeholder",
 );
+
+// ─── Client-side rate limiting ────────────────────────────────────────────────
+// Tracks the timestamp of the last form submission per key.
+// Prevents duplicate rapid submissions within the cooldown window.
+const _lastSubmit: Record<string, number> = {};
+
+export const checkRateLimit = (key: string, cooldownMs = 30_000): boolean => {
+  const now = Date.now();
+  const last = _lastSubmit[key] ?? 0;
+  if (now - last < cooldownMs) return false; // rate limited
+  _lastSubmit[key] = now;
+  return true; // allowed
+};
 
 // ─────────────────────────────────────────────
 // Types
@@ -199,12 +214,39 @@ export const validateRefCode = async (code: string): Promise<boolean> => {
   return !error && !!data;
 };
 
-export const fetchRegistrations = async () => {
+// Fetch registrations with server-side pagination.
+// page is 0-indexed. pageSize defaults to 50.
+export const fetchRegistrations = async (page = 0, pageSize = 50) => {
+  const from = page * pageSize;
+  const to = from + pageSize - 1;
+  const { data, error, count } = await supabase
+    .from("registrations")
+    .select("*", { count: "exact" })
+    .order("created_at", { ascending: false })
+    .range(from, to);
+  return { data, error, count, page, pageSize };
+};
+
+// Fetch ALL registrations (admin CSV export only — use sparingly)
+export const fetchAllRegistrations = async () => {
   const { data, error } = await supabase
     .from("registrations")
     .select("*")
     .order("created_at", { ascending: false });
   return { data, error };
+};
+
+// Fetch aggregate stats for the admin overview — no full table scan needed
+export const fetchRegistrationStats = async () => {
+  const { data, error } = await supabase.rpc("get_registration_stats");
+  // Falls back to client-side count if RPC doesn't exist
+  if (error) {
+    const { data: regs } = await supabase
+      .from("registrations")
+      .select("status, team_type, created_at");
+    return { data: regs, error: null, isAggregate: false };
+  }
+  return { data, error, isAggregate: true };
 };
 
 export const updateRegistrationStatus = async (
@@ -239,7 +281,18 @@ export const submitContactInquiry = async (inquiry: ContactInquiry) => {
   return { data, error };
 };
 
-export const fetchContactInquiries = async () => {
+export const fetchContactInquiries = async (page = 0, pageSize = 50) => {
+  const from = page * pageSize;
+  const to = from + pageSize - 1;
+  const { data, error, count } = await supabase
+    .from("contact_inquiries")
+    .select("*", { count: "exact" })
+    .order("created_at", { ascending: false })
+    .range(from, to);
+  return { data, error, count, page, pageSize };
+};
+
+export const fetchAllContactInquiries = async () => {
   const { data, error } = await supabase
     .from("contact_inquiries")
     .select("*")
@@ -299,10 +352,11 @@ export const uploadSponsorLogo = async (file: File, sponsorId: string) => {
 // Sponsors helpers
 // ─────────────────────────────────────────────
 
+// Public-facing sponsor fetch — only grab columns needed for display
 export const fetchSponsors = async () => {
   const { data, error } = await supabase
     .from("sponsors")
-    .select("*")
+    .select("id, name, logo_url, website_url, category, track, sort_order")
     .eq("is_active", true)
     .order("sort_order");
   return { data, error };

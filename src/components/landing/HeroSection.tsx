@@ -1,10 +1,11 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useContent } from "@/contexts/ContentContext";
 
 type KeyFact = { number: string; label: string; highlight?: boolean };
 
-const HeroSection = () => {
+const HeroSection = memo(() => {
   const { getSection } = useContent();
   const c = getSection<{
     chapter: string;
@@ -152,20 +153,20 @@ const HeroSection = () => {
       {/* Scrolling ticker */}
       <div className="border-t-2 border-foreground bg-editorial-pink overflow-hidden py-2">
         <div className="animate-marquee whitespace-nowrap flex">
-          {Array(4)
-            .fill(c.ticker_text)
-            .map((text, i) => (
-              <span
-                key={i}
-                className="text-sm font-black tracking-widest uppercase mx-4 text-background"
-              >
-                {text}
-              </span>
-            ))}
+          {/* Only 2 copies needed for seamless CSS marquee loop */}
+          {[0, 1].map((i) => (
+            <span
+              key={i}
+              className="text-sm font-black tracking-widest uppercase mx-4 text-background"
+            >
+              {c.ticker_text}
+            </span>
+          ))}
         </div>
       </div>
     </section>
   );
-};
+});
+HeroSection.displayName = "HeroSection";
 
 export default HeroSection;
