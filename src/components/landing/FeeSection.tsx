@@ -22,8 +22,8 @@ const roiBenefits = [
     icon: "🚀",
   },
   {
-    benefit: "Startup Incubation Opportunities",
-    value: "₹50,000+",
+    benefit: "Startup Incubation & Funding Up to ₹50 Lakhs+",
+    value: "₹5,000+",
     icon: "🏢",
   },
   {
@@ -51,7 +51,7 @@ const FeeSection = () => {
         <div className="border-b lg:border-b-0 lg:border-r border-border p-8 md:p-12 flex flex-col justify-between">
           <div>
             <div className="mb-8">
-              <p className="text-6xl md:text-7xl font-black text-editorial-pink">₹100</p>
+              <p className="text-6xl md:text-7xl font-black text-editorial-pink">₹50</p>
               <p className="text-xs tracking-widest uppercase text-muted-foreground mt-2">
                 ONE-TIME REGISTRATION FEE (NON-REFUNDABLE)
               </p>
@@ -81,6 +81,16 @@ const FeeSection = () => {
               </div>
               <div className="border-t border-border" />
               <div className="flex items-start gap-3">
+                <span className="text-xl">🚀</span>
+                <div>
+                  <h4 className="font-black uppercase text-sm tracking-wider">FUNDING</h4>
+                  <p className="text-sm text-muted-foreground mt-0.5">
+                    Up to <strong className="text-foreground">₹50 Lakhs or More</strong> for Startup Ideas
+                  </p>
+                </div>
+              </div>
+              <div className="border-t border-border" />
+              <div className="flex items-start gap-3">
                 <span className="text-xl">⏱️</span>
                 <div>
                   <h4 className="font-black uppercase text-sm tracking-wider">DURATION</h4>
@@ -96,7 +106,7 @@ const FeeSection = () => {
           <div className="flex items-center gap-2 mb-6">
             <div className="w-8 h-1 bg-editorial-green" />
             <h3 className="font-black uppercase text-sm tracking-wider text-editorial-green">
-              YOUR ROI ON ₹100
+              YOUR ROI ON ₹50
             </h3>
           </div>
 
@@ -133,9 +143,9 @@ const FeeSection = () => {
             <p className="text-xs tracking-widest uppercase text-muted-foreground mb-1">
               TOTAL VALUE YOU RECEIVE
             </p>
-            <p className="text-3xl md:text-4xl font-black text-editorial-green">₹90,000+</p>
+            <p className="text-3xl md:text-4xl font-black text-editorial-green">₹45,000+</p>
             <p className="text-xs tracking-widest uppercase text-muted-foreground mt-1">
-              FOR JUST ₹100 — THAT&apos;S <span className="text-editorial-pink font-black">900x ROI</span>
+              FOR JUST ₹50 — THAT&apos;S <span className="text-editorial-pink font-black">900x ROI</span>
             </p>
           </motion.div>
         </div>
@@ -166,7 +176,7 @@ const FeeSection = () => {
                 EVERY PARTICIPANT GETS REWARDED
               </h3>
               <p className="text-sm text-muted-foreground">
-                Every individual who registers receives guaranteed rewards in exchange for the ₹100
+                Every individual who registers receives guaranteed rewards in exchange for the ₹50
                 participation fee — including a{" "}
                 <strong className="text-foreground">Certificate of Participation</strong> and exclusive{" "}
                 <strong className="text-foreground">access to workshops &amp; mentorship sessions</strong>{" "}
@@ -179,7 +189,7 @@ const FeeSection = () => {
                 FEE POLICY
               </h3>
               <p className="text-sm text-muted-foreground">
-                The ₹100 registration fee is non-refundable. It is a one-time commitment
+                The ₹50 registration fee is non-refundable. It is a one-time commitment
                 to ensure quality participation.
               </p>
             </div>

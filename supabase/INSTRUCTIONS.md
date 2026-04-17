@@ -9,6 +9,19 @@ This project uses [Supabase](https://supabase.com) as the backend for:
 
 ---
 
+## Recent Updates (April 2026)
+
+The following changes have been made to the InnovaHack event:
+- **Registration Fee:** Updated from ₹100 to **₹50**
+- **Team Selection:** Now showcasing **"top 1% teams"** will be shortlisted
+- **Startup Funding:** New key fact added: **₹50 Lakhs+ startup funding** available (highlighted in hero)
+- **Startup Track:** Updated with funding information up to ₹50 lakhs or more
+- **ROI Calculation:** Updated to reflect ₹45,000+ total value (900x ROI on ₹50 fee)
+
+All database seed data has been updated in `schema.sql` with these new values.
+
+---
+
 ## Step 1: Create a Supabase Project
 
 1. Go to [https://supabase.com](https://supabase.com) and sign in (or create a free account).

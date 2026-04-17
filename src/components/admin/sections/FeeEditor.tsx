@@ -86,13 +86,13 @@ const FeeEditor = () => {
         <EditorCard title="FEE DETAILS">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <FieldLabel hint="The large fee amount shown prominently (e.g. ₹100)">
+              <FieldLabel hint="The large fee amount shown prominently (e.g. ₹50)">
                 Fee Amount
               </FieldLabel>
               <TextInput
                 value={data.fee_amount ?? ""}
                 onChange={(v) => setField("fee_amount", v)}
-                placeholder="₹100"
+                placeholder="₹50"
               />
             </div>
             <div>
@@ -233,7 +233,7 @@ const FeeEditor = () => {
         <EditorCard title="NOTES">
           <ul className="text-xs text-muted-foreground space-y-1.5 list-disc list-inside leading-relaxed">
             <li>
-              The <strong className="text-foreground">Fee Amount</strong> (₹100)
+              The <strong className="text-foreground">Fee Amount</strong> (₹50)
               is displayed prominently in the left column in pink.
             </li>
             <li>

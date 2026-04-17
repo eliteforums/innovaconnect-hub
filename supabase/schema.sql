@@ -222,9 +222,10 @@ INSERT INTO site_content (section, content) VALUES (
       {"number": "TOP 1%",  "label": "SELECTED",   "highlight": false},
       {"number": "₹3 LAKHS+", "label": "PRIZE POOL — CASH, GOODIES & MORE", "highlight": true},
       {"number": "30 HRS",  "label": "OF HACKING",       "highlight": false},
-      {"number": "₹100",   "label": "REGISTRATION FEE",  "highlight": false},
+      {"number": "₹50",   "label": "REGISTRATION FEE",  "highlight": false},
       {"number": "MUMBAI", "label": "LOCATION",           "highlight": false},
-      {"number": "R1: ONLINE", "label": "R2: HYBRID",     "highlight": false}
+      {"number": "R1: ONLINE", "label": "R2: HYBRID",     "highlight": false},
+      {"number": "₹50 LAKHS+", "label": "STARTUP FUNDING", "highlight": true}
     ],
     "cta_primary": "REGISTER NOW →",
     "cta_secondary": "PARTNER WITH US"
@@ -266,7 +267,7 @@ INSERT INTO site_content (section, content) VALUES (
       },
       {
         "name": "STARTUP TRACK",
-        "description": "Open innovation. Any idea, any domain. Build something that could become the next big startup. Impress investors and incubators.",
+        "description": "Open innovation. Any idea, any domain. Build something that could become the next big startup. Access funding up to ₹50 lakhs or more. Impress investors and incubators.",
         "tag": "OPEN",
         "color": "border-editorial-pink",
         "accent": "text-editorial-pink"
@@ -328,8 +329,8 @@ INSERT INTO site_content (section, content) VALUES (
         "accent": "border-editorial-blue"
       },
       {
-        "title": "STARTUP INCUBATION",
-        "desc": "Present your prototype to incubators and accelerators. Get considered for pre-seed funding and mentorship programs.",
+        "title": "STARTUP INCUBATION & FUNDING UP TO ₹50 LAKHS+",
+        "desc": "Present your prototype to incubators and accelerators. Get access to funding up to ₹50 lakhs or more for promising startup ideas, pre-seed funding, and mentorship programs.",
         "accent": "border-editorial-purple"
       },
       {
@@ -356,11 +357,11 @@ INSERT INTO site_content (section, content) VALUES (
       },
       {
         "q": "How does the selection process work?",
-        "a": "We review every application based on skills, experience, and potential. Only the top 1% (approximately 80–100 participants) are shortlisted for the final 30-hour hackathon."
+        "a": "We review every application based on skills, experience, and potential. Only the top 1% teams (approximately 80–100 participants) are shortlisted for the final 30-hour hackathon."
       },
       {
-        "q": "What is the ₹100 registration fee?",
-        "a": "The ₹100 is a non-refundable registration fee. It helps us filter serious applicants and ensures every participant in the final hackathon is genuinely committed to building something meaningful."
+        "q": "What is the ₹50 registration fee?",
+        "a": "The ₹50 is a non-refundable registration fee. It helps us filter serious applicants and ensures every participant in the final hackathon is genuinely committed to building something meaningful."
       },
       {
         "q": "What happens after the hackathon?",
@@ -386,17 +387,21 @@ INSERT INTO site_content (section, content) VALUES (
 INSERT INTO site_content (section, content) VALUES (
   'fee',
   $json${
-    "fee_amount": "₹100",
+    "fee_amount": "₹50",
     "fee_label": "ONE-TIME REGISTRATION FEE (NON-REFUNDABLE)",
     "location": "Mumbai, India",
     "mode_r1": "Fully Online — participate from anywhere",
     "mode_r2": "Hybrid — in-person in Mumbai or online",
     "duration": "30 Hours of Non-Stop Hacking",
-    "roi_total": "₹90,000+",
+    "roi_total": "₹45,000+",
     "roi_multiplier": "900x ROI",
     "roi_benefits": [
       {"benefit": "Certificate of Participation",          "value": "Priceless",   "icon": "🎓"},
       {"benefit": "Workshops & Mentorship Sessions",       "value": "₹5,000+",     "icon": "🧑‍🏫"},
+      {"benefit": "Hiring Exposure & Fast-Track Interviews", "value": "₹10,000+",    "icon": "💼"},
+      {"benefit": "Investor Introductions & Pitch Access",   "value": "₹25,000+",    "icon": "🚀"},
+      {"benefit": "Startup Incubation & Funding Up to ₹50 Lakhs+", "value": "₹5,000+", "icon": "🏢"},
+      {"benefit": "National Recognition & Media Features",  "value": "Priceless",   "icon": "🏆"}
       {"benefit": "Hiring Exposure & Fast-Track Interviews","value": "₹10,000+",   "icon": "💼"},
       {"benefit": "Investor Introductions & Pitch Access", "value": "₹25,000+",   "icon": "🚀"},
       {"benefit": "Startup Incubation Opportunities",      "value": "₹50,000+",   "icon": "🏢"},
@@ -431,7 +436,7 @@ INSERT INTO site_content (section, content) VALUES (
     "event_date": "2026",
     "event_location": "Mumbai, India",
     "org_name": "Elite Forums",
-    "registration_fee": "₹100",
+    "registration_fee": "₹50",
     "registration_open": true
   }$json$::jsonb
 ) ON CONFLICT (section) DO NOTHING;
@@ -459,7 +464,7 @@ INSERT INTO site_content (section, content) VALUES (
       {"number": "TOP 1%",  "label": "SELECTED BUILDERS"},
       {"number": "30 HRS",  "label": "NON-STOP HACKING"},
       {"number": "5",       "label": "DOMAIN TRACKS"},
-      {"number": "₹100",   "label": "REGISTRATION FEE"},
+      {"number": "₹50",   "label": "REGISTRATION FEE"},
       {"number": "100+",   "label": "HIRING COMPANIES"}
     ],
     "transparency": [

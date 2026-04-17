@@ -830,7 +830,7 @@ const Register = () => {
                   <strong className="text-foreground">
                     access to workshops &amp; mentorship
                   </strong>{" "}
-                  in exchange for the ₹100 registration fee.
+                  in exchange for the ₹50 registration fee.
                 </p>
 
                 {/* Leader summary */}

@@ -183,6 +183,10 @@ const HeroEditor = () => {
           <p className="text-xs text-muted-foreground -mt-2 mb-2">
             These appear in the right info block on the hero. Toggle "Highlight" to show an item in pink.
           </p>
+          <div className="bg-editorial-pink/10 border border-editorial-pink/30 rounded p-3 mb-4">
+            <p className="text-xs font-bold text-editorial-pink uppercase tracking-widest">ℹ️ Current Key Facts</p>
+            <p className="text-xs text-muted-foreground mt-1">Your hero section should include: 10,000+ Applicants, Top 1% Selected, ₹3 Lakhs+ Prize Pool (highlighted), 30 Hrs, ₹50 Registration Fee, Mumbai Location, R1 Online + R2 Hybrid, and <strong>₹50 Lakhs+ Startup Funding (highlighted)</strong>.</p>
+          </div>
 
           <div className="space-y-3">
             {(data.key_facts ?? []).map((fact, i) => (

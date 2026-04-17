@@ -34,9 +34,10 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
         highlight: true,
       },
       { number: "30 HRS", label: "OF HACKING" },
-      { number: "₹100", label: "REGISTRATION FEE" },
+      { number: "₹50", label: "REGISTRATION FEE" },
       { number: "MUMBAI", label: "LOCATION" },
       { number: "R1: ONLINE", label: "R2: HYBRID" },
+      { number: "₹50 LAKHS+", label: "STARTUP FUNDING", highlight: true },
     ],
     cta_primary: "REGISTER NOW →",
     cta_secondary: "PARTNER WITH US",
@@ -78,7 +79,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
       {
         name: "STARTUP TRACK",
         description:
-          "Open innovation. Any idea, any domain. Build something that could become the next big startup. Impress investors and incubators.",
+          "Open innovation. Any idea, any domain. Build something that could become the next big startup. Access funding up to ₹50 lakhs or more. Impress investors and incubators.",
         tag: "OPEN",
         color: "border-editorial-pink",
         accent: "text-editorial-pink",
@@ -158,11 +159,11 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
       },
       {
         q: "How does the selection process work?",
-        a: "We review every application based on skills, experience, and potential. Only the top 1% (approximately 80–100 participants) are shortlisted for the final 30-hour hackathon.",
+        a: "We review every application based on skills, experience, and potential. Only the top 1% teams (approximately 80–100 participants) are shortlisted for the final 30-hour hackathon.",
       },
       {
-        q: "What is the ₹100 registration fee?",
-        a: "The ₹100 is a non-refundable registration fee. It helps us filter serious applicants and ensures every participant in the final hackathon is genuinely committed to building something meaningful.",
+        q: "What is the ₹50 registration fee?",
+        a: "The ₹50 is a non-refundable registration fee. It helps us filter serious applicants and ensures every participant in the final hackathon is genuinely committed to building something meaningful.",
       },
       {
         q: "What happens after the hackathon?",
@@ -183,13 +184,13 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     ],
   },
   fee: {
-    fee_amount: "₹100",
+    fee_amount: "₹50",
     fee_label: "ONE-TIME REGISTRATION FEE (NON-REFUNDABLE)",
     location: "Mumbai, India",
     mode_r1: "Fully Online — participate from anywhere",
     mode_r2: "Hybrid — in-person in Mumbai or online",
     duration: "30 Hours of Non-Stop Hacking",
-    roi_total: "₹90,000+",
+    roi_total: "₹45,000+",
     roi_multiplier: "900x ROI",
     roi_benefits: [
       {
@@ -213,8 +214,8 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
         icon: "🚀",
       },
       {
-        benefit: "Startup Incubation Opportunities",
-        value: "₹50,000+",
+        benefit: "Startup Incubation & Funding Up to ₹50 Lakhs+",
+        value: "Priceless",
         icon: "🏢",
       },
       {
@@ -243,7 +244,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     event_date: "2026",
     event_location: "Mumbai, India",
     org_name: "Elite Forums",
-    registration_fee: "₹100",
+    registration_fee: "₹50",
     registration_open: true,
   },
   about: {
@@ -266,7 +267,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
       { number: "TOP 1%", label: "SELECTED BUILDERS" },
       { number: "30 HRS", label: "NON-STOP HACKING" },
       { number: "5", label: "DOMAIN TRACKS" },
-      { number: "₹100", label: "REGISTRATION FEE" },
+      { number: "₹50", label: "REGISTRATION FEE" },
       { number: "100+", label: "HIRING COMPANIES" },
     ],
     transparency: [
@@ -348,7 +349,25 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({
       const merged: ContentMap = { ...DEFAULT_CONTENT };
       for (const row of data) {
         if (row.section && row.content) {
-          merged[row.section] = row.content as Record<string, unknown>;
+          // Smart merge: preserve arrays from defaults if Supabase doesn't have them
+          const dbContent = row.content as Record<string, unknown>;
+          const defaultSection = DEFAULT_CONTENT[row.section];
+          
+          if (defaultSection && typeof defaultSection === 'object') {
+            const mergedSection = { ...defaultSection };
+            for (const [key, value] of Object.entries(dbContent)) {
+              // For key_facts specifically, merge arrays to preserve defaults
+              if (key === 'key_facts' && Array.isArray(value) && Array.isArray((defaultSection as any).key_facts)) {
+                // Keep the db version if it has the new facts, otherwise use default
+                mergedSection[key] = value.length >= (defaultSection as any).key_facts.length ? value : (defaultSection as any).key_facts;
+              } else {
+                mergedSection[key] = value;
+              }
+            }
+            merged[row.section] = mergedSection;
+          } else {
+            merged[row.section] = dbContent;
+          }
         }
       }
       setContent(merged);

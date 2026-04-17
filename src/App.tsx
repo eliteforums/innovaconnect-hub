@@ -162,7 +162,14 @@ const App = () => (
               <Route path="/sponsors" element={<Sponsors />} />
               <Route path="/sponsor-us" element={<SponsorUs />} />
               <Route path="/partner" element={<Partner />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route
+                path="/contact"
+                element={
+                  <ContentProvider>
+                    <Contact />
+                  </ContentProvider>
+                }
+              />
               <Route path="/email-us" element={<EmailUs />} />
 
               {/* ── Register — uses ContentProvider for skills list ── */}

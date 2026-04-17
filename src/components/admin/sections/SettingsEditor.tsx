@@ -120,7 +120,7 @@ const SettingsEditor = () => {
               <TextInput
                 value={data.registration_fee ?? ""}
                 onChange={(v) => setField("registration_fee", v)}
-                placeholder="₹100"
+                placeholder="₹50"
               />
             </div>
           </div>
