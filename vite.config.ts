@@ -3,14 +3,15 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig(({ mode }) => ({
-  plugins: [
-    react({
-      jsxImportSource: "react",
-    }),
-  ],
+  plugins: [react()],
 
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
+  },
+
+  // Shared dependencies across chunks
+  ssr: {
+    external: ["react", "react-dom", "react-router-dom"],
   },
 
   build: {
@@ -21,13 +22,20 @@ export default defineConfig(({ mode }) => ({
       output: {
         manualChunks: (id: string) => {
           // ── Vendor: React core ───────────────────────────────────────
+          // ── Vendor: React core (must be first!) ──────────────────────
           if (
             id.includes("node_modules/react/") ||
-            id.includes("node_modules/react-dom/") ||
+            id.includes("node_modules/react-dom/")
+          ) {
+            return "vendor-react";
+          }
+
+          // ── React Router (separate to avoid circular deps) ───────────
+          if (
             id.includes("node_modules/react-router-dom/") ||
             id.includes("node_modules/scheduler/")
           ) {
-            return "vendor-react";
+            return "vendor-router";
           }
 
           // ── Supabase ─────────────────────────────────────────────────
