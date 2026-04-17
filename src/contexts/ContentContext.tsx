@@ -349,22 +349,13 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({
       const merged: ContentMap = { ...DEFAULT_CONTENT };
       for (const row of data) {
         if (row.section && row.content) {
-          // Smart merge: preserve arrays from defaults if Supabase doesn't have them
+          // Merge database content with defaults, prioritizing database values
           const dbContent = row.content as Record<string, unknown>;
-          const defaultSection = DEFAULT_CONTENT[row.section];
+          const defaultSection = DEFAULT_CONTENT[row.section] as Record<string, unknown>;
           
-          if (defaultSection && typeof defaultSection === 'object') {
-            const mergedSection = { ...defaultSection };
-            for (const [key, value] of Object.entries(dbContent)) {
-              // For key_facts specifically, merge arrays to preserve defaults
-              if (key === 'key_facts' && Array.isArray(value) && Array.isArray((defaultSection as any).key_facts)) {
-                // Keep the db version if it has the new facts, otherwise use default
-                mergedSection[key] = value.length >= (defaultSection as any).key_facts.length ? value : (defaultSection as any).key_facts;
-              } else {
-                mergedSection[key] = value;
-              }
-            }
-            merged[row.section] = mergedSection;
+          if (defaultSection) {
+            // Merge: database values override defaults, but keep default structure
+            merged[row.section] = { ...defaultSection, ...dbContent };
           } else {
             merged[row.section] = dbContent;
           }
