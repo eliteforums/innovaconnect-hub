@@ -1,10 +1,12 @@
-import React, {
+import {
   createContext,
   useCallback,
   useContext,
   useEffect,
   useMemo,
   useState,
+  type ReactNode,
+  type FC,
 } from "react";
 import { supabase } from "@/lib/supabase";
 import type { User, Session } from "@supabase/supabase-js";
@@ -33,7 +35,7 @@ type PortalAuthContextValue = {
 
 const PortalAuthContext = createContext<PortalAuthContextValue | null>(null);
 
-export const PortalAuthProvider: React.FC<{ children: React.ReactNode }> = ({
+export const PortalAuthProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<PortalUser | null>(null);

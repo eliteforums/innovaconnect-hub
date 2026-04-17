@@ -1,10 +1,12 @@
-import React, {
+import {
   createContext,
   useCallback,
   useContext,
   useEffect,
   useMemo,
   useState,
+  type ReactNode,
+  type FC,
 } from "react";
 import { fetchAllSiteContent } from "@/lib/supabase";
 
@@ -328,7 +330,7 @@ type ContentContextValue = {
 
 const ContentContext = createContext<ContentContextValue | null>(null);
 
-export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({
+export const ContentProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [content, setContent] = useState<ContentMap>(DEFAULT_CONTENT);
