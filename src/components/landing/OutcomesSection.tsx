@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 
 const outcomes = [
   {
-    title: "₹3 LAKHS PRIZE POOL",
-    desc: "Compete for a massive prize pool of ₹3 Lakhs including cash prizes and exciting goodies for top performers and winners.",
+    title: "₹50 LAKHS+ PRIZE POOL",
+    desc: "Compete for a massive prize pool of ₹50 Lakhs+ including cash prizes and exciting goodies for top performers and winners.",
     accent: "border-editorial-pink",
   },
   {
@@ -51,7 +51,7 @@ const OutcomesSection = () => {
               🏆 TOTAL PRIZE POOL
             </p>
             <p className="text-5xl md:text-7xl font-black text-background leading-none">
-              ₹3 LAKHS<span className="text-background/70">+</span>
+              ₹50 LAKHS<span className="text-background/70">+</span>
             </p>
             <p className="text-base md:text-lg font-bold uppercase tracking-wider text-background/90 mt-2">
               Including Cash Prizes, Goodies, Swag Kits & More

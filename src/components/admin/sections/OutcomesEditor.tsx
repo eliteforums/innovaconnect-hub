@@ -113,7 +113,7 @@ const OutcomesEditor = () => {
               <TextInput
                 value={data.prize_pool_amount ?? ""}
                 onChange={(v) => setField("prize_pool_amount", v)}
-                placeholder="₹3 LAKHS+"
+                placeholder="₹50 LAKHS+"
               />
             </div>
             <div>

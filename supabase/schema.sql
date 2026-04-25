@@ -213,14 +213,14 @@ INSERT INTO site_content (section, content) VALUES (
     "title_line2": "HACK",
     "tagline": "India's Largest Hiring & Startup Hackathon",
     "description": "Hack. Get Hired. Get Funded. — A 30-hour elite hackathon where the top 1% of India's builders meet hiring companies, investors, and incubators.",
-    "prize_pool": "₹3 LAKHS+",
+    "prize_pool": "₹50 LAKHS+",
     "prize_label": "Including Cash Prizes, Goodies & More",
     "placement_text": "Assured Placement Assistance to Top 1% Selected Finalists",
     "ticker_text": "GENERATIVE AI • FINTECH • HEALTHTECH • BLOCKCHAIN • STARTUP TRACK • HACK. GET HIRED. GET FUNDED. • ",
     "key_facts": [
       {"number": "10,000+", "label": "APPLICANTS", "highlight": false},
       {"number": "TOP 1%",  "label": "SELECTED",   "highlight": false},
-      {"number": "₹3 LAKHS+", "label": "PRIZE POOL — CASH, GOODIES & MORE", "highlight": true},
+      {"number": "₹50 LAKHS+", "label": "PRIZE POOL — CASH, GOODIES & MORE", "highlight": true},
       {"number": "30 HRS",  "label": "OF HACKING",       "highlight": false},
       {"number": "₹50",   "label": "REGISTRATION FEE",  "highlight": false},
       {"number": "MUMBAI", "label": "LOCATION",           "highlight": false},
@@ -314,13 +314,13 @@ INSERT INTO site_content (section, content) VALUES (
 INSERT INTO site_content (section, content) VALUES (
   'outcomes',
   $json${
-    "prize_pool_amount": "₹3 LAKHS+",
+    "prize_pool_amount": "₹50 LAKHS+",
     "prize_pool_sub": "Including Cash Prizes, Goodies, Swag Kits & More",
     "prize_tags": ["💰 Cash Prizes", "🎁 Goodies", "👕 Swag Kits", "🏅 Certificates"],
     "outcomes": [
       {
-        "title": "₹3 LAKHS PRIZE POOL",
-        "desc": "Compete for a massive prize pool of ₹3 Lakhs including cash prizes and exciting goodies for top performers and winners.",
+        "title": "₹50 LAKHS+ PRIZE POOL",
+        "desc": "Compete for a massive prize pool of ₹50 Lakhs+ including cash prizes and exciting goodies for top performers and winners.",
         "accent": "border-editorial-pink"
       },
       {
@@ -437,7 +437,9 @@ INSERT INTO site_content (section, content) VALUES (
     "event_location": "Mumbai, India",
     "org_name": "Elite Forums",
     "registration_fee": "₹50",
-    "registration_open": true
+    "registration_open": true,
+    "login_enabled": false,
+    "register_enabled": false
   }$json$::jsonb
 ) ON CONFLICT (section) DO NOTHING;
 

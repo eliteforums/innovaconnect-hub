@@ -170,7 +170,7 @@ InnovaHack 2026 — India's Largest Hiring & Startup Hackathon is now open for r
 
 ✅ 30-hour intensive hackathon
 ✅ Top 1% selected from 10,000+ applicants
-✅ ₹3 Lakhs+ prize pool
+✅ ₹50 Lakhs+ prize pool
 ✅ Direct exposure to 100+ hiring companies
 ✅ Startup incubation & investor access
 

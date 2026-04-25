@@ -19,6 +19,8 @@ type SettingsContent = {
   org_name: string;
   registration_fee: string;
   registration_open: boolean;
+  login_enabled: boolean;
+  register_enabled: boolean;
 };
 
 const SettingsEditor = () => {
@@ -77,6 +79,87 @@ const SettingsEditor = () => {
             {data.registration_open
               ? "✓ REGISTRATIONS ARE CURRENTLY OPEN"
               : "✗ REGISTRATIONS ARE CURRENTLY CLOSED"}
+          </div>
+        </EditorCard>
+
+        {/* Navbar Auth Buttons Toggle */}
+        <EditorCard title="NAVBAR AUTH BUTTONS">
+          <p className="text-xs text-muted-foreground -mt-2 mb-4">
+            Control the visibility of the <strong className="text-foreground">LOGIN</strong> and{" "}
+            <strong className="text-foreground">REGISTER NOW</strong> buttons in the top navigation bar.
+            When disabled, the buttons are completely hidden on all pages (desktop + mobile).
+          </p>
+
+          {/* Login toggle */}
+          <div className="flex items-center justify-between gap-4 p-2">
+            <div>
+              <p className="text-sm font-black uppercase tracking-wide">
+                Login Button
+              </p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Show the LOGIN link in the navbar (links to /portal/login).
+              </p>
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer select-none shrink-0">
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                {data.login_enabled ? "ENABLED" : "DISABLED"}
+              </span>
+              <div
+                onClick={() => setField("login_enabled", !data.login_enabled)}
+                className={`relative w-12 h-6 rounded-full transition-colors cursor-pointer ${
+                  data.login_enabled ? "bg-editorial-blue" : "bg-secondary border-2 border-border"
+                }`}
+              >
+                <div
+                  className={`absolute top-0.5 w-5 h-5 rounded-full bg-background border border-border transition-transform shadow-sm ${
+                    data.login_enabled ? "translate-x-6" : "translate-x-0.5"
+                  }`}
+                />
+              </div>
+            </label>
+          </div>
+
+          {/* Register toggle */}
+          <div className="flex items-center justify-between gap-4 p-2 mt-2 border-t border-border pt-4">
+            <div>
+              <p className="text-sm font-black uppercase tracking-wide">
+                Register Button
+              </p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Show the REGISTER NOW button in the navbar (links to /register).
+              </p>
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer select-none shrink-0">
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                {data.register_enabled ? "ENABLED" : "DISABLED"}
+              </span>
+              <div
+                onClick={() => setField("register_enabled", !data.register_enabled)}
+                className={`relative w-12 h-6 rounded-full transition-colors cursor-pointer ${
+                  data.register_enabled ? "bg-editorial-pink" : "bg-secondary border-2 border-border"
+                }`}
+              >
+                <div
+                  className={`absolute top-0.5 w-5 h-5 rounded-full bg-background border border-border transition-transform shadow-sm ${
+                    data.register_enabled ? "translate-x-6" : "translate-x-0.5"
+                  }`}
+                />
+              </div>
+            </label>
+          </div>
+
+          <div className={`mt-4 px-4 py-3 text-xs font-bold uppercase tracking-wider ${
+            data.login_enabled || data.register_enabled
+              ? "bg-blue-500/10 text-blue-400 border border-blue-500/30"
+              : "bg-red-500/10 text-red-400 border border-red-500/30"
+          }`}>
+            {data.login_enabled && data.register_enabled
+              ? "✓ LOGIN + REGISTER BUTTONS VISIBLE"
+              : data.login_enabled
+                ? "◐ ONLY LOGIN BUTTON VISIBLE"
+                : data.register_enabled
+                  ? "◐ ONLY REGISTER BUTTON VISIBLE"
+                  : "✗ BOTH BUTTONS HIDDEN FROM NAVBAR"}
           </div>
         </EditorCard>
 
@@ -210,6 +293,8 @@ const SettingsEditor = () => {
           <div className="border-2 border-border divide-y divide-border text-sm">
             {[
               ["Registration", data.registration_open ? "OPEN" : "CLOSED"],
+              ["Login Button", data.login_enabled ? "ENABLED" : "DISABLED"],
+              ["Register Button", data.register_enabled ? "ENABLED" : "DISABLED"],
               ["Event Date", data.event_date],
               ["Location", data.event_location],
               ["Organisation", data.org_name],

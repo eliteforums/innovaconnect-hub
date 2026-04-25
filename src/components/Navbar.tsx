@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X, LogIn } from "lucide-react";
+import { useContent } from "@/contexts/ContentContext";
 
 const navLinks = [
   { label: "HOME", href: "/", isRoute: true },
@@ -11,8 +12,18 @@ const navLinks = [
   { label: "CONTACT", href: "/contact", isRoute: true },
 ];
 
+type AuthSettings = {
+  login_enabled?: boolean;
+  register_enabled?: boolean;
+};
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { getSection } = useContent();
+  const settings = getSection<AuthSettings>("settings");
+  // Default to false — Login and Register buttons are disabled unless admin enables them.
+  const loginEnabled = settings.login_enabled === true;
+  const registerEnabled = settings.register_enabled === true;
 
   return (
     <nav className="w-full border-b-2 border-foreground sticky top-0 z-50 bg-background">
@@ -56,18 +67,22 @@ const Navbar = () => {
         </div>
 
         <div className="hidden lg:flex items-center gap-3">
-          <Link
-            to="/portal/login"
-            className="text-xs font-bold tracking-widest uppercase text-foreground hover:text-editorial-pink transition-colors flex items-center gap-1.5"
-          >
-            <LogIn size={14} /> LOGIN
-          </Link>
-          <Link
-            to="/register"
-            className="border-2 border-foreground px-5 py-2 text-xs font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
-          >
-            REGISTER NOW
-          </Link>
+          {loginEnabled && (
+            <Link
+              to="/portal/login"
+              className="text-xs font-bold tracking-widest uppercase text-foreground hover:text-editorial-pink transition-colors flex items-center gap-1.5"
+            >
+              <LogIn size={14} /> LOGIN
+            </Link>
+          )}
+          {registerEnabled && (
+            <Link
+              to="/register"
+              className="border-2 border-foreground px-5 py-2 text-xs font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
+            >
+              REGISTER NOW
+            </Link>
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -100,20 +115,24 @@ const Navbar = () => {
               </a>
             ),
           )}
-          <Link
-            to="/portal/login"
-            onClick={() => setOpen(false)}
-            className="block px-6 py-3 text-sm font-bold uppercase tracking-widest border-b border-border hover:bg-secondary transition-colors flex items-center gap-2"
-          >
-            <LogIn size={14} /> LOGIN / MY PORTAL
-          </Link>
-          <Link
-            to="/register"
-            onClick={() => setOpen(false)}
-            className="block px-6 py-3 text-sm font-black uppercase tracking-widest bg-editorial-pink text-background"
-          >
-            REGISTER NOW →
-          </Link>
+          {loginEnabled && (
+            <Link
+              to="/portal/login"
+              onClick={() => setOpen(false)}
+              className="block px-6 py-3 text-sm font-bold uppercase tracking-widest border-b border-border hover:bg-secondary transition-colors flex items-center gap-2"
+            >
+              <LogIn size={14} /> LOGIN / MY PORTAL
+            </Link>
+          )}
+          {registerEnabled && (
+            <Link
+              to="/register"
+              onClick={() => setOpen(false)}
+              className="block px-6 py-3 text-sm font-black uppercase tracking-widest bg-editorial-pink text-background"
+            >
+              REGISTER NOW →
+            </Link>
+          )}
         </div>
       )}
     </nav>

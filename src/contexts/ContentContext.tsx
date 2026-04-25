@@ -22,7 +22,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     tagline: "India's Largest Hiring & Startup Hackathon",
     description:
       "Hack. Get Hired. Get Funded. — A 30-hour elite hackathon where the top 1% of India's builders meet hiring companies, investors, and incubators.",
-    prize_pool: "₹3 LAKHS+",
+    prize_pool: "₹50 LAKHS+",
     prize_label: "Including Cash Prizes, Goodies & More",
     placement_text: "Assured Placement Assistance to Top 1% Selected Finalists",
     ticker_text:
@@ -31,7 +31,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
       { number: "10,000+", label: "APPLICANTS" },
       { number: "TOP 1%", label: "SELECTED" },
       {
-        number: "₹3 LAKHS+",
+        number: "₹50 LAKHS+",
         label: "PRIZE POOL — CASH, GOODIES & MORE",
         highlight: true,
       },
@@ -118,7 +118,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     ],
   },
   outcomes: {
-    prize_pool_amount: "₹3 LAKHS+",
+    prize_pool_amount: "₹50 LAKHS+",
     prize_pool_sub: "Including Cash Prizes, Goodies, Swag Kits & More",
     prize_tags: [
       "💰 Cash Prizes",
@@ -128,8 +128,8 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     ],
     outcomes: [
       {
-        title: "₹3 LAKHS PRIZE POOL",
-        desc: "Compete for a massive prize pool of ₹3 Lakhs including cash prizes and exciting goodies for top performers and winners.",
+        title: "₹50 LAKHS+ PRIZE POOL",
+        desc: "Compete for a massive prize pool of ₹50 Lakhs+ including cash prizes and exciting goodies for top performers and winners.",
         accent: "border-editorial-pink",
       },
       {
@@ -248,6 +248,8 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     org_name: "Elite Forums",
     registration_fee: "₹50",
     registration_open: true,
+    login_enabled: false,
+    register_enabled: false,
   },
   about: {
     mission_title_line1: "THE",
