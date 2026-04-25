@@ -6,7 +6,6 @@ const navLinks = [
   { label: "HOME", href: "/", isRoute: true },
   { label: "ABOUT", href: "/about", isRoute: true },
   { label: "TRACKS", href: "/tracks", isRoute: true },
-  { label: "SPONSORS", href: "/sponsors", isRoute: true },
   { label: "SPONSOR US", href: "/sponsor-us", isRoute: true },
   { label: "PARTNER WITH US", href: "/partner", isRoute: true },
   { label: "CONTACT", href: "/contact", isRoute: true },
