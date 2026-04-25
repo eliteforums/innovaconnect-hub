@@ -24,12 +24,12 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
       "Hack. Get Hired. Get Funded. — A 30-hour elite hackathon where the top 200–250 teams of India's builders meet hiring companies, investors, and incubators.",
     prize_pool: "₹50 LAKHS+",
     prize_label: "Including Cash Prizes, Goodies & More",
-    placement_text: "Assured Placement Assistance to Top 1% Selected Finalists",
+    placement_text: "Assured Placement Assistance to Top 200–250 Teams Selected Finalists",
     ticker_text:
       "GENERATIVE AI • FINTECH • HEALTHTECH • BLOCKCHAIN • STARTUP TRACK • HACK. GET HIRED. GET FUNDED. • ",
     key_facts: [
       { number: "10,000+", label: "APPLICANTS" },
-      { number: "TOP 1%", label: "SELECTED" },
+      { number: "TOP 200–250", label: "TEAMS SELECTED" },
       {
         number: "₹50 LAKHS+",
         label: "PRIZE POOL — CASH, GOODIES & MORE",
@@ -108,7 +108,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
       {
         num: "04",
         title: "30-HOUR HYBRID HACKATHON",
-        desc: "The selected top 1% compete in a 30-hour hybrid hackathon. Build with mentors, APIs, and resources at your disposal.",
+        desc: "The selected top 200–250 teams compete in a 30-hour hybrid hackathon. Build with mentors, APIs, and resources at your disposal.",
       },
       {
         num: "05",

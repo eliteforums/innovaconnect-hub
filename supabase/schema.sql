@@ -212,14 +212,14 @@ INSERT INTO site_content (section, content) VALUES (
     "title_line1": "INNOVA",
     "title_line2": "HACK",
     "tagline": "India's Largest Hiring & Startup Hackathon",
-    "description": "Hack. Get Hired. Get Funded. — A 30-hour elite hackathon where the top 1% of India's builders meet hiring companies, investors, and incubators.",
+    "description": "Hack. Get Hired. Get Funded. — A 30-hour elite hackathon where the top 200–250 teams of India's builders meet hiring companies, investors, and incubators.",
     "prize_pool": "₹50 LAKHS+",
     "prize_label": "Including Cash Prizes, Goodies & More",
-    "placement_text": "Assured Placement Assistance to Top 1% Selected Finalists",
+    "placement_text": "Assured Placement Assistance to Top 200–250 Teams Selected Finalists",
     "ticker_text": "GENERATIVE AI • FINTECH • HEALTHTECH • BLOCKCHAIN • STARTUP TRACK • HACK. GET HIRED. GET FUNDED. • ",
     "key_facts": [
       {"number": "10,000+", "label": "APPLICANTS", "highlight": false},
-      {"number": "TOP 1%",  "label": "SELECTED",   "highlight": false},
+      {"number": "TOP 200–250",  "label": "TEAMS SELECTED",   "highlight": false},
       {"number": "₹50 LAKHS+", "label": "PRIZE POOL — CASH, GOODIES & MORE", "highlight": true},
       {"number": "30 HRS",  "label": "OF HACKING",       "highlight": false},
       {"number": "₹50",   "label": "REGISTRATION FEE",  "highlight": false},
@@ -293,13 +293,13 @@ INSERT INTO site_content (section, content) VALUES (
       },
       {
         "num": "03",
-        "title": "SCREENING OF TOP 1%",
-        "desc": "Our expert panel screens all submissions and selects the top 1% candidates — the elite builders who stand out."
+        "title": "SCREENING OF TOP 200–250 TEAMS",
+        "desc": "Our expert panel screens all submissions and selects the top 200–250 teams — the elite builders who stand out."
       },
       {
         "num": "04",
         "title": "30-HOUR HYBRID HACKATHON",
-        "desc": "The selected top 1% compete in a 30-hour hybrid hackathon. Build with mentors, APIs, and resources at your disposal."
+        "desc": "The selected top 200–250 teams compete in a 30-hour hybrid hackathon. Build with mentors, APIs, and resources at your disposal."
       },
       {
         "num": "05",
