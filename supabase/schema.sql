@@ -409,16 +409,12 @@ INSERT INTO site_content (section, content) VALUES (
     "roi_total": "₹45,000+",
     "roi_multiplier": "900x ROI",
     "roi_benefits": [
-      {"benefit": "Certificate of Participation",          "value": "Priceless",   "icon": "🎓"},
-      {"benefit": "Workshops & Mentorship Sessions",       "value": "₹5,000+",     "icon": "🧑‍🏫"},
-      {"benefit": "Hiring Exposure & Fast-Track Interviews", "value": "₹10,000+",    "icon": "💼"},
-      {"benefit": "Investor Introductions & Pitch Access",   "value": "₹25,000+",    "icon": "🚀"},
-      {"benefit": "Startup Incubation & Funding Up to ₹50 Lakhs+", "value": "₹5,000+", "icon": "🏢"},
-      {"benefit": "National Recognition & Media Features",  "value": "Priceless",   "icon": "🏆"}
-      {"benefit": "Hiring Exposure & Fast-Track Interviews","value": "₹10,000+",   "icon": "💼"},
-      {"benefit": "Investor Introductions & Pitch Access", "value": "₹25,000+",   "icon": "🚀"},
-      {"benefit": "Startup Incubation Opportunities",      "value": "₹50,000+",   "icon": "🏢"},
-      {"benefit": "National Recognition & Media Features", "value": "Priceless",   "icon": "🏆"}
+      {"benefit": "Certificate of Participation",                  "value": "Priceless",   "icon": "🎓"},
+      {"benefit": "Workshops & Mentorship Sessions",               "value": "₹5,000+",     "icon": "🧑‍🏫"},
+      {"benefit": "Hiring Exposure & Fast-Track Interviews",       "value": "₹10,000+",    "icon": "💼"},
+      {"benefit": "Investor Introductions & Pitch Access",         "value": "₹25,000+",    "icon": "🚀"},
+      {"benefit": "Startup Incubation & Funding Up to ₹50 Lakhs+", "value": "₹5,000+",     "icon": "🏢"},
+      {"benefit": "National Recognition & Media Features",         "value": "Priceless",   "icon": "🏆"}
     ]
   }$json$::jsonb
 ) ON CONFLICT (section) DO NOTHING;
