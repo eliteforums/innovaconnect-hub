@@ -21,7 +21,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     title_line2: "HACK",
     tagline: "India's Largest Hiring & Startup Hackathon",
     description:
-      "Hack. Get Hired. Get Funded. — A 30-hour elite hackathon where the top 1% of India's builders meet hiring companies, investors, and incubators.",
+      "Hack. Get Hired. Get Funded. — A 30-hour elite hackathon where the top 200–250 teams of India's builders meet hiring companies, investors, and incubators.",
     prize_pool: "₹50 LAKHS+",
     prize_label: "Including Cash Prizes, Goodies & More",
     placement_text: "Assured Placement Assistance to Top 1% Selected Finalists",
@@ -102,8 +102,8 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
       },
       {
         num: "03",
-        title: "SCREENING OF TOP 1%",
-        desc: "Our expert panel screens all submissions and selects the top 1% candidates — the elite builders who stand out.",
+        title: "SCREENING OF TOP 200–250 TEAMS",
+        desc: "Our expert panel screens all submissions and selects the top 200–250 teams — the elite builders who stand out.",
       },
       {
         num: "04",
