@@ -830,7 +830,7 @@ const Register = () => {
                   <strong className="text-foreground">
                     access to workshops &amp; mentorship
                   </strong>{" "}
-                  in exchange for the ₹50 registration fee.
+                  in exchange for the ₹250 registration fee (for Round 2 finalists only; Round 1 is free).
                 </p>
 
                 {/* Leader summary */}

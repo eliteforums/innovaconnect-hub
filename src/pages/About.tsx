@@ -8,7 +8,7 @@ const stats = [
   { number: "TOP 1%", label: "SELECTED BUILDERS" },
   { number: "30 HRS", label: "NON-STOP HACKING" },
   { number: "5", label: "DOMAIN TRACKS" },
-  { number: "₹50", label: "REGISTRATION FEE" },
+  { number: "₹250", label: "FINALIST REGISTRATION FEE" },
   { number: "100+", label: "HIRING COMPANIES" },
 ];
 
@@ -165,7 +165,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Why ₹50 */}
+      {/* Why ₹250 */}
       <section className="border-b-2 border-foreground">
         <div className="px-4 md:px-8 py-6 border-b border-border">
           <p className="text-xs font-bold tracking-[0.3em] uppercase text-muted-foreground mb-1">
@@ -178,18 +178,21 @@ const About = () => {
         <div className="p-8 md:p-16 max-w-4xl mx-auto">
           <div className="space-y-6 text-sm text-muted-foreground leading-relaxed">
             <p>
-              Participants pay a ₹50 registration fee because we assure that the
-              finalists will get huge benefits —
-              job offers, internships, incubation, investment, and more.
+              <strong className="text-foreground">Round 1 is completely FREE</strong> for all
+              participants. Anyone across India can apply and participate in the online Round 1
+              without paying any fee.
             </p>
             <p>
-              This fee filters out casual applicants and ensures every participant in
-              the final hackathon is genuinely committed to building something
-              meaningful. It's not a revenue model — it's a quality filter.
+              Finalists who qualify for <strong className="text-foreground">Round 2 (the
+              Offline/Hybrid round)</strong> pay a one-time registration fee of{" "}
+              <strong className="text-foreground">₹250 per person</strong>. This confirms in-person
+              attendance and ensures every finalist is genuinely committed to the final round,
+              where they get huge benefits — job offers, internships, incubation, investment, and
+              more.
             </p>
             <p>
-              The ₹50 registration fee is non-refundable. It is a one-time commitment
-              that ensures only serious applicants participate.
+              The ₹250 per person registration fee is non-refundable. It is a one-time commitment
+              for Round 2 finalists only.
             </p>
           </div>
         </div>
