@@ -129,52 +129,63 @@ ALTER TABLE site_content      ENABLE ROW LEVEL SECURITY;
 ALTER TABLE sponsors          ENABLE ROW LEVEL SECURITY;
 
 -- ---- site_content: public read, admin write ----
+DROP POLICY IF EXISTS "site_content_public_read" ON site_content;
 CREATE POLICY "site_content_public_read"
   ON site_content FOR SELECT
   USING (TRUE);
 
+DROP POLICY IF EXISTS "site_content_admin_write" ON site_content;
 CREATE POLICY "site_content_admin_write"
   ON site_content FOR ALL
   USING (auth.role() = 'authenticated')
   WITH CHECK (auth.role() = 'authenticated');
 
 -- ---- registrations: insert for everyone, read/update for admin only ----
+DROP POLICY IF EXISTS "registrations_public_insert" ON registrations;
 CREATE POLICY "registrations_public_insert"
   ON registrations FOR INSERT
   WITH CHECK (TRUE);
 
+DROP POLICY IF EXISTS "registrations_admin_read" ON registrations;
 CREATE POLICY "registrations_admin_read"
   ON registrations FOR SELECT
   USING (auth.role() = 'authenticated');
 
+DROP POLICY IF EXISTS "registrations_admin_update" ON registrations;
 CREATE POLICY "registrations_admin_update"
   ON registrations FOR UPDATE
   USING (auth.role() = 'authenticated')
   WITH CHECK (auth.role() = 'authenticated');
 
+DROP POLICY IF EXISTS "registrations_admin_delete" ON registrations;
 CREATE POLICY "registrations_admin_delete"
   ON registrations FOR DELETE
   USING (auth.role() = 'authenticated');
 
 -- ---- contact_inquiries: insert for everyone, read/update for admin only ----
+DROP POLICY IF EXISTS "contact_public_insert" ON contact_inquiries;
 CREATE POLICY "contact_public_insert"
   ON contact_inquiries FOR INSERT
   WITH CHECK (TRUE);
 
+DROP POLICY IF EXISTS "contact_admin_read" ON contact_inquiries;
 CREATE POLICY "contact_admin_read"
   ON contact_inquiries FOR SELECT
   USING (auth.role() = 'authenticated');
 
+DROP POLICY IF EXISTS "contact_admin_update" ON contact_inquiries;
 CREATE POLICY "contact_admin_update"
   ON contact_inquiries FOR UPDATE
   USING (auth.role() = 'authenticated')
   WITH CHECK (auth.role() = 'authenticated');
 
 -- ---- sponsors: public read, admin write ----
+DROP POLICY IF EXISTS "sponsors_public_read" ON sponsors;
 CREATE POLICY "sponsors_public_read"
   ON sponsors FOR SELECT
   USING (is_active = TRUE);
 
+DROP POLICY IF EXISTS "sponsors_admin_write" ON sponsors;
 CREATE POLICY "sponsors_admin_write"
   ON sponsors FOR ALL
   USING (auth.role() = 'authenticated')
@@ -191,10 +202,12 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS trigger_registrations_updated_at ON registrations;
 CREATE TRIGGER trigger_registrations_updated_at
   BEFORE UPDATE ON registrations
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS trigger_site_content_updated_at ON site_content;
 CREATE TRIGGER trigger_site_content_updated_at
   BEFORE UPDATE ON site_content
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
