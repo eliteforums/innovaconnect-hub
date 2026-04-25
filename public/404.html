@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!--
+      GitHub Pages SPA fallback.
+      GitHub Pages serves this file for any unknown route. We redirect the
+      browser back to "/" while preserving the original path in the query
+      string; a small snippet in index.html then rewrites the URL so the
+      React Router picks it up correctly.
+    -->
+    <script>
+      (function () {
+        var segmentCount = 0; // set > 0 if deployed under a sub-path, e.g. /repo/
+        var l = window.location;
+        l.replace(
+          l.protocol +
+            "//" +
+            l.hostname +
+            (l.port ? ":" + l.port : "") +
+            l.pathname
+              .split("/")
+              .slice(0, 1 + segmentCount)
+              .join("/") +
+            "/?p=/" +
+            l.pathname
+              .slice(1)
+              .split("/")
+              .slice(segmentCount)
+              .join("/")
+              .replace(/&/g, "~and~") +
+            (l.search ? "&q=" + l.search.slice(1).replace(/&/g, "~and~") : "") +
+            l.hash,
+        );
+      })();
+    </script>
+  </head>
+  <body>
+    Redirecting…
+  </body>
+</html>

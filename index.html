@@ -181,6 +181,32 @@
 
     <body>
         <div id="root"></div>
+        <!--
+          GitHub Pages SPA fallback: if the 404.html redirect put the
+          original path into ?p=..., rewrite the URL back to a clean path
+          before React Router boots so deep links like /sponsor-us and
+          /partner resolve correctly.
+        -->
+        <script>
+            (function (l) {
+                if (l.search[1] === "/") {
+                    var decoded = l.search
+                        .slice(1)
+                        .split("&")
+                        .map(function (s) {
+                            return s.replace(/~and~/g, "&");
+                        })
+                        .join("?");
+                    window.history.replaceState(
+                        null,
+                        null,
+                        l.pathname.slice(0, -1) +
+                            decoded +
+                            l.hash,
+                    );
+                }
+            })(window.location);
+        </script>
         <script type="module" src="/src/main.tsx"></script>
     </body>
 </html>
