@@ -8,7 +8,7 @@ const outcomes = [
   },
   {
     title: "ASSURED PLACEMENT ASSISTANCE",
-    desc: "Top 1% selected finalists receive assured placement assistance with direct exposure to hiring companies actively looking for elite engineering talent.",
+    desc: "The top 200–250 teams selected as finalists receive assured placement assistance with direct exposure to hiring companies actively looking for elite engineering talent.",
     accent: "border-editorial-blue",
   },
   {

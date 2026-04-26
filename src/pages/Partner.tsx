@@ -11,7 +11,7 @@ const sponsorBenefits = [
   },
   {
     title: "ACCESS TO ALL PARTICIPANTS",
-    desc: "Companies that sponsor get free access to all participants for hiring. Direct access to India's top 1% builders — no recruitment fees.",
+    desc: "Companies that sponsor get free access to all participants for hiring. Direct access to India's top 200–250 teams of builders — no recruitment fees.",
   },
   {
     title: "COMPLETE TRANSPARENCY",
@@ -45,7 +45,7 @@ const partnerTypes = [
       "Companies can participate for hiring without sponsorship",
       "Must provide an assured hiring commitment",
       "Companies with sponsorship get priority hiring opportunities",
-      "Access to pre-screened, top 1% talent pool",
+      "Access to pre-screened, top 200–250 teams talent pool",
       "Direct interaction with participants during Demo Day",
     ],
   },
@@ -142,7 +142,7 @@ const partnerTypes = [
 const partnerFormLinks = [
   {
     label: "HIRING PARTNERS",
-    desc: "Looking to hire India's top 1% builders? Submit your hiring proposal.",
+    desc: "Looking to hire India's top 200–250 teams of builders? Submit your hiring proposal.",
     href: "/hiring-partners",
     accent: "border-editorial-blue",
     bgAccent: "bg-editorial-blue",

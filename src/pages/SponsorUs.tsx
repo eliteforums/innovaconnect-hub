@@ -86,7 +86,7 @@ const whySponsor = [
     num: "01",
   },
   {
-    title: "TOP 1% TALENT",
+    title: "TOP 200–250 TEAMS TALENT",
     desc: "Direct access to the most talented builders in the country — pre-screened and ready to be hired.",
     num: "02",
   },
@@ -134,7 +134,7 @@ const SponsorUs = () => {
               <span className="text-editorial-pink">INNOVAHACK</span>
             </h1>
             <p className="text-muted-foreground mt-6 max-w-2xl text-sm md:text-base">
-              Put your brand in front of India's top 1% builders. Sponsor
+              Put your brand in front of India's top 200–250 teams of builders. Sponsor
               InnovaHack and get unmatched visibility, hiring access, and PR
               coverage across our 10,000+ applicant pool.
             </p>
@@ -312,7 +312,7 @@ const SponsorUs = () => {
             SPONSOR?
           </h2>
           <p className="text-muted-foreground mt-6 max-w-lg mx-auto text-sm md:text-base">
-            Get your brand in front of India's top 1% builders. Contact us today
+            Get your brand in front of India's top 200–250 teams of builders. Contact us today
             to discuss sponsorship opportunities.
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-8">

@@ -13,7 +13,9 @@ type CTAContent = {
   headline_line2: string;
   description: string;
   cta_primary: string;
+  cta_primary_url: string;
   cta_secondary: string;
+  cta_secondary_url: string;
 };
 
 const CTAEditor = () => {
@@ -38,13 +40,13 @@ const CTAEditor = () => {
         {/* Eyebrow */}
         <EditorCard title="EYEBROW TEXT">
           <div>
-            <FieldLabel hint="Small uppercase text shown above the headline in pink (e.g. LIMITED SEATS • TOP 1% ONLY)">
+            <FieldLabel hint="Small uppercase text shown above the headline in pink (e.g. LIMITED SEATS • TOP 200–250 TEAMS)">
               Eyebrow / Tag Text
             </FieldLabel>
             <TextInput
               value={data.eyebrow ?? ""}
               onChange={(v) => setField("eyebrow", v)}
-              placeholder="LIMITED SEATS • TOP 1% ONLY"
+              placeholder="LIMITED SEATS • TOP 200–250 TEAMS"
             />
           </div>
         </EditorCard>
@@ -113,8 +115,8 @@ const CTAEditor = () => {
         <EditorCard title="CALL-TO-ACTION BUTTONS">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <FieldLabel hint="Primary button — pink background, links to /register">
-                CTA Primary (Pink Button)
+              <FieldLabel hint="Primary button label (pink background)">
+                CTA Primary Label (Pink Button)
               </FieldLabel>
               <TextInput
                 value={data.cta_primary ?? ""}
@@ -123,13 +125,33 @@ const CTAEditor = () => {
               />
             </div>
             <div>
-              <FieldLabel hint="Secondary button — outlined, links to /partner">
-                CTA Secondary (Outlined Button)
+              <FieldLabel hint="Where the primary button should go. Use an internal path like /register, or a full URL like https://forms.gle/abc">
+                CTA Primary URL / Link
+              </FieldLabel>
+              <TextInput
+                value={data.cta_primary_url ?? ""}
+                onChange={(v) => setField("cta_primary_url", v)}
+                placeholder="/register"
+              />
+            </div>
+            <div>
+              <FieldLabel hint="Secondary button label (outlined)">
+                CTA Secondary Label (Outlined Button)
               </FieldLabel>
               <TextInput
                 value={data.cta_secondary ?? ""}
                 onChange={(v) => setField("cta_secondary", v)}
                 placeholder="PARTNER WITH US"
+              />
+            </div>
+            <div>
+              <FieldLabel hint="Where the secondary button should go. Use an internal path like /partner, or a full URL.">
+                CTA Secondary URL / Link
+              </FieldLabel>
+              <TextInput
+                value={data.cta_secondary_url ?? ""}
+                onChange={(v) => setField("cta_secondary_url", v)}
+                placeholder="/partner"
               />
             </div>
           </div>
@@ -143,6 +165,16 @@ const CTAEditor = () => {
               {data.cta_secondary || "PARTNER WITH US"}
             </div>
           </div>
+          <p className="text-xs text-muted-foreground mt-2">
+            Current links — Primary:{" "}
+            <code className="bg-secondary px-1">
+              {data.cta_primary_url || "/register"}
+            </code>
+            , Secondary:{" "}
+            <code className="bg-secondary px-1">
+              {data.cta_secondary_url || "/partner"}
+            </code>
+          </p>
         </EditorCard>
 
         {/* Notes */}
@@ -153,11 +185,15 @@ const CTAEditor = () => {
               before the footer.
             </li>
             <li>
-              The primary button always links to{" "}
-              <code className="bg-secondary px-1">/register</code>. The secondary
-              button links to{" "}
-              <code className="bg-secondary px-1">/partner</code>. These links
-              are fixed in the component code.
+              Both button links are now fully editable. Use internal paths
+              (e.g. <code className="bg-secondary px-1">/register</code>,{" "}
+              <code className="bg-secondary px-1">/partner</code>) for pages
+              inside this site, or a full URL (e.g.{" "}
+              <code className="bg-secondary px-1">
+                https://forms.gle/your-form
+              </code>
+              ) to send users to an external form. External links open in a new
+              tab automatically.
             </li>
             <li>
               Use the live preview above to check how your headline looks before

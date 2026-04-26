@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useContent } from "@/contexts/ContentContext";
 
+const isExternalUrl = (url: string) =>
+  /^(https?:|mailto:|tel:)/i.test(url.trim());
+
 const CTASection = () => {
   const { getSection } = useContent();
   const c = getSection<{
@@ -10,8 +13,18 @@ const CTASection = () => {
     headline_line2: string;
     description: string;
     cta_primary: string;
+    cta_primary_url?: string;
     cta_secondary: string;
+    cta_secondary_url?: string;
   }>("cta");
+
+  const primaryUrl = (c.cta_primary_url || "/register").trim();
+  const secondaryUrl = (c.cta_secondary_url || "/partner").trim();
+
+  const primaryClasses =
+    "bg-editorial-pink px-10 py-4 text-sm font-black uppercase tracking-wider text-background hover:opacity-90 transition-opacity";
+  const secondaryClasses =
+    "border-2 border-foreground px-10 py-4 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all";
 
   return (
     <section className="border-b-2 border-foreground">
@@ -34,18 +47,34 @@ const CTASection = () => {
           {c.description}
         </p>
         <div className="flex flex-wrap justify-center gap-4 mt-8">
-          <Link
-            to="/register"
-            className="bg-editorial-pink px-10 py-4 text-sm font-black uppercase tracking-wider hover:opacity-90 transition-opacity"
-          >
-            {c.cta_primary}
-          </Link>
-          <Link
-            to="/partner"
-            className="border-2 border-foreground px-10 py-4 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"
-          >
-            {c.cta_secondary}
-          </Link>
+          {isExternalUrl(primaryUrl) ? (
+            <a
+              href={primaryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={primaryClasses}
+            >
+              {c.cta_primary}
+            </a>
+          ) : (
+            <Link to={primaryUrl} className={primaryClasses}>
+              {c.cta_primary}
+            </Link>
+          )}
+          {isExternalUrl(secondaryUrl) ? (
+            <a
+              href={secondaryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={secondaryClasses}
+            >
+              {c.cta_secondary}
+            </a>
+          ) : (
+            <Link to={secondaryUrl} className={secondaryClasses}>
+              {c.cta_secondary}
+            </Link>
+          )}
         </div>
       </motion.div>
     </section>

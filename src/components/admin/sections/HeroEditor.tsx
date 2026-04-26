@@ -137,7 +137,7 @@ const HeroEditor = () => {
             <TextInput
               value={data.placement_text}
               onChange={(v) => setField("placement_text", v)}
-              placeholder="Assured Placement Assistance to Top 1% Selected Finalists"
+              placeholder="Assured Placement Assistance to Top 200–250 Teams Selected as Finalists"
             />
           </div>
         </EditorCard>
@@ -185,7 +185,7 @@ const HeroEditor = () => {
           </p>
           <div className="bg-editorial-pink/10 border border-editorial-pink/30 rounded p-3 mb-4">
             <p className="text-xs font-bold text-editorial-pink uppercase tracking-widest">ℹ️ Current Key Facts</p>
-            <p className="text-xs text-muted-foreground mt-1">Your hero section should include: 10,000+ Applicants, Top 1% Selected, ₹50 Lakhs+ Prize Pool (highlighted), 30 Hrs, ₹50 Registration Fee, Mumbai Location, R1 Online + R2 Hybrid, and <strong>₹50 Lakhs+ Startup Funding (highlighted)</strong>.</p>
+            <p className="text-xs text-muted-foreground mt-1">Your hero section should include: 10,000+ Applicants, Top 200–250 Teams Selected, ₹50 Lakhs+ Prize Pool (highlighted), 30 Hrs, ₹50 Registration Fee, Mumbai Location, R1 Online + R2 Hybrid, and <strong>₹50 Lakhs+ Startup Funding (highlighted)</strong>.</p>
           </div>
 
           <div className="space-y-3">

@@ -338,7 +338,7 @@ INSERT INTO site_content (section, content) VALUES (
       },
       {
         "title": "ASSURED PLACEMENT ASSISTANCE",
-        "desc": "Top 1% selected finalists receive assured placement assistance with direct exposure to hiring companies actively looking for elite engineering talent.",
+        "desc": "The top 200–250 teams selected as finalists receive assured placement assistance with direct exposure to hiring companies actively looking for elite engineering talent.",
         "accent": "border-editorial-blue"
       },
       {
@@ -370,7 +370,7 @@ INSERT INTO site_content (section, content) VALUES (
       },
       {
         "q": "How does the selection process work?",
-        "a": "We review every application based on skills, experience, and potential. Only the top 1% teams (approximately 80–100 participants) are shortlisted for the final 30-hour hackathon."
+        "a": "We review every application based on skills, experience, and potential. Only the top 200–250 teams are shortlisted for the final 30-hour hackathon."
       },
       {
         "q": "What is the ₹50 registration fee?",
@@ -423,7 +423,7 @@ INSERT INTO site_content (section, content) VALUES (
 INSERT INTO site_content (section, content) VALUES (
   'cta',
   $json${
-    "eyebrow": "LIMITED SEATS • TOP 1% ONLY",
+    "eyebrow": "LIMITED SEATS • TOP 200–250 TEAMS",
     "headline_line1": "READY TO",
     "headline_line2": "BUILD?",
     "description": "10,000 will apply. 100 will be chosen. Don't just watch from the sidelines — this is your shot at getting hired, getting funded, and getting noticed.",
@@ -460,7 +460,7 @@ INSERT INTO site_content (section, content) VALUES (
     "mission_title_line2": "MISSION",
     "what_is_title": "INDIA'S LARGEST HIRING & STARTUP HACKATHON",
     "what_is_body": [
-      "InnovaHack is not just another hackathon — it's a curated, elite-level innovation event where the top 1% of India's builders come together to hack, get hired, and get funded.",
+      "InnovaHack is not just another hackathon — it's a curated, elite-level innovation event where the top 200–250 teams of India's builders come together to hack, get hired, and get funded.",
       "Over 30 intense hours, selected participants build real solutions across 5 cutting-edge domains: Generative AI, FinTech, HealthTech, Blockchain, and an Open Startup Track.",
       "What makes InnovaHack different? Every finalist gets direct access to hiring companies, investors, and incubators. This isn't about prizes — it's about life-changing opportunities: job offers, internships, incubation, and investment."
     ],
@@ -472,7 +472,7 @@ INSERT INTO site_content (section, content) VALUES (
     ],
     "stats": [
       {"number": "10,000+", "label": "APPLICANTS EXPECTED"},
-      {"number": "TOP 1%",  "label": "SELECTED BUILDERS"},
+      {"number": "TOP 200–250",  "label": "SELECTED TEAMS"},
       {"number": "30 HRS",  "label": "NON-STOP HACKING"},
       {"number": "5",       "label": "DOMAIN TRACKS"},
       {"number": "₹50",   "label": "REGISTRATION FEE"},

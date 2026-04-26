@@ -183,7 +183,7 @@ const BENEFITS_MAP: Record<
     {
       icon: <Users size={16} />,
       title: "AUDIENCE OF LEARNERS",
-      desc: "Direct access to top 1% student builders — highly motivated individuals looking for upskilling opportunities.",
+      desc: "Direct access to top 200–250 teams of student builders — highly motivated individuals looking for upskilling opportunities.",
     },
     {
       icon: <Target size={16} />,

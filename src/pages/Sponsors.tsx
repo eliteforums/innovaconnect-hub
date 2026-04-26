@@ -236,7 +236,7 @@ const Sponsors = () => {
             <span className="text-editorial-pink">HERE?</span>
           </h2>
           <p className="text-muted-foreground mt-6 max-w-lg mx-auto text-sm md:text-base">
-            Partner with InnovaHack and get your brand in front of India's top 1%
+            Partner with InnovaHack and get your brand in front of India's top 200–250 teams of
             builders.
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-8">

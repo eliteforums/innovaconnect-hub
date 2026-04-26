@@ -169,14 +169,14 @@ const SHARE_TEXT = `Hey! 🚀
 InnovaHack 2026 — India's Largest Hiring & Startup Hackathon is now open for registrations!
 
 ✅ 30-hour intensive hackathon
-✅ Top 1% selected from 10,000+ applicants
+✅ Top 200–250 teams selected from 10,000+ applicants
 ✅ ₹50 Lakhs+ prize pool
 ✅ Direct exposure to 100+ hiring companies
 ✅ Startup incubation & investor access
 
 Apply now → https://innovahack.in/register
 
-Only the top 1% get selected. Don't miss your shot! 💪
+Only the top 200–250 teams get selected. Don't miss your shot! 💪
 
 #InnovaHack2026 #Hackathon #TechEvent #EliteForums`;
 

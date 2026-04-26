@@ -187,7 +187,7 @@ const OutcomesEditor = () => {
                     value={outcome.desc}
                     onChange={(v) => updateOutcome(i, "desc", v)}
                     rows={2}
-                    placeholder="Top 1% selected finalists receive..."
+                    placeholder="Top 200–250 teams selected as finalists receive..."
                   />
                 </div>
                 <div>

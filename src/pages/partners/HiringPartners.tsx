@@ -146,7 +146,7 @@ const HiringPartners = () => {
             </h1>
             <p className="text-muted-foreground mt-6 max-w-2xl text-sm md:text-base leading-relaxed">
               Join InnovaHack as a hiring partner and get direct access to
-              India's top 1% pre-screened builders. No recruitment fees — just
+              India's top 200–250 teams of pre-screened builders. No recruitment fees — just
               direct talent access.
             </p>
           </motion.div>

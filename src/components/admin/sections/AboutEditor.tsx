@@ -294,7 +294,7 @@ const AboutEditor = () => {
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <FieldLabel hint="The large number or value (e.g. 10,000+ or TOP 1%)">
+                    <FieldLabel hint="The large number or value (e.g. 10,000+ or TOP 200–250)">
                       Number / Value
                     </FieldLabel>
                     <TextInput

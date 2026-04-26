@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const stats = [
   { number: "10,000+", label: "APPLICANTS EXPECTED" },
-  { number: "TOP 1%", label: "SELECTED BUILDERS" },
+  { number: "TOP 200–250", label: "SELECTED TEAMS" },
   { number: "30 HRS", label: "NON-STOP HACKING" },
   { number: "5", label: "DOMAIN TRACKS" },
   { number: "₹250", label: "FINALIST REGISTRATION FEE" },
@@ -50,7 +50,7 @@ const About = () => {
             <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
               <p>
                 InnovaHack is not just another hackathon — it's a curated, elite-level
-                innovation event where the top 1% of India's builders come together to
+                innovation event where the top 200–250 teams of India's builders come together to
                 hack, get hired, and get funded.
               </p>
               <p>
