@@ -411,8 +411,39 @@ export const ContentProvider: FC<{ children: ReactNode }> = ({
   );
 };
 
+// ─────────────────────────────────────────────
+// Fallback context value — used when a component that calls `useContent`
+// is rendered on a route that is NOT wrapped in <ContentProvider>.
+// This prevents hard crashes (e.g. Footer/Navbar rendered on /sponsor-us,
+// /partner, /admin, partner proposal pages, etc.) and lets those pages
+// still render using DEFAULT_CONTENT.
+// ─────────────────────────────────────────────
+const FALLBACK_CONTEXT_VALUE: ContentContextValue = {
+  content: DEFAULT_CONTENT,
+  isLoading: false,
+  getSection: <T = Record<string, unknown>,>(section: string): T =>
+    (DEFAULT_CONTENT[section] ?? {}) as T,
+  refreshContent: async () => {
+    /* no-op outside provider */
+  },
+  updateSection: () => {
+    /* no-op outside provider */
+  },
+};
+
 export const useContent = () => {
   const ctx = useContext(ContentContext);
-  if (!ctx) throw new Error("useContent must be used inside <ContentProvider>");
+  if (!ctx) {
+    // Gracefully fall back to defaults instead of throwing. Components like
+    // Footer and Navbar are rendered on routes that don't mount the
+    // ContentProvider (admin, partner forms, sponsor-us, etc.), and a thrown
+    // error here would cascade into a blank page / apparent 404.
+    if (typeof console !== "undefined" && console.warn) {
+      console.warn(
+        "[ContentContext] useContent() called outside <ContentProvider>; falling back to DEFAULT_CONTENT.",
+      );
+    }
+    return FALLBACK_CONTEXT_VALUE;
+  }
   return ctx;
 };
