@@ -87,6 +87,14 @@ const HeroSection = memo(() => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
+<<<<<<< HEAD
+              <Link
+                to="/register"
+                className="bg-editorial-pink px-8 py-3 text-sm font-black uppercase tracking-wider hover:opacity-90 transition-opacity"
+              >
+                {c.cta_primary}
+              </Link>
+=======
               <a
                 href="https://luma.com/iq9zu3qe"
                 target="_blank"
@@ -95,6 +103,7 @@ const HeroSection = memo(() => {
               >
                 {c.cta_primary}
               </a>
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
               <Link
                 to="/partner"
                 className="border-2 border-foreground px-8 py-3 text-sm font-black uppercase tracking-wider hover:bg-foreground hover:text-background transition-all"

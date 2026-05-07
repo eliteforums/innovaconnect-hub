@@ -26,7 +26,11 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     prize_label: "Including Cash Prizes, Goodies & More",
     placement_text: "Assured Placement Assistance to Top 200–250 Teams Selected Finalists",
     ticker_text:
+<<<<<<< HEAD
+      "GENERATIVE AI • FINTECH • CYBERSECURITY • BLOCKCHAIN • STARTUP TRACK • HACK. GET HIRED. GET FUNDED. • ",
+=======
       "GENERATIVE AI • FINTECH • HEALTHTECH • BLOCKCHAIN • STARTUP TRACK • HACK. GET HIRED. GET FUNDED. • ",
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
     key_facts: [
       { number: "10,000+", label: "APPLICANTS" },
       { number: "TOP 200–250", label: "TEAMS SELECTED" },
@@ -63,10 +67,17 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
         accent: "text-editorial-blue",
       },
       {
+<<<<<<< HEAD
+        name: "CYBERSECURITY",
+        description:
+          "Protecting the digital world. Cybersecurity, threat detection, data protection, and secure systems — solve real problems in online safety and privacy.",
+        tag: "CYBERSECURITY",
+=======
         name: "HEALTHTECH",
         description:
           "Technology that saves lives. Digital health, diagnostics, telemedicine — solve real problems in healthcare delivery.",
         tag: "HEALTH",
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
         color: "border-editorial-green",
         accent: "text-editorial-green",
       },
@@ -352,6 +363,26 @@ export const ContentProvider: FC<{ children: ReactNode }> = ({
         setIsLoading(false);
         return;
       }
+<<<<<<< HEAD
+
+      // ✅ FIXED: Do NOT start with DEFAULT_CONTENT
+      const merged: ContentMap = {};
+
+      // First: take DB content directly
+      for (const row of data) {
+        if (row.section && row.content) {
+          merged[row.section] = row.content as Record<string, unknown>;
+        }
+      }
+
+      // Then: fallback only if section is missing completely
+      for (const key in DEFAULT_CONTENT) {
+        if (!merged[key]) {
+          merged[key] = DEFAULT_CONTENT[key];
+        }
+      }
+
+=======
       const merged: ContentMap = { ...DEFAULT_CONTENT };
       for (const row of data) {
         if (row.section && row.content) {
@@ -367,13 +398,18 @@ export const ContentProvider: FC<{ children: ReactNode }> = ({
           }
         }
       }
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
       setContent(merged);
     } catch (err) {
       console.warn("[ContentContext] Unexpected error loading content:", err);
     } finally {
       setIsLoading(false);
     }
+<<<<<<< HEAD
+  }, []);
+=======
   }, []); // no deps — function is stable
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
 
   useEffect(() => {
     loadContent();

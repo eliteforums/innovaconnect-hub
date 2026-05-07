@@ -53,12 +53,32 @@ const tracks = [
     ],
   },
   {
+<<<<<<< HEAD
+    name: "CYBERSECURITY",
+    tag: "CYBERSECURITY",
+=======
     name: "HEALTHTECH",
     tag: "HEALTH",
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
     color: "border-editorial-green",
     accent: "text-editorial-green",
     bgAccent: "bg-editorial-green",
     description:
+<<<<<<< HEAD
+      "Protecting the digital world. Cybersecurity, threat detection, data protection, and secure systems — solve real problems in online safety and privacy.",
+    sponsors: "Hospitals, Pharma companies, Insurance companies",
+    examples: [
+      "Threat detection systems",
+      "Password security tools",
+      "Network monitoring platforms",
+      "Phishing detection applications",
+      "Secure authentication systems",
+    ],
+    sponsorTypes: [
+      "Cybersecurity Companies",
+      "IT Security Firms",
+      "Security Solution Providers",
+=======
       "Technology that saves lives. Digital health, diagnostics, telemedicine — solve real problems in healthcare delivery.",
     sponsors: "Hospitals, Pharma companies, Insurance companies",
     examples: [
@@ -74,6 +94,7 @@ const tracks = [
       "Health Insurance Firms",
       "Medical Device Companies",
       "HealthTech Startups",
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
     ],
   },
   {
