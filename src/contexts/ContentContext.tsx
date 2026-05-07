@@ -26,7 +26,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     prize_label: "Including Cash Prizes, Goodies & More",
     placement_text: "Assured Placement Assistance to Top 200–250 Teams Selected Finalists",
     ticker_text:
-      "GENERATIVE AI • FINTECH • HEALTHTECH • BLOCKCHAIN • STARTUP TRACK • HACK. GET HIRED. GET FUNDED. • ",
+      "GENERATIVE AI • FINTECH • CYBERSECURITY • BLOCKCHAIN • STARTUP TRACK • HACK. GET HIRED. GET FUNDED. • ",
     key_facts: [
       { number: "10,000+", label: "APPLICANTS" },
       { number: "TOP 200–250", label: "TEAMS SELECTED" },
@@ -63,10 +63,10 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
         accent: "text-editorial-blue",
       },
       {
-        name: "HEALTHTECH",
+        name: "CYBERSECURITY",
         description:
-          "Technology that saves lives. Digital health, diagnostics, telemedicine — solve real problems in healthcare delivery.",
-        tag: "HEALTH",
+          "Protecting the digital world. Cybersecurity, threat detection, data protection, and secure systems — solve real problems in online safety and privacy.",
+        tag: "CYBERSECURITY",
         color: "border-editorial-green",
         accent: "text-editorial-green",
       },

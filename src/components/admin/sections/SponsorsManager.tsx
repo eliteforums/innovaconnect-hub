@@ -14,16 +14,32 @@ import { SectionHeader } from "@/components/admin/AdminEditorLayout";
 import { ImageCropper } from "./ImageCropper";
 
 const CATEGORIES = [
-  { value: "upper_row", label: "Upper Row Sponsor" },
-  { value: "lower_row", label: "Lower Row Sponsor" },
+  { value: "title", label: "Title Sponsor" },
+  { value: "gold", label: "Gold Sponsor" },
+  { value: "domain_ai", label: "Domain - Gen AI" },
+  { value: "domain_fintech", label: "Domain - FinTech" },
+  { value: "domain_healthtech", label: "Domain - HealthTech" },
+  { value: "domain_blockchain", label: "Domain - Blockchain" },
+  { value: "domain_startup", label: "Domain - Startup" },
+  { value: "hiring", label: "Hiring Partner" },
+  { value: "tech", label: "Tech Partner" },
+  { value: "education", label: "Education Partner" },
+  { value: "college", label: "College Partner" },
+  { value: "community", label: "Community Partner" },
+];
+
+const ROW_PLACEMENTS = [
+  { value: "none", label: "None (Sponsors Page Only)" },
+  { value: "upper_row", label: "Upper Row (Landing Page)" },
+  { value: "lower_row", label: "Lower Row (Landing Page)" },
 ];
 
 const emptySponsor = (): Omit<Sponsor, "id"> => ({
   name: "",
   logo_url: "",
   website_url: "",
-  category: "upper_row",
-  track: "",
+  category: "gold",
+  track: "none",
   is_active: true,
   sort_order: 0,
 });
@@ -115,16 +131,32 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
         </div>
         <div>
           <Label className="text-xs font-bold uppercase tracking-widest">
-            Row Placement *
+            Sponsor Type *
           </Label>
           <select
-            value={form.category ?? "upper_row"}
+            value={form.category ?? "gold"}
             onChange={(e) => upd("category", e.target.value)}
             className="mt-1 w-full bg-secondary border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:border-editorial-pink"
           >
             {CATEGORIES.map((c) => (
               <option key={c.value} value={c.value}>
                 {c.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <Label className="text-xs font-bold uppercase tracking-widest">
+            Landing Page Row
+          </Label>
+          <select
+            value={form.track ?? "none"}
+            onChange={(e) => upd("track", e.target.value)}
+            className="mt-1 w-full bg-secondary border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:border-editorial-pink"
+          >
+            {ROW_PLACEMENTS.map((r) => (
+              <option key={r.value} value={r.value}>
+                {r.label}
               </option>
             ))}
           </select>

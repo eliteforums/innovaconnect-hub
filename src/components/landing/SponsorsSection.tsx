@@ -15,14 +15,14 @@ const LogoTile = ({ sponsor }: LogoTileProps) => {
       <div className="absolute inset-0 bg-gradient-to-br from-editorial-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
 
       {/* Logo Area */}
-      <div className="flex-1 w-full flex items-center justify-center relative z-10 min-h-0">
+      <div className="h-24 w-full flex items-center justify-center relative z-10">
         {logo_url ? (
           <img
             src={logo_url}
             alt={name}
             title={name}
             loading="lazy"
-            className="w-full h-full object-contain filter drop-shadow-md group-hover:scale-110 transition-transform duration-500"
+            className="max-w-full max-h-full object-contain filter drop-shadow-md group-hover:scale-110 transition-transform duration-500"
           />
         ) : (
           <div className="w-16 h-16 border-2 border-dashed border-border/50 rounded-full flex items-center justify-center bg-black/20">
@@ -32,7 +32,7 @@ const LogoTile = ({ sponsor }: LogoTileProps) => {
       </div>
 
       {/* Name Area */}
-      <div className="w-full text-center relative z-10 shrink-0 mt-auto">
+      <div className="w-full text-center relative z-10 shrink-0 min-h-[42px] flex items-center justify-center">
         <span
           style={{
             display: 'block',
@@ -40,10 +40,11 @@ const LogoTile = ({ sponsor }: LogoTileProps) => {
             wordBreak: 'break-word',
             color: 'white',
             fontWeight: '900',
-            fontSize: '12px',
+            fontSize: '11px',
             textTransform: 'uppercase',
             letterSpacing: '0.1em',
-            textShadow: '0 2px 4px rgba(0,0,0,0.8)'
+            textShadow: '0 2px 4px rgba(0,0,0,0.8)',
+            lineHeight: '1.2'
           }}
         >
           {name}
@@ -83,32 +84,32 @@ const SponsorsSection = () => {
     };
   }, []);
 
-  let topRowSponsors = sponsors.filter(s => s.category === "upper_row");
-  let bottomRowSponsors = sponsors.filter(s => s.category === "lower_row");
+  let topRowSponsors = sponsors.filter(s => s.track === "upper_row");
+  let bottomRowSponsors = sponsors.filter(s => s.track === "lower_row");
 
   const getDisplayItems = (items: Sponsor[]) => {
-    if (items.length === 0) {
-      return Array.from({ length: 8 }).map((_, i) => ({
-        keyId: `empty-${i}`,
-        sponsor: undefined
-      }));
-    }
-    let display: { keyId: string, sponsor: Sponsor }[] = [];
-    let iteration = 0;
-    while (display.length < 10) {
-      items.forEach(item => {
+    const list = items.length > 0 ? items : Array.from({ length: 8 }).map(() => undefined);
+    // Ensure we have at least 12 items to make the row long enough to span screen
+    const repeats = Math.ceil(12 / list.length);
+    let display: { keyId: string, sponsor?: Sponsor }[] = [];
+    
+    for (let i = 0; i < repeats; i++) {
+      list.forEach((item, idx) => {
         display.push({
-          keyId: `${item.id}-${iteration}`,
-          sponsor: item
+          keyId: (item as Sponsor)?.id ? `${(item as Sponsor).id}-${i}` : `empty-${idx}-${i}`,
+          sponsor: item as Sponsor
         });
       });
-      iteration++;
     }
     return display;
   };
 
   const topDisplay = getDisplayItems(topRowSponsors);
   const bottomDisplay = getDisplayItems(bottomRowSponsors);
+
+  // Calculate speed: 3.5 seconds per item (including its gap)
+  const topDuration = `${topDisplay.length * 3.5}s`;
+  const bottomDuration = `${bottomDisplay.length * 3.5}s`;
 
   return (
     <section id="sponsors" className="border-b-2 border-foreground overflow-hidden">
@@ -127,10 +128,10 @@ const SponsorsSection = () => {
             width: max-content;
           }
           .animate-scroll-left {
-            animation: scroll-left 40s linear infinite;
+            animation: scroll-left var(--duration, 40s) linear infinite;
           }
           .animate-scroll-right {
-            animation: scroll-right 40s linear infinite;
+            animation: scroll-right var(--duration, 40s) linear infinite;
           }
           .marquee-container:hover {
             animation-play-state: paused;
@@ -161,18 +162,18 @@ const SponsorsSection = () => {
         </div>
       </div>
 
-      <div className="py-12 md:py-20 flex flex-col gap-6 md:gap-8 bg-secondary/10 relative z-0">
+      <div className="py-12 md:py-20 flex flex-col gap-6 md:gap-20 bg-secondary/10 relative z-0">
         {/* Top Row - Scrolling Left */}
         <div className="overflow-hidden w-full relative">
-          <div className="marquee-container animate-scroll-left">
-            <div className="flex gap-4 md:gap-6 px-2 md:px-3">
+          <div className="marquee-container animate-scroll-left" style={{ '--duration': topDuration } as any}>
+            <div className="flex gap-20 pr-20">
               {topDisplay.map((item) => (
                 <div key={`top-1-${item.keyId}`} className="flex-shrink-0">
                   <LogoTile sponsor={item.sponsor} />
                 </div>
               ))}
             </div>
-            <div className="flex gap-4 md:gap-6 px-2 md:px-3">
+            <div className="flex gap-20 pr-20">
               {topDisplay.map((item) => (
                 <div key={`top-2-${item.keyId}`} className="flex-shrink-0">
                   <LogoTile sponsor={item.sponsor} />
@@ -184,15 +185,15 @@ const SponsorsSection = () => {
 
         {/* Bottom Row - Scrolling Right */}
         <div className="overflow-hidden w-full relative">
-          <div className="marquee-container animate-scroll-right">
-            <div className="flex gap-4 md:gap-6 px-2 md:px-3">
+          <div className="marquee-container animate-scroll-right" style={{ '--duration': bottomDuration } as any}>
+            <div className="flex gap-20 pr-20">
               {bottomDisplay.map((item) => (
                 <div key={`bottom-1-${item.keyId}`} className="flex-shrink-0">
                   <LogoTile sponsor={item.sponsor} />
                 </div>
               ))}
             </div>
-            <div className="flex gap-4 md:gap-6 px-2 md:px-3">
+            <div className="flex gap-20 pr-20">
               {bottomDisplay.map((item) => (
                 <div key={`bottom-2-${item.keyId}`} className="flex-shrink-0">
                   <LogoTile sponsor={item.sponsor} />
