@@ -196,6 +196,7 @@ const App = () => (
                 element={<CommunityPartners />}
               />
 
+<<<<<<< HEAD
               {/* ── Admin panel ── */}
               <Route
                 path="/admin"
@@ -213,6 +214,11 @@ const App = () => (
                   </ContentProvider>
                 }
               />
+=======
+              {/* ── Admin panel — no ContentProvider ── */}
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/*" element={<Admin />} />
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
 
               {/* ── Portal — wrapped in PortalAuthProvider only ── */}
               <Route

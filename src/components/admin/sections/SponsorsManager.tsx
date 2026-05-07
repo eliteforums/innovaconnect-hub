@@ -11,7 +11,10 @@ import {
 } from "@/lib/supabase";
 import type { Sponsor } from "@/lib/supabase";
 import { SectionHeader } from "@/components/admin/AdminEditorLayout";
+<<<<<<< HEAD
 import { ImageCropper } from "./ImageCropper";
+=======
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
 
 const CATEGORIES = [
   { value: "title", label: "Title Sponsor" },
@@ -28,18 +31,25 @@ const CATEGORIES = [
   { value: "community", label: "Community Partner" },
 ];
 
+<<<<<<< HEAD
 const ROW_PLACEMENTS = [
   { value: "none", label: "None (Sponsors Page Only)" },
   { value: "upper_row", label: "Upper Row (Landing Page)" },
   { value: "lower_row", label: "Lower Row (Landing Page)" },
 ];
 
+=======
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
 const emptySponsor = (): Omit<Sponsor, "id"> => ({
   name: "",
   logo_url: "",
   website_url: "",
   category: "gold",
+<<<<<<< HEAD
   track: "none",
+=======
+  track: "",
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
   is_active: true,
   sort_order: 0,
 });
@@ -55,12 +65,16 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+<<<<<<< HEAD
   const [cropImageSrc, setCropImageSrc] = useState<string | null>(null);
   const [selectedFileName, setSelectedFileName] = useState<string>("");
+=======
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
 
   const upd = (field: keyof Sponsor, value: string | boolean | number) =>
     setForm((prev) => ({ ...prev, [field]: value }));
 
+<<<<<<< HEAD
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -78,6 +92,10 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
     setCropImageSrc(null);
     setUploading(true);
     const file = new File([croppedBlob], selectedFileName || 'cropped-logo.png', { type: 'image/png' });
+=======
+  const handleLogoUpload = async (file: File) => {
+    setUploading(true);
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
     const tempId = form.id ?? `temp-${Date.now()}`;
     const { url, error } = await uploadSponsorLogo(file, tempId);
     if (url) upd("logo_url", url);
@@ -131,7 +149,11 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
         </div>
         <div>
           <Label className="text-xs font-bold uppercase tracking-widest">
+<<<<<<< HEAD
             Sponsor Type *
+=======
+            Category *
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
           </Label>
           <select
             value={form.category ?? "gold"}
@@ -147,6 +169,7 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
         </div>
         <div>
           <Label className="text-xs font-bold uppercase tracking-widest">
+<<<<<<< HEAD
             Landing Page Row
           </Label>
           <select
@@ -163,6 +186,8 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
         </div>
         <div>
           <Label className="text-xs font-bold uppercase tracking-widest">
+=======
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
             Sort Order
           </Label>
           <Input
@@ -207,7 +232,14 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
             type="file"
             accept="image/*"
             className="hidden"
+<<<<<<< HEAD
             onChange={handleFileSelect}
+=======
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) handleLogoUpload(f);
+            }}
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
           />
         </div>
       </div>
@@ -240,6 +272,7 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
           CANCEL
         </button>
       </div>
+<<<<<<< HEAD
 
       {cropImageSrc && (
         <ImageCropper
@@ -248,6 +281,8 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
           onCancel={() => setCropImageSrc(null)}
         />
       )}
+=======
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
     </motion.div>
   );
 };

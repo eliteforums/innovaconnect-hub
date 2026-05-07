@@ -7,7 +7,10 @@ const navLinks = [
   { label: "HOME", href: "/", isRoute: true },
   { label: "ABOUT", href: "/about", isRoute: true },
   { label: "TRACKS", href: "/tracks", isRoute: true },
+<<<<<<< HEAD
   { label: "Our SPONSORS", href: "/sponsors", isRoute: true },
+=======
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
   { label: "SPONSOR US", href: "/sponsor-us", isRoute: true },
   { label: "PARTNER WITH US", href: "/partner", isRoute: true },
   { label: "CONTACT", href: "/contact", isRoute: true },

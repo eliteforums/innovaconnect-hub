@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { fetchSponsors } from "@/lib/supabase";
 import type { Sponsor } from "@/lib/supabase";
 
+<<<<<<< HEAD
 type LogoTileProps = { sponsor?: Sponsor };
 
 const LogoTile = ({ sponsor }: LogoTileProps) => {
@@ -58,15 +59,76 @@ const LogoTile = ({ sponsor }: LogoTileProps) => {
   }
 
   return (
+=======
+// Maps a display category label to the DB `category` values that belong to it.
+const categoryMap: { label: string; match: string[] }[] = [
+  { label: "TITLE SPONSOR", match: ["title"] },
+  {
+    label: "DOMAIN SPONSORS",
+    match: [
+      "domain_ai",
+      "domain_fintech",
+      "domain_healthtech",
+      "domain_blockchain",
+      "domain_startup",
+      "gold",
+    ],
+  },
+  { label: "HIRING PARTNERS", match: ["hiring"] },
+  { label: "TECH PARTNERS", match: ["tech"] },
+  { label: "EDUCATION PARTNERS", match: ["education"] },
+  { label: "COMMUNITY PARTNERS", match: ["community"] },
+  { label: "COLLEGE PARTNERS", match: ["college"] },
+  { label: "INCUBATORS & INVESTORS", match: ["incubator", "investor"] },
+];
+
+type LogoTileProps = { sponsor?: Sponsor };
+
+const LogoTile = ({ sponsor }: LogoTileProps) => {
+  if (!sponsor) {
+    return (
+      <div className="w-20 h-20 border-2 border-dashed border-border rounded flex items-center justify-center">
+        <span className="text-xs text-muted-foreground">LOGO</span>
+      </div>
+    );
+  }
+  const tile = (
+    <div className="w-20 h-20 border border-border rounded flex items-center justify-center overflow-hidden bg-background p-2">
+      {sponsor.logo_url ? (
+        <img
+          src={sponsor.logo_url}
+          alt={sponsor.name}
+          title={sponsor.name}
+          loading="lazy"
+          className="max-w-full max-h-full object-contain"
+        />
+      ) : (
+        <span className="text-[10px] font-bold text-center text-muted-foreground line-clamp-2">
+          {sponsor.name}
+        </span>
+      )}
+    </div>
+  );
+  return sponsor.website_url ? (
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
     <a
       href={sponsor.website_url}
       target="_blank"
       rel="noopener noreferrer"
+<<<<<<< HEAD
       aria-label={name}
       className="block"
     >
       {tile}
     </a>
+=======
+      aria-label={sponsor.name}
+    >
+      {tile}
+    </a>
+  ) : (
+    tile
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
   );
 };
 
@@ -84,6 +146,7 @@ const SponsorsSection = () => {
     };
   }, []);
 
+<<<<<<< HEAD
   let topRowSponsors = sponsors.filter(s => s.track === "upper_row");
   let bottomRowSponsors = sponsors.filter(s => s.track === "lower_row");
 
@@ -150,18 +213,37 @@ const SponsorsSection = () => {
               </p>
             </div>
             <h2 className="md:text-4xl lg:text-6xl font-black uppercase tracking-tighter">
+=======
+  return (
+    <section id="sponsors" className="border-b-2 border-foreground">
+      <div className="border-b border-border px-4 md:px-8 py-6">
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="text-xs font-bold tracking-[0.3em] uppercase text-muted-foreground mb-1">
+              SECTION 05
+            </p>
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
               SPONSORS & PARTNERS
             </h2>
           </div>
           <Link
+<<<<<<< HEAD
             to="/sponsors"
             className="text-xs font-bold uppercase tracking-[0.2em] text-editorial-blue hover:text-editorial-blue/80 transition-colors hidden md:block relative z-10"
           >
             View Our SPONSORS →
+=======
+            to="/partner"
+            className="text-xs font-bold uppercase tracking-widest text-editorial-blue hover:underline hidden md:block"
+          >
+            BECOME A PARTNER →
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
           </Link>
         </div>
       </div>
 
+<<<<<<< HEAD
       <div className="py-12 md:py-20 flex flex-col gap-6 md:gap-20 bg-secondary/10 relative z-0">
         {/* Top Row - Scrolling Left */}
         <div className="overflow-hidden w-full relative">
@@ -202,6 +284,31 @@ const SponsorsSection = () => {
             </div>
           </div>
         </div>
+=======
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        {categoryMap.map(({ label, match }) => {
+          const matched = sponsors.filter((s) => match.includes(s.category));
+          return (
+            <div
+              key={label}
+              className="border-b border-r border-border p-6 md:p-8 flex flex-col items-center justify-center min-h-[160px] hover:bg-secondary/30 transition-colors"
+            >
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-muted-foreground mb-4">
+                {label}
+              </p>
+              {matched.length > 0 ? (
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  {matched.slice(0, 6).map((s) => (
+                    <LogoTile key={s.id} sponsor={s} />
+                  ))}
+                </div>
+              ) : (
+                <LogoTile />
+              )}
+            </div>
+          );
+        })}
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
       </div>
     </section>
   );

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
+=======
+import { useState } from "react";
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
 import { motion, AnimatePresence } from "framer-motion";
 import { Save, RotateCcw, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { upsertSiteContent } from "@/lib/supabase";
@@ -278,6 +282,7 @@ export function useEditor<T extends Record<string, unknown>>(
   sectionKey: string,
   adminEmail?: string
 ) {
+<<<<<<< HEAD
   const { getSection, updateSection, refreshContent } = useContent();
   const contextData = getSection<T>(sectionKey);
   const contextDataString = JSON.stringify(contextData);
@@ -292,6 +297,15 @@ export function useEditor<T extends Record<string, unknown>>(
     }
   }, [contextDataString, dirty]);
 
+=======
+  const { getSection, updateSection } = useContent();
+  const defaultData = getSection<T>(sectionKey);
+
+  const [data, setData] = useState<T>(() => JSON.parse(JSON.stringify(defaultData)));
+  const [saveState, setSaveState] = useState<SaveState>("idle");
+  const [dirty, setDirty] = useState(false);
+
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
   const update = (updater: (prev: T) => T) => {
     setData((prev) => updater(prev));
     setDirty(true);
@@ -316,7 +330,10 @@ export function useEditor<T extends Record<string, unknown>>(
       setTimeout(() => setSaveState("idle"), 3000);
     } else {
       updateSection(sectionKey, data as Record<string, unknown>);
+<<<<<<< HEAD
       await refreshContent();
+=======
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
       setSaveState("saved");
       setDirty(false);
       setTimeout(() => setSaveState("idle"), 2500);

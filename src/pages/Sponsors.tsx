@@ -13,6 +13,7 @@ const trackSponsors = [
     accent: "border-editorial-purple",
     bgAccent: "bg-editorial-purple",
     textAccent: "text-editorial-purple",
+<<<<<<< HEAD
     description: "Companies powering the Generative AI track",
     slots: 6,
   },
@@ -23,6 +24,18 @@ const trackSponsors = [
     bgAccent: "bg-editorial-green",
     textAccent: "text-editorial-green",
     description: "Companies powering the Cybersecurity track",
+=======
+    description: "Companies powering the AI track",
+    slots: 6,
+  },
+  {
+    track: "HEALTHTECH TRACK",
+    category: "domain_healthtech",
+    accent: "border-editorial-green",
+    bgAccent: "bg-editorial-green",
+    textAccent: "text-editorial-green",
+    description: "Hospitals, Pharma companies, Insurance companies",
+>>>>>>> 7d09f42b09d23993db77ff42eabf8e571838f247
     slots: 6,
   },
   {
