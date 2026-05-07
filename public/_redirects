@@ -1,0 +1,3 @@
+# Netlify / Cloudflare Pages SPA fallback — sends every unknown path back to
+# the React app so client-side routing (e.g. /sponsor-us, /partner) works.
+/*    /index.html   200
