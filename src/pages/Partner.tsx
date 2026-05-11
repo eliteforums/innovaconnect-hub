@@ -374,8 +374,8 @@ const Partner = () => {
               textAccent: "text-editorial-purple",
             },
             {
-              track: "HEALTHTECH",
-              sponsors: "Hospitals, Pharma, Insurance Companies",
+              track: "CYBERSECURITY",
+              sponsors: "Cybersecurity Firms",
               accent: "border-editorial-green",
               textAccent: "text-editorial-green",
             },

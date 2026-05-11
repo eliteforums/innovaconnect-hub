@@ -11,15 +11,18 @@ import {
 } from "@/lib/supabase";
 import type { Sponsor } from "@/lib/supabase";
 import { SectionHeader } from "@/components/admin/AdminEditorLayout";
+import { ImageCropper } from "./ImageCropper";
 
 const CATEGORIES = [
   { value: "title", label: "Title Sponsor" },
   { value: "gold", label: "Gold Sponsor" },
-  { value: "domain_ai", label: "Domain - Gen AI" },
+  { value: "silver", label: "Silver Sponsor" },
+  { value: "bronze", label: "Bronze Sponsor" },
+  { value: "domain_ai", label: "Domain - Generative AI" },
   { value: "domain_fintech", label: "Domain - FinTech" },
-  { value: "domain_healthtech", label: "Domain - HealthTech" },
+  { value: "domain_cybersecurity", label: "Domain - Cybersecurity" },
   { value: "domain_blockchain", label: "Domain - Blockchain" },
-  { value: "domain_startup", label: "Domain - Startup" },
+  { value: "domain_startup", label: "Domain - Startup Track" },
   { value: "hiring", label: "Hiring Partner" },
   { value: "tech", label: "Tech Partner" },
   { value: "education", label: "Education Partner" },
@@ -27,12 +30,18 @@ const CATEGORIES = [
   { value: "community", label: "Community Partner" },
 ];
 
+const ROW_PLACEMENTS = [
+  { value: "none", label: "Not on homepage marquee" },
+  { value: "upper_row", label: "Upper Row (scrolls left)" },
+  { value: "lower_row", label: "Lower Row (scrolls right)" },
+];
+
 const emptySponsor = (): Omit<Sponsor, "id"> => ({
   name: "",
   logo_url: "",
   website_url: "",
   category: "gold",
-  track: "",
+  track: "none",
   is_active: true,
   sort_order: 0,
 });
@@ -48,12 +57,26 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const [cropImageSrc, setCropImageSrc] = useState<string | null>(null);
+  const [selectedFileName, setSelectedFileName] = useState<string>("");
 
-  const upd = (field: keyof Sponsor, value: string | boolean | number) =>
-    setForm((prev) => ({ ...prev, [field]: value }));
+  const upd = <K extends keyof Sponsor>(key: K, val: Sponsor[K]) => {
+    setForm((prev) => ({ ...prev, [key]: val }));
+  };
 
-  const handleLogoUpload = async (file: File) => {
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setSelectedFileName(file.name);
+    const reader = new FileReader();
+    reader.onload = () => setCropImageSrc(reader.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const handleCropComplete = async (blob: Blob) => {
+    setCropImageSrc(null);
     setUploading(true);
+    const file = new File([blob], selectedFileName, { type: "image/png" });
     const tempId = form.id ?? `temp-${Date.now()}`;
     const { url, error } = await uploadSponsorLogo(file, tempId);
     if (url) upd("logo_url", url);
@@ -107,7 +130,7 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
         </div>
         <div>
           <Label className="text-xs font-bold uppercase tracking-widest">
-            Category *
+            Sponsor Type *
           </Label>
           <select
             value={form.category ?? "gold"}
@@ -123,55 +146,46 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
         </div>
         <div>
           <Label className="text-xs font-bold uppercase tracking-widest">
-            Sort Order
+            Landing Page Row
           </Label>
-          <Input
-            type="number"
-            value={form.sort_order ?? 0}
-            onChange={(e) => upd("sort_order", parseInt(e.target.value) || 0)}
-            className="mt-1 bg-secondary border-border"
-          />
+          <select
+            value={form.track ?? "none"}
+            onChange={(e) => upd("track", e.target.value)}
+            className="mt-1 w-full bg-secondary border border-border px-3 py-2 text-sm text-foreground focus:outline-none focus:border-editorial-pink"
+          >
+            {ROW_PLACEMENTS.map((r) => (
+              <option key={r.value} value={r.value}>
+                {r.label}
+              </option>
+            ))}
+          </select>
         </div>
-      </div>
-
-      <div>
-        <Label className="text-xs font-bold uppercase tracking-widest mb-2 block">
-          Logo
-        </Label>
-        <div className="flex flex-wrap items-center gap-3">
-          {form.logo_url && (
-            <div className="w-14 h-14 border border-border flex items-center justify-center overflow-hidden bg-secondary shrink-0">
+        <div>
+          <Label className="text-xs font-bold uppercase tracking-widest">
+            Logo
+          </Label>
+          <div className="mt-1 flex items-center gap-2">
+            <input
+              type="file"
+              ref={fileRef}
+              onChange={handleLogoUpload}
+              className="hidden"
+              accept="image/*"
+            />
+            <button
+              onClick={() => fileRef.current?.click()}
+              className="px-3 py-2 bg-secondary border border-border text-xs font-bold hover:border-editorial-pink transition-colors"
+            >
+              {uploading ? "UPLOADING..." : "SELECT FILE"}
+            </button>
+            {form.logo_url && (
               <img
                 src={form.logo_url}
-                alt="logo preview"
-                className="max-w-full max-h-full object-contain"
+                alt="preview"
+                className="w-10 h-10 object-contain border border-border bg-white"
               />
-            </div>
-          )}
-          <button
-            type="button"
-            onClick={() => fileRef.current?.click()}
-            disabled={uploading}
-            className="text-xs font-bold uppercase tracking-wider border-2 border-border px-4 py-2 hover:border-foreground transition-colors disabled:opacity-50"
-          >
-            {uploading ? "UPLOADING..." : "UPLOAD LOGO"}
-          </button>
-          <Input
-            value={form.logo_url ?? ""}
-            onChange={(e) => upd("logo_url", e.target.value)}
-            placeholder="Or paste logo URL directly"
-            className="bg-secondary border-border text-sm flex-1 min-w-[160px]"
-          />
-          <input
-            ref={fileRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={(e) => {
-              const f = e.target.files?.[0];
-              if (f) handleLogoUpload(f);
-            }}
-          />
+            )}
+          </div>
         </div>
       </div>
 
@@ -203,6 +217,14 @@ const SponsorForm = ({ sponsor, onSave, onCancel }: SponsorFormProps) => {
           CANCEL
         </button>
       </div>
+
+      {cropImageSrc && (
+        <ImageCropper
+          imageSrc={cropImageSrc}
+          onCropComplete={handleCropComplete}
+          onCancel={() => setCropImageSrc(null)}
+        />
+      )}
     </motion.div>
   );
 };
