@@ -155,53 +155,70 @@ const JudgesMentorsSection = () => {
               JUDGES & MENTORS
             </h2>
           </div>
-         
         </div>
       </div>
 
-      <div className="py-12 md:py-20 flex flex-col gap-6 md:gap-16 bg-secondary/5 relative z-0">
+      <div className="py-12 md:py-12 flex flex-col gap-12 md:gap-18 bg-secondary/5 relative z-0">
         {/* Top Row - Scrolling Left */}
-        <div className="overflow-hidden w-full relative">
-          <div
-            className="marquee-container animate-scroll-left"
-            style={{ "--duration": topDuration } as any}
-          >
-            <div className="flex gap-12 md:gap-16 pr-12 md:pr-16">
-              {topDisplay.map((item) => (
-                <div key={`top-1-${item.keyId}`} className="flex-shrink-0">
-                  <PersonTile person={item.person} />
-                </div>
-              ))}
-            </div>
-            <div className="flex gap-12 md:gap-16 pr-12 md:pr-16">
-              {topDisplay.map((item) => (
-                <div key={`top-2-${item.keyId}`} className="flex-shrink-0">
-                  <PersonTile person={item.person} />
-                </div>
-              ))}
+        <div className="w-full relative">
+          <div className="flex items-center justify-center gap-6 md:gap-8 mb-8 md:mb-14 px-8 md:px-20">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-foreground/30 to-foreground/50"></div>
+            <h3 className="text-lg md:text-xl font-black uppercase tracking-[0.4em] text-white whitespace-nowrap">
+              JUDGES
+            </h3>
+            <div className="flex-1 h-px bg-gradient-to-l from-transparent via-foreground/30 to-foreground/50"></div>
+          </div>
+          <div className="overflow-hidden w-full relative">
+            <div
+              className="marquee-container animate-scroll-left"
+              style={{ "--duration": topDuration } as any}
+            >
+              <div className="flex gap-12 md:gap-16 pr-12 md:pr-16">
+                {topDisplay.map((item) => (
+                  <div key={`top-1-${item.keyId}`} className="flex-shrink-0">
+                    <PersonTile person={item.person} />
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-12 md:gap-16 pr-12 md:pr-16">
+                {topDisplay.map((item) => (
+                  <div key={`top-2-${item.keyId}`} className="flex-shrink-0">
+                    <PersonTile person={item.person} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Row - Scrolling Right */}
-        <div className="overflow-hidden w-full relative">
-          <div
-            className="marquee-container animate-scroll-right"
-            style={{ "--duration": bottomDuration } as any}
-          >
-            <div className="flex gap-12 md:gap-16 pr-12 md:pr-16">
-              {bottomDisplay.map((item) => (
-                <div key={`bottom-1-${item.keyId}`} className="flex-shrink-0">
-                  <PersonTile person={item.person} />
-                </div>
-              ))}
-            </div>
-            <div className="flex gap-12 md:gap-16 pr-12 md:pr-16">
-              {bottomDisplay.map((item) => (
-                <div key={`bottom-2-${item.keyId}`} className="flex-shrink-0">
-                  <PersonTile person={item.person} />
-                </div>
-              ))}
+        <div className="w-full relative">
+          <div className="flex items-center justify-center gap-6 md:gap-10 mb-10 md:mb-14 px-8 md:px-20">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-foreground/30 to-foreground/50"></div>
+            <h3 className="text-lg md:text-xl font-black uppercase tracking-[0.4em] text-white whitespace-nowrap">
+              MENTORS
+            </h3>
+            <div className="flex-1 h-px bg-gradient-to-l from-transparent via-foreground/30 to-foreground/50"></div>
+          </div>
+          <div className="overflow-hidden w-full relative">
+            <div
+              className="marquee-container animate-scroll-right"
+              style={{ "--duration": bottomDuration } as any}
+            >
+              <div className="flex gap-12 md:gap-16 pr-12 md:pr-16">
+                {bottomDisplay.map((item) => (
+                  <div key={`bottom-1-${item.keyId}`} className="flex-shrink-0">
+                    <PersonTile person={item.person} />
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-12 md:gap-16 pr-12 md:pr-16">
+                {bottomDisplay.map((item) => (
+                  <div key={`bottom-2-${item.keyId}`} className="flex-shrink-0">
+                    <PersonTile person={item.person} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
