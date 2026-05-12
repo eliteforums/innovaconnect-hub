@@ -20,6 +20,7 @@ import {
   Building2,
   Handshake,
   Link as LinkIcon,
+  UsersRound,
 } from "lucide-react";
 import { adminSignOut, getSession } from "@/lib/supabase";
 
@@ -39,6 +40,7 @@ import SponsorsManager from "@/components/admin/sections/SponsorsManager";
 import SettingsEditor from "@/components/admin/sections/SettingsEditor";
 import ProposalsSection from "@/components/admin/sections/ProposalsSection";
 import ReferralsSection from "@/components/admin/sections/ReferralsSection";
+import JudgesMentorsManager from "@/components/admin/sections/JudgesMentorsManager";
 
 // ─── Nav Config ───────────────────────────────────────────────────────────────
 
@@ -61,6 +63,12 @@ const NAV_ITEMS: NavItem[] = [
     id: "registrations",
     label: "Registrations",
     icon: <Users size={16} />,
+    group: "DATA",
+  },
+  {
+    id: "teams",
+    label: "Teams",
+    icon: <UsersRound size={16} />,
     group: "DATA",
   },
   {
@@ -137,6 +145,12 @@ const NAV_ITEMS: NavItem[] = [
     icon: <Building2 size={16} />,
     group: "PAGES",
   },
+  {
+    id: "judges",
+    label: "Judges & Mentors",
+    icon: <Users size={16} />,
+    group: "PAGES",
+  },
   // Config
   {
     id: "settings",
@@ -161,6 +175,7 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   cta: <CTAEditor />,
   about: <AboutEditor />,
   sponsors: <SponsorsManager />,
+  judges: <JudgesMentorsManager />,
   settings: <SettingsEditor />,
 };
 

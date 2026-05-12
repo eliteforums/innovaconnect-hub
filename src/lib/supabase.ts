@@ -126,6 +126,18 @@ export type Sponsor = {
   created_at?: string;
 };
 
+export type JudgeMentor = {
+  id?: string;
+  name: string;
+  role: string;
+  image_url?: string;
+  linkedin_url?: string;
+  track?: string;
+  is_active: boolean;
+  sort_order: number;
+  created_at?: string;
+};
+
 // ─────────────────────────────────────────────
 // Auth helpers
 // ─────────────────────────────────────────────
@@ -382,4 +394,53 @@ export const upsertSponsor = async (sponsor: Sponsor) => {
 export const deleteSponsor = async (id: string) => {
   const { error } = await supabase.from("sponsors").delete().eq("id", id);
   return { error };
+};
+
+
+// ─── Judges & Mentors helpers ─────────────────────────────────────────────
+
+export const fetchJudgesMentors = async () => {
+  const { data, error } = await supabase
+    .from("judges_mentors")
+    .select("id, name, role, image_url, linkedin_url, track, sort_order")
+    .eq("is_active", true)
+    .order("sort_order");
+  return { data, error };
+};
+
+export const fetchAllJudgesMentors = async () => {
+  const { data, error } = await supabase
+    .from("judges_mentors")
+    .select("*")
+    .order("sort_order");
+  return { data, error };
+};
+
+export const upsertJudgeMentor = async (person: JudgeMentor) => {
+  const { data, error } = await supabase
+    .from("judges_mentors")
+    .upsert(person)
+    .select()
+    .single();
+  return { data, error };
+};
+
+export const deleteJudgeMentor = async (id: string) => {
+  const { error } = await supabase.from("judges_mentors").delete().eq("id", id);
+  return { error };
+};
+
+export const uploadJudgeMentorImage = async (file: File, id: string) => {
+  const ext = file.name.split(".").pop();
+  const path = `judges/${id}.${ext}`;
+  const { data, error } = await supabase.storage
+    .from("sponsors") // Reusing the sponsors bucket but in a 'judges' folder
+    .upload(path, file, { upsert: true });
+  if (data) {
+    const { data: urlData } = supabase.storage
+      .from("sponsors")
+      .getPublicUrl(path);
+    return { url: urlData.publicUrl, error };
+  }
+  return { url: null, error };
 };

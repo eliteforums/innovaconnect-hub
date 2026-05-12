@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import JudgesMentorsSection from "@/components/landing/JudgesMentorsSection";
 
 const stats = [
   { number: "10,000+", label: "APPLICANTS EXPECTED" },
@@ -117,6 +118,9 @@ const About = () => {
           ))}
         </div>
       </section>
+
+      {/* Judges & Mentors */}
+      <JudgesMentorsSection />
 
       {/* Transparency Promise */}
       <section className="border-b-2 border-foreground">

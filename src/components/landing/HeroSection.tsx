@@ -50,22 +50,62 @@ const HeroSection = memo(() => {
                   {c.description}
                 </p>
                 <motion.div
-                  className="mt-6 bg-editorial-pink p-5 md:p-6 relative overflow-hidden"
+                  className="mt-6 relative overflow-hidden rounded-xl"
+                  style={{
+                    background: "linear-gradient(to right, hsl(330,90%,60%) 0%, hsl(330,90%,45%) 35%, hsl(330,90%,15%) 70%, hsl(330,90%,4%) 100%)",
+                    border: "1px solid hsl(330,90%,60%,0.4)",
+                    boxShadow: "0 0 0 1px hsla(330,90%,60%,0.15), 0 0 24px 0 hsla(330,90%,60%,0.25), inset 0 1px 0 0 rgba(255,255,255,0.15)",
+                  }}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
-                  <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
-                  <p className="text-xs font-bold tracking-[0.3em] uppercase text-background/70 mb-1">
-                    🏆 TOTAL PRIZE POOL
-                  </p>
-                  <p className="text-4xl md:text-5xl font-black text-background leading-tight">
-                    {c.prize_pool}
-                  </p>
-                  <p className="text-sm md:text-base font-bold uppercase tracking-wider text-background/90 mt-1">
-                    {c.prize_label}
-                  </p>
+                  {/* Subtle top shine */}
+                  <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-white/30 via-white/10 to-transparent pointer-events-none" />
+
+                  <div className="flex items-center justify-between px-5 py-4 relative z-10">
+                    {/* Left: Trophy + Prize Info */}
+                    <div className="flex items-center gap-4">
+                      <span className="text-5xl leading-none drop-shadow-lg shrink-0">🏆</span>
+                      <div className="flex flex-col gap-1">
+                        <p className="text-[10px] font-bold tracking-[0.28em] uppercase text-black/70 leading-none">
+                          TOTAL PRIZE POOL
+                        </p>
+                        <p className="text-[36px] font-black text-black leading-none tracking-tighter">
+                          {c.prize_pool}
+                        </p>
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/80 leading-none">
+                          {c.prize_label}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Right: Powered By + Unstop */}
+                    <div className="flex items-stretch border-l border-white/15 pl-6 ml-4 shrink-0">
+                      <div className="flex flex-col justify-center gap-2">
+                        <p className="text-[9px] font-bold tracking-[0.3em] uppercase text-white/60 leading-none">
+                          POWERED BY
+                        </p>
+                        {/* Unstop logo: circle + stop */}
+                        <div className="flex items-center leading-none">
+                          <div className="w-11 h-11 rounded-full bg-white flex items-center justify-center shrink-0 shadow-md">
+                            <span
+                              className="font-black lowercase leading-none"
+                              style={{ fontSize: "28px", color: "hsla(0, 0%, 0%, 1.00)" }}
+                            >
+                              un
+                            </span>
+                          </div>
+                          <span
+                            className="font-black text-white lowercase leading-none"
+                            style={{ fontSize: "28px", marginLeft: "2px", letterSpacing: "-0.03em", lineHeight: 1 }}
+                          >
+                            stop
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </motion.div>
                 <motion.div
                   className="mt-3 border-2 border-editorial-blue px-4 py-3 flex items-center gap-2"
