@@ -1,6 +1,7 @@
 import { lazy, Suspense, Component, type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -137,6 +138,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <Analytics />
         <BrowserRouter>
           <Suspense fallback={<PageLoader />}>
             <Routes>
@@ -182,7 +184,7 @@ const App = () => (
                 }
               />
 
-              {/* ── Partner proposal forms ── */}
+              {/* ��─ Partner proposal forms ── */}
               <Route path="/hiring-partners" element={<HiringPartners />} />
               <Route path="/tech-partners" element={<TechPartners />} />
               <Route
