@@ -49,13 +49,20 @@ const HeroSection = memo(() => {
                 <p className="text-muted-foreground mt-2 text-sm md:text-base">
                   {c.description}
                 </p>
+                <style>{`
+                  .prize-tile {
+                    background: linear-gradient(to bottom, hsl(330,90%,55%) 0%, hsl(330,90%,40%) 40%, hsl(330,90%,12%) 80%, hsl(330,90%,5%) 100%);
+                    border: 1px solid hsl(330,90%,60%,0.4);
+                    box-shadow: 0 0 0 1px hsla(330,90%,60%,0.15), 0 0 24px 0 hsla(330,90%,60%,0.25), inset 0 1px 0 0 rgba(255,255,255,0.15);
+                  }
+                  @media (min-width: 640px) {
+                    .prize-tile {
+                      background: linear-gradient(to right, hsl(330,90%,60%) 0%, hsl(330,90%,45%) 35%, hsl(330,90%,15%) 70%, hsl(330,90%,4%) 100%);
+                    }
+                  }
+                `}</style>
                 <motion.div
-                  className="mt-6 relative overflow-hidden rounded-xl"
-                  style={{
-                    background: "linear-gradient(to right, hsl(330,90%,60%) 0%, hsl(330,90%,45%) 35%, hsl(330,90%,15%) 70%, hsl(330,90%,4%) 100%)",
-                    border: "1px solid hsl(330,90%,60%,0.4)",
-                    boxShadow: "0 0 0 1px hsla(330,90%,60%,0.15), 0 0 24px 0 hsla(330,90%,60%,0.25), inset 0 1px 0 0 rgba(255,255,255,0.15)",
-                  }}
+                  className="mt-6 relative overflow-hidden rounded-xl prize-tile"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
@@ -63,42 +70,42 @@ const HeroSection = memo(() => {
                   {/* Subtle top shine */}
                   <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-white/30 via-white/10 to-transparent pointer-events-none" />
 
-                  <div className="flex items-center justify-between px-5 py-4 relative z-10">
+                  <div className="flex flex-col sm:flex-row items-center sm:justify-between px-4 sm:px-5 py-5 sm:py-4 relative z-10 gap-4 sm:gap-0">
                     {/* Left: Trophy + Prize Info */}
-                    <div className="flex items-center gap-4">
-                      <span className="text-5xl leading-none drop-shadow-lg shrink-0">🏆</span>
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <span className="text-4xl sm:text-5xl leading-none drop-shadow-lg shrink-0">🏆</span>
                       <div className="flex flex-col gap-1">
-                        <p className="text-[10px] font-bold tracking-[0.28em] uppercase text-black/70 leading-none">
+                        <p className="text-[9px] sm:text-[10px] font-bold tracking-[0.28em] uppercase text-black/80 leading-none">
                           TOTAL PRIZE POOL
                         </p>
-                        <p className="text-[36px] font-black text-black leading-none tracking-tighter">
+                        <p className="text-[28px] sm:text-[36px] font-black text-black leading-none tracking-tighter">
                           {c.prize_pool}
                         </p>
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/80 leading-none">
+                        <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.15em] text-white/90 sm:text-white/80 leading-none">
                           {c.prize_label}
                         </p>
                       </div>
                     </div>
 
                     {/* Right: Powered By + Unstop */}
-                    <div className="flex items-stretch border-l border-white/15 pl-6 ml-4 shrink-0">
-                      <div className="flex flex-col justify-center gap-2">
-                        <p className="text-[9px] font-bold tracking-[0.3em] uppercase text-white/60 leading-none">
+                    <div className="flex items-center justify-center w-full sm:w-auto border-t sm:border-t-0 sm:border-l border-white/20 pt-4 sm:pt-0 sm:pl-6 sm:ml-4 shrink-0">
+                      <div className="flex flex-col justify-center items-center sm:items-start gap-2">
+                        <p className="text-[8px] sm:text-[9px] font-bold tracking-[0.3em] uppercase text-white/70 leading-none">
                           POWERED BY
                         </p>
                         {/* Unstop logo: circle + stop */}
                         <div className="flex items-center leading-none">
-                          <div className="w-11 h-11 rounded-full bg-white flex items-center justify-center shrink-0 shadow-md">
+                          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white flex items-center justify-center shrink-0 shadow-md">
                             <span
-                              className="font-black lowercase leading-none"
-                              style={{ fontSize: "28px", color: "hsla(0, 0%, 0%, 1.00)" }}
+                              className="font-black lowercase leading-none text-[22px] sm:text-[28px]"
+                              style={{ color: "hsla(0, 0%, 0%, 1.00)" }}
                             >
                               un
                             </span>
                           </div>
                           <span
-                            className="font-black text-white lowercase leading-none"
-                            style={{ fontSize: "28px", marginLeft: "2px", letterSpacing: "-0.03em", lineHeight: 1 }}
+                            className="font-black text-white lowercase leading-none text-[22px] sm:text-[28px]"
+                            style={{ marginLeft: "2px", letterSpacing: "-0.03em", lineHeight: 1 }}
                           >
                             stop
                           </span>
@@ -128,7 +135,7 @@ const HeroSection = memo(() => {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <a
-                href="https://unstop.com/hackathons/innovahack-chapter-1-elite-forums-1684671"
+                href="https://luma.com/iq9zu3qe"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-editorial-pink px-8 py-3 text-sm font-black uppercase tracking-wider hover:opacity-90 transition-opacity"
