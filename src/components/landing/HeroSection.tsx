@@ -135,7 +135,7 @@ const HeroSection = memo(() => {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <a
-                href="https://luma.com/iq9zu3qe"
+                href="https://unstop.com/hackathons/innovahack-chapter-1-elite-forums-1684671"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-editorial-pink px-8 py-3 text-sm font-black uppercase tracking-wider hover:opacity-90 transition-opacity"
