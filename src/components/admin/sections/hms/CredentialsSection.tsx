@@ -90,10 +90,12 @@ const CredentialsSection = () => {
   const {
     data: pendingRegistrations = [],
     isLoading: loadingRegistrations,
+    isError: credentialsError,
     refetch: refetchRegistrations,
   } = useQuery({
     queryKey: ["hms", "pending-credentials"],
     queryFn: fetchPendingCredentials,
+    retry: false,
   });
 
   // Fetch failed emails

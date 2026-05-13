@@ -124,7 +124,12 @@ const AnalyticsSection = () => {
     error: analyticsError,
   } = useQuery({
     queryKey: ["hms", "analytics"],
-    queryFn: fetchAnalytics,
+    queryFn: async () => {
+      const result = await fetchAnalytics();
+      if (result.error) throw new Error(result.error.message);
+      return result;
+    },
+    retry: false,
   });
 
   // Fetch timeline data on mount
@@ -134,6 +139,7 @@ const AnalyticsSection = () => {
   } = useQuery({
     queryKey: ["hms", "analytics", "timeline"],
     queryFn: fetchSubmissionTimeline,
+    retry: false,
   });
 
   const analytics: AnalyticsData | null = analyticsResult?.data ?? null;

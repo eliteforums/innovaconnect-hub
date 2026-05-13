@@ -480,10 +480,17 @@ const TeamManagementSection = () => {
   const {
     data: teamsResult,
     isLoading,
+    isError,
+    error: teamsError,
     refetch,
   } = useQuery({
     queryKey: ["hms", "teams", page],
-    queryFn: () => fetchTeams(0, 1000), // Fetch all for client-side filtering
+    queryFn: async () => {
+      const result = await fetchTeams(0, 1000);
+      if (result.error) throw new Error(result.error.message);
+      return result;
+    },
+    retry: false,
   });
 
   // Fetch submissions for progress calculation
@@ -697,6 +704,26 @@ const TeamManagementSection = () => {
                       LOADING...
                     </p>
                   </div>
+                </div>
+              ) : isError ? (
+                <div className="p-8 text-center">
+                  <XCircle size={24} className="mx-auto mb-3 text-red-400" />
+                  <p className="text-sm font-bold uppercase tracking-widest text-red-400">
+                    DATABASE TABLE NOT FOUND
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-2 max-w-md mx-auto">
+                    The HMS tables haven't been created yet. Run the migrations in your Supabase SQL Editor:
+                  </p>
+                  <div className="mt-3 text-left max-w-sm mx-auto border border-border p-3 bg-secondary/50">
+                    <p className="text-xs font-mono text-muted-foreground">1. supabase/migrations/001_hms_schema.sql</p>
+                    <p className="text-xs font-mono text-muted-foreground">2. supabase/migrations/002_hms_rls_policies.sql</p>
+                    <p className="text-xs font-mono text-muted-foreground">3. supabase/migrations/003_hms_storage.sql</p>
+                  </div>
+                  {teamsError && (
+                    <p className="text-xs text-red-400/70 mt-2">
+                      Error: {(teamsError as Error).message}
+                    </p>
+                  )}
                 </div>
               ) : filtered.length === 0 ? (
                 <div className="p-8 text-center">

@@ -467,10 +467,13 @@ const SubmissionsSection = () => {
   const {
     data: submissions = [],
     isLoading,
+    isError,
+    error: queryError,
     refetch,
   } = useQuery({
     queryKey: ["hms", "submissions"],
     queryFn: fetchSubmissionsWithTeams,
+    retry: false,
   });
 
   // Status update mutation
@@ -666,6 +669,19 @@ const SubmissionsSection = () => {
                       LOADING...
                     </p>
                   </div>
+                </div>
+              ) : isError ? (
+                <div className="p-8 text-center">
+                  <XCircle size={24} className="mx-auto mb-3 text-red-400" />
+                  <p className="text-sm font-bold uppercase tracking-widest text-red-400">
+                    DATABASE TABLE NOT FOUND
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-2 max-w-md mx-auto">
+                    Run the HMS migrations in Supabase SQL Editor (001_hms_schema.sql, 002_hms_rls_policies.sql, 003_hms_storage.sql).
+                  </p>
+                  {queryError && (
+                    <p className="text-xs text-red-400/70 mt-2">Error: {(queryError as Error).message}</p>
+                  )}
                 </div>
               ) : filtered.length === 0 ? (
                 <div className="p-8 text-center">
