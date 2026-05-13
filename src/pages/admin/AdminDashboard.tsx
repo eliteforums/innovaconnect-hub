@@ -220,6 +220,7 @@ const NAV_ITEMS: NavItem[] = [
 const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   overview: <OverviewSection />,
   registrations: <RegistrationsSection />,
+  teams: <TeamManagementSection />,
   inquiries: <InquiriesSection />,
   proposals: <ProposalsSection />,
   referrals: <ReferralsSection />,
