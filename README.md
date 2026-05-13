@@ -1,48 +1,72 @@
-# InnovaHack — Elite Forums
+# InnovaHack — Hackathon Management System
 
 > **India's Largest Hiring & Startup Hackathon**
 > Hack. Get Hired. Get Funded.
 
-InnovaHack is a 30-hour elite hackathon where the **top 200–250 teams** of
-India's builders meet hiring companies, investors, and incubators.
-This repository contains the official InnovaHack / Elite Forums website,
-admin dashboard, and Supabase backend schema.
+InnovaHack is a 30-hour elite hackathon where the **top 200–250 teams** from
+8,000–10,000 nationwide applicants compete for hiring opportunities, startup
+funding, and incubation. This repository contains the full-stack platform:
+marketing website, admin dashboard, finalist portal, and hackathon management
+system (HMS).
 
-🔗 **Repository:** https://github.com/eliteforums/innovaconnect-hub
+🔗 **Live:** [innovahack.eliteforums.in](https://innovahack.eliteforums.in)
 
 ---
 
-## ✨ Features
+## ✨ Platform Overview
 
-- 🎨 Editorial, animation-driven landing page (Framer Motion + Tailwind)
-- 🧭 Multi-page marketing site: Home, About, Sponsor Us, Partner, Tracks,
-  Sponsors, Community Partners, Email Us, and partner proposal pages
-  (Hiring / Tech / Education / Domain / College / Community).
-- 📝 Registration flow + contact / partnership inquiry forms.
-- 🔐 **Admin dashboard** (`/admin`) — Supabase-auth protected.
-  Edit every section of the site (Hero, Domains, Process, Outcomes, FAQ,
-  Fees, CTA, About, Settings) from the browser. No redeploy needed for
-  content changes.
-- 🗄️ **Supabase** backend: `site_content`, `registrations`,
-  `contact_inquiries`, and `sponsors` tables with Row Level Security.
-- 🔄 **Graceful fallbacks**: if Supabase is unreachable, the site
-  renders with safe `DEFAULT_CONTENT` from code.
-- ⚡ **SPA fallbacks** included for Netlify, Cloudflare Pages, and GitHub
-  Pages so deep links (`/sponsor-us`, `/partner`, `/admin`, …) always work.
+| Module | Route | Purpose |
+|--------|-------|---------|
+| Marketing Site | `/`, `/about`, `/tracks`, `/sponsors` | Public-facing landing pages |
+| Registration | `/register` | Participant registration flow |
+| Admin Dashboard | `/admin` | Content management + HMS operations |
+| Finalist Portal | `/finalist/*` | Authenticated finalist team workspace |
+| Partner Portal | `/portal` | Partner/sponsor dashboards |
+
+---
+
+## 🏗 Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    FRONTEND (React + Vite)                        │
+├──────────────────┬──────────────────┬───────────────────────────┤
+│  Admin Dashboard │  Finalist Portal │  Marketing + Portal        │
+│  /admin/*        │  /finalist/*     │  /, /portal, /register     │
+└────────┬─────────┴────────┬─────────┴───────────────────────────┘
+         │                  │
+         ▼                  ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                 SUPABASE (Backend-as-a-Service)                   │
+├────────────┬──────────┬──────────────┬──────────────────────────┤
+│ PostgreSQL │   Auth   │   Storage    │   Edge Functions           │
+│ + RLS      │ (JWT)    │ (Signed URLs)│ (Deno runtime)            │
+└────────────┴──────────┴──────────────┴──────────────────────────┘
+                                              │
+                                              ▼
+                                       ┌─────────────┐
+                                       │  Resend API  │
+                                       │  (Email)     │
+                                       └─────────────┘
+```
 
 ---
 
 ## 🛠 Tech Stack
 
-| Layer         | Tech                                                     |
-| ------------- | -------------------------------------------------------- |
-| Frontend      | React 18 + TypeScript + Vite                             |
-| Styling       | Tailwind CSS + shadcn/ui + Radix Primitives              |
-| Animation     | Framer Motion                                            |
-| Routing       | React Router v6                                          |
-| Backend / DB  | Supabase (PostgreSQL + Auth + RLS)                       |
-| Forms / State | React Hook Form, TanStack Query                          |
-| Tooling       | pnpm, ESLint, TypeScript strict mode                     |
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18 + TypeScript + Vite |
+| Styling | Tailwind CSS + shadcn/ui + Radix Primitives |
+| Animation | Framer Motion |
+| Routing | React Router v6 (lazy-loaded) |
+| Data Fetching | TanStack Query v5 |
+| Forms | React Hook Form + Zod validation |
+| Backend | Supabase (PostgreSQL + Auth + Storage + Edge Functions + RLS) |
+| Email | Resend API (via Edge Functions) |
+| Hosting | Vercel (auto-deploy from GitHub) |
+| Testing | Vitest + Testing Library + Playwright |
+| Analytics | Vercel Analytics |
 
 ---
 
@@ -50,33 +74,41 @@ admin dashboard, and Supabase backend schema.
 
 ```
 innovaconnect-hub/
-├── public/                      # Static assets (favicon, og-image, _redirects…)
+├── public/                          # Static assets
 ├── src/
-│   ├── components/              # Reusable UI (Navbar, Footer, sections, shadcn/ui)
-│   ├── contexts/
-│   │   ├── ContentContext.tsx   # Live site content + DEFAULT_CONTENT fallbacks
-│   │   └── PortalAuthContext.tsx
+│   ├── components/
+│   │   ├── admin/sections/hms/      # HMS admin section components (7 modules)
+│   │   ├── admin/sections/          # Content editor sections
+│   │   ├── landing/                 # Landing page sections
+│   │   └── ui/                      # shadcn/ui components
+│   ├── contexts/                    # React contexts (Content, PortalAuth)
+│   ├── hooks/                       # Custom hooks
 │   ├── lib/
-│   │   └── supabase.ts          # Supabase client + data helpers
+│   │   ├── supabase.ts             # Supabase client + existing helpers
+│   │   ├── hms.ts                  # HMS types + query functions
+│   │   ├── hmsValidation.ts        # Zod schemas + password generator
+│   │   ├── hmsAuth.ts             # Finalist auth (Team ID, lockout)
+│   │   └── portalAuth.ts          # Portal role resolution
 │   ├── pages/
-│   │   ├── Index.tsx            # Landing page
-│   │   ├── About.tsx
-│   │   ├── Admin.tsx            # Admin dashboard (/admin)
-│   │   ├── Register.tsx
-│   │   ├── Partner.tsx
-│   │   ├── SponsorUs.tsx
-│   │   ├── Tracks.tsx
-│   │   ├── Sponsors.tsx
-│   │   ├── CommunityPartners.tsx
-│   │   ├── EmailUs.tsx
-│   │   └── partners/            # Per-partner proposal pages
-│   ├── App.tsx                  # Router + providers
-│   └── main.tsx                 # Vite entry
+│   │   ├── admin/                  # Admin login + dashboard
+│   │   ├── finalist/              # Finalist portal (8 pages)
+│   │   ├── portal/               # Partner portal
+│   │   └── partners/             # Partner proposal forms
+│   ├── App.tsx                    # Router + providers
+│   └── main.tsx                   # Entry point
 ├── supabase/
-│   └── schema.sql               # Full DB schema + RLS + seed data
-├── index.html                   # Root HTML + SEO meta + JSON-LD
-├── tailwind.config.ts
-├── vite.config.ts
+│   ├── migrations/                # HMS database migrations (run in order)
+│   │   ├── 001_hms_schema.sql
+│   │   ├── 002_hms_rls_policies.sql
+│   │   └── 003_hms_storage.sql
+│   ├── functions/                 # Edge Functions (Deno)
+│   │   ├── generate-credentials/
+│   │   ├── send-email/
+│   │   └── bulk-shortlist/
+│   ├── schema.sql                 # Base schema (registrations, site_content, etc.)
+│   └── INSTRUCTIONS.md            # Full setup guide
+├── .env.example                   # Environment variable template
+├── vite.config.ts                 # Build config with code splitting
 └── package.json
 ```
 
@@ -86,143 +118,204 @@ innovaconnect-hub/
 
 ### Prerequisites
 
-- **Node.js** 18+
-- **pnpm** 8+ (`npm i -g pnpm`)
-- A **Supabase** project (free tier is fine)
+- **Node.js** 18+ (20 recommended)
+- **npm** 9+ or **pnpm** 8+
+- A **Supabase** project (free tier works for development)
+- A **Resend** account (for email delivery)
 
-### 1. Clone & install
+### 1. Clone & Install
 
 ```bash
 git clone https://github.com/eliteforums/innovaconnect-hub.git
 cd innovaconnect-hub
-pnpm install
+npm install
 ```
 
-### 2. Environment variables
-
-Create a `.env` file in the project root:
-
-```env
-VITE_SUPABASE_URL=https://<your-project-ref>.supabase.co
-VITE_SUPABASE_ANON_KEY=<your-anon-key>
-```
-
-You can find both values in **Supabase Dashboard → Project Settings → API**.
-
-### 3. Set up the database
-
-In **Supabase Dashboard → SQL Editor**, paste and run the contents of
-`supabase/schema.sql`. The script is **idempotent** — it's safe to
-re-run after edits. It will:
-
-- Create the `registrations`, `contact_inquiries`, `site_content`,
-  `sponsors` tables.
-- Enable Row Level Security with sensible policies.
-- Seed default content for every site section (hero, domains, process,
-  outcomes, FAQ, fees, CTA, about, settings).
-
-### 4. Create an admin user
-
-Admin access is gated by Supabase auth. Create a user in
-**Supabase → Authentication → Users → Add user**, then log in at
-`/admin` using that email + password.
-
-### 5. Run the dev server
+### 2. Environment Variables
 
 ```bash
-pnpm dev
+cp .env.example .env
 ```
 
-The site will be available at `http://localhost:8080` (or the port shown
-by Vite).
+Fill in your Supabase project URL and anon key. See `.env.example` for all variables.
+
+### 3. Database Setup
+
+Run migrations in order in **Supabase SQL Editor**:
+
+```bash
+# 1. Base schema (if not already done)
+supabase/schema.sql
+
+# 2. HMS tables
+supabase/migrations/001_hms_schema.sql
+
+# 3. RLS policies
+supabase/migrations/002_hms_rls_policies.sql
+
+# 4. Storage buckets
+supabase/migrations/003_hms_storage.sql
+```
+
+### 4. Edge Functions Setup
+
+Deploy edge functions to your Supabase project:
+
+```bash
+# Install Supabase CLI
+npm install -g supabase
+
+# Link to your project
+supabase link --project-ref your-project-ref
+
+# Set secrets
+supabase secrets set RESEND_API_KEY=re_your_api_key
+
+# Deploy functions
+supabase functions deploy generate-credentials
+supabase functions deploy send-email
+supabase functions deploy bulk-shortlist
+```
+
+### 5. Create Admin User
+
+1. Create a user in **Supabase → Authentication → Users**
+2. Insert their admin role:
+```sql
+INSERT INTO admin_roles (user_id, role)
+VALUES ('user-uuid-from-auth', 'super_admin');
+```
+
+### 6. Run Development Server
+
+```bash
+npm run dev
+```
+
+Visit `http://localhost:8080`
 
 ---
 
 ## 📜 Available Scripts
 
-| Command           | Purpose                                          |
-| ----------------- | ------------------------------------------------ |
-| `pnpm dev`        | Start Vite dev server with HMR                   |
-| `pnpm build`      | Production build → `dist/`                       |
-| `pnpm preview`    | Preview the production build locally             |
-| `pnpm lint`       | Run ESLint over the whole project                |
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Start Vite dev server with HMR |
+| `npm run build` | Production build → `dist/` |
+| `npm run preview` | Preview production build locally |
+| `npm run lint` | ESLint check |
+| `npm test` | Run Vitest test suite |
+| `npm run test:watch` | Run tests in watch mode |
 
 ---
 
-## 🛡️ Admin Dashboard
+## 🎯 HMS Features (Hackathon Management System)
 
-Visit **`/admin`**, log in with a Supabase user, and you'll land on a
-dashboard that lets you edit every live section of the site:
+### Admin Dashboard (`/admin` → HMS section)
 
-- **Hero** — headline, tagline, ticker, key facts, CTAs
-- **Domains** — the 5 hackathon tracks
-- **Process** — the 5-step participant journey
-- **Outcomes** — prize pool & benefits
-- **FAQ** — questions & answers
-- **Fees & Logistics** — registration fee, ROI benefits
-- **About** — mission, org copy, stats, transparency pillars
-- **CTA block** — final call-to-action on the homepage
-- **Settings** — contact emails, social links, registration toggles,
-  login/register visibility
+| Module | Description |
+|--------|-------------|
+| **Shortlisting** | Bulk-select or CSV-upload to shortlist registrations |
+| **Credentials** | Auto-generate Team IDs, auth accounts, send credential emails |
+| **Problem Statements** | Create, schedule release, attach resources |
+| **Submissions** | Review deliverables, filter by domain/status, flag for review |
+| **Notifications** | Create announcements, schedule, send via email |
+| **Analytics** | Team metrics, domain breakdown, submission timeline chart |
+| **Team Management** | Search, filter, view detailed team profiles |
 
-All edits are persisted to the `site_content` table in Supabase and
-picked up by the frontend on next load — **no redeploy required**.
+### Finalist Portal (`/finalist/*`)
+
+| Page | Description |
+|------|-------------|
+| **Login** | Email or Team ID (IH-XXXX) + password |
+| **Force Password** | Required on first login (temp password change) |
+| **Dashboard** | Progress tracker, deadlines, recent announcements |
+| **Profile** | View/edit team members, GitHub URL |
+| **Problem Statements** | View released statements, download resources |
+| **Submissions** | Upload GitHub, pitch deck, video, docs, proof-of-work |
+| **Announcements** | View notifications with read tracking |
 
 ---
 
-## 🔁 Content Flow (How defaults + DB merge)
+## 🔐 Security
 
-1. On first render, every component reads from **`DEFAULT_CONTENT`**
-   defined in `src/contexts/ContentContext.tsx`. This guarantees the
-   site renders correctly even if Supabase is down or empty.
-2. `ContentProvider` then fetches `site_content` from Supabase.
-3. For each row, DB values are **merged on top of** the defaults
-   (DB wins per key, but missing keys fall back to the code default).
-4. Components subscribe via `useContent()` and re-render with the new
-   values.
+- **Row Level Security (RLS)** on all tables — users only see their own data
+- **JWT-based sessions** with 7-day expiry
+- **Signed URLs** for all file access (15-min upload, 1-hour download)
+- **Account lockout** after 5 failed login attempts (15-min cooldown)
+- **Role hierarchy**: Super Admin > Moderator > Team Leader
+- **No public storage buckets** — all finalist files require authentication
+- **Service role key** only used server-side in Edge Functions
 
-> **Important**: If you see stale text on the live site, it's almost
-> always either (a) your host hasn't rebuilt from `main`, (b) your
-> browser/CDN has cached the old JS bundle (hard-refresh with
-> `Ctrl/Cmd + Shift + R`), or (c) an old row is still in
-> `site_content` overriding defaults — inspect that table in the
-> Supabase dashboard.
+---
+
+## ⚡ Performance (50K+ Users)
+
+The platform is designed to handle 50,000+ concurrent users:
+
+- **Code splitting** — 45 lazy-loaded chunks, only download what's needed
+- **Vendor chunking** — React, Supabase, Framer Motion, Radix, Charts separated
+- **TanStack Query** — 5-min stale time, 10-min GC, no refetch on window focus
+- **Supabase connection pooling** — PgBouncer handles concurrent connections
+- **Database indexes** on all frequently queried columns
+- **Batch processing** — Credential generation in batches of 50 with rate limiting
+- **Email rate limiting** — Max 10 emails/second to respect Resend limits
+- **Signed upload URLs** — Direct-to-storage uploads bypass the server
+- **Edge Functions** — Deployed globally on Deno Deploy (low latency)
+- **Vercel Edge Network** — CDN-cached static assets worldwide
+- **Gzip compression** — All assets compressed (largest chunk: 102KB gzipped)
+
+### Recommended Supabase Plan for Production
+
+For 50K users with 250 finalist teams:
+- **Pro Plan** ($25/month) — 8GB database, 250GB bandwidth, 100K auth users
+- Enable **connection pooling** (PgBouncer) in Supabase settings
+- Set **pool mode** to "Transaction" for best concurrency
+- Enable **Read Replicas** if read-heavy traffic exceeds single instance
 
 ---
 
 ## 🚢 Deployment
 
-The project is a standard Vite SPA — any static host works.
+### Vercel (Recommended)
 
-### Netlify / Cloudflare Pages
+1. Import GitHub repo in Vercel
+2. Framework preset: **Vite**
+3. Add environment variables:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+4. Deploy
 
-1. Connect the repo.
-2. Build command: `pnpm build`
-3. Publish directory: `dist`
-4. Set environment variables `VITE_SUPABASE_URL` and
-   `VITE_SUPABASE_ANON_KEY`.
-5. SPA fallback files (`public/_redirects`) are already included so
-   deep links like `/sponsor-us` and `/admin` resolve correctly.
+### Edge Functions (Supabase)
 
-### Vercel
+```bash
+supabase functions deploy generate-credentials
+supabase functions deploy send-email
+supabase functions deploy bulk-shortlist
+```
 
-1. Import the GitHub repo.
-2. Framework preset: **Vite**.
-3. Add the same two env vars above.
-4. Deploy.
+Set secrets in Supabase Dashboard → Edge Functions → Secrets:
+- `RESEND_API_KEY`
 
-> After **any** content change from the admin panel, users may need to
-> hard-refresh to bypass browser cache. After **any** code change, your
-> host must rebuild from `main` before changes go live.
+### Production Checklist
+
+- [ ] Supabase Pro plan activated
+- [ ] Connection pooling enabled (PgBouncer, Transaction mode)
+- [ ] All RLS policies verified
+- [ ] Edge Functions deployed with secrets set
+- [ ] Resend domain verified (for email deliverability)
+- [ ] Vercel environment variables set
+- [ ] Custom domain configured
+- [ ] SSL certificate active
+- [ ] Error monitoring enabled (Vercel/Sentry)
 
 ---
 
 ## 🤝 Contributing
 
-1. Fork the repo & create a feature branch:
-   `git checkout -b feat/my-change`
-2. Run `pnpm lint` and `pnpm build` before committing.
-3. Open a pull request against `main` with a clear description.
+1. Fork & create a feature branch: `git checkout -b feat/my-change`
+2. Run `npm run lint && npm run build && npm test` before committing
+3. Open a PR against `main` with a clear description
 
 ---
 
@@ -231,9 +324,10 @@ The project is a standard Vite SPA — any static host works.
 - **General**: hello@eliteforums.in
 - **Sponsorships**: sponsors@eliteforums.in
 - **Partnerships**: partnerships@eliteforums.in
+- **Technical**: tech@eliteforums.in
 
 ---
 
 ## 📄 License
 
-© Elite Forums. All rights reserved.
+© 2026 Elite Forums. All rights reserved.

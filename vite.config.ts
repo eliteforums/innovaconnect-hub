@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 // https://vitejs.dev/config/
-export default defineConfig(() => ({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
 
   resolve: {
@@ -11,8 +11,16 @@ export default defineConfig(() => ({
   },
 
   build: {
-    // Raise warning threshold — we know the bundle is large during transition
+    // Raise warning threshold — large vendor chunks are expected
     chunkSizeWarningLimit: 1000,
+
+    // Production optimizations for 50K+ users
+    target: "es2020",
+    minify: mode === "production" ? "esbuild" : false,
+    sourcemap: mode === "production" ? false : true,
+
+    // CSS code splitting for better caching
+    cssCodeSplit: true,
 
     rollupOptions: {
       output: {
@@ -86,6 +94,9 @@ export default defineConfig(() => ({
       "framer-motion",
       "@supabase/supabase-js",
       "lucide-react",
+      "@tanstack/react-query",
+      "zod",
+      "date-fns",
     ],
   },
 }));

@@ -21,6 +21,11 @@ import {
   Handshake,
   Link as LinkIcon,
   UsersRound,
+  UserCheck,
+  KeyRound,
+  Upload,
+  Bell,
+  BarChart3,
 } from "lucide-react";
 import { adminSignOut, getSession } from "@/lib/supabase";
 
@@ -41,6 +46,15 @@ import SettingsEditor from "@/components/admin/sections/SettingsEditor";
 import ProposalsSection from "@/components/admin/sections/ProposalsSection";
 import ReferralsSection from "@/components/admin/sections/ReferralsSection";
 import JudgesMentorsManager from "@/components/admin/sections/JudgesMentorsManager";
+
+// HMS Section components
+import ShortlistingSection from "@/components/admin/sections/hms/ShortlistingSection";
+import CredentialsSection from "@/components/admin/sections/hms/CredentialsSection";
+import ProblemStatementsSection from "@/components/admin/sections/hms/ProblemStatementsSection";
+import SubmissionsSection from "@/components/admin/sections/hms/SubmissionsSection";
+import NotificationsSection from "@/components/admin/sections/hms/NotificationsSection";
+import AnalyticsSection from "@/components/admin/sections/hms/AnalyticsSection";
+import TeamManagementSection from "@/components/admin/sections/hms/TeamManagementSection";
 
 // ─── Nav Config ───────────────────────────────────────────────────────────────
 
@@ -151,6 +165,49 @@ const NAV_ITEMS: NavItem[] = [
     icon: <Users size={16} />,
     group: "PAGES",
   },
+  // HMS
+  {
+    id: "shortlisting",
+    label: "Shortlisting",
+    icon: <UserCheck size={16} />,
+    group: "HMS",
+  },
+  {
+    id: "credentials",
+    label: "Credentials",
+    icon: <KeyRound size={16} />,
+    group: "HMS",
+  },
+  {
+    id: "problem-statements",
+    label: "Problem Statements",
+    icon: <FileText size={16} />,
+    group: "HMS",
+  },
+  {
+    id: "hms-submissions",
+    label: "Submissions",
+    icon: <Upload size={16} />,
+    group: "HMS",
+  },
+  {
+    id: "hms-notifications",
+    label: "Notifications",
+    icon: <Bell size={16} />,
+    group: "HMS",
+  },
+  {
+    id: "hms-analytics",
+    label: "Analytics",
+    icon: <BarChart3 size={16} />,
+    group: "HMS",
+  },
+  {
+    id: "hms-teams",
+    label: "Teams",
+    icon: <UsersRound size={16} />,
+    group: "HMS",
+  },
   // Config
   {
     id: "settings",
@@ -177,6 +234,14 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   sponsors: <SponsorsManager />,
   judges: <JudgesMentorsManager />,
   settings: <SettingsEditor />,
+  // HMS sections
+  shortlisting: <ShortlistingSection />,
+  credentials: <CredentialsSection />,
+  "problem-statements": <ProblemStatementsSection />,
+  "hms-submissions": <SubmissionsSection />,
+  "hms-notifications": <NotificationsSection />,
+  "hms-analytics": <AnalyticsSection />,
+  "hms-teams": <TeamManagementSection />,
 };
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────

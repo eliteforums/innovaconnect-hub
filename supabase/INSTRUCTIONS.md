@@ -3,293 +3,268 @@
 ## Overview
 
 This project uses [Supabase](https://supabase.com) as the backend for:
-- **Database** — registrations, contact inquiries, editable site content, sponsors
-- **Auth** — admin panel authentication
-- **Storage** — resume uploads, sponsor logo uploads
+- **Database** — registrations, teams, submissions, problem statements, notifications
+- **Auth** — admin panel + finalist portal authentication
+- **Storage** — pitch decks, documentation, proof-of-work, finalist assets, resumes
+- **Edge Functions** — credential generation, email delivery, bulk shortlisting
+- **Row Level Security** — role-based access control on all tables
 
 ---
 
-## Recent Updates (April 2026)
+## Quick Start (Full Setup)
 
-The following changes have been made to the InnovaHack event:
-- **Registration Fee:** Updated from ₹100 to **₹50**
-- **Team Selection:** Now showcasing **"top 200–250 teams"** will be shortlisted
-- **Startup Funding:** New key fact added: **₹50 Lakhs+ startup funding** available (highlighted in hero)
-- **Startup Track:** Updated with funding information up to ₹50 lakhs or more
-- **ROI Calculation:** Updated to reflect ₹45,000+ total value (900x ROI on ₹50 fee)
-
-All database seed data has been updated in `schema.sql` with these new values.
+```bash
+# 1. Create Supabase project at https://supabase.com
+# 2. Run migrations in SQL Editor (in order):
+#    - supabase/schema.sql (base tables)
+#    - supabase/migrations/001_hms_schema.sql
+#    - supabase/migrations/002_hms_rls_policies.sql
+#    - supabase/migrations/003_hms_storage.sql
+# 3. Create admin user in Auth → Users
+# 4. Insert admin role (see Step 5 below)
+# 5. Deploy edge functions (see Step 7 below)
+# 6. Set environment variables and run: npm run dev
+```
 
 ---
 
 ## Step 1: Create a Supabase Project
 
-1. Go to [https://supabase.com](https://supabase.com) and sign in (or create a free account).
+1. Go to [https://supabase.com](https://supabase.com) and sign in.
 2. Click **"New Project"**.
 3. Fill in:
-   - **Project Name:** `innovahack-2026` (or any name you prefer)
-   - **Database Password:** choose a strong password and save it securely
-   - **Region:** choose the closest to your users (e.g., South Asia)
-4. Click **"Create new project"** and wait ~2 minutes for it to provision.
+   - **Project Name:** `innovahack-2026`
+   - **Database Password:** choose a strong password
+   - **Region:** South Asia (Mumbai) for lowest latency
+4. Click **"Create new project"** and wait ~2 minutes.
 
 ---
 
-## Step 2: Run the Database Schema
+## Step 2: Run Base Schema
 
-1. In your Supabase project, go to the **SQL Editor** (left sidebar).
-2. Click **"New Query"**.
-3. Open the file `supabase/schema.sql` from this repository.
-4. Copy the entire contents and paste it into the SQL Editor.
-5. Click **"Run"** (or press `Ctrl+Enter` / `Cmd+Enter`).
-6. You should see a success message. This will create all tables, indexes, RLS policies, and seed the default site content.
+In **Supabase Dashboard → SQL Editor**, run:
 
-> **Note:** If you get an error about a policy already existing, that's fine — it means the table was already set up. You can safely ignore duplicate policy errors.
+```
+supabase/schema.sql
+```
 
----
-
-## Step 3: Create Storage Buckets
-
-### Resume Bucket (Private)
-
-1. Go to **Storage** in the left sidebar.
-2. Click **"New bucket"**.
-3. Name it exactly: `resumes`
-4. Toggle **"Public bucket"** to **OFF** (private).
-5. Click **"Save"**.
-
-### Sponsor Logos Bucket (Public)
-
-1. Click **"New bucket"** again.
-2. Name it exactly: `sponsors`
-3. Toggle **"Public bucket"** to **ON**.
-4. Click **"Save"**.
-
-### Storage Policies for `resumes` bucket
-
-In the **Storage > resumes > Policies** tab, add:
-
-- **INSERT policy** — Allow anyone to upload:
-  ```sql
-  (bucket_id = 'resumes')
-  ```
-  Set to: `INSERT`, check for: `TRUE`
-
-- **SELECT policy** — Allow only authenticated users (admins) to read:
-  ```sql
-  (bucket_id = 'resumes' AND auth.role() = 'authenticated')
-  ```
-
-### Storage Policies for `sponsors` bucket
-
-- **SELECT policy** — Public read:
-  ```sql
-  (bucket_id = 'sponsors')
-  ```
-  Set to: `SELECT`, check for: `TRUE`
-
-- **ALL policy** — Authenticated users can upload/manage:
-  ```sql
-  (bucket_id = 'sponsors' AND auth.role() = 'authenticated')
-  ```
+This creates: `registrations`, `contact_inquiries`, `site_content`, `sponsors`, `judges_mentors`, `community_partners`, `partner_proposals` tables with RLS policies and seed data.
 
 ---
 
-## Step 4: Create the Admin User
+## Step 3: Run HMS Migrations (in order)
 
-The admin panel uses Supabase Auth for login. You need to create an admin user manually.
+Run these three files in sequence:
 
-1. In your Supabase project, go to **Authentication > Users**.
-2. Click **"Invite user"** or **"Add user"**.
-3. Enter the admin email and a strong password.
-4. Click **"Create user"**.
+### 3a. HMS Schema (`001_hms_schema.sql`)
+Creates 10 HMS tables: `admin_roles`, `teams`, `team_members`, `problem_statements`, `submissions`, `notifications`, `notification_reads`, `email_log`, `access_audit_log`, `login_attempts`
 
-> You can create multiple admin users this way. All authenticated users can access the admin panel.
+### 3b. RLS Policies (`002_hms_rls_policies.sql`)
+Enables Row Level Security on all HMS tables with role-based policies:
+- **Super Admin** — full access to everything
+- **Moderator** — read teams + review submissions
+- **Team Leader** — own-team data only
+
+### 3c. Storage Buckets (`003_hms_storage.sql`)
+Creates 4 private storage buckets with team-scoped access policies:
+- `pitch-decks` — PDF/PPTX, max 50MB
+- `documentation` — PDF/DOCX, max 25MB
+- `proof-of-work` — PNG/JPG/WEBP, max 10MB
+- `finalist-assets` — Admin-uploaded problem statement resources
 
 ---
 
-## Step 5: Get Your API Keys
+## Step 4: Create Admin User
 
-1. Go to **Project Settings** (gear icon, bottom left).
-2. Click **"API"** in the settings menu.
-3. You'll find:
-   - **Project URL** — looks like `https://xxxxxxxxxxxx.supabase.co`
-   - **anon / public key** — starts with `eyJ...`
+1. Go to **Authentication → Users → Add user**
+2. Enter admin email and strong password
+3. Click **"Create user"**
+
+---
+
+## Step 5: Assign Admin Role
+
+After creating the user, get their UUID from the Users table, then run:
+
+```sql
+-- Replace with actual user UUID from Authentication → Users
+INSERT INTO admin_roles (user_id, role)
+VALUES ('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'super_admin');
+```
+
+Role options: `super_admin` (full access) or `moderator` (read + review only).
 
 ---
 
 ## Step 6: Configure Environment Variables
 
-1. In the root of the project (`innovaconnect-hub/`), create a file named `.env.local`:
+Create `.env` in the project root:
 
-```
+```env
 VITE_SUPABASE_URL=https://your-project-id.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-public-key-here
 ```
 
-2. Replace the values with your actual Project URL and anon key from Step 5.
-
-> **Security:** Never commit `.env.local` to version control. It is already listed in `.gitignore`.
+Find these in **Project Settings → API**.
 
 ---
 
-## Step 7: Verify the Setup
+## Step 7: Deploy Edge Functions
 
-1. Start the development server:
-   ```bash
-   npm run dev
-   ```
-2. Visit [http://localhost:5173](http://localhost:5173) — the site should load normally.
-3. Visit [http://localhost:5173/admin](http://localhost:5173/admin) — you should see the admin login screen.
-4. Log in with the credentials you created in Step 4.
-5. You should now see the full admin dashboard.
+### Install Supabase CLI
+
+```bash
+npm install -g supabase
+```
+
+### Link Project
+
+```bash
+supabase login
+supabase link --project-ref your-project-ref
+```
+
+### Set Secrets
+
+```bash
+supabase secrets set RESEND_API_KEY=re_your_resend_api_key
+```
+
+> `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are automatically available to Edge Functions.
+
+### Deploy Functions
+
+```bash
+supabase functions deploy generate-credentials
+supabase functions deploy send-email
+supabase functions deploy bulk-shortlist
+```
+
+---
+
+## Step 8: Configure Resend (Email)
+
+1. Sign up at [resend.com](https://resend.com)
+2. Add and verify your sending domain (e.g., `eliteforums.in`)
+3. Create an API key
+4. Set it as a Supabase secret (Step 7 above)
+
+The `send-email` Edge Function sends from: `InnovaHack <noreply@eliteforums.in>`
+
+---
+
+## Step 9: Production Configuration (50K Users)
+
+### Enable Connection Pooling
+
+1. Go to **Project Settings → Database**
+2. Enable **Connection Pooling** (PgBouncer)
+3. Set pool mode to **Transaction**
+4. Use the pooled connection string for high-traffic scenarios
+
+### Upgrade Plan
+
+For production with 50K users:
+- **Pro Plan** ($25/month): 8GB database, 250GB bandwidth, 100K auth users
+- Consider **Team Plan** for dedicated support and higher limits
+
+### Performance Indexes
+
+The HMS migrations already create indexes on:
+- `teams.team_id`, `teams.leader_id`, `teams.domain`
+- `team_members.team_id`
+- `problem_statements.domain`, `problem_statements.release_at`
+- `submissions.team_id`, `submissions.status`
+- `notifications.published_at`, `notifications.audience`
+- `email_log.status`, `email_log.team_id`
+- `login_attempts.email` + `created_at`
+
+### Rate Limits
+
+- Edge Functions: 500 req/sec (Pro plan)
+- Auth: 30 sign-ups/hour, 100 sign-ins/hour (configurable)
+- Storage: 5GB bandwidth/day (Pro plan)
+- Email (Resend): 100 emails/day (free), 50K/month (Pro)
 
 ---
 
 ## Database Tables Reference
 
-### `registrations`
+### HMS Tables
 
-| Column | Type | Description |
-|---|---|---|
-| `id` | UUID | Primary key |
-| `full_name` | TEXT | Participant's full name |
-| `email` | TEXT | Participant's email |
-| `contact_no` | TEXT | Phone number |
-| `city` | TEXT | City of living |
-| `resume_url` | TEXT | URL to resume file in Supabase Storage |
-| `organisation_name` | TEXT | College or company name |
-| `year_or_experience` | TEXT | e.g. "3rd Year" or "2 years exp" |
-| `branch_or_department` | TEXT | e.g. "Computer Science" |
-| `skills` | TEXT[] | Array of selected skills |
-| `github_url` | TEXT | GitHub profile URL |
-| `linkedin_url` | TEXT | LinkedIn profile URL |
-| `team_type` | TEXT | One of: solo, duo, trio, quad |
-| `team_members` | JSONB | Array of co-member detail objects |
-| `consent` | BOOLEAN | Data sharing consent |
-| `status` | TEXT | pending / shortlisted / rejected / confirmed |
-| `notes` | TEXT | Admin notes about this registration |
-| `created_at` | TIMESTAMPTZ | Submission timestamp |
+| Table | Purpose |
+|-------|---------|
+| `admin_roles` | Maps auth users to admin/moderator roles |
+| `teams` | Finalist team records (IH-XXXX IDs) |
+| `team_members` | Individual team member details |
+| `problem_statements` | Hackathon problem statements with scheduling |
+| `submissions` | Team deliverables (GitHub, pitch deck, video, docs, PoW) |
+| `notifications` | Admin announcements with audience targeting |
+| `notification_reads` | Read tracking per team |
+| `email_log` | Email delivery tracking with retry status |
+| `access_audit_log` | Unauthorized access attempt logging |
+| `login_attempts` | Failed login tracking for account lockout |
 
-### `site_content`
+### Base Tables
 
-| Column | Type | Description |
-|---|---|---|
-| `id` | UUID | Primary key |
-| `section` | TEXT | Unique section key (e.g. `hero`, `faq`) |
-| `content` | JSONB | Section-specific content as JSON |
-| `updated_at` | TIMESTAMPTZ | Last updated timestamp |
-| `updated_by` | TEXT | Admin email who last updated |
-
-**Available section keys:**
-- `hero` — Hero section (title, prize pool, key facts, ticker)
-- `domains` — Hackathon domain tracks
-- `process` — Process steps
-- `outcomes` — What participants get
-- `faq` — Frequently asked questions
-- `fee` — Registration fee section
-- `cta` — Call-to-action section
-- `about` — About page content
-- `settings` — Global settings (emails, social links, etc.)
-- `skills_list` — Skills available in the registration form
-
-### `contact_inquiries`
-
-| Column | Type | Description |
-|---|---|---|
-| `id` | UUID | Primary key |
-| `name` | TEXT | Sender's name |
-| `email` | TEXT | Sender's email |
-| `company` | TEXT | Sender's company (optional) |
-| `category` | TEXT | Inquiry category |
-| `subject` | TEXT | Subject line |
-| `message` | TEXT | Full message body |
-| `status` | TEXT | new / read / replied / archived |
-| `created_at` | TIMESTAMPTZ | Submission timestamp |
-
-### `sponsors`
-
-| Column | Type | Description |
-|---|---|---|
-| `id` | UUID | Primary key |
-| `name` | TEXT | Sponsor/partner name |
-| `logo_url` | TEXT | URL to logo in Supabase Storage |
-| `website_url` | TEXT | Link to sponsor website |
-| `category` | TEXT | title / gold / domain_ai / hiring / tech / education / college / community |
-| `track` | TEXT | Specific domain track (if domain sponsor) |
-| `is_active` | BOOLEAN | Whether to display on website |
-| `sort_order` | INTEGER | Display order |
+| Table | Purpose |
+|-------|---------|
+| `registrations` | Participant applications (8K-10K records) |
+| `site_content` | Editable website content (JSON per section) |
+| `contact_inquiries` | Contact form submissions |
+| `sponsors` | Sponsor/partner logos and details |
+| `judges_mentors` | Judge and mentor profiles |
+| `community_partners` | Community partner referral codes |
+| `partner_proposals` | Partnership proposal submissions |
 
 ---
 
-## Admin Panel Features
+## Edge Functions Reference
 
-Once logged in at `/admin`, you can:
-
-| Section | What You Can Edit |
-|---|---|
-| **Overview** | Stats dashboard — total registrations, status breakdown |
-| **Registrations** | View all submissions, update status, add notes, export CSV |
-| **Inquiries** | View contact form submissions, mark as read/replied |
-| **Hero Editor** | Edit hero section title, prize pool, key facts, ticker text |
-| **Domains Editor** | Add/edit/remove hackathon domain tracks |
-| **Process Editor** | Edit the 5-step process section |
-| **FAQ Editor** | Add/edit/remove FAQ questions and answers |
-| **Outcomes Editor** | Edit "What You Get" section content |
-| **Fee Editor** | Edit fee amount, location, ROI benefits |
-| **CTA Editor** | Edit call-to-action section |
-| **About Editor** | Edit About page content |
-| **Sponsors Manager** | Add sponsor logos, manage categories |
-| **Settings** | Edit contact emails, social media links, site-wide settings |
-
----
-
-## Deployment (Vercel)
-
-When deploying to Vercel, add your environment variables in the Vercel dashboard:
-
-1. Go to your Vercel project → **Settings** → **Environment Variables**.
-2. Add:
-   - `VITE_SUPABASE_URL` → your Supabase project URL
-   - `VITE_SUPABASE_ANON_KEY` → your Supabase anon key
-3. Redeploy the project.
+| Function | Trigger | Purpose |
+|----------|---------|---------|
+| `generate-credentials` | Admin action | Creates auth accounts, Team IDs, sends welcome emails |
+| `send-email` | Internal/Admin | Sends emails via Resend with retry logic |
+| `bulk-shortlist` | Admin CSV upload | Parses CSV, matches registrations, updates status |
 
 ---
 
 ## Troubleshooting
 
-**"Missing Supabase environment variables" error**
-→ Make sure `.env.local` exists and has the correct values. Restart the dev server after creating it.
+### "Missing Supabase environment variables"
+→ Ensure `.env` exists with correct values. Restart dev server.
 
-**Admin login not working**
-→ Make sure you created a user in Supabase Auth (Step 4). Check that the email and password are correct.
+### Admin login works but HMS sections show empty
+→ Verify you ran all 3 HMS migrations. Check `admin_roles` table has your user.
 
-**Registrations not saving**
-→ Check that RLS policies were created correctly. In Supabase SQL Editor, run:
-```sql
-SELECT * FROM pg_policies WHERE tablename = 'registrations';
-```
-You should see `registrations_public_insert` in the list.
+### Edge Function returns 403
+→ Verify the calling user has `super_admin` role in `admin_roles` table.
 
-**Resume upload failing**
-→ Make sure the `resumes` storage bucket exists and the INSERT policy is set to allow public uploads.
+### Emails not sending
+→ Check `RESEND_API_KEY` secret is set. Verify domain in Resend dashboard. Check `email_log` table for error details.
 
-**Content edits not showing on site**
-→ The site fetches content from Supabase on load. Hard-refresh the page (`Ctrl+Shift+R`) after saving changes in the admin panel.
+### Finalist can't see problem statements
+→ Verify `release_at` timestamp has passed. Check team's domain matches the problem statement's domain.
+
+### File upload fails
+→ Verify storage buckets exist (run `003_hms_storage.sql`). Check file size limits (50MB pitch deck, 25MB docs, 10MB images).
+
+### Account locked out
+→ Wait 15 minutes, or manually delete recent entries from `login_attempts` table for that email.
 
 ---
 
 ## Local Development Without Supabase
 
-If you want to run the project without a Supabase connection (content will use hardcoded defaults, forms will not submit):
+For UI development without a live Supabase connection:
 
-1. Create `.env.local` with placeholder values:
-```
+```env
 VITE_SUPABASE_URL=https://placeholder.supabase.co
 VITE_SUPABASE_ANON_KEY=placeholder
 ```
 
-2. The app will fall back to default content for all sections. Forms will show a warning but the UI will still render.
+The app will render with default content. Forms and auth won't work but the UI is fully navigable.
 
 ---
 
-*Last updated: InnovaHack 2026 — Elite Forums*
+*Last updated: May 2026 — InnovaHack Chapter 1, Elite Forums*

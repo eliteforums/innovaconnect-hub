@@ -53,6 +53,16 @@ const PortalResetPassword = lazy(
   () => import("./pages/portal/PortalResetPassword.tsx"),
 );
 
+// Finalist portal (authenticated finalist team views)
+const FinalistLogin = lazy(() => import("./pages/finalist/FinalistLogin.tsx"));
+const FinalistForcePassword = lazy(() => import("./pages/finalist/FinalistForcePassword.tsx"));
+const FinalistLayout = lazy(() => import("./pages/finalist/FinalistLayout.tsx"));
+const FinalistDashboard = lazy(() => import("./pages/finalist/FinalistDashboard.tsx"));
+const FinalistProfile = lazy(() => import("./pages/finalist/FinalistProfile.tsx"));
+const FinalistProblemStatements = lazy(() => import("./pages/finalist/FinalistProblemStatements.tsx"));
+const FinalistSubmissions = lazy(() => import("./pages/finalist/FinalistSubmissions.tsx"));
+const FinalistAnnouncements = lazy(() => import("./pages/finalist/FinalistAnnouncements.tsx"));
+
 // ─── QueryClient — configured for performance ─────────────────────────────────
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -223,6 +233,17 @@ const App = () => (
                 path="/portal/reset-password"
                 element={<PortalResetPassword />}
               />
+
+              {/* ── Finalist Portal ── */}
+              <Route path="/finalist/login" element={<FinalistLogin />} />
+              <Route path="/finalist/change-password" element={<FinalistForcePassword />} />
+              <Route path="/finalist" element={<FinalistLayout />}>
+                <Route path="dashboard" element={<FinalistDashboard />} />
+                <Route path="profile" element={<FinalistProfile />} />
+                <Route path="problem-statements" element={<FinalistProblemStatements />} />
+                <Route path="submissions" element={<FinalistSubmissions />} />
+                <Route path="announcements" element={<FinalistAnnouncements />} />
+              </Route>
 
               {/* ── 404 ── */}
               <Route path="*" element={<NotFound />} />
