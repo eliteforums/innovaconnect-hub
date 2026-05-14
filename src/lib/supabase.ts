@@ -138,6 +138,19 @@ export type JudgeMentor = {
   created_at?: string;
 };
 
+export type TeamMember = {
+  id?: string;
+  name: string;
+  role: string;
+  image_url?: string;
+  linkedin_url?: string;
+  email?: string;
+  instagram_url?: string;
+  is_active: boolean;
+  sort_order: number;
+  created_at?: string;
+};
+
 // ─────────────────────────────────────────────
 // Auth helpers
 // ─────────────────────────────────────────────
@@ -435,6 +448,54 @@ export const uploadJudgeMentorImage = async (file: File, id: string) => {
   const path = `judges/${id}.${ext}`;
   const { data, error } = await supabase.storage
     .from("sponsors") // Reusing the sponsors bucket but in a 'judges' folder
+    .upload(path, file, { upsert: true });
+  if (data) {
+    const { data: urlData } = supabase.storage
+      .from("sponsors")
+      .getPublicUrl(path);
+    return { url: urlData.publicUrl, error };
+  }
+  return { url: null, error };
+};
+
+// ─── Team Members helpers ──────────────────────────────────────────────────
+
+export const fetchTeamMembers = async () => {
+  const { data, error } = await supabase
+    .from("team_members")
+    .select("id, name, role, image_url, linkedin_url, email, instagram_url, sort_order")
+    .eq("is_active", true)
+    .order("sort_order");
+  return { data, error };
+};
+
+export const fetchAllTeamMembers = async () => {
+  const { data, error } = await supabase
+    .from("team_members")
+    .select("*")
+    .order("sort_order");
+  return { data, error };
+};
+
+export const upsertTeamMember = async (person: TeamMember) => {
+  const { data, error } = await supabase
+    .from("team_members")
+    .upsert(person)
+    .select()
+    .single();
+  return { data, error };
+};
+
+export const deleteTeamMember = async (id: string) => {
+  const { error } = await supabase.from("team_members").delete().eq("id", id);
+  return { error };
+};
+
+export const uploadTeamMemberImage = async (file: File, id: string) => {
+  const ext = file.name.split(".").pop();
+  const path = `team/${id}.${ext}`;
+  const { data, error } = await supabase.storage
+    .from("sponsors") // Reusing the sponsors bucket but in a 'team' folder
     .upload(path, file, { upsert: true });
   if (data) {
     const { data: urlData } = supabase.storage

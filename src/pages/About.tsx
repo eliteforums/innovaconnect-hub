@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import JudgesMentorsSection from "@/components/landing/JudgesMentorsSection";
+import TeamMembersSection from "@/components/landing/TeamMembersSection";
 
 const stats = [
   { number: "10,000+", label: "APPLICANTS EXPECTED" },
@@ -168,6 +169,9 @@ const About = () => {
           ))}
         </div>
       </section>
+
+      {/* Team Members */}
+      <TeamMembersSection />
 
       {/* Why ₹250 */}
       <section className="border-b-2 border-foreground">

@@ -41,6 +41,7 @@ import SettingsEditor from "@/components/admin/sections/SettingsEditor";
 import ProposalsSection from "@/components/admin/sections/ProposalsSection";
 import ReferralsSection from "@/components/admin/sections/ReferralsSection";
 import JudgesMentorsManager from "@/components/admin/sections/JudgesMentorsManager";
+import TeamMembersManager from "@/components/admin/sections/TeamMembersManager";
 
 // ─── Nav Config ───────────────────────────────────────────────────────────────
 
@@ -151,6 +152,12 @@ const NAV_ITEMS: NavItem[] = [
     icon: <Users size={16} />,
     group: "PAGES",
   },
+  {
+    id: "team-members",
+    label: "Team Members",
+    icon: <Users size={16} />,
+    group: "PAGES",
+  },
   // Config
   {
     id: "settings",
@@ -176,6 +183,7 @@ const SECTION_COMPONENTS: Record<string, React.ReactNode> = {
   about: <AboutEditor />,
   sponsors: <SponsorsManager />,
   judges: <JudgesMentorsManager />,
+  "team-members": <TeamMembersManager />,
   settings: <SettingsEditor />,
 };
 
