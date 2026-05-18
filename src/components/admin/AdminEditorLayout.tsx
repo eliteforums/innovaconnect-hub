@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Save, RotateCcw, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { upsertSiteContent } from "@/lib/supabase";
@@ -284,6 +284,13 @@ export function useEditor<T extends Record<string, unknown>>(
   const [data, setData] = useState<T>(() => JSON.parse(JSON.stringify(defaultData)));
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [dirty, setDirty] = useState(false);
+
+  // Sync editor data with loaded database content when it finishes fetching
+  useEffect(() => {
+    if (!dirty) {
+      setData(JSON.parse(JSON.stringify(defaultData)));
+    }
+  }, [defaultData, dirty]);
 
   const update = (updater: (prev: T) => T) => {
     setData((prev) => updater(prev));

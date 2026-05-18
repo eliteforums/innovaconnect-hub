@@ -2,6 +2,7 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useContent } from "@/contexts/ContentContext";
+import { RollingOdometer } from "./RollingOdometer";
 
 type KeyFact = { number: string; label: string; highlight?: boolean };
 
@@ -163,7 +164,7 @@ const HeroSection = memo(() => {
                 KEY FACTS
               </p>
               <div className="space-y-4">
-                {(c.key_facts ?? []).map((item) => (
+                {(c.key_facts ?? []).map((item, index) => (
                   <div
                     key={item.label}
                     className={`border-b pb-2 ${
@@ -177,7 +178,11 @@ const HeroSection = memo(() => {
                         item.highlight ? "text-editorial-pink" : ""
                       }`}
                     >
-                      {item.number}
+                      {index === 0 ? (
+                        <RollingOdometer value={item.number} />
+                      ) : (
+                        item.number
+                      )}
                     </p>
                     <p
                       className={`text-xs tracking-widest ${
