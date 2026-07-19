@@ -75,8 +75,8 @@ const tracks = [
     ],
   },
   {
-    name: "BLOCKCHAIN",
-    tag: "WEB3",
+    name: "AGENTIC",
+    tag: "GEN AI",
     color: "border-editorial-orange",
     accent: "text-editorial-orange",
     bgAccent: "bg-editorial-orange",
