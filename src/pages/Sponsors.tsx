@@ -36,7 +36,7 @@ const trackSponsors = [
   },
   {
     track: "AGENTIC AI TRACK",
-    category: "domain_blockchain",
+    category: "domain_agenticai",
     accent: "border-editorial-orange",
     bgAccent: "bg-editorial-orange",
     textAccent: "text-editorial-orange",

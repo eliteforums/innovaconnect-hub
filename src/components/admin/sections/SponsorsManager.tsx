@@ -21,7 +21,7 @@ const CATEGORIES = [
   { value: "domain_ai", label: "Domain - Generative AI" },
   { value: "domain_fintech", label: "Domain - FinTech" },
   { value: "domain_cybersecurity", label: "Domain - Cybersecurity" },
-  { value: "domain_blockchain", label: "Domain - Blockchain" },
+  { value: "domain_agenticai", label: "Domain - Agentic AI" },
   { value: "domain_startup", label: "Domain - Startup Track" },
   { value: "hiring", label: "Hiring Partner" },
   { value: "tech", label: "Tech Partner" },
