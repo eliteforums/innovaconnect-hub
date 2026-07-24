@@ -35,12 +35,12 @@ const trackSponsors = [
     slots: 6,
   },
   {
-    track: "BLOCKCHAIN TRACK",
+    track: "AGENTIC AI TRACK",
     category: "domain_blockchain",
     accent: "border-editorial-orange",
     bgAccent: "bg-editorial-orange",
     textAccent: "text-editorial-orange",
-    description: "Blockchain and Web3 firms",
+    description: "Agentic AI and Artificial Intelligence firms",
     slots: 6,
   },
   {
