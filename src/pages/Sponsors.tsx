@@ -58,7 +58,7 @@ const otherCategories = [
   { name: "TITLE SPONSOR", category: "title", slots: 1 },
   { name: "HIRING PARTNERS", category: "hiring", slots: 8 },
   { name: "TECH PARTNERS", category: "tech", slots: 6 },
-  { name: "EDUCATION PARTNERS", category: "education", slots: 6 },
+  { name: "VENUE PARTNERS", category: "venue", slots: 6 },
 ];
 
 type LogoSlotProps = {
@@ -72,7 +72,7 @@ const LogoSlot = ({ sponsor, placeholderClass }: LogoSlotProps) => {
       <div
         className={`w-full aspect-square border-2 border-dashed ${placeholderClass} rounded flex items-center justify-center hover:bg-secondary/30 transition-colors`}
       >
-        <span className="text-xs text-muted-foreground/50">LOGO</span>
+        {/* <span className="text-xs text-muted-foreground/50">LOGO</span> */}
       </div>
     );
   }
@@ -256,30 +256,6 @@ const Sponsors = () => {
         })}
       </section>
 
-      {/* College Partners Wall of Fame */}
-      <section className="border-b-2 border-foreground">
-        <div className="border-b border-border px-4 md:px-8 py-6">
-          <p className="text-xs font-bold tracking-[0.3em] uppercase text-editorial-blue mb-1">
-            WALL OF FAME
-          </p>
-          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">
-            COLLEGE PARTNERS
-          </h2>
-          <p className="text-sm text-muted-foreground mt-2">
-            Colleges that partner with InnovaHack and drive participation from their
-            campuses.
-          </p>
-        </div>
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 px-4 md:px-8 py-8 gap-4">
-          {fillSlots(collegeSponsors, 16).map((sponsor, i) => (
-            <LogoSlot
-              key={sponsor?.id ?? `college-${i}`}
-              sponsor={sponsor}
-              placeholderClass="border-dashed border-editorial-blue"
-            />
-          ))}
-        </div>
-      </section>
 
       {/* Community Partners Wall of Fame */}
       <section className="border-b-2 border-foreground">

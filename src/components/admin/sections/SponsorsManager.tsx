@@ -25,7 +25,7 @@ const CATEGORIES = [
   { value: "domain_startup", label: "Domain - Startup Track" },
   { value: "hiring", label: "Hiring Partner" },
   { value: "tech", label: "Tech Partner" },
-  { value: "education", label: "Education Partner" },
+  { value: "venue", label: "Venue Partner" },
   { value: "college", label: "College Partner" },
   { value: "community", label: "Community Partner" },
 ];
