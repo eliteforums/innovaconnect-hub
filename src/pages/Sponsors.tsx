@@ -70,7 +70,7 @@ const LogoSlot = ({ sponsor, placeholderClass }: LogoSlotProps) => {
   if (!sponsor) {
     return (
       <div
-        // className={`w-full aspect-square border-2 border-dashed ${placeholderClass} rounded flex items-center justify-center hover:bg-secondary/30 transition-colors`}
+          /*className={`w-full aspect-square border-2 border-dashed ${placeholderClass} rounded flex items-center justify-center hover:bg-secondary/30 transition-colors`}*/
       >
         {/* <span className="text-xs text-muted-foreground/50">LOGO</span> */}
       </div>
