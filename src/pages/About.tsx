@@ -10,7 +10,7 @@ const stats = [
   { number: "TOP 200–250", label: "SELECTED TEAMS" },
   { number: "30 HRS", label: "NON-STOP HACKING" },
   { number: "5", label: "DOMAIN TRACKS" },
-  { number: "₹250", label: "FINALIST REGISTRATION FEE" },
+  { number: "₹1000", label: "FINALIST REGISTRATION FEE (PER TEAM)" },
   { number: "100+", label: "HIRING COMPANIES" },
 ];
 
@@ -193,13 +193,13 @@ const About = () => {
             <p>
               Finalists who qualify for <strong className="text-foreground">Round 2 (the
               Offline/Hybrid round)</strong> pay a one-time registration fee of{" "}
-              <strong className="text-foreground">₹250 per person</strong>. This confirms in-person
+              <strong className="text-foreground">₹1000 per team</strong>. This confirms in-person
               attendance and ensures every finalist is genuinely committed to the final round,
               where they get huge benefits — job offers, internships, incubation, investment, and
               more.
             </p>
             <p>
-              The ₹250 per person registration fee is non-refundable. It is a one-time commitment
+              The ₹1000 per team registration fee is non-refundable. It is a one-time commitment
               for Round 2 finalists only.
             </p>
           </div>
