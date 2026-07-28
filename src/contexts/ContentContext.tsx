@@ -26,9 +26,9 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     prize_label: "Including Cash Prizes, Goodies & More",
     placement_text: "Assured Placement Assistance to Top 200–250 Teams Selected Finalists",
     ticker_text:
-      "GENERATIVE AI • FINTECH • HEALTHTECH • BLOCKCHAIN • STARTUP TRACK • HACK. GET HIRED. GET FUNDED. • ",
+      "GENERATIVE AI • FINTECH • CYBERSECURITY • AGENTIC AI • STARTUP TRACK • HACK. GET HIRED. GET FUNDED. • ",
     key_facts: [
-      { number: "10,000+", label: "APPLICANTS" },
+      { number: "450000+", label: "APPLICANTS" },
       { number: "TOP 200–250", label: "TEAMS SELECTED" },
       {
         number: "₹50 LAKHS+",
@@ -36,7 +36,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
         highlight: true,
       },
       { number: "30 HRS", label: "OF HACKING" },
-      { number: "₹250", label: "REGISTRATION FEE (FOR FINALISTS)" },
+      { number: "₹1000", label: "REGISTRATION FEE (FOR FINALISTS PER TEAM)" },
       { number: "MUMBAI", label: "LOCATION" },
       { number: "R1: FREE", label: "R2: PAID (HYBRID)" },
       { number: "₹50 LAKHS+", label: "STARTUP FUNDING", highlight: true },
@@ -164,8 +164,8 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
         a: "We review every application based on skills, experience, and potential. Only the top 200–250 teams are shortlisted for the final 30-hour hackathon.",
       },
       {
-        q: "What is the ₹250 registration fee?",
-        a: "Round 1 is completely FREE for all participants. The ₹250 per person registration fee applies only to finalists who qualify for Round 2 (the offline/hybrid round). It helps us ensure every finalist is genuinely committed to participating in the in-person event.",
+        q: "What is the ₹1000 registration fee?",
+        a: "Round 1 is completely FREE for all participants. The ₹1000 per team registration fee applies only to finalists who qualify for Round 2 (the offline/hybrid round). It helps us ensure every finalist is genuinely committed to participating in the in-person event.",
       },
       {
         q: "What happens after the hackathon?",
@@ -186,8 +186,8 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     ],
   },
   fee: {
-    fee_amount: "₹250",
-    fee_label: "PER PERSON — FOR FINALISTS (ROUND 2) ONLY. ROUND 1 IS FREE.",
+    fee_amount: "₹1000",
+    fee_label: "PER TEAM — FOR FINALISTS (ROUND 2) ONLY. ROUND 1 IS FREE.",
     location: "Mumbai, India",
     mode_r1: "Fully Online — participate from anywhere (FREE)",
     mode_r2: "Hybrid — in-person in Mumbai or online (PAID)",
@@ -248,7 +248,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
     event_date: "2026",
     event_location: "Mumbai, India",
     org_name: "Elite Forums",
-    registration_fee: "₹250",
+    registration_fee: "₹1000",
     registration_open: true,
     login_enabled: false,
     register_enabled: false,
@@ -273,7 +273,7 @@ export const DEFAULT_CONTENT: Record<string, Record<string, unknown>> = {
       { number: "TOP 200–250", label: "SELECTED TEAMS" },
       { number: "30 HRS", label: "NON-STOP HACKING" },
       { number: "5", label: "DOMAIN TRACKS" },
-      { number: "₹250", label: "FINALIST REGISTRATION FEE" },
+      { number: "₹1000", label: "FINALIST REGISTRATION FEE (PER TEAM)" },
       { number: "100+", label: "HIRING COMPANIES" },
     ],
     transparency: [
