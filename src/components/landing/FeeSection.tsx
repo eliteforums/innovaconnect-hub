@@ -51,16 +51,16 @@ const FeeSection = () => {
         <div className="border-b lg:border-b-0 lg:border-r border-border p-8 md:p-12 flex flex-col justify-between">
           <div>
             <div className="mb-8">
-              <p className="text-6xl md:text-7xl font-black text-editorial-pink">₹250</p>
+              <p className="text-6xl md:text-7xl font-black text-editorial-pink">₹1000</p>
               <p className="text-xs tracking-widest uppercase text-muted-foreground mt-2">
-                PER PERSON — FOR FINALISTS ONLY (NON-REFUNDABLE)
+                PER TEAM — FOR FINALISTS ONLY (NON-REFUNDABLE)
               </p>
               <div className="mt-4 border-2 border-editorial-green p-3">
                 <p className="text-xs font-black uppercase tracking-wider text-editorial-green">
                   ✅ ROUND 1 IS COMPLETELY FREE
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  The ₹250 per person fee applies only to finalists in Round 2 (Offline/Hybrid round).
+                  The ₹1000 per team fee applies only to finalists in Round 2 (Offline/Hybrid round).
                 </p>
               </div>
             </div>
@@ -83,7 +83,7 @@ const FeeSection = () => {
                     <strong className="text-foreground">Round 1 (FREE):</strong> Fully Online — participate from anywhere
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">
-                    <strong className="text-foreground">Round 2 (₹250/person):</strong> Offline/Hybrid — in-person in Mumbai or online
+                    <strong className="text-foreground">Round 2 (₹1000/team):</strong> Offline/Hybrid — in-person in Mumbai or online
                   </p>
                 </div>
               </div>
@@ -114,7 +114,7 @@ const FeeSection = () => {
           <div className="flex items-center gap-2 mb-6">
             <div className="w-8 h-1 bg-editorial-green" />
             <h3 className="font-black uppercase text-sm tracking-wider text-editorial-green">
-              YOUR ROI ON ₹250
+              YOUR ROI ON ₹1000
             </h3>
           </div>
 
@@ -153,7 +153,7 @@ const FeeSection = () => {
             </p>
             <p className="text-3xl md:text-4xl font-black text-editorial-green">₹45,000+</p>
             <p className="text-xs tracking-widest uppercase text-muted-foreground mt-1">
-              FOR JUST ₹250 — THAT&apos;S <span className="text-editorial-pink font-black">180x ROI</span>
+              FOR JUST ₹1000 — THAT&apos;S <span className="text-editorial-pink font-black">180x ROI</span>
             </p>
           </motion.div>
         </div>
@@ -167,16 +167,16 @@ const FeeSection = () => {
               </h3>
               <p className="text-sm text-muted-foreground">
                 Anyone in India can participate in Round 1 (online) without paying a single rupee. Only the
-                selected finalists who advance to Round 2 (Offline/Hybrid) are required to pay the ₹250 per
-                person registration fee.
+                selected finalists who advance to Round 2 (Offline/Hybrid) are required to pay the ₹1000 per
+                team registration fee.
               </p>
             </div>
             <div className="border-b border-border pb-4">
               <h3 className="font-black uppercase text-sm tracking-wider mb-1">
-                WHY ₹250 FOR FINALISTS?
+                WHY ₹1000 FOR FINALISTS?
               </h3>
               <p className="text-sm text-muted-foreground">
-                The ₹250 per person fee is charged only to finalists qualifying for Round 2. It helps confirm
+                The ₹1000 per team fee is charged only to finalists qualifying for Round 2. It helps confirm
                 in-person attendance, covers basic logistics for the offline event, and ensures every finalist
                 is genuinely committed to participating in the Hybrid round.
               </p>
@@ -186,7 +186,7 @@ const FeeSection = () => {
                 EVERY FINALIST GETS REWARDED
               </h3>
               <p className="text-sm text-muted-foreground">
-                Every finalist who pays the ₹250 registration fee receives guaranteed rewards — including a{" "}
+                Every finalist who pays the ₹1000 registration fee receives guaranteed rewards — including a{" "}
                 <strong className="text-foreground">Certificate of Participation</strong> and exclusive{" "}
                 <strong className="text-foreground">access to workshops &amp; mentorship sessions</strong>{" "}
                 with industry experts. On top of that, you get exposure to hiring companies, investor
@@ -198,7 +198,7 @@ const FeeSection = () => {
                 FEE POLICY
               </h3>
               <p className="text-sm text-muted-foreground">
-                The ₹250 per person registration fee (for Round 2 finalists) is non-refundable. Round 1 remains
+                The ₹1000 per team registration fee (for Round 2 finalists) is non-refundable. Round 1 remains
                 completely free for all applicants.
               </p>
             </div>
