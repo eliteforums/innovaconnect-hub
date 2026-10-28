@@ -22,6 +22,13 @@ export async function generateMetadata({ params }: PageProps<"/updates/[slug]">)
   const article = articleBySlug(slug);
   if (!article) return { title: "Update not found" };
   const path = `/updates/${article.slug}`;
+  const socialTitle = `${article.headline} | InnovaHack`;
+  const socialImage = {
+    url: "/opengraph-image",
+    width: 1200,
+    height: 630,
+    alt: "InnovaHack Chapter 2, a planned pan-India hackathon for AI and startup innovation",
+  };
   return {
     title: article.headline,
     description: article.summary,
@@ -29,12 +36,21 @@ export async function generateMetadata({ params }: PageProps<"/updates/[slug]">)
     robots: article.draft ? { index: false, follow: true } : undefined,
     openGraph: {
       type: "article",
-      title: article.headline,
+      siteName: "InnovaHack Chapter 2",
+      title: socialTitle,
       description: article.summary,
       url: path,
+      locale: "en_IN",
+      images: [socialImage],
       publishedTime: article.publishedOn ?? undefined,
       authors: article.author ? [article.author] : undefined,
       section: article.category,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: socialTitle,
+      description: article.summary,
+      images: [{ url: socialImage.url, alt: socialImage.alt }],
     },
   };
 }

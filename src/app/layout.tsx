@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Caveat, IBM_Plex_Mono, Inter, Playfair_Display } from "next/font/google";
 import { event, siteUrl } from "@/content/event";
+import { siteKeywords } from "@/lib/seo";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { primaryCta } from "@/lib/site";
@@ -33,26 +34,62 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const seoDescription =
+  "Explore InnovaHack Chapter 2, Elite Forums' pan-India hybrid hackathon planned for 2027, with Artificial Intelligence and Open Innovation / Startup domains.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "InnovaHack Chapter 2 — Mumbai Builds the Future",
-    template: "%s · InnovaHack Chapter 2",
+    default: "InnovaHack 2027 | AI & Startup Hackathon India",
+    template: "%s | InnovaHack",
   },
-  description: event.description,
+  description: seoDescription,
+  keywords: siteKeywords,
   applicationName: "InnovaHack",
   authors: [{ name: event.organizer }],
+  creator: event.organizer,
+  publisher: event.organizer,
+  category: "Technology",
+  referrer: "origin-when-cross-origin",
+  formatDetection: { email: false, address: false, telephone: false },
+  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     type: "website",
-    siteName: "InnovaHack",
-    title: "InnovaHack Chapter 2 — Mumbai Builds the Future",
-    description: event.description,
+    siteName: "InnovaHack Chapter 2",
+    title: "InnovaHack 2027 | AI & Startup Hackathon India",
+    description: seoDescription,
     locale: "en_IN",
+    url: "/",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "InnovaHack Chapter 2, a planned pan-India hackathon for AI and startup innovation",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "InnovaHack Chapter 2 — Mumbai Builds the Future",
-    description: event.description,
+    title: "InnovaHack 2027 | AI & Startup Hackathon India",
+    description: seoDescription,
+    images: [
+      {
+        url: "/opengraph-image",
+        alt: "InnovaHack Chapter 2, a planned pan-India hackathon for AI and startup innovation",
+      },
+    ],
   },
 };
 
@@ -62,12 +99,38 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        url: `${siteUrl}/`,
+        name: "InnovaHack Chapter 2",
+        alternateName: "InnovaHack",
+        description: seoDescription,
+        inLanguage: "en-IN",
+        publisher: { "@id": `${siteUrl}/#organizer` },
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organizer`,
+        name: event.organizer,
+        description: "Organizer of InnovaHack, a national hackathon in India.",
+      },
+    ],
+  };
+
   return (
     <html
       lang="en-IN"
       className={`${playfair.variable} ${inter.variable} ${plexMono.variable} ${caveat.variable} antialiased`}
     >
       <body className="flex min-h-dvh flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+        />
         <a
           href="#main"
           className="sr-only z-[60] bg-ink px-4 py-3 text-paper-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
