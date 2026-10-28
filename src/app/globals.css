@@ -1,0 +1,228 @@
+@import "tailwindcss";
+
+/* ───────────────────────── Design tokens ───────────────────────── */
+
+@theme {
+  --color-paper: #f5f0e5;
+  --color-paper-white: #fffdf7;
+  --color-paper-deep: #ebe3d3;
+  --color-ink: #171717;
+  --color-charcoal: #343434;
+  --color-muted: #5a5348;
+  --color-rule: #d9d0c0;
+  --color-burgundy: #941b45;
+  --color-burgundy-deep: #741436;
+  --color-taxi: #f4c430;
+  --color-best: #d62828;
+  --color-violet: #6d28d9;
+  --color-violet-soft: #ede5ff;
+  --color-rose: #f4dce4;
+
+  --breakpoint-xs: 26rem;
+
+  --animate-rise: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade: fade 0.9s ease both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@theme inline {
+  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
+  --font-hand: var(--font-caveat), "Caveat", cursive;
+}
+
+/* ───────────────────────── Base ───────────────────────── */
+
+:root {
+  color-scheme: light;
+  --paper-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-paper);
+  background-image: var(--paper-noise);
+  background-size: 220px 220px;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-taxi);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-burgundy);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ───────────────────────── Editorial utilities ───────────────────────── */
+
+@utility kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+@utility headline {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+@utility prose-news {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-charcoal);
+  text-wrap: pretty;
+}
+
+/* Newspaper double rule: a heavy line with a hairline beneath it. */
+@utility rule-double {
+  border-top: 3px solid var(--color-ink);
+  background-image: linear-gradient(var(--color-ink), var(--color-ink));
+  background-size: 100% 1px;
+  background-position: 0 3px;
+  background-repeat: no-repeat;
+  padding-top: 9px;
+}
+
+@utility halftone {
+  background-image: radial-gradient(
+    circle at center,
+    rgb(23 23 23 / 0.16) 1px,
+    transparent 1.4px
+  );
+  background-size: 7px 7px;
+}
+
+/* Masthead + hero reveal (CSS only; disabled for reduced motion). */
+.reveal {
+  animation: var(--animate-rise);
+}
+.reveal-1 {
+  animation-delay: 0.05s;
+}
+.reveal-2 {
+  animation-delay: 0.15s;
+}
+.reveal-3 {
+  animation-delay: 0.25s;
+}
+.reveal-4 {
+  animation-delay: 0.35s;
+}
+
+/* Scroll-driven section entrance where supported — progressive enhancement. */
+@supports (animation-timeline: view()) {
+  .in-view {
+    animation: rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+}
+
+/* Gentle vehicle drift in the hero collage. */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-6px);
+  }
+}
+.drift {
+  animation: drift 7s ease-in-out infinite;
+}
+.drift-slow {
+  animation: drift 11s ease-in-out infinite reverse;
+}
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.3s ease;
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* Hide scrollbars on horizontal editorial strips while keeping them scrollable. */
+.scroll-strip {
+  scrollbar-width: thin;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-strip > * {
+  scroll-snap-align: start;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.001ms !important;
+  }
+  .in-view {
+    animation: none !important;
+  }
+}
