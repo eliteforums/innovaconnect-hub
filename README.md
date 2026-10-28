@@ -149,10 +149,14 @@ notification emails are sent only after a successful write.
 
 ## Deployment (Vercel)
 
-1. Import the repository in Vercel (framework preset: Next.js).
+1. Import the repository in Vercel. `vercel.json` pins the framework to Next.js, which overrides any older
+   dashboard setting such as a Vite preset with a `dist` output directory.
 2. Add environment variables from `.env.example`: at minimum `NEXT_PUBLIC_SITE_URL`,
    `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`.
 3. Deploy. After changing `REGISTRATION_STATUS` or any content file, redeploy.
+
+Vercel's filesystem is read-only, so `STORAGE_DRIVER=file` doesn't work there. Use Supabase. Without it, the
+site deploys and every page works, but the forms reply that submissions are unavailable and save nothing.
 
 Any Node 20+ host works with `npm run build && npm start`.
 
