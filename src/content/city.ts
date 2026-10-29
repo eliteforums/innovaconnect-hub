@@ -161,21 +161,6 @@ export const cityFeatures: CityFeature[] = [
     },
   },
   {
-    id: "food",
-    label: "Street food",
-    title: "Iconic flavours. Unstoppable ideas.",
-    caption:
-      "Vada pav, misal pav and pav bhaji: humble ingredients, combined with confidence.",
-    context: "Mumbai street food.",
-    href: "/#the-city",
-    media: {
-      photo: photos.pavBhaji,
-      illustration: "pavBhaji",
-      alt: "Illustration of pav bhaji: a plate of spiced vegetable mash with butter, onion, lemon and two buttered bread rolls.",
-      credit: "Illustration · pav bhaji",
-    },
-  },
-  {
     id: "kala-ghoda",
     label: "Kala Ghoda",
     title: "Where creativity takes the streets.",
@@ -206,23 +191,5 @@ export const cityFeatures: CityFeature[] = [
       alt: "Illustration of a black-and-yellow autorickshaw in side view.",
       credit: "Illustration · autorickshaw",
     },
-  },
-];
-
-export const foodFeatures: { name: string; description: string; media: MediaSlot }[] = [
-  {
-    name: "Vada pav",
-    description: "A spiced potato fritter in a soft pav, with chutneys.",
-    media: { illustration: "vadaPav", alt: "Illustration of a vada pav.", credit: "Illustration · vada pav", photo: photos.vadaPav },
-  },
-  {
-    name: "Misal pav",
-    description: "Sprouted-bean curry topped with crunchy farsan, served with pav.",
-    media: { illustration: "misalPav", alt: "Illustration of misal pav.", credit: "Illustration · misal pav", photo: photos.misalPav },
-  },
-  {
-    name: "Pav bhaji",
-    description: "Buttery vegetable mash with toasted pav, onion and lemon.",
-    media: { illustration: "pavBhaji", alt: "Illustration of pav bhaji.", credit: "Illustration · pav bhaji", photo: photos.pavBhaji },
   },
 ];

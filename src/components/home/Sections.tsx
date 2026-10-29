@@ -2,10 +2,8 @@ import Link from "next/link";
 import { event } from "@/content/event";
 import { landmarks, railLines } from "@/content/mumbai-map";
 import { MumbaiMap } from "@/components/map/MumbaiMap";
-import { cityFeatures, foodFeatures } from "@/content/city";
-import { articles } from "@/content/updates";
+import { cityFeatures } from "@/content/city";
 import { Figure } from "@/components/media/Figure";
-import { ArticleCard } from "@/components/updates/ArticleCard";
 import { ButtonLink, Container, SectionHeader, StatusTag, Tag, TextLink } from "@/components/ui";
 import { DomainPanels } from "./DomainPanels";
 import { Journey } from "./Journey";
@@ -211,8 +209,7 @@ export function PartnersSection() {
 }
 
 export function CitySection() {
-  const [taxi, bus, train, ...rest] = cityFeatures;
-  const small = rest.filter((f) => f.id !== "food");
+  const [taxi, bus, train, ...small] = cityFeatures;
   return (
     <section aria-labelledby="city-title" className="mt-24 scroll-mt-24" id="the-city">
       <Container>
@@ -242,27 +239,6 @@ export function CitySection() {
           ))}
         </div>
 
-        {/* Street food — a supporting feature */}
-        <div className="mt-10 border-y-2 border-ink py-6">
-          <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
-            <div>
-              <Tag tone="taxi">Street food</Tag>
-              <h3 className="headline mt-3 text-3xl uppercase">Iconic flavours. Unstoppable ideas.</h3>
-              <p className="mt-2 text-[0.9375rem] text-charcoal">
-                Humble ingredients, combined with confidence — the way good products are built.
-              </p>
-            </div>
-            <ul className="grid gap-5 sm:grid-cols-3">
-              {foodFeatures.map((f) => (
-                <li key={f.name}>
-                  <Figure media={f.media} aspect="aspect-[5/4]" sizes="(min-width: 1024px) 25vw, 100vw" />
-                  <p className="mt-2 headline text-xl">{f.name}</p>
-                  <p className="text-sm text-charcoal">{f.description}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
       </Container>
     </section>
   );
@@ -409,38 +385,6 @@ export function NationalSection() {
               Figures appear here only once they are supported by real registration data. Targets are always labelled as
               targets.
             </p>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-export function BuildLogSection() {
-  const [lead, ...rest] = articles;
-  if (!lead) return null;
-  return (
-    <section aria-labelledby="log-title" className="mt-24">
-      <Container>
-        <SectionHeader
-          number="10"
-          kicker="Updates & announcements"
-          id="log-title"
-          title={
-            <>
-              The Build Log <span className="mt-2 block text-[0.45em] leading-tight text-burgundy">Stories from the innovation frontline.</span>
-            </>
-          }
-          action={<TextLink href="/updates">All updates</TextLink>}
-        />
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-          <ArticleCard article={lead} variant="lead" />
-          <div className="divide-y divide-ink border-t border-ink lg:border-t-0">
-            {rest.slice(0, 2).map((a) => (
-              <div key={a.slug} className="py-5 first:pt-5 lg:first:pt-0">
-                <ArticleCard article={a} variant="compact" />
-              </div>
-            ))}
           </div>
         </div>
       </Container>

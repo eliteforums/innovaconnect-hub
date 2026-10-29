@@ -3,7 +3,6 @@ import { Hero } from "@/components/home/Hero";
 import { LegacyStrip } from "@/components/home/LegacyStrip";
 import { Rooted } from "@/components/home/Rooted";
 import {
-  BuildLogSection,
   CitySection,
   DomainsSection,
   JourneySection,
@@ -30,7 +29,6 @@ export default function HomePage() {
       <PartnersSection />
       <CitySection />
       <NationalSection />
-      <BuildLogSection />
 
       <section aria-labelledby="updates-title" className="mt-24" id="updates">
         <Container>
