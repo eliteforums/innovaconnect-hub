@@ -126,6 +126,8 @@ export const event = {
   journey: [
     {
       id: "register",
+      /** Short name for the station board on the timeline. */
+      station: "Registration",
       title: "Registration & team formation",
       description:
         "Sign up, form your team and choose one of the two official domains.",
@@ -135,6 +137,7 @@ export const event = {
     },
     {
       id: "idea",
+      station: "Idea",
       title: "Idea submission",
       description:
         "Submit the problem you are solving and the approach you plan to take.",
@@ -144,6 +147,7 @@ export const event = {
     },
     {
       id: "screening",
+      station: "Screening",
       title: "Screening & evaluation",
       description:
         "Submissions are reviewed against the published evaluation criteria.",
@@ -153,6 +157,7 @@ export const event = {
     },
     {
       id: "sprint",
+      station: "Build Sprint",
       title: "Online build sprint & mentor interactions",
       description:
         "Shortlisted teams build their solutions, with mentor sessions where available.",
@@ -162,6 +167,7 @@ export const event = {
     },
     {
       id: "semifinal",
+      station: "Semifinal",
       title: "Semifinal selection",
       description: "Teams are selected to advance to the national finale.",
       mode: "Online",
@@ -170,6 +176,7 @@ export const event = {
     },
     {
       id: "finale",
+      station: "Grand Finale",
       title: "Offline national grand finale",
       description:
         "Finalists build, demo and present in person. Venue to be announced.",
@@ -179,6 +186,7 @@ export const event = {
     },
     {
       id: "follow-up",
+      station: "Follow-up",
       title: "Post-event follow-up & opportunities",
       description:
         "Results, recognition and any partner opportunities that are confirmed for the edition.",

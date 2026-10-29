@@ -181,6 +181,29 @@ body {
   animation: drift 11s ease-in-out infinite reverse;
 }
 
+/* Timeline: the local runs the length of the line as its section scrolls
+   through the viewport. Without scroll-driven animation support it waits at
+   the first station. */
+@supports (animation-timeline: view()) {
+  .journey-line {
+    view-timeline-name: --journey;
+  }
+  .train-run {
+    animation: train-run linear both;
+    animation-timeline: --journey;
+    animation-range: entry 60% exit 30%;
+  }
+}
+@keyframes train-run {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* The track is the element's own width; stop with the train at the last station. */
+    transform: translateX(calc(100% - 260px));
+  }
+}
+
 .link-underline {
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 1px;
@@ -222,7 +245,8 @@ details > summary::-webkit-details-marker {
     animation-delay: 0s !important;
     transition-duration: 0.001ms !important;
   }
-  .in-view {
+  .in-view,
+  .train-run {
     animation: none !important;
   }
 }

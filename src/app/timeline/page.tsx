@@ -1,5 +1,5 @@
 import { event } from "@/content/event";
-import { Journey } from "@/components/home/Journey";
+import { RailwayJourney } from "@/components/timeline/RailwayJourney";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ButtonLink, Container, SectionHeader, StatusTag } from "@/components/ui";
 import { formatDate, primaryCta, registrationCopy } from "@/lib/site";
@@ -38,8 +38,8 @@ export default function TimelinePage() {
       />
       <Container className="mt-16">
         <SectionHeader number="01" kicker="The route" title="The competition journey" />
-        <div className="mt-12">
-          <Journey />
+        <div className="mt-10">
+          <RailwayJourney />
         </div>
 
         <section aria-labelledby="dates-title" className="mt-20">
