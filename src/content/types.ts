@@ -1,5 +1,3 @@
-import type { StaticImageData } from "next/image";
-
 /**
  * Shared content types.
  *
@@ -67,8 +65,8 @@ export type MediaSlot = {
   /** Printed caption under the image. Must describe what is actually shown. */
   credit: string;
   photo?: {
-    /** A static import, e.g. `import img from "@/assets/photos/x.jpg"`. */
-    src: StaticImageData;
+    /** A media-library key (e.g. "bmcTaxi") or the URL of an uploaded image. */
+    src: string;
     /** Describes the photograph; falls back to the slot's `alt`. */
     alt?: string;
     /** Printed under the image: subject and attribution. */

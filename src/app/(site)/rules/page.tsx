@@ -1,35 +1,35 @@
-import { rules } from "@/content/rules";
+import { getSiteContent } from "@/lib/content";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { ButtonLink, Container, SectionHeader, StatusTag } from "@/components/ui";
+import { ButtonLink, Container, Rich, SectionHeader, StatusTag } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
+import { fill } from "@/lib/site";
 
-export const metadata = pageMeta(
-  "/rules",
-  "Hackathon Rules & Eligibility",
-  "Read confirmed competition principles for InnovaHack Chapter 2, including its Artificial Intelligence and Open Innovation / Startup domains. Full rules are pending.",
-);
+export async function generateMetadata() {
+  const { copy } = await getSiteContent();
+  return pageMeta("/rules", copy.rules.meta.title, copy.rules.meta.description);
+}
 
-export default function RulesPage() {
+export default async function RulesPage() {
+  const { rules, copy } = await getSiteContent();
+  const x = copy.rules;
   return (
     <>
       <PageHeader
-        section="Official rules"
-        crumbs={[{ label: "Rules", href: "/rules" }]}
-        title="The rulebook."
-        deck={
-          rules.published
-            ? `Version ${rules.version}, effective ${rules.effectiveFrom}.`
-            : "The official Chapter 2 rulebook has not been published yet. It will appear here before registration opens. Below are the principles already confirmed."
-        }
+        section={x.section}
+        crumbs={[{ label: x.section, href: "/rules" }]}
+        title={x.title}
+        deck={rules.published ? fill(x.deckPublished, { version: rules.version, effectiveFrom: rules.effectiveFrom }) : x.deckPending}
       />
       <Container className="mt-14">
         <section aria-labelledby="confirmed-title">
-          <SectionHeader number="01" kicker="Confirmed" id="confirmed-title" title="Already confirmed" />
+          <SectionHeader number="01" kicker={x.confirmedKicker} id="confirmed-title" title={x.confirmedTitle} />
           <ol className="mt-6 space-y-4">
             {rules.confirmed.map((r, i) => (
               <li key={r} className="grid grid-cols-[3rem_1fr] items-baseline gap-4 border-b border-rule pb-4">
                 <span className="headline text-3xl text-burgundy">{i + 1}.</span>
-                <span className="prose-news text-lg">{r}</span>
+                <span className="prose-news text-lg">
+                  <Rich text={r} />
+                </span>
               </li>
             ))}
           </ol>
@@ -38,10 +38,10 @@ export default function RulesPage() {
         <section aria-labelledby="pending-title" className="mt-20">
           <SectionHeader
             number="02"
-            kicker="To be published"
+            kicker={x.pendingKicker}
             id="pending-title"
-            title="What the rulebook will cover"
-            deck="These topics will be set out in the official rules. Nothing below is a rule yet."
+            title={x.pendingTitle}
+            deck={x.pendingDeck}
           />
           <ul className="mt-8 grid gap-px border border-ink bg-ink sm:grid-cols-2 lg:grid-cols-3">
             {rules.pendingTopics.map((t) => (
@@ -57,9 +57,9 @@ export default function RulesPage() {
         </section>
 
         <div className="mt-12 flex flex-wrap gap-3">
-          <ButtonLink href="/register#updates">Get notified when rules are published</ButtonLink>
+          <ButtonLink href="/register#updates">{x.notifyCta}</ButtonLink>
           <ButtonLink href="/faq" variant="outline">
-            Read the FAQ
+            {x.faqCta}
           </ButtonLink>
         </div>
       </Container>

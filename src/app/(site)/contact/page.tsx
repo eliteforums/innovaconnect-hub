@@ -1,49 +1,46 @@
-import Link from "next/link";
-import { event } from "@/content/event";
+import { getSiteContent } from "@/lib/content";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { Container } from "@/components/ui";
+import { Container, Rich } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
 
-export const metadata = pageMeta(
-  "/contact",
-  "Contact the Organizers",
-  "Contact Elite Forums about InnovaHack Chapter 2, the planned 2027 national hackathon, for event questions and partnership inquiries.",
-);
+export async function generateMetadata() {
+  const { copy } = await getSiteContent();
+  return pageMeta("/contact", copy.contact.meta.title, copy.contact.meta.description);
+}
 
-export default function ContactPage() {
-  const general = event.contact.general.value;
-  const partners = event.contact.partnerships.value;
+const linkClass = "text-burgundy underline underline-offset-4";
+
+export default async function ContactPage() {
+  const c = await getSiteContent();
+  const x = c.copy.contact;
+  const general = c.event.contact.general.value;
+  const partners = c.event.contact.partnerships.value;
   return (
     <>
-      <PageHeader
-        section="Contact"
-        crumbs={[{ label: "Contact", href: "/contact" }]}
-        title="Get in touch."
-        deck="Questions about InnovaHack Chapter 2? Send a message and the organizing team will reply by email."
-      />
+      <PageHeader section={x.section} crumbs={[{ label: x.section, href: "/contact" }]} title={x.title} deck={x.deck} />
       <Container className="mt-14">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.5fr]">
           <aside className="space-y-6">
-            <Block title="General inquiries">
+            <Block title={x.generalTitle}>
               {general ? (
-                <a href={`mailto:${general}`} className="text-burgundy underline underline-offset-4">
+                <a href={`mailto:${general}`} className={linkClass}>
                   {general}
                 </a>
               ) : (
-                <p>Use the form on this page.</p>
+                <p>
+                  <Rich text={x.generalFallback} linkClass={linkClass} />
+                </p>
               )}
             </Block>
-            <Block title="Partnerships & sponsorship">
+            <Block title={x.partnershipsTitle}>
               <p>
-                Use the{" "}
-                <Link href="/partners#inquiry" className="text-burgundy underline underline-offset-4">
-                  partnership inquiry form
-                </Link>
+                <Rich text={x.partnershipsBody} linkClass={linkClass} />
                 {partners && (
                   <>
-                    {" "}or write to{" "}
-                    <a href={`mailto:${partners}`} className="text-burgundy underline underline-offset-4">
+                    {" "}
+                    {x.partnershipsEmail}{" "}
+                    <a href={`mailto:${partners}`} className={linkClass}>
                       {partners}
                     </a>
                   </>
@@ -51,16 +48,15 @@ export default function ContactPage() {
                 .
               </p>
             </Block>
-            <Block title="Before you write">
+            <Block title={x.beforeTitle}>
               <p>
-                Many answers are in the <Link href="/faq" className="underline underline-offset-4">FAQ</Link>. Dates, venue
-                and prizes have not been announced yet — they will appear on the site as soon as they are confirmed.
+                <Rich text={x.beforeBody} linkClass="underline underline-offset-4" />
               </p>
             </Block>
-            {event.social.length > 0 && (
-              <Block title="Follow">
+            {c.event.social.length > 0 && (
+              <Block title={x.followTitle}>
                 <ul className="flex flex-wrap gap-3">
-                  {event.social.map((s) => (
+                  {c.event.social.map((s) => (
                     <li key={s.url}>
                       <a href={s.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
                         {s.label}

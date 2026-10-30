@@ -1,4 +1,4 @@
-import { event } from "@/content/event";
+import { getSiteContent } from "@/lib/content";
 import { notifyOrganizer, sendEmail } from "@/lib/server/email";
 import { createFormHandler } from "@/lib/server/form-handler";
 import { interestSchema } from "@/lib/validation";
@@ -13,6 +13,7 @@ export const POST = createFormHandler({
     duplicate: "This email is already on the update list — you don't need to sign up again.",
   },
   onStored: async (d) => {
+    const { event } = await getSiteContent();
     await sendEmail({
       to: d.email,
       subject: `You're on the ${event.fullName} update list`,

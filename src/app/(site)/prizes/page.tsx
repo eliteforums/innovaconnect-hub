@@ -1,69 +1,50 @@
-import { event } from "@/content/event";
-import { awardKinds } from "@/components/home/Sections";
+import { getSiteContent } from "@/lib/content";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { ButtonLink, Container, PendingNotice, SectionHeader, StatusTag } from "@/components/ui";
+import { ButtonLink, Container, PendingNotice, Rich, SectionHeader, StatusTag } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
 
-export const metadata = pageMeta(
-  "/prizes",
-  "Hackathon Prizes & Awards",
-  "InnovaHack Chapter 2 prize details are not announced yet. Published awards will include their type, eligibility and conditions for the planned 2027 event.",
-);
+export async function generateMetadata() {
+  const { copy } = await getSiteContent();
+  return pageMeta("/prizes", copy.prizes.meta.title, copy.prizes.meta.description);
+}
 
-const kindLabels: Record<(typeof event.awards)[number]["kind"], string> = {
-  cash: "Cash prize",
-  "sponsor-benefit": "Sponsor-provided benefit",
-  credits: "Software or cloud credits",
-  hardware: "Hardware & products",
-  mentorship: "Mentorship",
-  "incubation-consideration": "Incubation consideration",
-  "investor-introduction": "Investor introduction",
-};
-
-const principles = [
-  "Cash prizes are listed separately from every other benefit.",
-  "Sponsor benefits, credits and hardware are never counted as cash.",
-  "Investor introductions are introductions — not confirmed investments.",
-  "Incubation is listed as consideration, not a guaranteed place.",
-  "Every award states its eligibility and conditions.",
-];
-
-export default function PrizesPage() {
-  const awards = event.awards;
+export default async function PrizesPage() {
+  const c = await getSiteContent();
+  const x = c.copy.prizes;
+  const awards = c.event.awards;
+  const kindLabels = x.kindLabels as Record<string, string>;
   return (
     <>
-      <PageHeader
-        section="Prizes & opportunities"
-        crumbs={[{ label: "Prizes", href: "/prizes" }]}
-        title="Build something worth recognizing."
-        deck="The Chapter 2 prize pool has not been confirmed. Chapter 1's advertised reward pool does not apply to this edition."
-      />
+      <PageHeader section={x.section} crumbs={[{ label: x.section, href: "/prizes" }]} title={x.title} deck={x.deck} />
       <Container className="mt-14">
         {awards.length === 0 ? (
-          <PendingNotice title="Chapter 2 prize details to be announced." className="max-w-3xl">
+          <PendingNotice title={x.pendingTitle} className="max-w-3xl">
             <p>
-              Awards will be published here once they are officially confirmed. Join the update list to hear when they
-              are.
+              <Rich text={x.pendingBody} />
             </p>
             <ButtonLink href="/register#updates" className="mt-4" size="sm">
-              Get event updates
+              {c.copy.global.cta.updates}
             </ButtonLink>
           </PendingNotice>
         ) : (
           <ul className="grid gap-6 md:grid-cols-2">
-            {awards.map((a) => (
-              <li key={a.title} className="border-2 border-ink bg-paper-white p-6">
-                <p className="kicker text-burgundy">{kindLabels[a.kind]}</p>
+            {awards.map((a, i) => (
+              <li key={`${a.title}-${i}`} className="border-2 border-ink bg-paper-white p-6">
+                <p className="kicker text-burgundy">{kindLabels[a.kind] ?? a.kind}</p>
                 <p className="headline mt-2 text-3xl">{a.title}</p>
                 <p className="mt-2 font-display text-2xl text-burgundy">{a.value}</p>
                 <dl className="mt-4 space-y-2 text-sm">
                   <div>
-                    <dt className="label text-[0.6875rem]">Eligibility</dt>
-                    <dd className="text-charcoal">{a.eligibility}</dd>
+                    <dt className="label text-[0.6875rem]">{x.eligibilityLabel}</dt>
+                    <dd className="text-charcoal">
+                      <Rich text={a.eligibility} />
+                    </dd>
                   </div>
                   <div>
-                    <dt className="label text-[0.6875rem]">Conditions</dt>
-                    <dd className="text-charcoal">{a.conditions}</dd>
+                    <dt className="label text-[0.6875rem]">{x.conditionsLabel}</dt>
+                    <dd className="text-charcoal">
+                      <Rich text={a.conditions} />
+                    </dd>
                   </div>
                 </dl>
               </li>
@@ -73,10 +54,10 @@ export default function PrizesPage() {
 
         <section aria-labelledby="types-title" className="mt-20 grid gap-10 lg:grid-cols-2">
           <div>
-            <SectionHeader number="01" kicker="Award types" id="types-title" title="How awards are listed" />
+            <SectionHeader number="01" kicker={x.typesKicker} id="types-title" title={x.typesTitle} />
             <ul className="mt-6 divide-y divide-rule border-y border-ink">
-              {awardKinds.map((k) => (
-                <li key={k} className="flex items-center justify-between py-3">
+              {c.copy.home.prizes.kinds.map((k, i) => (
+                <li key={`${k}-${i}`} className="flex items-center justify-between py-3">
                   <span className="font-display text-xl">{k}</span>
                   <StatusTag status="unconfirmed" />
                 </li>
@@ -84,12 +65,14 @@ export default function PrizesPage() {
             </ul>
           </div>
           <div>
-            <SectionHeader number="02" kicker="Our commitments" title="Plain-language prizes" />
+            <SectionHeader number="02" kicker={x.commitmentsKicker} title={x.commitmentsTitle} />
             <ul className="mt-6 space-y-4">
-              {principles.map((p) => (
-                <li key={p} className="flex gap-3 text-lg">
+              {x.principles.map((p, i) => (
+                <li key={`${p}-${i}`} className="flex gap-3 text-lg">
                   <span aria-hidden className="mt-2 size-2.5 shrink-0 rotate-45 bg-taxi ring-1 ring-ink" />
-                  {p}
+                  <span>
+                    <Rich text={p} />
+                  </span>
                 </li>
               ))}
             </ul>

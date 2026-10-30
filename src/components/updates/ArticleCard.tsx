@@ -2,18 +2,24 @@ import Link from "next/link";
 import type { Article } from "@/content/types";
 import { Figure } from "@/components/media/Figure";
 import { Tag } from "@/components/ui";
+import { getSiteContent } from "@/lib/content";
 import { formatDate } from "@/lib/site";
 
-export function ArticleMeta({ article }: { article: Article }) {
+export async function ArticleMeta({ article }: { article: Article }) {
+  const { copy } = await getSiteContent();
   return (
     <p className="flex flex-wrap items-center gap-2 kicker text-[0.6875rem] text-muted">
       <Tag tone={article.draft ? "outline" : "burgundy"}>{article.category}</Tag>
       {article.draft ? (
-        <span className="bg-taxi px-1.5 py-0.5 text-ink">Draft · pending approval</span>
+        <span className="bg-taxi px-1.5 py-0.5 text-ink">{copy.updates.draftBadge}</span>
       ) : (
         <time dateTime={article.publishedOn ?? undefined}>{formatDate(article.publishedOn)}</time>
       )}
-      {article.author && <span>By {article.author}</span>}
+      {article.author && (
+        <span>
+          {copy.updates.byLabel} {article.author}
+        </span>
+      )}
     </p>
   );
 }

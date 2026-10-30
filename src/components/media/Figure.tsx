@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { resolveImage } from "@/lib/media-library";
+import { ContentImage } from "./ContentImage";
 import type { MediaSlot } from "@/content/types";
 import { Illustration } from "@/components/illustrations";
 
@@ -23,12 +24,12 @@ export function Figure({
   className?: string;
   priority?: boolean;
 }) {
-  const photo = media.photo?.approved ? media.photo : null;
+  const photo = media.photo?.approved && resolveImage(media.photo.src) ? media.photo : null;
   return (
     <figure className={className}>
       <div className={`relative overflow-hidden border border-ink ${aspect}`}>
         {photo ? (
-          <Image
+          <ContentImage
             src={photo.src}
             alt={photo.alt ?? media.alt}
             fill

@@ -1,4 +1,4 @@
-import { event } from "@/content/event";
+import { getSiteContent } from "@/lib/content";
 import { Hero } from "@/components/home/Hero";
 import { LegacyStrip } from "@/components/home/LegacyStrip";
 import { Rooted } from "@/components/home/Rooted";
@@ -12,11 +12,13 @@ import {
   PrizesSection,
 } from "@/components/home/Sections";
 import { UpdatesForm } from "@/components/forms/UpdatesForm";
-import { Container } from "@/components/ui";
-import { registrationCopy } from "@/lib/site";
+import { Container, Rich } from "@/components/ui";
+import { registrationState } from "@/lib/site";
 
-export default function HomePage() {
-  const status = registrationCopy[event.registration.status];
+export default async function HomePage() {
+  const c = await getSiteContent();
+  const status = registrationState(c);
+  const band = c.copy.home.updatesBand;
   return (
     <>
       <Hero />
@@ -36,13 +38,12 @@ export default function HomePage() {
             <div>
               <p className="kicker text-taxi">{status.badge}</p>
               <h2 id="updates-title" className="headline mt-3 text-[clamp(2.5rem,5vw,4rem)] uppercase">
-                Be first to know.
+                <Rich text={band.title} accent="text-taxi" />
               </h2>
               <p className="mt-4 max-w-md text-paper/85">
-                {status.body} Updates are sent only when there is official news — dates, registration, domains and
-                partners.
+                {status.body} <Rich text={band.body} accent="text-taxi" />
               </p>
-              <p className="mt-8 font-display text-2xl italic text-taxi">{event.tagline}</p>
+              <p className="mt-8 font-display text-2xl italic text-taxi">{c.event.tagline}</p>
             </div>
             <UpdatesForm tone="dark" />
           </div>

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { siteUrl } from "@/content/event";
-import { Container } from "@/components/ui";
+import { getSiteContent } from "@/lib/content";
+import { Container, Rich } from "@/components/ui";
 
 /** Inner-page masthead: section label, oversized headline and a deck. */
-export function PageHeader({
+export async function PageHeader({
   section,
   title,
   deck,
@@ -12,14 +13,16 @@ export function PageHeader({
   accent = "burgundy",
 }: {
   section: string;
+  /** A string is rendered with <Rich> markup; pass a node for custom markup. */
   title: React.ReactNode;
   deck?: React.ReactNode;
   crumbs?: { label: string; href: string }[];
   aside?: React.ReactNode;
   accent?: "burgundy" | "violet";
 }) {
+  const c = await getSiteContent();
   const breadcrumbItems = [
-    { label: "Front page", href: "/" },
+    { label: c.copy.global.breadcrumbHome, href: "/" },
     ...crumbs,
   ];
   const breadcrumbData = {
@@ -44,7 +47,7 @@ export function PageHeader({
           <ol className="flex flex-wrap items-center gap-2">
             <li>
               <Link href="/" className="hover:text-burgundy">
-                Front page
+                {c.copy.global.breadcrumbHome}
               </Link>
             </li>
             {crumbs.map((c) => (
@@ -60,12 +63,18 @@ export function PageHeader({
         <div className="mt-4 rule-double">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink pb-2">
             <p className={`kicker ${accent === "violet" ? "text-violet" : "text-burgundy"}`}>{section}</p>
-            <p className="kicker text-[0.6875rem] text-muted">InnovaHack · Chapter 02 · 2027</p>
+            <p className="kicker text-[0.6875rem] text-muted">{c.copy.global.pageHeaderEdition}</p>
           </div>
           <div className={`grid gap-8 ${aside ? "lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:items-end" : ""}`}>
             <div className="min-w-0">
-              <h1 className="reveal headline mt-6 text-[clamp(2rem,9.6vw,6.5rem)] font-black uppercase sm:text-[clamp(2.75rem,8vw,6.5rem)]">{title}</h1>
-              {deck && <div className="reveal reveal-2 prose-news mt-5 max-w-3xl text-lg md:text-xl">{deck}</div>}
+              <h1 className="reveal headline mt-6 text-[clamp(2rem,9.6vw,6.5rem)] font-black uppercase sm:text-[clamp(2.75rem,8vw,6.5rem)]">
+                {typeof title === "string" ? <Rich text={title} /> : title}
+              </h1>
+              {deck && (
+                <div className="reveal reveal-2 prose-news mt-5 max-w-3xl text-lg md:text-xl">
+                  {typeof deck === "string" ? <Rich text={deck} /> : deck}
+                </div>
+              )}
             </div>
             {aside && <div className="reveal reveal-3 min-w-0">{aside}</div>}
           </div>

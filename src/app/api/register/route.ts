@@ -1,19 +1,20 @@
-import { event } from "@/content/event";
-import { domainBySlug } from "@/content/domains";
+import { getSiteContent } from "@/lib/content";
 import { notifyOrganizer, sendEmail } from "@/lib/server/email";
 import { createFormHandler } from "@/lib/server/form-handler";
-import { registrationCopy } from "@/lib/site";
+import { registrationState } from "@/lib/site";
 import { registrationSchema } from "@/lib/validation";
 
 export const POST = createFormHandler({
   schema: registrationSchema,
   collection: "registrations",
   rate: { limit: 4, windowMs: 10 * 60_000 },
-  guard: () =>
-    event.registration.status === "open"
-      ? null
-      : { ok: false, message: registrationCopy[event.registration.status].body },
-  refine: (d) => {
+  guard: async () => {
+    const c = await getSiteContent();
+    return c.event.registration.status === "open" ? null : { ok: false, message: registrationState(c).body };
+  },
+  refine: async (d): Promise<Record<string, string> | null> => {
+    const { event, domains } = await getSiteContent();
+    if (!domains.list.some((x) => x.slug === d.domain)) return { domain: "Please choose one of the official domains." };
     const size = d.team.members.length + 1;
     const { min, max } = event.teamSize;
     const cap = max ?? event.formTeamMemberLimit;
@@ -28,7 +29,8 @@ export const POST = createFormHandler({
     duplicate: "A registration already exists for this team lead's email address. Contact the organizers if you need to change it.",
   },
   onStored: async (d, id) => {
-    const domain = domainBySlug(d.domain)?.name ?? d.domain;
+    const { event, domains } = await getSiteContent();
+    const domain = domains.list.find((x) => x.slug === d.domain)?.name ?? d.domain;
     await sendEmail({
       to: d.lead.email,
       subject: `${event.fullName}: registration received`,

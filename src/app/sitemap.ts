@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "@/content/event";
-import { articles } from "@/content/updates";
+import { getSiteContent } from "@/lib/content";
 
 const routes = [
   "",
@@ -20,7 +20,8 @@ const routes = [
   "/terms",
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { articles } = await getSiteContent();
   const publishedArticles = articles.filter((a) => !a.draft && a.publishedOn !== null);
   const indexableRoutes = publishedArticles.length ? [...routes, "/updates"] : routes;
 

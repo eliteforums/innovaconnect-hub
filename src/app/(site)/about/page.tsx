@@ -1,75 +1,42 @@
-import { photos } from "@/content/media";
-import { event } from "@/content/event";
-import { chapter1 } from "@/content/chapter1";
+import { getSiteContent } from "@/lib/content";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Figure } from "@/components/media/Figure";
-import { ButtonLink, Container, SectionHeader, StatusTag } from "@/components/ui";
+import { ArticleBody } from "@/components/updates/ArticleBody";
+import { ButtonLink, Container, Rich, SectionHeader, StatusTag } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
+import { t } from "@/lib/site";
 
-export const metadata = pageMeta(
-  "/about",
-  "About the National Hackathon",
-  "Learn about InnovaHack, the national hackathon organized by Elite Forums. Chapter 2 is planned as a pan-India hybrid event in 2027.",
-);
+export async function generateMetadata() {
+  const { copy } = await getSiteContent();
+  return pageMeta("/about", copy.about.meta.title, copy.about.meta.description);
+}
 
-const facts = [
-  { label: "Edition", value: event.chapterLabel, status: "confirmed" as const },
-  { label: "Year", value: String(event.year.value), status: event.year.status },
-  { label: "Scope", value: event.scope.value, status: event.scope.status },
-  { label: "Format", value: event.format.value, status: event.format.status },
-  { label: "Official domains", value: "Two", status: "confirmed" as const },
-  { label: "Finale venue", value: event.venue.value, status: event.venue.status },
-];
-
-export default function AboutPage() {
+export default async function AboutPage() {
+  const c = await getSiteContent();
+  const { event } = c;
+  const a = c.copy.about;
+  const facts = [
+    { label: a.factLabels.edition, value: event.chapterLabel, status: "confirmed" as const },
+    { label: a.factLabels.year, value: String(event.year.value ?? ""), status: event.year.status },
+    { label: a.factLabels.scope, value: event.scope.value, status: event.scope.status },
+    { label: a.factLabels.format, value: event.format.value, status: event.format.status },
+    { label: a.factLabels.domains, value: a.factLabels.domainsValue, status: "confirmed" as const },
+    { label: a.factLabels.venue, value: event.venue.value, status: event.venue.status },
+  ];
   return (
     <>
-      <PageHeader
-        section="The Story"
-        crumbs={[{ label: "The Story", href: "/about" }]}
-        title={
-          <>
-            India&rsquo;s next generation of builders. <span className="text-burgundy">One national stage.</span>
-          </>
-        }
-        deck={event.description}
-      />
+      <PageHeader section={a.section} crumbs={[{ label: a.section, href: "/about" }]} title={a.title} deck={event.description} />
 
       <Container className="mt-14">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
-          <article className="prose-news space-y-5 text-lg [&_h2]:text-ink">
-            <p className="first-letter:float-left first-letter:mr-3 first-letter:font-display first-letter:text-7xl first-letter:font-black first-letter:leading-[0.8] first-letter:text-burgundy">
-              InnovaHack is a national hackathon organized by {event.organizer}. Its first edition took place in{" "}
-              {chapter1.year}. The second edition — Chapter 2 — is planned for {event.year.value} as a larger national
-              platform for technology innovation, AI development, original products, startup ideas and practical
-              problem-solving.
-            </p>
-            <p>
-              Chapter 2 combines nationwide online participation and selection with an offline national grand finale.
-              It focuses on exactly two official competition domains: Artificial Intelligence, and Open Innovation /
-              Startup Track.
-            </p>
-            <h2 className="headline pt-4 text-3xl uppercase">Why Mumbai?</h2>
-            <p>
-              This edition&rsquo;s visual identity is inspired by Mumbai — its black-and-yellow taxis, red BEST buses,
-              local trains, heritage architecture, coastline, street food and creative culture. Mumbai was named in the
-              original Chapter 1 event materials, and its energy shapes how this edition looks and feels.
-            </p>
-            <p>
-              The event itself is pan-India. Builders from across the country are welcome, and the grand finale venue
-              has not yet been announced.
-            </p>
-            <h2 className="headline pt-4 text-3xl uppercase">About the design</h2>
-            <p>
-              &ldquo;The Innovation Times&rdquo; is the design concept behind this website: a special newspaper edition
-              about India&rsquo;s innovators. It is not a separate news publication, and the illustrations are original
-              artwork inspired by the city.
-            </p>
-          </article>
+          <ArticleBody
+            blocks={a.article.map((b) => ("text" in b ? { ...b, text: t(c, b.text) } : b))}
+            className="prose-news space-y-5 text-lg [&>p:first-child]:first-letter:float-left [&>p:first-child]:first-letter:mr-3 [&>p:first-child]:first-letter:font-display [&>p:first-child]:first-letter:text-7xl [&>p:first-child]:first-letter:font-black [&>p:first-child]:first-letter:leading-[0.8] [&>p:first-child]:first-letter:text-burgundy"
+          />
 
           <aside className="space-y-8">
             <div className="border-2 border-ink bg-paper-white">
-              <p className="border-b-2 border-ink bg-ink px-5 py-3 kicker text-taxi">Edition facts</p>
+              <p className="border-b-2 border-ink bg-ink px-5 py-3 kicker text-taxi">{a.factsTitle}</p>
               <dl className="divide-y divide-rule px-5">
                 {facts.map((f) => (
                   <div key={f.label} className="flex items-center justify-between gap-4 py-3">
@@ -82,32 +49,23 @@ export default function AboutPage() {
                 ))}
               </dl>
             </div>
-            <Figure
-              media={{
-                illustration: "station",
-                alt: "Illustration of Victorian Gothic architecture.",
-                credit: "Illustration inspired by Victorian Gothic architecture",
-                photo: photos.bmcTaxi,
-              }}
-              aspect="aspect-[4/3]"
-            />
+            <Figure media={a.figure} aspect="aspect-[4/3]" />
           </aside>
         </div>
 
         <section aria-labelledby="organizer-title" className="mt-20">
-          <SectionHeader number="02" kicker="The organizer" id="organizer-title" title={event.organizer} />
+          <SectionHeader number={a.organizerNumber} kicker={a.organizerKicker} id="organizer-title" title={event.organizer} />
           <div className="mt-8 grid gap-8 md:grid-cols-2">
             <p className="prose-news text-lg">
-              {event.organizer} is a community-driven organization that connects builders with opportunities through tech
-              meetups, hackathons and industry events. InnovaHack is its national hackathon.
+              <Rich text={t(c, a.organizerBody)} />
             </p>
             <div className="flex flex-col items-start gap-4 border-l-4 border-taxi pl-6">
               <p className="font-display text-2xl italic">&ldquo;{event.tagline}&rdquo;</p>
               <div className="flex flex-wrap gap-3">
                 <ButtonLink href="/chapter-1" variant="outline">
-                  The Chapter 1 archive
+                  {a.archiveCta}
                 </ButtonLink>
-                <ButtonLink href="/contact">Contact us</ButtonLink>
+                <ButtonLink href="/contact">{a.contactCta}</ButtonLink>
               </div>
             </div>
           </div>

@@ -1,28 +1,25 @@
 import Link from "next/link";
-import { event } from "@/content/event";
-import { landmarks, railLines } from "@/content/mumbai-map";
+import type { CityFeature } from "@/content/city";
+import { getSiteContent } from "@/lib/content";
 import { MumbaiMap } from "@/components/map/MumbaiMap";
-import { cityFeatures } from "@/content/city";
 import { Figure } from "@/components/media/Figure";
-import { ButtonLink, Container, SectionHeader, StatusTag, Tag, TextLink } from "@/components/ui";
+import { ButtonLink, Container, Rich, SectionHeader, StatusTag, TextLink } from "@/components/ui";
 import { DomainPanels } from "./DomainPanels";
 import { Journey } from "./Journey";
 
-export function DomainsSection() {
+export async function DomainsSection() {
+  const { copy } = await getSiteContent();
+  const d = copy.home.domains;
   return (
     <section aria-labelledby="domains-title" className="mt-24" id="tracks">
       <Container>
         <SectionHeader
-          number="03"
-          kicker="The official domains"
+          number={d.number}
+          kicker={d.kicker}
           id="domains-title"
-          title={
-            <>
-              Two domains. <span className="text-burgundy">One national stage.</span>
-            </>
-          }
-          deck="Every team enters one of exactly two official competition domains. AI is welcome in both."
-          action={<TextLink href="/tracks">Compare the tracks</TextLink>}
+          title={d.title}
+          deck={d.deck}
+          action={<TextLink href="/tracks">{d.action}</TextLink>}
         />
         <div className="mt-10">
           <DomainPanels />
@@ -32,57 +29,48 @@ export function DomainsSection() {
   );
 }
 
-const benefits = [
-  { title: "Build practical projects", body: "Turn a real problem into a working solution you can demo." },
-  { title: "Learn by exploring", body: "Push into new tools, models and frameworks under real constraints." },
-  { title: "Work as a team", body: "Split the problem, divide the work and ship together." },
-  { title: "Sharpen product thinking", body: "Practise deciding what to build — and what to leave out." },
-  { title: "Explore real challenges", body: "Work on themes drawn from education, finance, climate, civic life and more." },
-  { title: "Present your work", body: "Explain what you built, why it matters and how it works." },
-  { title: "Meet mentors", body: "Engage with mentors where sessions are available during the event." },
-  { title: "Find connections", body: "Explore industry and startup connections around the event." },
-  { title: "Grow your portfolio", body: "Leave with a project that shows what you can do." },
-];
-
-export function MoreThanSection() {
+export async function MoreThanSection() {
+  const { copy } = await getSiteContent();
+  const m = copy.home.more;
   return (
     <section aria-labelledby="more-title" className="mt-24">
       <Container>
-        <SectionHeader
-          number="04"
-          kicker="More than a hackathon"
-          id="more-title"
-          title="Build. Collaborate. Create impact."
-        />
+        <SectionHeader number={m.number} kicker={m.kicker} id="more-title" title={m.title} />
         <ol className="mt-10 grid border-l border-t border-ink sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.map((b, i) => (
-            <li key={b.title} className="in-view border-b border-r border-ink bg-paper-white/50 p-6 transition-colors hover:bg-paper-white">
+          {m.benefits.map((b, i) => (
+            <li
+              key={`${b.title}-${i}`}
+              className="in-view border-b border-r border-ink bg-paper-white/50 p-6 transition-colors hover:bg-paper-white"
+            >
               <p className="kicker text-burgundy">{String(i + 1).padStart(2, "0")}</p>
               <h3 className="headline mt-2 text-2xl">{b.title}</h3>
-              <p className="mt-2 text-[0.9375rem] text-charcoal">{b.body}</p>
+              <p className="mt-2 text-[0.9375rem] text-charcoal">
+                <Rich text={b.body} />
+              </p>
             </li>
           ))}
         </ol>
         <p className="mt-3 text-xs text-muted">
-          Participation does not guarantee employment, funding, incubation or investment. Any partner opportunity will be
-          published with its terms once it is confirmed.
+          <Rich text={m.disclaimer} />
         </p>
       </Container>
     </section>
   );
 }
 
-export function JourneySection() {
+export async function JourneySection() {
+  const { copy } = await getSiteContent();
+  const j = copy.home.journey;
   return (
     <section aria-labelledby="journey-title" className="mt-24">
       <Container>
         <SectionHeader
-          number="05"
-          kicker="The competition journey"
+          number={j.number}
+          kicker={j.kicker}
           id="journey-title"
-          title="From first idea to final stage."
-          deck="The proposed Chapter 2 stages, subject to the organizer's final rules. Dates will be added as they are confirmed."
-          action={<TextLink href="/timeline">Full timeline</TextLink>}
+          title={j.title}
+          deck={j.deck}
+          action={<TextLink href="/timeline">{j.action}</TextLink>}
         />
         <div className="mt-12">
           <Journey />
@@ -92,17 +80,9 @@ export function JourneySection() {
   );
 }
 
-export const awardKinds = [
-  "Cash prizes",
-  "Sponsor-provided benefits",
-  "Software or cloud credits",
-  "Hardware & products",
-  "Mentorship",
-  "Incubation consideration",
-  "Investor introductions",
-];
-
-export function PrizesSection() {
+export async function PrizesSection() {
+  const { copy } = await getSiteContent();
+  const p = copy.home.prizes;
   return (
     <section aria-labelledby="prizes-title" className="mt-24">
       <Container>
@@ -111,36 +91,37 @@ export function PrizesSection() {
             <div className="halftone absolute inset-0 opacity-30 invert" />
             <div className="relative">
               <p className="kicker text-taxi">
-                <span className="mr-3 text-paper-white">No. 06</span>Prizes & opportunities
+                <span className="mr-3 text-paper-white">No. {p.number}</span>
+                {p.kicker}
               </p>
               <h2 id="prizes-title" className="headline mt-4 text-[clamp(2.5rem,5.5vw,4.5rem)] uppercase">
-                Build something worth recognizing.
+                <Rich text={p.title} accent="text-taxi" />
               </h2>
-              <p className="mt-8 inline-block border-2 border-taxi px-4 py-3 headline text-2xl uppercase text-taxi md:text-3xl">
-                Chapter 2 prize details to be announced.
-              </p>
+              {p.pending && (
+                <p className="mt-8 inline-block border-2 border-taxi px-4 py-3 headline text-2xl uppercase text-taxi md:text-3xl">
+                  {p.pending}
+                </p>
+              )}
               <p className="mt-5 max-w-lg text-paper/80">
-                The Chapter 2 prize pool has not been confirmed. Chapter 1&rsquo;s advertised reward pool does not apply to
-                this edition.
+                <Rich text={p.body} accent="text-taxi" linkClass="underline underline-offset-2 hover:text-taxi" />
               </p>
             </div>
           </div>
           <div className="bg-paper-white p-8 sm:p-10">
-            <p className="label text-[0.6875rem]">How awards will be published</p>
+            <p className="label text-[0.6875rem]">{p.howTitle}</p>
             <p className="mt-2 text-[0.9375rem] text-charcoal">
-              When awards are confirmed, each type is listed separately with its eligibility and conditions — and only
-              cash is ever counted as cash.
+              <Rich text={p.howBody} />
             </p>
             <ul className="mt-5 divide-y divide-rule border-y border-ink">
-              {awardKinds.map((k) => (
-                <li key={k} className="flex items-center justify-between py-2.5">
+              {p.kinds.map((k, i) => (
+                <li key={`${k}-${i}`} className="flex items-center justify-between py-2.5">
                   <span className="font-display text-lg">{k}</span>
                   <StatusTag status="unconfirmed" />
                 </li>
               ))}
             </ul>
             <div className="mt-6">
-              <TextLink href="/prizes">Prizes & awards</TextLink>
+              <TextLink href="/prizes">{p.link}</TextLink>
             </div>
           </div>
         </div>
@@ -149,31 +130,26 @@ export function PrizesSection() {
   );
 }
 
-export const collaborationOptions = [
-  { title: "Set a challenge", body: "Bring a real problem statement for teams to work on within either domain." },
-  { title: "Provide tools", body: "Offer APIs, platforms or credits that help teams build." },
-  { title: "Mentor & judge", body: "Share expertise with teams during the build and evaluation." },
-  { title: "Reach builders", body: "Connect with India's student and early-career builder community." },
-];
-
-export function PartnersSection() {
-  const partners = event.partners.filter((p) => p.verified);
+export async function PartnersSection() {
+  const { copy, event } = await getSiteContent();
+  const p = copy.home.partners;
+  const partners = event.partners.filter((x) => x.verified);
   return (
     <section aria-labelledby="partners-title" className="mt-24">
       <Container>
         <SectionHeader
-          number="07"
-          kicker="Partners & industry"
+          number={p.number}
+          kicker={p.kicker}
           id="partners-title"
-          title="Real problems. Real builders."
-          action={<TextLink href="/partners">Partner with us</TextLink>}
+          title={p.title}
+          action={<TextLink href="/partners">{p.action}</TextLink>}
         />
         {partners.length > 0 ? (
           <ul className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
-            {partners.map((p) => (
-              <li key={p.name} className="border border-ink bg-paper-white p-5">
-                <p className="kicker text-burgundy">{p.category}</p>
-                <p className="headline mt-2 text-xl">{p.name}</p>
+            {partners.map((x) => (
+              <li key={x.name} className="border border-ink bg-paper-white p-5">
+                <p className="kicker text-burgundy">{x.category}</p>
+                <p className="headline mt-2 text-xl">{x.name}</p>
               </li>
             ))}
           </ul>
@@ -181,23 +157,26 @@ export function PartnersSection() {
           <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_2fr]">
             <div className="flex flex-col justify-between gap-6 border-2 border-ink bg-taxi p-7">
               <div>
-                <p className="kicker">Chapter 2 partners</p>
-                <p className="headline mt-3 text-3xl uppercase">Partner with InnovaHack.</p>
+                <p className="kicker">{p.ctaKicker}</p>
+                <p className="headline mt-3 text-3xl uppercase">{p.ctaTitle}</p>
                 <p className="mt-3 text-ink/85">
-                  Chapter 2 partners have not been announced yet. Organizations interested in shaping the edition can get
-                  in touch now.
+                  <Rich text={p.ctaBody} />
                 </p>
               </div>
               <ButtonLink href="/partners#inquiry" variant="ink">
-                Start a partnership inquiry
+                {p.ctaButton}
               </ButtonLink>
             </div>
             <ul className="grid gap-px border border-ink bg-ink sm:grid-cols-2">
-              {collaborationOptions.map((o, i) => (
-                <li key={o.title} className="bg-paper-white p-6">
-                  <p className="kicker text-burgundy">Option {String(i + 1).padStart(2, "0")}</p>
+              {p.options.map((o, i) => (
+                <li key={`${o.title}-${i}`} className="bg-paper-white p-6">
+                  <p className="kicker text-burgundy">
+                    {p.optionLabel} {String(i + 1).padStart(2, "0")}
+                  </p>
                   <h3 className="headline mt-2 text-2xl">{o.title}</h3>
-                  <p className="mt-2 text-[0.9375rem] text-charcoal">{o.body}</p>
+                  <p className="mt-2 text-[0.9375rem] text-charcoal">
+                    <Rich text={o.body} />
+                  </p>
                 </li>
               ))}
             </ul>
@@ -208,29 +187,29 @@ export function PartnersSection() {
   );
 }
 
-export function CitySection() {
-  const [taxi, bus, train, ...small] = cityFeatures;
+export async function CitySection() {
+  const { copy, city } = await getSiteContent();
+  const h = copy.home.city;
+  const [taxi, bus, train, ...small] = city.features;
   return (
     <section aria-labelledby="city-title" className="mt-24 scroll-mt-24" id="the-city">
       <Container>
-        <SectionHeader
-          number="08"
-          kicker="The Mumbai edition"
-          id="city-title"
-          title="The city behind the inspiration."
-          deck="The colours, routes and textures of this edition come from Mumbai's everyday life. These features are the inspiration for the design — not competition categories."
-        />
+        <SectionHeader number={h.number} kicker={h.kicker} id="city-title" title={h.title} deck={h.deck} />
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <article className="in-view md:col-span-2 lg:row-span-2">
-            <Figure media={taxi.media} aspect="aspect-[4/3]" priority={false} />
-            <CityCopy feature={taxi} large />
-          </article>
-          {[bus, train].map((f) => (
-            <article key={f.id} className="in-view md:col-span-1 lg:col-span-2">
-              <Figure media={f.media} aspect="aspect-[16/7]" />
-              <CityCopy feature={f} />
+          {taxi && (
+            <article className="in-view md:col-span-2 lg:row-span-2">
+              <Figure media={taxi.media} aspect="aspect-[4/3]" />
+              <CityCopy feature={taxi} large />
             </article>
-          ))}
+          )}
+          {[bus, train]
+            .filter((f): f is CityFeature => Boolean(f))
+            .map((f) => (
+              <article key={f.id} className="in-view md:col-span-1 lg:col-span-2">
+                <Figure media={f.media} aspect="aspect-[16/7]" />
+                <CityCopy feature={f} />
+              </article>
+            ))}
           {small.map((f) => (
             <article key={f.id} className="in-view">
               <Figure media={f.media} aspect="aspect-[4/3]" />
@@ -238,26 +217,31 @@ export function CitySection() {
             </article>
           ))}
         </div>
-
       </Container>
     </section>
   );
 }
 
-function CityCopy({ feature, large = false }: { feature: (typeof cityFeatures)[number]; large?: boolean }) {
+function CityCopy({ feature, large = false }: { feature: CityFeature; large?: boolean }) {
   return (
     <div className="mt-3">
       <p className="kicker text-[0.6875rem] text-burgundy">{feature.label}</p>
       <h3 className={`headline mt-1 uppercase ${large ? "text-[clamp(2rem,3.5vw,3rem)]" : "text-2xl"}`}>
         {feature.title}
       </h3>
-      <p className={`mt-2 text-charcoal ${large ? "prose-news" : "text-[0.9375rem]"}`}>{feature.caption}</p>
-      <p className="mt-2 border-l-2 border-taxi pl-3 text-xs leading-relaxed text-muted">{feature.context}</p>
+      <p className={`mt-2 text-charcoal ${large ? "prose-news" : "text-[0.9375rem]"}`}>
+        <Rich text={feature.caption} />
+      </p>
+      <p className="mt-2 border-l-2 border-taxi pl-3 text-xs leading-relaxed text-muted">
+        <Rich text={feature.context} />
+      </p>
     </div>
   );
 }
 
-export function NationalSection() {
+export async function NationalSection() {
+  const { copy, event, map } = await getSiteContent();
+  const n = copy.home.national;
   return (
     <section aria-labelledby="national-title" className="mt-24" id="map">
       <Container>
@@ -265,15 +249,14 @@ export function NationalSection() {
           {/* Intro */}
           <div className="lg:col-start-1 lg:row-start-1">
             <p className="kicker text-burgundy">
-              <span className="mr-3 text-ink">No. 09</span>National participation
+              <span className="mr-3 text-ink">No. {n.number}</span>
+              {n.kicker}
             </p>
             <h2 id="national-title" className="headline mt-4 text-[clamp(2.5rem,5.5vw,4.5rem)] uppercase">
-              Rooted in Mumbai. <span className="text-burgundy">Open to India.</span>
+              <Rich text={n.title} />
             </h2>
             <p className="prose-news mt-5 max-w-xl">
-              The city on the map inspires this edition&rsquo;s identity — its trains, streets and shoreline. InnovaHack
-              Chapter 2 itself is designed for builders from across the country, not only from Mumbai. Eligibility
-              details will be published in the official rules.
+              <Rich text={n.body} />
             </p>
           </div>
 
@@ -281,15 +264,14 @@ export function NationalSection() {
           <figure className="lg:col-start-2 lg:row-span-3 lg:row-start-1">
             <div className="border-2 border-ink bg-paper-white">
               <div className="flex items-center justify-between gap-3 border-b-2 border-ink bg-ink px-4 py-2">
-                <p className="kicker text-taxi">The city map · Mumbai</p>
-                <p className="hidden kicker text-[0.625rem] text-paper/70 sm:block">Island city &amp; suburbs</p>
+                <p className="kicker text-taxi">{n.mapTitle}</p>
+                <p className="hidden kicker text-[0.625rem] text-paper/70 sm:block">{n.mapSubtitle}</p>
               </div>
-              <MumbaiMap className="block h-auto w-full" />
+              <MumbaiMap className="block h-auto w-full" map={map} />
             </div>
             <figcaption className="mt-2 space-y-1 text-[0.6875rem] leading-relaxed text-muted">
               <p>
-                Mumbai City and Mumbai Suburban districts. Rail lines are drawn station to station and positions are
-                approximate. The Chapter 2 finale venue has not been announced and is not shown.
+                <Rich text={n.mapCaption} />
               </p>
               <p>
                 Map data ©{" "}
@@ -308,9 +290,9 @@ export function NationalSection() {
 
           {/* Key */}
           <div className="lg:col-start-1 lg:row-start-2">
-            <p className="label text-[0.6875rem]">Map key</p>
+            <p className="label text-[0.6875rem]">{n.keyTitle}</p>
             <ul aria-label="Railway lines" className="mt-3 flex flex-wrap gap-x-6 gap-y-2 border-b border-ink pb-3">
-              {railLines.map((l) => (
+              {map.railLines.map((l) => (
                 <li key={l.id} className="flex items-center gap-2 text-sm font-medium">
                   <span aria-hidden className="h-1.5 w-8" style={{ background: l.colour }} />
                   {l.name}
@@ -318,19 +300,19 @@ export function NationalSection() {
               ))}
               <li className="flex items-center gap-2 text-sm font-medium">
                 <span aria-hidden className="h-0 w-8 border-t-[3px] border-dashed border-ink" />
-                Sea link
+                {n.seaLink}
               </li>
               <li className="flex items-center gap-2 text-sm font-medium">
                 <span aria-hidden className="size-4 border border-ink bg-[#DFD2B8]" />
-                Mumbai City district
+                {n.cityDistrict}
               </li>
               <li className="flex items-center gap-2 text-sm font-medium">
                 <span aria-hidden className="size-4 border border-ink bg-paper-deep" />
-                Mumbai Suburban district
+                {n.suburbanDistrict}
               </li>
             </ul>
             <ol aria-label="Landmarks" className="mt-3 grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
-              {landmarks.map((l) => (
+              {map.landmarks.map((l) => (
                 <li key={l.n} className="flex gap-3">
                   <span
                     aria-hidden
@@ -356,24 +338,30 @@ export function NationalSection() {
 
           {/* Participation */}
           <div className="lg:col-start-1 lg:row-start-3">
-            <p className="label text-[0.6875rem]">Chapter 2 participation — live figures</p>
+            <p className="label text-[0.6875rem]">{n.figuresTitle}</p>
             <table className="mt-3 w-full border-y-2 border-ink text-left">
-              <caption className="sr-only">Chapter 2 participation metrics</caption>
+              <caption className="sr-only">{n.figuresTitle}</caption>
               <thead>
                 <tr className="border-b border-ink">
-                  <th scope="col" className="py-2 kicker text-[0.625rem] font-medium">Metric</th>
-                  <th scope="col" className="py-2 text-right kicker text-[0.625rem] font-medium">Figure</th>
+                  <th scope="col" className="py-2 kicker text-[0.625rem] font-medium">
+                    {n.metricHeading}
+                  </th>
+                  <th scope="col" className="py-2 text-right kicker text-[0.625rem] font-medium">
+                    {n.figureHeading}
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {event.participation.map((m) => (
                   <tr key={m.label} className="border-b border-rule last:border-b-0">
-                    <th scope="row" className="py-2.5 font-display text-lg font-normal">{m.label}</th>
+                    <th scope="row" className="py-2.5 font-display text-lg font-normal">
+                      {m.label}
+                    </th>
                     <td className="py-2.5 text-right">
                       {m.value ? (
                         <span className="headline text-2xl text-burgundy">{m.value}</span>
                       ) : (
-                        <span className="kicker text-[0.6875rem] text-muted">Not yet published</span>
+                        <span className="kicker text-[0.6875rem] text-muted">{n.notPublished}</span>
                       )}
                       {m.status === "target" && <StatusTag status="target" className="ml-2" />}
                     </td>
@@ -382,8 +370,7 @@ export function NationalSection() {
               </tbody>
             </table>
             <p className="mt-3 text-xs text-muted">
-              Figures appear here only once they are supported by real registration data. Targets are always labelled as
-              targets.
+              <Rich text={n.figuresNote} />
             </p>
           </div>
         </div>

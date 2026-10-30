@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { interchanges, landmarks, placeLabels, railLines, seaLink } from "@/content/mumbai-map";
+import type { SiteContent } from "@/lib/content";
 import { cityDistrictPath, frame, suburbanDistrictPath } from "./mumbai-boundary";
 
 const INK = "#171717";
@@ -20,7 +20,8 @@ const pxPerKm = frame.scale / 111.32;
  * Editorial map of Mumbai: OpenStreetMap district outlines, the three
  * suburban railway lines, and numbered landmarks keyed in the page.
  */
-export function MumbaiMap({ className = "" }: { className?: string }) {
+export function MumbaiMap({ className = "", map }: { className?: string; map: SiteContent["map"] }) {
+  const { interchanges, landmarks, placeLabels, railLines, seaLink } = map;
   const id = useId().replace(/:/g, "");
   const titleId = `map-title-${id}`;
   const descId = `map-desc-${id}`;

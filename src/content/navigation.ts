@@ -1,4 +1,6 @@
-export const primaryNav = [
+export type NavLink = { label: string; href: string };
+
+export const primaryNav: NavLink[] = [
   { label: "The Story", href: "/about" },
   { label: "The Tracks", href: "/tracks" },
   { label: "Chapter 1", href: "/chapter-1" },
@@ -6,9 +8,9 @@ export const primaryNav = [
   { label: "Partners", href: "/partners" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
-] as const;
+];
 
-export const footerNav = [
+export const footerNav: { title: string; links: NavLink[] }[] = [
   {
     title: "The edition",
     links: [
@@ -44,4 +46,4 @@ export const footerNav = [
       { label: "Terms", href: "/terms" },
     ],
   },
-] as const;
+];

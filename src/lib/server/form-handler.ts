@@ -19,9 +19,9 @@ type Options<S extends z.ZodType> = {
   dedupeKey: (data: z.output<S>) => string;
   email: (data: z.output<S>) => string;
   /** Optional extra server-side gate, e.g. "registration must be open". */
-  guard?: () => FormResponse | null;
+  guard?: () => FormResponse | null | Promise<FormResponse | null>;
   /** Extra validation that depends on server config. */
-  refine?: (data: z.output<S>) => Record<string, string> | null;
+  refine?: (data: z.output<S>) => Record<string, string> | null | Promise<Record<string, string> | null>;
   /** Side effects after a confirmed write (emails). Runs after the response. */
   onStored?: (data: z.output<S>, id: string) => Promise<void>;
   messages: { success: string | ((data: z.output<S>, id: string) => string); duplicate: string };
@@ -52,7 +52,7 @@ export function createFormHandler<S extends z.ZodType>(opts: Options<S>) {
       return json({ ok: false, message: "Unsupported request format." }, 415);
     }
 
-    const gate = opts.guard?.();
+    const gate = await opts.guard?.();
     if (gate) return json(gate, 403);
 
     const limit = rateLimit(`${opts.collection}:${clientIp(req)}`, opts.rate ?? { limit: 6, windowMs: 10 * 60_000 });
@@ -90,7 +90,7 @@ export function createFormHandler<S extends z.ZodType>(opts: Options<S>) {
     }
     const data = parsed.data;
 
-    const extra = opts.refine?.(data);
+    const extra = await opts.refine?.(data);
     if (extra) {
       return json({ ok: false, message: "Please check the highlighted fields.", errors: extra }, 400);
     }

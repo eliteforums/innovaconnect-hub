@@ -4,9 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
-import { primaryNav } from "@/content/navigation";
 
-export function SiteHeader({ cta }: { cta: { label: string; href: string } }) {
+type HeaderLabels = { wordmark: string; chapterTag: string; openMenu: string; closeMenu: string };
+
+export function SiteHeader({
+  cta,
+  nav,
+  labels,
+}: {
+  cta: { label: string; href: string };
+  nav: readonly { label: string; href: string }[];
+  labels: HeaderLabels;
+}) {
+  const primaryNav = nav;
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const menuId = useId();
@@ -31,8 +41,8 @@ export function SiteHeader({ cta }: { cta: { label: string; href: string } }) {
     <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/85">
       <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
         <Link href="/" className="group flex items-baseline gap-2" onClick={() => setOpen(false)}>
-          <span className="headline text-[1.6rem] leading-none tracking-tight">INNOVAHACK</span>
-          <span className="bg-taxi px-1.5 py-0.5 kicker text-[0.625rem] text-ink">Ch. 02</span>
+          <span className="headline text-[1.6rem] leading-none tracking-tight">{labels.wordmark}</span>
+          <span className="bg-taxi px-1.5 py-0.5 kicker text-[0.625rem] text-ink">{labels.chapterTag}</span>
           <span className="sr-only">— home</span>
         </Link>
 
@@ -72,7 +82,7 @@ export function SiteHeader({ cta }: { cta: { label: string; href: string } }) {
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X aria-hidden className="size-5" /> : <Menu aria-hidden className="size-5" />}
-            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+            <span className="sr-only">{open ? labels.closeMenu : labels.openMenu}</span>
           </button>
         </div>
       </div>

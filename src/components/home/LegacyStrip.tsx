@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { ArrowRight, Clock3, Gift, Trophy, Users } from "lucide-react";
-import { chapter1 } from "@/content/chapter1";
+import { getSiteContent } from "@/lib/content";
 import { Container, StatusTag } from "@/components/ui";
 
 const icons = [Users, Trophy, Gift, Clock3];
 
-export function LegacyStrip() {
+export async function LegacyStrip() {
+  const { chapter1, copy } = await getSiteContent();
+  const l = copy.home.legacy;
   return (
     <section aria-labelledby="legacy-title" className="mt-12">
       <Container>
@@ -15,20 +17,20 @@ export function LegacyStrip() {
               <div>
                 <p className="kicker text-burgundy">{chapter1.label}</p>
                 <h2 id="legacy-title" className="headline mt-2 text-[clamp(1.75rem,3vw,2.25rem)] uppercase">
-                  The foundation that started it all.
+                  {l.title}
                 </h2>
               </div>
               <Link
                 href="/chapter-1"
                 className="group inline-flex min-h-11 items-center gap-2 border-2 border-burgundy px-4 label text-[0.75rem] text-burgundy transition-colors hover:bg-burgundy hover:text-paper-white"
               >
-                Explore Chapter 1
+                {l.cta}
                 <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
             <ul className="contents">
               {chapter1.metrics.map((m, i) => {
-                const Icon = icons[i];
+                const Icon = icons[i % icons.length];
                 return (
                   <li
                     key={m.label}
@@ -46,10 +48,7 @@ export function LegacyStrip() {
               })}
             </ul>
           </div>
-          <p className="mt-2 text-xs text-muted">
-            Historical Chapter 1 figures. &ldquo;As advertised&rdquo; figures were promoted before the event and are not
-            records of cash paid out. They do not describe Chapter 2.
-          </p>
+          <p className="mt-2 text-xs text-muted">{l.note}</p>
         </div>
       </Container>
     </section>

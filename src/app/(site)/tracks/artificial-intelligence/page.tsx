@@ -1,15 +1,19 @@
-import { domains } from "@/content/domains";
+import { notFound } from "next/navigation";
+import { getSiteContent } from "@/lib/content";
 import { DomainDetail } from "@/components/tracks/DomainDetail";
 import { pageMeta } from "@/lib/seo";
 
-const domain = domains[0];
+const SLUG = "artificial-intelligence";
 
-export const metadata = pageMeta(
-  "/tracks/artificial-intelligence",
-  "AI Hackathon India 2027",
-  "Explore the Artificial Intelligence domain for InnovaHack Chapter 2. Build with generative AI, agents, machine learning and other AI systems for real-world problems.",
-);
+export async function generateMetadata() {
+  const { domains } = await getSiteContent();
+  const d = domains.list.find((x) => x.slug === SLUG);
+  return d ? pageMeta(`/tracks/${SLUG}`, `Domain ${d.number} — ${d.name}`, d.summary) : {};
+}
 
-export default function ArtificialIntelligencePage() {
+export default async function ArtificialIntelligencePage() {
+  const { domains } = await getSiteContent();
+  const domain = domains.list.find((x) => x.slug === SLUG);
+  if (!domain) notFound();
   return <DomainDetail domain={domain} />;
 }

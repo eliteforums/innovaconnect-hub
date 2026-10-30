@@ -1,33 +1,26 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Building2, CalendarDays, Layers, MapPin } from "lucide-react";
-import { event } from "@/content/event";
-import { sidebarFeatures, type CityFeature } from "@/content/city";
+import type { CityFeature } from "@/content/city";
+import { getSiteContent, type SiteContent } from "@/lib/content";
+import { isRegistrationOpen, registrationState, t } from "@/lib/site";
+import { ContentImage } from "@/components/media/ContentImage";
 import { Figure } from "@/components/media/Figure";
-import { ButtonLink, Container, Tag } from "@/components/ui";
-import { isRegistrationOpen, registrationCopy } from "@/lib/site";
-import bmc from "@/assets/cutouts/bmc.webp";
-import bus from "@/assets/cutouts/bus.webp";
-import gateway from "@/assets/cutouts/gateway.webp";
-import skyline from "@/assets/cutouts/skyline.webp";
-import splashRed from "@/assets/cutouts/splash-red.webp";
-import splashYellow from "@/assets/cutouts/splash-yellow.webp";
-import taxi from "@/assets/cutouts/taxi.webp";
-import train from "@/assets/cutouts/train.webp";
+import { ButtonLink, Container, Rich, Tag } from "@/components/ui";
 
-export function Hero() {
-  const [coast, ...rightFeatures] = sidebarFeatures;
+export async function Hero() {
+  const c = await getSiteContent();
+  const [coast, ...rightFeatures] = c.city.sidebar;
   return (
     <Container className="pt-6 lg:pt-8">
       <div className="grid gap-x-8 xl:grid-cols-[200px_minmax(0,1fr)_216px]">
         {/* Left column — the coastline feature (desktop only; other sizes use the strip) */}
         <aside aria-label="City feature" className="hidden border-r border-ink pr-6 xl:block">
-          <CoastFeature feature={coast} />
+          {coast && <CoastFeature feature={coast} c={c} />}
         </aside>
 
         <div className="min-w-0">
-          <Masthead />
-          <LeadStory />
+          <Masthead c={c} />
+          <LeadStory c={c} />
         </div>
 
         <aside aria-label="City features" className="hidden border-l border-ink pl-6 xl:block">
@@ -43,9 +36,9 @@ export function Hero() {
 
       {/* Sidebar strip for tablet and mobile */}
       <div className="mt-10 border-t-2 border-ink pt-4 xl:hidden">
-        <p className="kicker text-burgundy">The city edition · Four stories</p>
+        <p className="kicker text-burgundy">{c.copy.home.stripLabel}</p>
         <ul className="scroll-strip -mx-4 mt-4 flex scroll-px-4 gap-5 overflow-x-auto px-4 pb-4 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0">
-          {sidebarFeatures.map((f) => (
+          {c.city.sidebar.map((f) => (
             <li key={f.id} className="w-[72vw] max-w-[300px] shrink-0 md:w-auto md:max-w-none">
               <SidebarFeature feature={f} />
             </li>
@@ -56,16 +49,27 @@ export function Hero() {
   );
 }
 
-function Masthead() {
+function Masthead({ c }: { c: SiteContent }) {
+  const m = c.copy.home.masthead;
   return (
     <div className="reveal reveal-1 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-6">
       <div className="@container min-w-0">
         <h1 className="headline whitespace-nowrap text-center text-[14.6cqw] font-black leading-[0.8] tracking-[-0.025em] lg:text-left">
-          INNOVAHACK
-          <span className="sr-only"> Chapter 2, 2027</span>
+          {m.wordmark}
+          <span className="sr-only"> {c.event.fullName}</span>
         </h1>
         <p className="mt-3 border-t border-ink pt-2 text-center kicker text-[0.625rem] lg:text-left">
-          Innovation <Sep /> Ideas <Sep /> Technology <Sep /> Startups <Sep /> For a brighter India
+          {m.themes.map((theme, i) => (
+            <span key={`${theme}-${i}`}>
+              {i > 0 && (
+                <>
+                  {" "}
+                  <span className="mx-1 text-burgundy">|</span>{" "}
+                </>
+              )}
+              {theme}
+            </span>
+          ))}
         </p>
       </div>
 
@@ -73,63 +77,53 @@ function Masthead() {
       <div className="hidden items-end gap-4 lg:flex">
         <div className="text-center">
           <div className="border-2 border-ink bg-paper-white px-4 pb-1 pt-1.5">
-            <p className="font-display text-xl font-bold uppercase leading-none text-burgundy">Chapter 02</p>
-            <p className="mt-1 border-t-2 border-ink pt-1 headline text-[3.25rem] leading-none">2027</p>
+            <p className="font-display text-xl font-bold uppercase leading-none text-burgundy">{m.ticketTop}</p>
+            <p className="mt-1 border-t-2 border-ink pt-1 headline text-[3.25rem] leading-none">{m.ticketMain}</p>
           </div>
           <p className="mt-1.5 kicker text-[0.5625rem] leading-snug">
-            A national hackathon
-            <br />
-            by {event.organizer}
+            <Rich text={t(c, m.ticketBottom)} />
           </p>
         </div>
         <div className="hidden w-[112px] 2xl:block">
-          <p className="kicker text-[0.5625rem] leading-relaxed">
-            India&rsquo;s next generation of builders creating real impact.
-          </p>
-          <Image src={gateway} alt="" sizes="112px" className="mt-2 h-auto w-full opacity-80 mix-blend-multiply" />
+          <p className="kicker text-[0.5625rem] leading-relaxed">{m.sideNote}</p>
+          <ContentImage
+            src={c.images.mastheadSketch}
+            alt=""
+            sizes="112px"
+            className="mt-2 h-auto w-full opacity-80 mix-blend-multiply"
+          />
         </div>
       </div>
     </div>
   );
 }
 
-function Sep() {
-  return <span className="mx-1 text-burgundy">|</span>;
-}
+const metaIcons = [MapPin, Layers, CalendarDays, Building2];
 
-function LeadStory() {
-  const status = registrationCopy[event.registration.status];
-  const meta = [
-    { icon: MapPin, label: "India wide" },
-    { icon: Layers, label: "Hybrid format" },
-    { icon: CalendarDays, label: "2027" },
-    { icon: Building2, label: `By ${event.organizer}` },
-  ];
+function LeadStory({ c }: { c: SiteContent }) {
+  const lead = c.copy.home.lead;
+  const status = registrationState(c);
   return (
     <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.18fr)] lg:gap-4">
       <div className="reveal reveal-2 flex flex-col">
-        <Tag className="self-start">The lead story</Tag>
+        <Tag className="self-start">{lead.tag}</Tag>
         <h2 className="headline mt-4 text-[clamp(3.1rem,8.6vw,6.4rem)] font-black uppercase leading-[0.86] lg:text-[clamp(3.25rem,4.9vw,5.4rem)]">
-          <span className="text-burgundy">Mumbai</span>
-          <br />
-          builds
-          <br />
-          the future.
+          <Rich text={lead.headline} />
         </h2>
         <p className="mt-5 font-display text-2xl font-bold leading-tight md:text-[1.75rem]">
-          Two domains. One national stage.
+          <Rich text={lead.subhead} />
         </p>
-        <p className="prose-news mt-3 max-w-xl">{event.description}</p>
+        <p className="prose-news mt-3 max-w-xl">{c.event.description}</p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap [&>a]:whitespace-nowrap">
-          <ButtonLink href="/tracks">Explore the tracks</ButtonLink>
-          {isRegistrationOpen() ? (
+          <ButtonLink href="/tracks">{lead.primaryCta}</ButtonLink>
+          {isRegistrationOpen(c) ? (
             <ButtonLink href="/register" variant="outline">
-              Register now
+              {c.copy.global.cta.register}
             </ButtonLink>
           ) : (
             <ButtonLink href="/register#updates" variant="outline">
-              Get event updates
+              {c.copy.global.cta.updates}
             </ButtonLink>
           )}
         </div>
@@ -139,68 +133,71 @@ function LeadStory() {
         </p>
 
         <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-ink pt-4 sm:flex sm:flex-wrap sm:gap-x-6 lg:mt-auto">
-          {meta.map(({ icon: Icon, label }) => (
-            <li key={label} className="flex items-center gap-2 kicker text-[0.6875rem]">
-              <Icon aria-hidden className="size-4 text-burgundy" />
-              {label}
-            </li>
-          ))}
+          {lead.meta.map((label, i) => {
+            const Icon = metaIcons[i % metaIcons.length];
+            return (
+              <li key={`${label}-${i}`} className="flex items-center gap-2 kicker text-[0.6875rem]">
+                <Icon aria-hidden className="size-4 text-burgundy" />
+                {t(c, label)}
+              </li>
+            );
+          })}
         </ul>
       </div>
 
-      <HeroCollage />
+      <HeroCollage c={c} />
     </div>
   );
 }
 
-const themes = ["Ideas", "People", "Culture", "Technology", "A brighter India"];
-
-function HeroCollage() {
+function HeroCollage({ c }: { c: SiteContent }) {
+  const col = c.copy.home.collage;
+  const img = c.images;
   // Each layer is positioned in % of the collage, so it scales as one piece.
   const layer = "pointer-events-none absolute h-auto max-w-none select-none";
   return (
     <figure className="reveal reveal-3">
       <div className="relative aspect-square overflow-hidden sm:aspect-[5/4] lg:aspect-[5/6]">
-        <Image
-          src={splashYellow}
+        <ContentImage
+          src={img.heroSplashYellow}
           alt=""
           sizes="(min-width: 1024px) 40vw, 90vw"
           className={`${layer} right-[-12%] top-[10%] w-[112%] rotate-[-4deg]`}
         />
-        <Image
-          src={skyline}
+        <ContentImage
+          src={img.heroSkyline}
           alt=""
           sizes="(min-width: 1024px) 40vw, 90vw"
           className={`${layer} bottom-[30%] left-[-4%] w-[108%] opacity-50 mix-blend-multiply`}
         />
-        <Image
-          src={bmc}
-          alt="The Brihanmumbai Municipal Corporation headquarters, a Victorian Gothic building with a tall central dome."
+        <ContentImage
+          src={img.heroBuilding}
+          alt={col.buildingAlt}
           priority
           sizes="(min-width: 1024px) 30vw, 70vw"
           className={`${layer} bottom-[24%] left-[13%] w-[76%]`}
         />
-        <Image
-          src={splashRed}
+        <ContentImage
+          src={img.heroSplashRed}
           alt=""
           sizes="(min-width: 1024px) 22vw, 50vw"
           className={`${layer} bottom-[30%] left-[-8%] w-[52%]`}
         />
-        <Image
-          src={train}
-          alt="A white, purple and yellow suburban local train."
+        <ContentImage
+          src={img.heroTrain}
+          alt={col.trainAlt}
           sizes="(min-width: 1024px) 28vw, 60vw"
           className={`${layer} drift-slow bottom-[11%] right-[-14%] w-[62%]`}
         />
-        <Image
-          src={bus}
-          alt="A red BEST bus."
+        <ContentImage
+          src={img.heroBus}
+          alt={col.busAlt}
           sizes="(min-width: 1024px) 26vw, 55vw"
           className={`${layer} drift-slow bottom-[10%] left-[-6%] w-[52%]`}
         />
-        <Image
-          src={taxi}
-          alt="A black-and-yellow Premier Padmini taxi."
+        <ContentImage
+          src={img.heroTaxi}
+          alt={col.taxiAlt}
           priority
           sizes="(min-width: 1024px) 34vw, 75vw"
           className={`${layer} drift bottom-[0%] left-[20%] w-[64%]`}
@@ -210,41 +207,34 @@ function HeroCollage() {
           aria-hidden
           className="absolute left-[2%] top-[9%] rotate-[-14deg] font-hand text-[clamp(1.1rem,2.2vw,1.6rem)] leading-[1.05] text-ink"
         >
-          Mumbai
-          <br />
-          More than a city
-          <br />A mindset
+          <Rich text={col.note} accent="text-burgundy" />
         </p>
         <ul className="absolute right-[1%] top-[2%] hidden border-l-2 border-ink bg-paper/70 py-1 pl-3 pr-2 sm:block">
-          {themes.map((t) => (
-            <li key={t} className="kicker text-[0.625rem] leading-[1.9]">
-              {t}
+          {col.themes.map((theme, i) => (
+            <li key={`${theme}-${i}`} className="kicker text-[0.625rem] leading-[1.9]">
+              {theme}
             </li>
           ))}
         </ul>
       </div>
-      <figcaption className="mt-2 kicker text-[0.625rem] text-muted">
-        Collage · A taxi, a BEST bus and a suburban local train before the Brihanmumbai Municipal Corporation
-        headquarters
-      </figcaption>
+      <figcaption className="mt-2 kicker text-[0.625rem] text-muted">{col.caption}</figcaption>
     </figure>
   );
 }
 
-function CoastFeature({ feature }: { feature: CityFeature }) {
+function CoastFeature({ feature, c }: { feature: CityFeature; c: SiteContent }) {
+  const coast = c.copy.home.coast;
   return (
     <article className="group">
       <Link href={feature.href} className="block">
         <Figure media={feature.media} aspect="aspect-[3/4]" showCredit={false} sizes="200px" />
-        <p className="mt-4 headline text-[2rem] uppercase leading-none tracking-wide">Mumbai</p>
+        <p className="mt-4 headline text-[2rem] uppercase leading-none tracking-wide">{coast.heading}</p>
         <p className="mt-1 font-sans text-lg font-medium uppercase leading-snug tracking-[0.14em] transition-colors group-hover:text-burgundy">
           {feature.title}
         </p>
         <p className="mt-3 flex items-end justify-between gap-2 border-t border-ink pt-3 kicker text-[0.6875rem] leading-relaxed">
           <span>
-            Same streets.
-            <br />
-            Bigger dreams.
+            <Rich text={coast.footer} />
           </span>
           <ArrowRight aria-hidden className="size-4 shrink-0 transition-transform group-hover:translate-x-1" />
         </p>

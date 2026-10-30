@@ -1,4 +1,4 @@
-import type { Fact, Partner, RegistrationStatus } from "./types";
+import type { Fact, FactStatus, Partner, RegistrationStatus } from "./types";
 
 /**
  * CHAPTER 2 — CENTRAL EVENT CONFIGURATION
@@ -133,7 +133,7 @@ export const event = {
         "Sign up, form your team and choose one of the two official domains.",
       mode: "Online",
       date: null as string | null,
-      status: "proposed" as const,
+      status: "proposed" as FactStatus,
     },
     {
       id: "idea",
@@ -143,7 +143,7 @@ export const event = {
         "Submit the problem you are solving and the approach you plan to take.",
       mode: "Online",
       date: null as string | null,
-      status: "proposed" as const,
+      status: "proposed" as FactStatus,
     },
     {
       id: "screening",
@@ -153,7 +153,7 @@ export const event = {
         "Submissions are reviewed against the published evaluation criteria.",
       mode: "Online",
       date: null as string | null,
-      status: "proposed" as const,
+      status: "proposed" as FactStatus,
     },
     {
       id: "sprint",
@@ -163,7 +163,7 @@ export const event = {
         "Shortlisted teams build their solutions, with mentor sessions where available.",
       mode: "Online",
       date: null as string | null,
-      status: "proposed" as const,
+      status: "proposed" as FactStatus,
     },
     {
       id: "semifinal",
@@ -172,7 +172,7 @@ export const event = {
       description: "Teams are selected to advance to the national finale.",
       mode: "Online",
       date: null as string | null,
-      status: "proposed" as const,
+      status: "proposed" as FactStatus,
     },
     {
       id: "finale",
@@ -182,7 +182,7 @@ export const event = {
         "Finalists build, demo and present in person. Venue to be announced.",
       mode: "In person",
       date: null as string | null,
-      status: "proposed" as const,
+      status: "proposed" as FactStatus,
     },
     {
       id: "follow-up",
@@ -192,7 +192,7 @@ export const event = {
         "Results, recognition and any partner opportunities that are confirmed for the edition.",
       mode: "Hybrid",
       date: null as string | null,
-      status: "proposed" as const,
+      status: "proposed" as FactStatus,
     },
   ],
 

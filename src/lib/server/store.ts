@@ -4,7 +4,8 @@ import { appendFile, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 /**
- * Persistence adapter for form submissions.
+ * Persistence adapter for form submissions (and, via ./admin-store.ts, for
+ * editable content, admin sessions and uploaded media).
  *
  *  - "supabase": used when SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set.
  *    Writes through the PostgREST API with the service-role key (server only).
@@ -45,23 +46,31 @@ export async function insertRecord(
   }
 }
 
+/** Base data directory for the file driver. */
+export function dataDir() {
+  return process.env.LOCAL_STORE_DIR ?? path.join(process.cwd(), ".data");
+}
+
+/** Authenticated request to the Supabase REST/Storage APIs with the service-role key. */
+export function supabase(pathAndQuery: string, init: RequestInit & { headers?: Record<string, string> } = {}) {
+  const base = process.env.SUPABASE_URL!.replace(/\/$/, "");
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+  return fetch(`${base}${pathAndQuery}`, {
+    ...init,
+    headers: { apikey: key, Authorization: `Bearer ${key}`, ...init.headers },
+    cache: "no-store",
+    signal: AbortSignal.timeout(10000),
+  });
+}
+
 async function insertSupabase(
   collection: Collection,
   { dedupeKey, email, payload }: { dedupeKey: string; email: string; payload: unknown },
 ): Promise<InsertResult> {
-  const base = process.env.SUPABASE_URL!.replace(/\/$/, "");
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-  const res = await fetch(`${base}/rest/v1/${collection}`, {
+  const res = await supabase(`/rest/v1/${collection}`, {
     method: "POST",
-    headers: {
-      apikey: key,
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-      Prefer: "return=representation",
-    },
+    headers: { "Content-Type": "application/json", Prefer: "return=representation" },
     body: JSON.stringify({ dedupe_key: dedupeKey, email, payload }),
-    cache: "no-store",
-    signal: AbortSignal.timeout(8000),
   });
   if (res.status === 201) {
     const rows = (await res.json()) as { id: string }[];
@@ -75,12 +84,19 @@ async function insertSupabase(
 // Serialise file writes within this process so duplicate checks are reliable.
 let fileQueue: Promise<unknown> = Promise.resolve();
 
+/** Runs file-store work one task at a time within this process. */
+export function serialised<T>(run: () => Promise<T>): Promise<T> {
+  const result = fileQueue.then(run, run);
+  fileQueue = result.catch(() => undefined);
+  return result;
+}
+
 async function insertFile(
   collection: Collection,
   { dedupeKey, email, payload }: { dedupeKey: string; email: string; payload: unknown },
 ): Promise<InsertResult> {
   const run = async (): Promise<InsertResult> => {
-    const dir = process.env.LOCAL_STORE_DIR ?? path.join(process.cwd(), ".data");
+    const dir = dataDir();
     const file = path.join(dir, `${collection}.jsonl`);
     await mkdir(dir, { recursive: true });
     const existing = await readFile(file, "utf8").catch(() => "");
@@ -99,7 +115,5 @@ async function insertFile(
     await appendFile(file, `${JSON.stringify(row)}\n`, "utf8");
     return { ok: true, id };
   };
-  const result = fileQueue.then(run, run);
-  fileQueue = result.catch(() => undefined);
-  return result;
+  return serialised(run);
 }

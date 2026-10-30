@@ -1,41 +1,43 @@
 import type { Metadata } from "next";
-import { articles } from "@/content/updates";
+import { getSiteContent } from "@/lib/content";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ArticleCard } from "@/components/updates/ArticleCard";
-import { ButtonLink, Container, PendingNotice } from "@/components/ui";
+import { ButtonLink, Container, PendingNotice, Rich } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
 
-const hasPublishedArticles = articles.some((article) => !article.draft && article.publishedOn !== null);
+export async function generateMetadata(): Promise<Metadata> {
+  const { copy, articles } = await getSiteContent();
+  const hasPublished = articles.some((a) => !a.draft && a.publishedOn !== null);
+  return {
+    ...pageMeta("/updates", copy.updates.meta.title, copy.updates.meta.description),
+    ...(!hasPublished ? { robots: { index: false, follow: true } } : {}),
+  };
+}
 
-export const metadata: Metadata = {
-  ...pageMeta(
-    "/updates",
-    "Event Updates & Announcements",
-    "Follow official InnovaHack Chapter 2 announcements, confirmed event details and guides for the planned 2027 AI and startup hackathon in India.",
-  ),
-  ...(!hasPublishedArticles ? { robots: { index: false, follow: true } } : {}),
-};
-
-export default function UpdatesPage() {
-  const [lead, ...rest] = articles;
-  const hasDrafts = articles.some((a) => a.draft);
+export default async function UpdatesPage() {
+  const c = await getSiteContent();
+  const x = c.copy.updates;
+  const [lead, ...rest] = c.articles;
+  const hasDrafts = c.articles.some((a) => a.draft);
   return (
     <>
       <PageHeader
-        section="Updates & announcements"
-        crumbs={[{ label: "Build Log", href: "/updates" }]}
+        section={x.section}
+        crumbs={[{ label: x.crumb, href: "/updates" }]}
         title={
           <>
-            The Build Log <span className="block text-[0.45em] leading-tight text-burgundy">Stories from the innovation frontline.</span>
+            <Rich text={x.title} />{" "}
+            <span className="block text-[0.45em] leading-tight text-burgundy">
+              <Rich text={x.subtitle} />
+            </span>
           </>
         }
-        deck="Official milestones, announcements and stories from InnovaHack. Nothing here is press coverage or a media endorsement."
+        deck={x.deck}
       />
       <Container className="mt-12">
         {hasDrafts && (
           <p className="mb-8 border-l-4 border-taxi bg-paper-white px-4 py-3 text-sm text-charcoal">
-            Entries marked <strong>Draft</strong> are internal drafts awaiting organizer approval. They contain only approved
-            event information and have no publication date yet.
+            <Rich text={x.draftNote} accent="font-semibold text-ink" />
           </p>
         )}
         {lead ? (
@@ -52,10 +54,12 @@ export default function UpdatesPage() {
             )}
           </div>
         ) : (
-          <PendingNotice title="No updates have been published yet." kicker="The Build Log">
-            <p>Join the update list to hear when the first announcement goes live.</p>
+          <PendingNotice title={x.emptyTitle} kicker={x.emptyKicker}>
+            <p>
+              <Rich text={x.emptyBody} />
+            </p>
             <ButtonLink href="/register#updates" size="sm" className="mt-4">
-              Get event updates
+              {c.copy.global.cta.updates}
             </ButtonLink>
           </PendingNotice>
         )}

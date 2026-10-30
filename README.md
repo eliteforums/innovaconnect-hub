@@ -29,6 +29,7 @@ works with no setup.
 | `npm run typecheck` | Generates route types, then `tsc --noEmit` |
 | `npm test` | End-to-end smoke tests against `BASE_URL` (default `http://localhost:3000`) |
 | `npm run test:browser` | Browser tests (Playwright core); set `CHROME_PATH` to a local Chrome |
+| `npm run test:admin` | Admin dashboard tests (needs writable storage) |
 
 ---
 
@@ -36,7 +37,8 @@ works with no setup.
 
 ```
 src/
-  content/          ← all event content and configuration (edit these, not components)
+  content/          ← built-in default content (the admin dashboard overrides it per section)
+    copy.ts           Every heading, paragraph and label on every page, plus layout image slots
     event.ts          Chapter 2 config: status, dates, venue, team size, prizes, partners, contact
     chapter1.ts       Chapter 1 historical archive (kept separate from Chapter 2)
     domains.ts        The two official competition domains
@@ -49,8 +51,11 @@ src/
     illustrations/    Original SVG artwork: taxi, BEST bus, local train, autorickshaw,
                       heritage architecture, Marine Drive, Kala Ghoda, street food, AI & startup
     home/ forms/ layout/ media/ tracks/ ui/ updates/
+  app/admin/         ← the admin dashboard (login, overview, editors, submissions, media)
   lib/
-    server/           Storage adapter, rate limiting, email, shared form handler (server-only)
+    content/          Content loader (cached, invalidated on save), section registry, sanitizer
+    media-library.ts  Built-in images by key
+    server/           Storage, admin store & auth, rate limiting, email, form handler (server-only)
     validation.ts     Zod schemas (server-side validation)
     options.ts        Form option lists (zod-free, safe for client bundles)
   proxy.ts          Returns a real 404 for unknown article slugs
@@ -61,7 +66,53 @@ tests/
 
 ---
 
-## Editing content
+## Admin dashboard
+
+Everything on the site can be edited at **`/admin`** without touching code, and all four kinds of form
+submission can be read there.
+
+**Sign in:** username `admin`, password `admin` by default. **Change these before the site is public** by
+setting `ADMIN_USERNAME` and `ADMIN_PASSWORD`. The dashboard shows a warning banner while the defaults are in
+use. Anyone who signs in can rewrite pages and read registrants' personal details.
+
+| Area | What you can do |
+| --- | --- |
+| Overview | Submission counts, latest submissions, storage/email status, recently edited sections |
+| Form submissions | Registrations, update list, partner inquiries, contact messages: search, expand, delete, export CSV |
+| Edit · Event | Event settings (registration status, dates, venue, team size, fee, prizes, awards, partners, contacts, journey, participation figures), domains, Build Log articles, FAQ, rules, Chapter 1 archive |
+| Edit · Mumbai & media | Hero sidebar and city stories, the Mumbai map, every layout image (hero collage layers, domain artwork, timeline train, footer skyline) |
+| Edit · Site | Header and footer navigation; global text, SEO title and description, status labels, 404 page |
+| Edit · Page text | Every heading, paragraph, button and label on every page |
+| Image library | Upload, preview, copy and delete images |
+
+**How editing works**
+
+- Each section is a form generated from its content: text boxes, dropdowns for fixed choices (status, award
+  type…), image pickers with upload, and lists you can add to, duplicate, reorder and remove from. Power users
+  can switch any section to **Edit as JSON**.
+- **Save & publish** updates the live site immediately. Static pages are regenerated on the next visit, with no
+  redeploy needed. **Reset to default** discards your edits to that section.
+- Text supports a small markup: `*words*` in the accent colour, `[text](/link)` for links, new lines for line
+  breaks, and `{organizer}`, `{year}`, `{fullName}` placeholders.
+- Saved content is checked against the shape of the built-in defaults. A field saved with the wrong type falls
+  back to its default instead of breaking a page.
+- Images are referenced by library key (e.g. `bmcTaxi`) or by the URL of an upload. Uploads go to Supabase
+  Storage (bucket `site-media`) or, locally, to `.data/uploads`.
+
+**Security:** sessions are random tokens stored server-side (only a SHA-256 hash is kept), in an `HttpOnly`,
+`SameSite=Strict` cookie that expires after 12 hours. Login attempts are rate-limited, and the password
+comparison is constant-time. Every admin page, server action and export re-checks the session, and `/admin` is
+excluded from search engines.
+
+**Storage:** the dashboard needs storage (Supabase in production, run `supabase/schema.sql`). Without it, sign-in
+is refused with an explanation. Storage settings must also be available at **build time**, because pages are
+prerendered with the saved content. Vercel provides environment variables to builds by default.
+
+## Built-in content (defaults)
+
+The files in `src/content/` are the **defaults** the dashboard starts from. Saved dashboard edits override them
+section by section. You can still edit the files directly; anything not overridden in the dashboard shows the new
+default after a deploy.
 
 Every factual claim carries a **status**, shown on the site as a small tag:
 
@@ -74,43 +125,9 @@ Every factual claim carries a **status**, shown on the site as a small tag:
 | `reported` | A historical figure reported after the event (Chapter 1) |
 | `unconfirmed` | Not decided yet — rendered as "To be announced" |
 
-Leave unknown values as `null`; the site renders an honest "to be announced" state instead of inventing
-details.
-
-**Common changes (all in `src/content/event.ts`):**
-
-- **Registration state:** `registration.status` — `announcement`, `interest`, `soon`, `open` or `closed`.
-  You can also set the `REGISTRATION_STATUS` environment variable. Pages are prerendered, so **rebuild and
-  redeploy after changing it.** The registration API enforces the same status server-side.
-- **Dates:** set `registration.opensOn.value` and each `journey[].date` to an ISO date (e.g. `"2027-02-01"`).
-- **Venue, team size, fee, prize pool:** set the value and change `status` to `"confirmed"`. Team-size
-  limits are enforced by the registration form and API once `teamSize.max`/`min` are set.
-- **Awards:** add entries to `awards` with `kind`, `value`, `eligibility` and `conditions`. Keep cash
-  separate from credits, hardware, mentorship, incubation consideration and investor introductions.
-- **Partners:** add to `partners` with `verified: true`. Only verified partners render. Chapter 1 partners go
-  in `chapter1.ts`, never here.
-- **Participation metrics:** fill `participation[].value` only from real registration data.
-
-**Articles (`src/content/updates.ts`):** three internal drafts are included, written only from the brief.
-They are stamped *Draft · pending approval* and excluded from the sitemap and search indexing. To publish
-one, set `draft: false` and `publishedOn`. Set `HIDE_DRAFT_ARTICLES=true` to hide all drafts.
-
-**Photography:** organizer-supplied photos live in `src/assets/photos/` and are registered, with alt text,
-caption credit and crop position, in `src/content/media.ts`. Each content entry (`city.ts`, `domains.ts`,
-`updates.ts`) points to a photo through its media slot's `photo` field. The SVG illustrations stay as the
-fallback for any slot without an approved photo. The hero collage, domain artwork and Gateway of India sketch
-are transparent cutouts in `src/assets/cutouts/`, extracted from the supplied collage sheet. To swap a photo,
-replace the file (keep the name) or add a new import in `media.ts`. Next.js resizes and serves modern formats
-automatically.
-
-**Map of Mumbai (Section 09):** the outline of Mumbai City and Mumbai Suburban districts comes from
-OpenStreetMap (© OpenStreetMap contributors, ODbL — the attribution under the map must stay). It is baked
-into simplified SVG paths by `python3 scripts/mumbai-map/generate.py`, so the page makes no map requests at
-runtime. Stations and landmarks are edited in `src/content/mumbai-map.ts` as latitude/longitude. Rail lines
-are drawn station to station, so they're approximate. The map doesn't mark a venue; add one only once it's
-confirmed.
-
----
+Leave unknown values empty (null); the site renders an honest "to be announced" state instead of inventing
+details. Three Build Log articles ship as drafts written only from the brief. They're stamped *Draft* and
+excluded from search engines until you set `draft` to false and add a `publishedOn` date.
 
 ## Forms and storage
 
@@ -177,10 +194,23 @@ All results below come from a local production server (`next start`):
   links, 404s, sitemap/robots/OG image, the two-domain and Chapter 1 accuracy rules, and every form branch
   (stored, duplicate, invalid, honeypot, too fast, cross-origin, wrong content type, rate limit,
   registration closed and open).
-- **Browser tests (`npm run test:browser`):** 6/6 pass, including the full team-registration flow with
-  `REGISTRATION_STATUS=open`. They cover server-confirmed success and duplicate messages, native required-field
-  validation, the mobile menu (Escape, focus return), no horizontal overflow at 320px, and the skip link.
-- **Lighthouse 12, homepage with the supplied photos** (two runs each):
+- **Browser tests (`npm run test:browser`):** 5/5 pass in the default mode. The sixth test, the full
+  team-registration flow, runs when the server has `REGISTRATION_STATUS=open` and passed on the earlier build.
+  They cover server-confirmed success and duplicate messages, native required-field validation, the mobile menu
+  (Escape, focus return), no horizontal overflow at 320px, and the skip link.
+- **Admin tests (`npm run test:admin`):** 9/9 pass on the production build:
+  - signed-out redirect (a real 307) and a refused CSV export;
+  - wrong-password rejection, then sign-in with an `HttpOnly` / `SameSite=Strict` cookie;
+  - submissions listed, searched and exported as CSV;
+  - a text edit appearing on the live prerendered homepage, then reset;
+  - invalid content falling back to defaults;
+  - the registration status switching the registration form and API on and off;
+  - image upload and delete;
+  - sign-out.
+- **Lighthouse 12, with the dashboard:** three interleaved mobile runs of the homepage against the previous commit
+  gave Performance 84–92 (previous: 86–89). First paint is about 0.2 s later (1.4 s against 1.1–1.2 s), because the
+  homepage HTML is about 6% larger (+2.5 KB gzipped) now that each section reads editable content.
+- **Lighthouse 12, homepage with the supplied photos** (two runs each, before the dashboard):
   - Desktop: Performance 98–99, Accessibility 100, Best Practices 96, SEO 100, CLS 0. Best Practices loses
     points for "low resolution" images: the hero cutouts display larger than their 1536px source sheet allows.
   - Mobile (simulated slow 4G): Performance 87–92, LCP 3.4–4.1 s (the masthead headline), Accessibility 100,
@@ -192,7 +222,9 @@ All results below come from a local production server (`next start`):
 
 ## Needs organizer input before launch
 
-- [ ] Chapter 2 dates, finale venue, team-size rules, eligibility, any fee, prize pool and awards
+- [ ] Set `ADMIN_USERNAME` and `ADMIN_PASSWORD` (the defaults are admin / admin)
+- [ ] Chapter 2 dates, finale venue, team-size rules, eligibility, any fee, prize pool and awards (all editable in
+      the dashboard under Event settings)
 - [ ] Official rulebook (`src/content/rules.ts`, `published: true`) and evaluation criteria per domain
 - [ ] General contact email and social links (`event.contact`, `event.social`). The partnership address
       `sponsors@eliteforums.in` was taken from the Chapter 1 site; confirm it for Chapter 2.

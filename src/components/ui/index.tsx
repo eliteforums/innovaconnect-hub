@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { FactStatus } from "@/content/types";
-import { statusLabels } from "@/lib/site";
+import { getSiteContent } from "@/lib/content";
+import { Rich } from "./Rich";
+
+export { Rich, plain } from "./Rich";
 
 type Variant = "primary" | "outline" | "ink" | "taxi" | "violet" | "light";
 
@@ -121,10 +124,11 @@ const statusTone: Record<FactStatus, string> = {
 };
 
 /** Shows how certain a fact is: confirmed, planned, advertised, reported… */
-export function StatusTag({ status, className = "" }: { status: FactStatus; className?: string }) {
+export async function StatusTag({ status, className = "" }: { status: FactStatus; className?: string }) {
+  const { copy } = await getSiteContent();
   return (
-    <span className={`inline-block whitespace-nowrap px-1.5 py-0.5 kicker text-[0.625rem] ${statusTone[status]} ${className}`}>
-      {statusLabels[status]}
+    <span className={`inline-block whitespace-nowrap px-1.5 py-0.5 kicker text-[0.625rem] ${statusTone[status] ?? statusTone.unconfirmed} ${className}`}>
+      {copy.global.statusLabels[status] ?? status}
     </span>
   );
 }
@@ -159,9 +163,9 @@ export function SectionHeader({
         {action}
       </div>
       <As id={id} className="headline mt-5 text-[clamp(2.25rem,6vw,4.5rem)] uppercase">
-        {title}
+        {typeof title === "string" ? <Rich text={title} /> : title}
       </As>
-      {deck && <p className="prose-news mt-4 max-w-3xl text-lg">{deck}</p>}
+      {deck && <p className="prose-news mt-4 max-w-3xl text-lg">{typeof deck === "string" ? <Rich text={deck} /> : deck}</p>}
     </header>
   );
 }
@@ -177,9 +181,9 @@ export function Container({
 }
 
 /** Honest placeholder for information that is not yet confirmed. */
-export function PendingNotice({
+export async function PendingNotice({
   title,
-  kicker = "To be announced",
+  kicker,
   children,
   className = "",
 }: {
@@ -188,9 +192,10 @@ export function PendingNotice({
   children?: React.ReactNode;
   className?: string;
 }) {
+  const label = kicker ?? (await getSiteContent()).copy.global.statusLabels.unconfirmed;
   return (
     <div className={`border-2 border-dashed border-ink/50 bg-paper-white/60 p-6 ${className}`}>
-      <p className="kicker text-burgundy">{kicker}</p>
+      <p className="kicker text-burgundy">{label}</p>
       <p className="headline mt-2 text-2xl uppercase md:text-3xl">{title}</p>
       {children && <div className="mt-3 text-charcoal">{children}</div>}
     </div>

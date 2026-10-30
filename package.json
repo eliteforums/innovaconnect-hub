@@ -9,7 +9,8 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "test": "node --test tests/smoke.test.mjs",
-    "test:browser": "node --test --test-concurrency=1 tests/browser.test.mjs"
+    "test:browser": "node --test --test-concurrency=1 tests/browser.test.mjs",
+    "test:admin": "node --test --test-concurrency=1 tests/admin.test.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.63.0",

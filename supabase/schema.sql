@@ -25,3 +25,29 @@ begin
     $f$, t);
   end loop;
 end $$;
+
+-- ── Admin dashboard ────────────────────────────────────────────────────────
+-- Editable site content: one JSON document per section, overriding the
+-- built-in defaults in the code.
+create table if not exists public.site_content (
+  key         text primary key,
+  value       jsonb not null,
+  updated_at  timestamptz not null default now()
+);
+alter table public.site_content enable row level security;
+
+-- Admin sessions. Only a SHA-256 hash of each session token is stored.
+create table if not exists public.admin_sessions (
+  token_hash  text primary key,
+  username    text not null,
+  expires_at  timestamptz not null,
+  created_at  timestamptz not null default now()
+);
+alter table public.admin_sessions enable row level security;
+create index if not exists admin_sessions_expires_idx on public.admin_sessions (expires_at);
+
+-- Public bucket for images uploaded through the dashboard. Uploads and
+-- deletes use the service-role key from the server; anyone can view.
+insert into storage.buckets (id, name, public)
+values ('site-media', 'site-media', true)
+on conflict (id) do nothing;

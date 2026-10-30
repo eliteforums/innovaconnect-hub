@@ -1,4 +1,3 @@
-import { event } from "./event";
 import { photos } from "./media";
 import type { Article } from "./types";
 
@@ -10,7 +9,7 @@ import type { Article } from "./types";
  * `draft: false` and a real `publishedOn` date.
  */
 
-const allArticles: Article[] = [
+export const allArticles: Article[] = [
   {
     slug: "introducing-innovahack-chapter-2",
     headline: "Two domains. One national stage.",
@@ -138,10 +137,3 @@ const allArticles: Article[] = [
     ],
   },
 ];
-
-export const articles = allArticles.filter(
-  (a) => !a.draft || event.showDraftArticles,
-);
-
-export const articleBySlug = (slug: string) =>
-  articles.find((a) => a.slug === slug);

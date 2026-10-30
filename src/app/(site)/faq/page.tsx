@@ -1,21 +1,22 @@
 import { Plus } from "lucide-react";
-import { faq } from "@/content/faq";
+import { getSiteContent } from "@/lib/content";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { ButtonLink, Container } from "@/components/ui";
+import { ButtonLink, Container, Rich, plain } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
 
-export const metadata = pageMeta(
-  "/faq",
-  "Hackathon FAQs",
-  "Get answers about InnovaHack Chapter 2 registration, eligibility, AI and startup tracks, prizes, partners and the planned 2027 event timeline.",
-);
+export async function generateMetadata() {
+  const { copy } = await getSiteContent();
+  return pageMeta("/faq", copy.faq.meta.title, copy.faq.meta.description);
+}
 
-export default function FaqPage() {
+export default async function FaqPage() {
+  const { faq, copy } = await getSiteContent();
+  const x = copy.faq;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faq.flatMap((g) =>
-      g.items.map((i) => ({ "@type": "Question", name: i.q, acceptedAnswer: { "@type": "Answer", text: i.a } })),
+      g.items.map((i) => ({ "@type": "Question", name: i.q, acceptedAnswer: { "@type": "Answer", text: plain(i.a) } })),
     ),
   };
   return (
@@ -25,10 +26,10 @@ export default function FaqPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <PageHeader
-        section="FAQ"
-        crumbs={[{ label: "FAQ", href: "/faq" }]}
-        title="Questions, answered."
-        deck="Everything we can confirm today about InnovaHack Chapter 2. Where something hasn't been decided yet, we say so."
+        section={x.section}
+        crumbs={[{ label: x.section, href: "/faq" }]}
+        title={x.title}
+        deck={x.deck}
       />
       <Container className="mt-14">
         <div className="grid gap-12 lg:grid-cols-[220px_1fr]">
@@ -56,15 +57,17 @@ export default function FaqPage() {
                         {item.q}
                         <Plus aria-hidden className="size-5 shrink-0 transition-transform group-open:rotate-45" />
                       </summary>
-                      <p className="prose-news max-w-3xl pb-5">{item.a}</p>
+                      <p className="prose-news max-w-3xl pb-5">
+                        <Rich text={item.a} />
+                      </p>
                     </details>
                   ))}
                 </div>
               </section>
             ))}
             <div className="flex flex-col items-start gap-4 border-2 border-ink bg-paper-white p-6 sm:flex-row sm:items-center sm:justify-between">
-              <p className="headline text-2xl">Still have a question?</p>
-              <ButtonLink href="/contact">Contact the organizers</ButtonLink>
+              <p className="headline text-2xl">{x.stillTitle}</p>
+              <ButtonLink href="/contact">{x.stillCta}</ButtonLink>
             </div>
           </div>
         </div>
