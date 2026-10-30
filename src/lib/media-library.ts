@@ -24,6 +24,7 @@ import cutoutSplashRed from "@/assets/cutouts/splash-red.webp";
 import cutoutSplashYellow from "@/assets/cutouts/splash-yellow.webp";
 import cutoutTaxi from "@/assets/cutouts/taxi.webp";
 import cutoutTrain from "@/assets/cutouts/train.webp";
+import cutoutTrainCr from "@/assets/cutouts/train-cr.webp";
 
 /**
  * Built-in images, addressed by a stable key. Content refers to images by key
@@ -49,6 +50,7 @@ export const mediaLibrary: Record<string, { file: StaticImageData; label: string
   "cutout-taxi": { file: cutoutTaxi, label: "Taxi (cutout)", group: "Cutout" },
   "cutout-bus": { file: cutoutBus, label: "BEST bus (cutout)", group: "Cutout" },
   "cutout-train": { file: cutoutTrain, label: "Local train (cutout)", group: "Cutout" },
+  "cutout-train-cr": { file: cutoutTrainCr, label: "Central Railway local, side view (cutout)", group: "Cutout" },
   "cutout-gateway": { file: cutoutGateway, label: "Gateway sketch (cutout)", group: "Cutout" },
   "cutout-skyline": { file: cutoutSkyline, label: "Skyline sketch (cutout)", group: "Cutout" },
   "cutout-splash-yellow": { file: cutoutSplashYellow, label: "Yellow brush (cutout)", group: "Cutout" },

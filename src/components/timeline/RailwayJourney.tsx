@@ -56,9 +56,9 @@ export async function RailwayJourney() {
         {/* The local, on the near rail */}
         <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[104px] h-[210px]">
           <div className="train-run absolute inset-0">
-            <div className="absolute bottom-[14px] left-[-12px] w-[270px]">
+            <div className="absolute bottom-[2px] left-[-12px] w-[440px]">
               <TrainTag label={r.trainTag} />
-              <ContentImage src={train} alt="" sizes="270px" className="h-auto w-full drop-shadow-[0_6px_6px_rgba(23,23,23,0.25)]" />
+              <ContentImage src={train} alt="" sizes="440px" className="h-auto w-full drop-shadow-[0_6px_6px_rgba(23,23,23,0.25)]" />
             </div>
           </div>
         </div>
@@ -66,9 +66,9 @@ export async function RailwayJourney() {
 
       {/* Mobile & tablet: the line runs down the page */}
       <div className="mt-8 lg:hidden">
-        <div aria-hidden className="relative mb-2 ml-1 w-[230px] sm:w-[280px]">
+        <div aria-hidden className="relative mb-2 w-full max-w-[440px]">
           <TrainTag label={r.trainTag} />
-          <ContentImage src={train} alt="" sizes="280px" className="h-auto w-full" />
+          <ContentImage src={train} alt="" sizes="(min-width: 640px) 440px, 92vw" className="h-auto w-full" />
         </div>
         <ol className="relative">
           <VerticalTrack />
@@ -142,7 +142,7 @@ function StageDetails({ stage, r, align = "center" }: { stage: Stage; r: RailCop
 
 function TrainTag({ label }: { label: string }) {
   return (
-    <span className="absolute -top-2 left-[44%] z-10 whitespace-nowrap border-2 border-ink bg-ink px-2 py-0.5 font-mono text-[0.625rem] font-semibold tracking-[0.12em] text-taxi">
+    <span className="absolute -top-3 right-[6%] z-10 whitespace-nowrap border-2 border-ink bg-ink px-2 py-0.5 font-mono text-[0.625rem] font-semibold tracking-[0.12em] text-taxi">
       {label}
     </span>
   );

@@ -200,7 +200,7 @@ body {
   }
   to {
     /* The track is the element's own width; stop with the train at the last station. */
-    transform: translateX(calc(100% - 260px));
+    transform: translateX(calc(100% - 430px));
   }
 }
 
