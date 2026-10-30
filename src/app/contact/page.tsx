@@ -7,8 +7,8 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
   "/contact",
-  "Contact",
-  "Contact the InnovaHack Chapter 2 organizers for general questions and partnership inquiries.",
+  "Contact the Organizers",
+  "Contact Elite Forums about InnovaHack Chapter 2, the planned 2027 national hackathon, for event questions and partnership inquiries.",
 );
 
 export default function ContactPage() {

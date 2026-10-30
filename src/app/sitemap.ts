@@ -12,7 +12,6 @@ const routes = [
   "/timeline",
   "/prizes",
   "/partners",
-  "/updates",
   "/register",
   "/contact",
   "/faq",
@@ -22,15 +21,17 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const publishedArticles = articles.filter((a) => !a.draft && a.publishedOn !== null);
+  const indexableRoutes = publishedArticles.length ? [...routes, "/updates"] : routes;
+
   return [
-    ...routes.map((r) => ({
+    ...indexableRoutes.map((r) => ({
       url: `${siteUrl}${r}`,
       changeFrequency: "weekly" as const,
       priority: r === "" ? 1 : 0.7,
     })),
     // Drafts are excluded: they are not ready for search engines.
-    ...articles
-      .filter((a) => !a.draft)
+    ...publishedArticles
       .map((a) => ({
         url: `${siteUrl}/updates/${a.slug}`,
         lastModified: a.publishedOn ?? undefined,

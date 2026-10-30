@@ -6,8 +6,8 @@ const domain = domains[1];
 
 export const metadata = pageMeta(
   "/tracks/open-innovation",
-  "Domain 02 — Open Innovation / Startup Track",
-  domain.summary,
+  "Startup Hackathon India 2027",
+  "Explore InnovaHack Chapter 2's Open Innovation / Startup domain for original products, services and business ideas. AI is welcome but not required.",
 );
 
 export default function OpenInnovationPage() {

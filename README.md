@@ -155,6 +155,12 @@ notification emails are sent only after a successful write.
    `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`.
 3. Deploy. After changing `REGISTRATION_STATUS` or any content file, redeploy.
 
+### Search visibility
+
+- Set `NEXT_PUBLIC_SITE_URL` to the final public HTTPS domain so canonical URLs, Open Graph URLs and the sitemap all use the same host.
+- To verify the site in Google Search Console, set `GOOGLE_SITE_VERIFICATION` to the token from the HTML-tag verification method, then redeploy.
+- After verification, submit `https://<your-domain>/sitemap.xml` in Search Console and use URL Inspection to check the homepage and the two domain pages.
+
 Vercel's filesystem is read-only, so `STORAGE_DRIVER=file` doesn't work there. Use Supabase. Without it, the
 site deploys and every page works, but the forms reply that submissions are unavailable and save nothing.
 

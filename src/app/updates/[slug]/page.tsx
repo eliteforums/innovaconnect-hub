@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { siteUrl } from "@/content/event";
+import { event, siteUrl } from "@/content/event";
 import { articleBySlug, articles } from "@/content/updates";
 import { Figure } from "@/components/media/Figure";
 import { ArticleCard, ArticleMeta } from "@/components/updates/ArticleCard";
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: PageProps<"/updates/[slug]">)
     title: article.headline,
     description: article.summary,
     alternates: { canonical: path },
-    robots: article.draft ? { index: false, follow: true } : undefined,
+    robots: article.draft || !article.publishedOn ? { index: false, follow: true } : undefined,
     openGraph: {
       type: "article",
       siteName: "InnovaHack Chapter 2",
@@ -61,7 +61,7 @@ export default async function ArticlePage({ params }: PageProps<"/updates/[slug]
   if (!article) notFound();
   const more = articles.filter((a) => a.slug !== article.slug).slice(0, 2);
 
-  const jsonLd = article.draft
+  const jsonLd = article.draft || !article.publishedOn
     ? null
     : {
         "@context": "https://schema.org",
@@ -69,7 +69,13 @@ export default async function ArticlePage({ params }: PageProps<"/updates/[slug]
         headline: article.headline,
         description: article.summary,
         datePublished: article.publishedOn,
+        image: [
+          article.media.photo?.approved
+            ? `${siteUrl}${article.media.photo.src.src}`
+            : `${siteUrl}/opengraph-image`,
+        ],
         author: article.author ? { "@type": "Organization", name: article.author } : undefined,
+        publisher: { "@type": "Organization", name: event.organizer },
         mainEntityOfPage: `${siteUrl}/updates/${article.slug}`,
       };
 

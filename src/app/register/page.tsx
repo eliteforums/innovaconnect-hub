@@ -10,8 +10,8 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
   "/register",
-  "Register",
-  "Registration status for InnovaHack Chapter 2, and the event update list.",
+  "Registration & Event Updates",
+  "Check InnovaHack Chapter 2 registration status and join the update list for official signup dates, rules and announcements for the planned 2027 hackathon.",
 );
 
 const steps = ["Registration status", "Team-size rules", "Participation fee", "Registration dates"];

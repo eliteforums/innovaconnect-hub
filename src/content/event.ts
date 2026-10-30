@@ -38,7 +38,7 @@ export const event = {
   } satisfies Fact<string>,
   tagline: "Rooted in Mumbai. Built for India. Designed for the future.",
   description:
-    "InnovaHack Chapter 2 brings India's builders, AI innovators, and aspiring founders together to turn ambitious ideas into meaningful real-world solutions.",
+    "InnovaHack Chapter 2 is a pan-India hybrid hackathon planned for 2027, bringing AI innovators and startup builders together to turn ideas into useful solutions.",
 
   /** Strip at the very top of every page. */
   announcement: ["Elite Forums presents", "India", "Chapter 02", "2027"],

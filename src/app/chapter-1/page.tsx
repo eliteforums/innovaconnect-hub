@@ -7,8 +7,8 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
   "/chapter-1",
-  "Chapter 1 — The First Edition, 2026",
-  "The historical archive of InnovaHack Chapter 1 (2026): reported and advertised figures, original domains and competition structure.",
+  "Chapter 1 Archive: 2026",
+  "Explore the InnovaHack Chapter 1 archive, including historical competition structure and figures clearly labelled as reported or advertised.",
 );
 
 export default function ChapterOnePage() {

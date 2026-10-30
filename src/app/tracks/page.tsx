@@ -6,8 +6,8 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
   "/tracks",
-  "The Tracks — Two Official Domains",
-  "InnovaHack Chapter 2 has exactly two official competition domains: Artificial Intelligence, and Open Innovation / Startup Track.",
+  "AI & Startup Hackathon Tracks 2027",
+  "Explore the two InnovaHack Chapter 2 domains: Artificial Intelligence and Open Innovation / Startup. Both are planned for the 2027 pan-India hybrid hackathon.",
 );
 
 const rows: { label: string; values: [string, string] }[] = [

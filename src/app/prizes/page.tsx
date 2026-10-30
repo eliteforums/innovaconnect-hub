@@ -6,8 +6,8 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
   "/prizes",
-  "Prizes & Opportunities",
-  "Chapter 2 prize details are to be announced. Every award will be listed with its type, eligibility and conditions.",
+  "Hackathon Prizes & Awards",
+  "InnovaHack Chapter 2 prize details are not announced yet. Published awards will include their type, eligibility and conditions for the planned 2027 event.",
 );
 
 const kindLabels: Record<(typeof event.awards)[number]["kind"], string> = {

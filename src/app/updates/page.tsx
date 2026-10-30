@@ -1,14 +1,20 @@
+import type { Metadata } from "next";
 import { articles } from "@/content/updates";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ArticleCard } from "@/components/updates/ArticleCard";
 import { ButtonLink, Container, PendingNotice } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
 
-export const metadata = pageMeta(
-  "/updates",
-  "The Build Log — Updates & Announcements",
-  "News, announcements and stories from InnovaHack Chapter 2.",
-);
+const hasPublishedArticles = articles.some((article) => !article.draft && article.publishedOn !== null);
+
+export const metadata: Metadata = {
+  ...pageMeta(
+    "/updates",
+    "Event Updates & Announcements",
+    "Follow official InnovaHack Chapter 2 announcements, confirmed event details and guides for the planned 2027 AI and startup hackathon in India.",
+  ),
+  ...(!hasPublishedArticles ? { robots: { index: false, follow: true } } : {}),
+};
 
 export default function UpdatesPage() {
   const [lead, ...rest] = articles;

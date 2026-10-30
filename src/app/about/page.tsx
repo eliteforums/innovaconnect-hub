@@ -8,8 +8,8 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
   "/about",
-  "The Story — About InnovaHack & Elite Forums",
-  "InnovaHack is a national hackathon organized by Elite Forums. Chapter 2 is planned for 2027 as a pan-India hybrid event.",
+  "About the National Hackathon",
+  "Learn about InnovaHack, the national hackathon organized by Elite Forums. Chapter 2 is planned as a pan-India hybrid event in 2027.",
 );
 
 const facts = [

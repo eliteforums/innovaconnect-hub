@@ -8,8 +8,8 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
   "/partners",
-  "Partners — Real Problems. Real Builders.",
-  "Partner with InnovaHack Chapter 2: set a challenge, provide tools, mentor teams and reach builders across India.",
+  "Hackathon Sponsorship & Partnerships",
+  "Explore sponsorship and partnership opportunities with InnovaHack Chapter 2, a planned pan-India hackathon for AI innovators and startup builders.",
 );
 
 export default function PartnersPage() {

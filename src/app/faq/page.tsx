@@ -6,8 +6,8 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
   "/faq",
-  "Frequently Asked Questions",
-  "Answers about InnovaHack Chapter 2: the two official domains, participation, prizes, partners and registration.",
+  "Hackathon FAQs",
+  "Get answers about InnovaHack Chapter 2 registration, eligibility, AI and startup tracks, prizes, partners and the planned 2027 event timeline.",
 );
 
 export default function FaqPage() {

@@ -5,8 +5,8 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
   "/rules",
-  "Official Rules",
-  "The confirmed principles of InnovaHack Chapter 2 and the topics the official rulebook will cover.",
+  "Hackathon Rules & Eligibility",
+  "Read confirmed competition principles for InnovaHack Chapter 2, including its Artificial Intelligence and Open Innovation / Startup domains. Full rules are pending.",
 );
 
 export default function RulesPage() {

@@ -35,12 +35,12 @@ const plexMono = IBM_Plex_Mono({
 });
 
 const seoDescription =
-  "Explore InnovaHack Chapter 2, Elite Forums' pan-India hybrid hackathon planned for 2027, with Artificial Intelligence and Open Innovation / Startup domains.";
+  "Explore InnovaHack Chapter 2, a pan-India AI and startup hackathon planned for 2027 by Elite Forums. See tracks, timeline, prizes and registration updates.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "InnovaHack 2027 | AI & Startup Hackathon India",
+    default: "InnovaHack 2027 | AI & Startup Hackathon in India",
     template: "%s | InnovaHack",
   },
   description: seoDescription,
@@ -64,10 +64,13 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
   openGraph: {
     type: "website",
     siteName: "InnovaHack Chapter 2",
-    title: "InnovaHack 2027 | AI & Startup Hackathon India",
+    title: "InnovaHack 2027 | AI & Startup Hackathon in India",
     description: seoDescription,
     locale: "en_IN",
     url: "/",
@@ -82,7 +85,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "InnovaHack 2027 | AI & Startup Hackathon India",
+    title: "InnovaHack 2027 | AI & Startup Hackathon in India",
     description: seoDescription,
     images: [
       {

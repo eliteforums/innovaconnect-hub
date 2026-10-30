@@ -7,8 +7,8 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
   "/timeline",
-  "Timeline — From First Idea to Final Stage",
-  "The proposed InnovaHack Chapter 2 competition journey. Official dates will be published here once confirmed.",
+  "Hackathon Timeline & Dates",
+  "See the proposed InnovaHack Chapter 2 stages, from registration and idea submission to the national finale. Official 2027 dates and venue are not announced yet.",
 );
 
 export default function TimelinePage() {

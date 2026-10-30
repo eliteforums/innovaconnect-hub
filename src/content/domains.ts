@@ -36,7 +36,7 @@ export const domains: [Domain, Domain] = [
     summary:
       "Create intelligent solutions using emerging AI capabilities to address meaningful real-world problems.",
     description:
-      "The Artificial Intelligence domain is for teams whose innovation is the intelligence itself — where a model, an agent or a learning system is the core of what makes the solution work.",
+      "In InnovaHack Chapter 2's AI hackathon track, teams build solutions where a model, agent or learning system is the core of the innovation and solves a real-world problem.",
     cta: "Explore the AI track",
     accent: "violet",
     areas: [
@@ -88,7 +88,7 @@ export const domains: [Domain, Domain] = [
     summary:
       "Build original products, solve real-world problems, and transform ambitious ideas into practical, scalable innovations.",
     description:
-      "The Open Innovation / Startup Track is for teams whose innovation is the product, service or business concept as a whole. Build any original technology solution — AI is welcome, but never required.",
+      "In InnovaHack Chapter 2's startup hackathon track, teams build original products, services or business concepts. AI is welcome, but never required.",
     cta: "Explore the startup track",
     accent: "burgundy",
     areas: [
