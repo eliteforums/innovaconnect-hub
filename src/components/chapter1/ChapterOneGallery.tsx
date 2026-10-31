@@ -1,22 +1,22 @@
 import Image, { type StaticImageData } from "next/image";
 import img3024 from "@/assets/IMG_3024.jpg";
 import img3027 from "@/assets/IMG_3027.jpg";
-import mdy3964 from "@/assets/MDY_3964.JPG";
-import mdy4043 from "@/assets/MDY_4043.JPG";
-import mdy4106 from "@/assets/MDY_4106.JPG";
-import mdy4222 from "@/assets/MDY_4222.JPG";
-import mdy4280 from "@/assets/MDY_4280.JPG";
-import mdy4288 from "@/assets/MDY_4288.JPG";
-import mdy4299 from "@/assets/MDY_4299.JPG";
-import mdy4376 from "@/assets/MDY_4376.JPG";
-import mdy4404 from "@/assets/MDY_4404.JPG";
-import mdy4443 from "@/assets/MDY_4443.JPG";
-import mdy4463 from "@/assets/MDY_4463.JPG";
-import mdy4468 from "@/assets/MDY_4468.JPG";
-import mdy4618 from "@/assets/MDY_4618.JPG";
-import mdy4629 from "@/assets/MDY_4629.JPG";
-import mdy4646 from "@/assets/MDY_4646.JPG";
-import mdy4693 from "@/assets/MDY_4693.JPG";
+import mdy3964 from "@/assets/MDY_3964.jpg";
+import mdy4043 from "@/assets/MDY_4043.jpg";
+import mdy4106 from "@/assets/MDY_4106.jpg";
+import mdy4222 from "@/assets/MDY_4222.jpg";
+import mdy4280 from "@/assets/MDY_4280.jpg";
+import mdy4288 from "@/assets/MDY_4288.jpg";
+import mdy4299 from "@/assets/MDY_4299.jpg";
+import mdy4376 from "@/assets/MDY_4376.jpg";
+import mdy4404 from "@/assets/MDY_4404.jpg";
+import mdy4443 from "@/assets/MDY_4443.jpg";
+import mdy4463 from "@/assets/MDY_4463.jpg";
+import mdy4468 from "@/assets/MDY_4468.jpg";
+import mdy4618 from "@/assets/MDY_4618.jpg";
+import mdy4629 from "@/assets/MDY_4629.jpg";
+import mdy4646 from "@/assets/MDY_4646.jpg";
+import mdy4693 from "@/assets/MDY_4693.jpg";
 
 const photos: { src: StaticImageData; alt: string }[] = [
   { src: img3024, alt: "Chapter 1 participants seated together during an event session." },
