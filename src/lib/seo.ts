@@ -53,7 +53,7 @@ export function pageMeta(path: string, title: string, description: string): Meta
     },
     openGraph: {
       type: "website",
-      siteName: "InnovaHack Chapter 2",
+      siteName: "InnovaHack",
       title: socialTitle,
       description,
       url: path,

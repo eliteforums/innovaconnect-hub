@@ -265,13 +265,15 @@ export const event = {
   showDraftArticles: process.env.HIDE_DRAFT_ARTICLES !== "true",
 } as const;
 
+const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+
 export const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ??
+  configuredSiteUrl ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000")
-).replace(/\/$/, "");
+      : "https://innovahack.eliteforums.in")
+).replace(/\/+$/, "");
 
 export const chapter1Website = "https://innovahack.eliteforums.in/";

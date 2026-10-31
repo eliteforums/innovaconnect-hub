@@ -69,7 +69,7 @@ export async function generateMetadata(): Promise<Metadata> {
       : {}),
     openGraph: {
       type: "website",
-      siteName: "InnovaHack Chapter 2",
+      siteName: "InnovaHack",
       title,
       description,
       locale: "en_IN",

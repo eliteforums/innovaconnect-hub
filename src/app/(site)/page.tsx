@@ -1,3 +1,4 @@
+import { siteUrl } from "@/content/event";
 import { getSiteContent } from "@/lib/content";
 import { Hero } from "@/components/home/Hero";
 import { Rooted } from "@/components/home/Rooted";
@@ -18,8 +19,22 @@ export default async function HomePage() {
   const c = await getSiteContent();
   const status = registrationState(c);
   const band = c.copy.home.updatesBand;
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    name: c.event.name,
+    alternateName: [c.event.fullName, new URL(siteUrl).hostname],
+    url: `${siteUrl}/`,
+    inLanguage: "en-IN",
+    publisher: { "@id": `${siteUrl}/#organizer` },
+  };
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }}
+      />
       <Hero />
       <Rooted />
       <DomainsSection />

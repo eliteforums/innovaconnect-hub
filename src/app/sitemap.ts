@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...indexableRoutes.map((r) => ({
-      url: `${siteUrl}${r}`,
+      url: r ? `${siteUrl}${r}` : `${siteUrl}/`,
       changeFrequency: "weekly" as const,
       priority: r === "" ? 1 : 0.7,
     })),

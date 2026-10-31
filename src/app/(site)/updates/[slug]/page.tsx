@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PageProps<"/updates/[slug]">)
     robots: article.draft || !article.publishedOn ? { index: false, follow: true } : undefined,
     openGraph: {
       type: "article",
-      siteName: "InnovaHack Chapter 2",
+      siteName: "InnovaHack",
       title: socialTitle,
       description: article.summary,
       url: path,
@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: PageProps<"/updates/[slug]">)
 
 export default async function ArticlePage({ params }: PageProps<"/updates/[slug]">) {
   const { slug } = await params;
-  const { articles, copy, event } = await getSiteContent();
+  const { articles, copy } = await getSiteContent();
   const article = articles.find((a) => a.slug === slug);
   if (!article) notFound();
   const more = articles.filter((a) => a.slug !== article.slug).slice(0, 2);
@@ -73,7 +73,7 @@ export default async function ArticlePage({ params }: PageProps<"/updates/[slug]
           datePublished: article.publishedOn,
           image: [imageUrl.startsWith("http") ? imageUrl : `${siteUrl}${imageUrl}`],
           author: article.author ? { "@type": "Organization", name: article.author } : undefined,
-          publisher: { "@type": "Organization", name: event.organizer },
+          publisher: { "@id": `${siteUrl}/#organizer` },
           mainEntityOfPage: `${siteUrl}/updates/${article.slug}`,
         };
 

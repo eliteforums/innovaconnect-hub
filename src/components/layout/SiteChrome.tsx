@@ -9,40 +9,26 @@ export async function SiteChrome({ children }: { children: React.ReactNode }) {
   const c = await getSiteContent();
   const structuredData = {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": `${siteUrl}/#website`,
-        url: `${siteUrl}/`,
-        name: "InnovaHack Chapter 2",
-        alternateName: "InnovaHack",
-        description: c.copy.global.seo.description,
-        inLanguage: "en-IN",
-        publisher: { "@id": `${siteUrl}/#organizer` },
-      },
-      {
-        "@type": "Organization",
-        "@id": `${siteUrl}/#organizer`,
-        name: c.event.organizer,
-        url: siteUrl,
-        logo: `${siteUrl}/icon.svg`,
-        description: c.copy.about.organizerBody.replace(/\n/g, " "),
-        areaServed: {
-          "@type": "Country",
-          name: "India",
-        },
-        foundingLocation: {
-          "@type": "Place",
-          name: "Mumbai, India",
-        },
-        knowsAbout: [
-          "Entrepreneurship",
-          "Innovation",
-          "Technology",
-          "Hackathons",
-          "Startup ecosystems",
-        ],
-      },
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organizer`,
+    name: c.event.organizer,
+    url: siteUrl,
+    logo: `${siteUrl}/icon.svg`,
+    description: c.copy.about.organizerBody.replace(/\n/g, " "),
+    areaServed: {
+      "@type": "Country",
+      name: "India",
+    },
+    foundingLocation: {
+      "@type": "Place",
+      name: "Mumbai, India",
+    },
+    knowsAbout: [
+      "Entrepreneurship",
+      "Innovation",
+      "Technology",
+      "Hackathons",
+      "Startup ecosystems",
     ],
   };
   return (
