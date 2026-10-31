@@ -7,7 +7,7 @@ import bmcTaxi from "@/assets/photos/bmc-taxi.jpg";
 import csmt from "@/assets/photos/csmt.jpg";
 import footerSkyline from "@/assets/photos/footer-skyline.webp";
 import kalaGhodaHorse from "@/assets/photos/kala-ghoda-horse.jpg";
-import localTrain from "@/assets/photos/local-train.jpg";
+import localTrain from "@/assets/photos/local-train.webp";
 import marineDriveAerial from "@/assets/photos/marine-drive-aerial.jpg";
 import marineDriveSunset from "@/assets/photos/marine-drive-sunset.jpg";
 import misalPav from "@/assets/photos/misal-pav.jpg";

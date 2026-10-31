@@ -15,6 +15,7 @@ export function Figure({
   sizes = "(min-width: 1024px) 33vw, 100vw",
   className = "",
   priority = false,
+  frame = true,
 }: {
   media: MediaSlot;
   aspect?: string;
@@ -23,11 +24,13 @@ export function Figure({
   sizes?: string;
   className?: string;
   priority?: boolean;
+  /** Turn off for cutouts that sit directly on the page, with no border or clipping. */
+  frame?: boolean;
 }) {
   const photo = media.photo?.approved && resolveImage(media.photo.src) ? media.photo : null;
   return (
     <figure className={className}>
-      <div className={`relative overflow-hidden border border-ink ${aspect}`}>
+      <div className={`relative ${frame ? "overflow-hidden border border-ink" : ""} ${aspect}`}>
         {photo ? (
           <ContentImage
             src={photo.src}
@@ -35,7 +38,7 @@ export function Figure({
             fill
             sizes={sizes}
             priority={priority}
-            placeholder={photo.fit === "contain" ? "empty" : "blur"}
+            placeholder={photo.fit === "contain" || !frame ? "empty" : "blur"}
             className={photo.fit === "contain" ? "bg-paper-deep object-contain p-[6%]" : "object-cover"}
             style={photo.position ? { objectPosition: photo.position } : undefined}
           />

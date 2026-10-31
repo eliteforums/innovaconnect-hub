@@ -41,7 +41,11 @@ export async function Rooted() {
           <div className="in-view grid grid-cols-2 gap-3 sm:grid-cols-4">
             {r.tiles.map((t, i) => (
               <div key={i} className={i === 0 ? "col-span-2 sm:col-span-4" : "col-span-1"}>
-                <Figure media={t} aspect={i === 0 ? "aspect-[16/6]" : "aspect-square"} showCredit={false} />
+                {i === 0 ? (
+                  <Figure media={t} aspect="aspect-video" showCredit={false} frame={false} sizes="(min-width: 1024px) 50vw, 100vw" />
+                ) : (
+                  <Figure media={t} aspect="aspect-square" showCredit={false} />
+                )}
               </div>
             ))}
             <p className="col-span-2 kicker text-[0.625rem] text-muted sm:col-span-4">
