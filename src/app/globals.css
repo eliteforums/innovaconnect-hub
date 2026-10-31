@@ -241,6 +241,25 @@ body {
   scroll-snap-align: start;
 }
 
+/* Chapter 1 photo marquee. Two matching groups make the loop seamless. */
+.chapter-one-gallery-track {
+  animation: chapter-one-gallery-slide 78s linear infinite;
+}
+.chapter-one-gallery-group {
+  display: flex;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+.chapter-one-gallery:hover .chapter-one-gallery-track,
+.chapter-one-gallery:focus .chapter-one-gallery-track {
+  animation-play-state: paused;
+}
+@keyframes chapter-one-gallery-slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 details > summary {
   list-style: none;
 }
@@ -262,7 +281,11 @@ details > summary::-webkit-details-marker {
   }
   .in-view,
   .train-run,
-  .train-wheel {
+  .train-wheel,
+  .chapter-one-gallery-track {
     animation: none !important;
+  }
+  .chapter-one-gallery {
+    overflow-x: auto;
   }
 }

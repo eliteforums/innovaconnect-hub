@@ -1,6 +1,7 @@
 import { getSiteContent } from "@/lib/content";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Figure } from "@/components/media/Figure";
+import { ChapterOneGallery } from "@/components/chapter1/ChapterOneGallery";
 import { ButtonLink, Container, PendingNotice, Rich, SectionHeader, StatusTag } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
 import { t } from "@/lib/site";
@@ -115,13 +116,8 @@ export default async function ChapterOnePage() {
               kicker={x.pendingKicker}
               body={x.pendingBody}
             />
-            <RecordBlock
-              title={x.recordTitles.gallery}
-              items={chapter1.gallery.map((g) => g.alt)}
-              kicker={x.pendingKicker}
-              body={x.pendingBody}
-            />
           </div>
+          <ChapterOneGallery />
           <p className="mt-4 text-sm text-muted">{x.rosterNote}</p>
         </section>
 
