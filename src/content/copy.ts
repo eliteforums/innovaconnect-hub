@@ -123,11 +123,6 @@ export const copy = {
       footer: "Same streets.\nBigger dreams.",
     },
     stripLabel: "The city edition · Four stories",
-    legacy: {
-      title: "The foundation that started it all.",
-      cta: "Explore Chapter 1",
-      note: 'Historical Chapter 1 figures. "As advertised" figures were promoted before the event and are not records of cash paid out. They do not describe Chapter 2.',
-    },
     rooted: {
       number: "02",
       kicker: "Mumbai inspires. India innovates.",
@@ -369,6 +364,7 @@ export const copy = {
     } as MediaSlot,
     recordKicker: "The record",
     recordTitle: "By the numbers",
+    recordDeck: "The foundation that started it all. These are historical Chapter 1 figures. They do not describe Chapter 2.",
     reportedLegend: "*Reported:* figures reported after the event, including the post-event recap.",
     advertisedLegend:
       "*As advertised:* figures promoted before the event. They are not records of cash paid out or funding invested.",

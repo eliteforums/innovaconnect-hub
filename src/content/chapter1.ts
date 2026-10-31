@@ -24,7 +24,7 @@ export const chapter1 = {
   location:
     "Mumbai, India, as named in the original Chapter 1 event materials.",
 
-  /** Primary strip shown on the homepage and archive. */
+  /** Headline figures on the archive page. */
   metrics: [
     {
       value: "10,000+",
@@ -53,7 +53,7 @@ export const chapter1 = {
     },
   ] satisfies HistoricalMetric[],
 
-  /** Additional context used on the archive page only. */
+  /** Additional context on the archive page. */
   context: [
     {
       value: "24 Hours",

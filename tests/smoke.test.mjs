@@ -74,7 +74,7 @@ test("sitemap, robots and OG image are served", async () => {
   assert.equal(og.headers.get("content-type"), "image/png");
 });
 
-test("content rules: exactly two domains and honest Chapter 1 figures", async () => {
+test("content rules: exactly two domains, and Chapter 1 figures only in the archive", async () => {
   // React separates adjacent text nodes with <!-- --> markers; strip them and tags.
   const text = async (r) => (await (await fetch(`${BASE}${r}`)).text()).replace(/<!-- -->/g, "").replace(/<[^>]+>/g, " ");
   const has = (t, re, what) => assert.ok(re.test(t), `expected ${what}`);
@@ -82,10 +82,14 @@ test("content rules: exactly two domains and honest Chapter 1 figures", async ()
   has(home, /Domain 01/, "Domain 01");
   has(home, /Domain 02/, "Domain 02");
   assert.ok(!/Domain 03/.test(home), "there is no third domain");
-  has(home, /170/, "the reported finalist figure");
-  has(home, /Advertised total reward pool/i, "the reward pool labelled as advertised");
-  has(home, /prize details to be announced/i, "Chapter 2 prizes marked as to be announced");
+  has(home, /₹1,00,000 in tiered cash awards/, "the Chapter 2 cash awards");
+  for (const re of [/Finalist teams reported/i, /Applications reported/i, /Advertised total reward pool/i, /Explore Chapter 1/i]) {
+    assert.ok(!re.test(home), `the homepage must not show Chapter 1 information: ${re}`);
+  }
   const ch1 = await text("/chapter-1");
+  has(ch1, /170/, "the reported finalist figure");
+  has(ch1, /Advertised total reward pool/i, "the reward pool labelled as advertised");
+  has(ch1, /do not describe Chapter 2/i, "the note separating the figures from Chapter 2");
   has(ch1, /200–250/, "the planned shortlist");
   has(ch1, /not a record of funding invested or disbursed/i, "the funding caveat");
 });

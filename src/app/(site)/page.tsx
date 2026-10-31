@@ -1,6 +1,5 @@
 import { getSiteContent } from "@/lib/content";
 import { Hero } from "@/components/home/Hero";
-import { LegacyStrip } from "@/components/home/LegacyStrip";
 import { Rooted } from "@/components/home/Rooted";
 import {
   CitySection,
@@ -22,7 +21,6 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
-      <LegacyStrip />
       <Rooted />
       <DomainsSection />
       <MoreThanSection />

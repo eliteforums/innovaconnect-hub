@@ -27,7 +27,7 @@ export default async function ChapterOnePage() {
 
       <Container className="mt-16 space-y-20">
         <section aria-labelledby="metrics-title">
-          <SectionHeader number="01" kicker={x.recordKicker} id="metrics-title" title={x.recordTitle} />
+          <SectionHeader number="01" kicker={x.recordKicker} id="metrics-title" title={x.recordTitle} deck={x.recordDeck} />
           <ul className="mt-8 grid border-l border-t border-ink sm:grid-cols-2 lg:grid-cols-4">
             {[...chapter1.metrics, ...chapter1.context].map((m, i) => (
               <li key={`${m.label}-${i}`} className="border-b border-r border-ink bg-paper-white/60 p-6">
