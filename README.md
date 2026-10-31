@@ -145,9 +145,18 @@ are rejected with a clear message.
 | File (JSON lines) | Development, or `STORAGE_DRIVER=file` on a persistent disk |
 | None | Production with nothing configured — forms answer **503 "nothing was saved"** |
 
-**Supabase setup:** run `supabase/schema.sql` in the SQL editor. Row-level security is enabled with no
-policies, so the public anon key can't read or write; the site uses the service-role key from the server
-only. Read submissions in the Supabase dashboard (Table editor) or by SQL.
+**Supabase setup (one file):** open Supabase → SQL Editor, paste all of `supabase/schema.sql` and run it.
+It's safe to run again after updates and never deletes data. It creates:
+
+- the four submission tables (`interest_signups`, `registrations`, `partner_inquiries`, `contact_messages`);
+- `site_content` for dashboard edits and `admin_sessions` for sign-ins (expired sessions are purged
+  automatically);
+- the public `site-media` bucket for uploaded images (5 MB limit, JPEG/PNG/WebP/GIF/AVIF);
+- read-only `*_view` views that flatten submissions into columns for the Supabase Table Editor.
+
+Row-level security is on with no policies, and the `anon`/`authenticated` roles have no privileges, so the
+public anon key can't read or write anything. The site uses the service-role key from the server only. Then set
+`SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (Project Settings → API) in your environment.
 
 **Email (optional):** set `RESEND_API_KEY`, `EMAIL_FROM` and `NOTIFY_EMAIL`. Confirmation and organizer
 notification emails are sent only after a successful write.
