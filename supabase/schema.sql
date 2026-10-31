@@ -991,6 +991,10 @@ insert into public.site_content (key, value) values ('faq', $seed$[
         "a": "Eligibility and team-size rules have not been published yet. They will be set out in the official rules before registration opens."
       },
       {
+        "q": "Will InnovaHack Chapter 2 include hiring opportunities?",
+        "a": "Hiring opportunities are planned, but no hiring partners have been announced yet. Participation does not guarantee a job or internship, and any opportunity will be published with its terms once it is confirmed."
+      },
+      {
         "q": "Is there a participation fee?",
         "a": "Any fee will be published in the official rules before registration opens. Nothing is charged to join the update list."
       },
@@ -1876,8 +1880,8 @@ on conflict (key) do nothing;
 -- Global text & SEO
 insert into public.site_content (key, value) values ('copy.global', $seed${
   "seo": {
-    "title": "InnovaHack 2027 | AI & Startup Hackathon in India",
-    "description": "InnovaHack Chapter 2 is a pan-India hybrid hackathon planned for 2027 by Elite Forums. Explore the AI and startup tracks, ₹1,00,000 in cash awards and updates.",
+    "title": "InnovaHack 2027: Hiring & Startup Hackathon in India",
+    "description": "InnovaHack Chapter 2 is a pan-India hackathon planned for 2027, with AI and startup tracks, ₹1,00,000 in cash awards and planned hiring opportunities.",
     "imageAlt": "InnovaHack Chapter 2, a planned pan-India hackathon for AI and startup innovation"
   },
   "header": {
@@ -1950,12 +1954,12 @@ on conflict (key) do nothing;
 -- Homepage
 insert into public.site_content (key, value) values ('copy.home', $seed${
   "seo": {
-    "title": "InnovaHack 2027: National AI & Startup Hackathon in India",
-    "description": "InnovaHack Chapter 2 is a pan-India hybrid hackathon planned for 2027 by Elite Forums. Explore the AI and startup tracks, ₹1,00,000 in cash awards and updates."
+    "title": "InnovaHack 2027: Hiring & Startup Hackathon in India",
+    "description": "InnovaHack Chapter 2 is a pan-India hackathon planned for 2027, with AI and startup tracks, ₹1,00,000 in cash awards and planned hiring opportunities."
   },
   "masthead": {
     "wordmark": "INNOVAHACK",
-    "headingSuffix": "Chapter 2: a national AI and startup hackathon in India, 2027",
+    "headingSuffix": "Chapter 2: a national hiring and startup hackathon in India, 2027",
     "themes": [
       "Innovation",
       "Ideas",
@@ -2132,6 +2136,10 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
         "body": "Leave with a project that shows what you can do."
       }
     ],
+    "hiring": {
+      "title": "Hiring opportunities are planned",
+      "body": "InnovaHack Chapter 2 is planned as a hiring and startup hackathon, where teams can show what they have built to companies looking for talent. Hiring partners have not been announced yet. [Companies interested in hiring can get in touch](/partners#inquiry)."
+    },
     "disclaimer": "Participation does not guarantee employment, funding, incubation or investment. Any partner opportunity will be published with its terms once it is confirmed."
   },
   "journey": {
@@ -2214,7 +2222,7 @@ on conflict (key) do nothing;
 -- The Story (About)
 insert into public.site_content (key, value) values ('copy.about', $seed${
   "seo": {
-    "title": "About the National AI & Startup Hackathon",
+    "title": "About the National Hiring & Startup Hackathon",
     "description": "InnovaHack is the national hackathon organized by Elite Forums. Learn why Chapter 2 is rooted in Mumbai, built for India and planned as a 2027 hybrid event."
   },
   "section": "The Story",
@@ -2466,8 +2474,8 @@ on conflict (key) do nothing;
 -- Partners
 insert into public.site_content (key, value) values ('copy.partners', $seed${
   "seo": {
-    "title": "Sponsor a National Hackathon in India",
-    "description": "Explore sponsorship and partnership opportunities with InnovaHack Chapter 2, a planned pan-India hackathon for AI innovators and startup builders."
+    "title": "Hire & Sponsor at a National Hackathon in India",
+    "description": "Hire from or sponsor InnovaHack Chapter 2, a planned pan-India hiring and startup hackathon. Explore challenge, mentoring, tooling and talent partnerships."
   },
   "section": "Partners & industry",
   "title": "Real problems. *Real builders.*",
@@ -2479,6 +2487,8 @@ insert into public.site_content (key, value) values ('copy.partners', $seed${
   "waysKicker": "Ways to collaborate",
   "waysTitle": "Shape the edition",
   "waysDeck": "Partnership options are discussed individually with each organization.",
+  "hiringTitle": "Hire from the hackathon",
+  "hiringBody": "Hiring is a planned part of Chapter 2. Companies looking for AI and product talent can [start an inquiry](/partners#inquiry) about meeting the teams. Hiring partners have not been announced yet.",
   "inquiryKicker": "Partnership inquiry",
   "inquiryTitle": "Partner with InnovaHack",
   "inquiryBody": "Tell us about your organization and what you'd like to bring to Chapter 2. Inquiries are private and are only seen by the organizing team.",

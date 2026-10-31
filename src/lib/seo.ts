@@ -10,6 +10,8 @@ export const siteKeywords = [
   "pan-India hackathon",
   "AI hackathon India",
   "startup hackathon India",
+  "hiring hackathon India",
+  "recruitment hackathon India",
   "student hackathon India",
   "college hackathon India",
   "entrepreneurship India",

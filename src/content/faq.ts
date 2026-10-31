@@ -48,6 +48,10 @@ export const faq: FaqGroup[] = [
         a: "Eligibility and team-size rules have not been published yet. They will be set out in the official rules before registration opens.",
       },
       {
+        q: "Will InnovaHack Chapter 2 include hiring opportunities?",
+        a: "Hiring opportunities are planned, but no hiring partners have been announced yet. Participation does not guarantee a job or internship, and any opportunity will be published with its terms once it is confirmed.",
+      },
+      {
         q: "Is there a participation fee?",
         a: "Any fee will be published in the official rules before registration opens. Nothing is charged to join the update list.",
       },

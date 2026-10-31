@@ -18,9 +18,9 @@ const meta = (title: string, description: string) => ({ title, description });
 export const copy = {
   global: {
     seo: {
-      title: "InnovaHack 2027 | AI & Startup Hackathon in India",
+      title: "InnovaHack 2027: Hiring & Startup Hackathon in India",
       description:
-        "InnovaHack Chapter 2 is a pan-India hybrid hackathon planned for 2027 by Elite Forums. Explore the AI and startup tracks, ₹1,00,000 in cash awards and updates.",
+        "InnovaHack Chapter 2 is a pan-India hackathon planned for 2027, with AI and startup tracks, ₹1,00,000 in cash awards and planned hiring opportunities.",
       imageAlt: "InnovaHack Chapter 2, a planned pan-India hackathon for AI and startup innovation",
     },
     header: {
@@ -93,12 +93,12 @@ export const copy = {
 
   home: {
     seo: meta(
-      "InnovaHack 2027: National AI & Startup Hackathon in India",
-      "InnovaHack Chapter 2 is a pan-India hybrid hackathon planned for 2027 by Elite Forums. Explore the AI and startup tracks, ₹1,00,000 in cash awards and updates.",
+      "InnovaHack 2027: Hiring & Startup Hackathon in India",
+      "InnovaHack Chapter 2 is a pan-India hackathon planned for 2027, with AI and startup tracks, ₹1,00,000 in cash awards and planned hiring opportunities.",
     ),
     masthead: {
       wordmark: "INNOVAHACK",
-      headingSuffix: "Chapter 2: a national AI and startup hackathon in India, 2027",
+      headingSuffix: "Chapter 2: a national hiring and startup hackathon in India, 2027",
       themes: ["Innovation", "Ideas", "Technology", "Startups", "For a brighter India"],
       ticketTop: "Chapter 02",
       ticketMain: "2027",
@@ -176,6 +176,10 @@ export const copy = {
         { title: "Find connections", body: "Explore industry and startup connections around the event." },
         { title: "Grow your portfolio", body: "Leave with a project that shows what you can do." },
       ],
+      hiring: {
+        title: "Hiring opportunities are planned",
+        body: "InnovaHack Chapter 2 is planned as a hiring and startup hackathon, where teams can show what they have built to companies looking for talent. Hiring partners have not been announced yet. [Companies interested in hiring can get in touch](/partners#inquiry).",
+      },
       disclaimer:
         "Participation does not guarantee employment, funding, incubation or investment. Any partner opportunity will be published with its terms once it is confirmed.",
     },
@@ -248,7 +252,7 @@ export const copy = {
 
   about: {
     seo: meta(
-      "About the National AI & Startup Hackathon",
+      "About the National Hiring & Startup Hackathon",
       "InnovaHack is the national hackathon organized by Elite Forums. Learn why Chapter 2 is rooted in Mumbai, built for India and planned as a 2027 hybrid event.",
     ),
     section: "The Story",
@@ -471,8 +475,8 @@ export const copy = {
 
   partners: {
     seo: meta(
-      "Sponsor a National Hackathon in India",
-      "Explore sponsorship and partnership opportunities with InnovaHack Chapter 2, a planned pan-India hackathon for AI innovators and startup builders.",
+      "Hire & Sponsor at a National Hackathon in India",
+      "Hire from or sponsor InnovaHack Chapter 2, a planned pan-India hiring and startup hackathon. Explore challenge, mentoring, tooling and talent partnerships.",
     ),
     section: "Partners & industry",
     title: "Real problems. *Real builders.*",
@@ -485,6 +489,9 @@ export const copy = {
     waysKicker: "Ways to collaborate",
     waysTitle: "Shape the edition",
     waysDeck: "Partnership options are discussed individually with each organization.",
+    hiringTitle: "Hire from the hackathon",
+    hiringBody:
+      "Hiring is a planned part of Chapter 2. Companies looking for AI and product talent can [start an inquiry](/partners#inquiry) about meeting the teams. Hiring partners have not been announced yet.",
     inquiryKicker: "Partnership inquiry",
     inquiryTitle: "Partner with InnovaHack",
     inquiryBody:

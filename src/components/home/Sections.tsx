@@ -50,6 +50,13 @@ export async function MoreThanSection() {
             </li>
           ))}
         </ol>
+        <div className="mt-6 border-2 border-ink bg-paper-white p-6">
+          <StatusTag status="planned" />
+          <h3 className="headline mt-3 text-2xl">{m.hiring.title}</h3>
+          <p className="mt-2 max-w-3xl text-[0.9375rem] text-charcoal">
+            <Rich text={m.hiring.body} />
+          </p>
+        </div>
         <p className="mt-3 text-xs text-muted">
           <Rich text={m.disclaimer} />
         </p>

@@ -2,7 +2,7 @@ import { getSiteContent } from "@/lib/content";
 import { PartnerInquiryForm } from "@/components/forms/PartnerInquiryForm";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ContentImage } from "@/components/media/ContentImage";
-import { Container, PendingNotice, Rich, SectionHeader } from "@/components/ui";
+import { Container, PendingNotice, Rich, SectionHeader, StatusTag } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
 
 export async function generateMetadata() {
@@ -69,6 +69,13 @@ export default async function PartnersPage() {
               </li>
             ))}
           </ul>
+          <div className="mt-6 border-2 border-ink bg-paper-white p-6">
+            <StatusTag status="planned" />
+            <h3 className="headline mt-3 text-2xl">{x.hiringTitle}</h3>
+            <p className="mt-2 max-w-3xl text-[0.9375rem] text-charcoal">
+              <Rich text={x.hiringBody} />
+            </p>
+          </div>
         </section>
 
         <section aria-labelledby="inquiry-title" id="inquiry" className="mt-20 scroll-mt-24">
