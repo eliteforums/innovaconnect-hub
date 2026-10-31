@@ -6,13 +6,16 @@ import autorickshawQueue from "@/assets/photos/autorickshaw-queue.jpg";
 import bmcTaxi from "@/assets/photos/bmc-taxi.jpg";
 import csmt from "@/assets/photos/csmt.jpg";
 import footerSkyline from "@/assets/photos/footer-skyline.webp";
+import jainChawalWale from "@/assets/photos/jain-chawal-wale.jpg";
 import kalaGhodaHorse from "@/assets/photos/kala-ghoda-horse.jpg";
+import leopoldCafe from "@/assets/photos/leopold-cafe.jpg";
 import localTrain from "@/assets/photos/local-train.webp";
 import marineDriveAerial from "@/assets/photos/marine-drive-aerial.jpg";
 import marineDriveSunset from "@/assets/photos/marine-drive-sunset.jpg";
 import misalPav from "@/assets/photos/misal-pav.jpg";
 import pavBhaji from "@/assets/photos/pav-bhaji.jpg";
 import startupDomain from "@/assets/photos/startup-domain.jpg";
+import tajPalace from "@/assets/photos/taj-palace.jpg";
 import vadaPav from "@/assets/photos/vada-pav.jpg";
 import cutoutAi from "@/assets/cutouts/ai.webp";
 import cutoutAuto from "@/assets/cutouts/autorickshaw.webp";
@@ -46,6 +49,9 @@ export const mediaLibrary: Record<string, { file: StaticImageData; label: string
   startupDomain: { file: startupDomain, label: "Startup domain artwork", group: "Photo" },
   footerSkyline: { file: footerSkyline, label: "Footer skyline", group: "Photo" },
   autorickshawQueue: { file: autorickshawQueue, label: "Autorickshaws in a queue", group: "Photo" },
+  tajPalace: { file: tajPalace, label: "The Taj Mahal Palace", group: "Photo" },
+  leopoldCafe: { file: leopoldCafe, label: "Leopold Cafe", group: "Photo" },
+  jainChawalWale: { file: jainChawalWale, label: "Jain Chawal Wale", group: "Photo" },
   autorickshaw: { file: cutoutAuto, label: "Autorickshaw (cutout)", group: "Cutout" },
   "cutout-bmc": { file: cutoutBmc, label: "BMC building (cutout)", group: "Cutout" },
   "cutout-taxi": { file: cutoutTaxi, label: "Taxi (cutout)", group: "Cutout" },
