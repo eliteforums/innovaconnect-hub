@@ -1,6 +1,10 @@
 # InnovaHack Chapter 2 — Mumbai Edition
 
 The official website for **InnovaHack Chapter 2**, the national hackathon organized by **Elite Forums**.
+Elite Forums is a startup ecosystem initiative that began in Mumbai with a vision to make India a stronger
+hub for entrepreneurship and innovation. The site introduces its communities, college partnerships, workshops,
+hackathons, founder conversations and Innovation Laboratory alongside the Chapter 2 event.
+
 Design concept: *The Innovation Times* — a premium newspaper special edition inspired by Mumbai's streets,
 heritage and culture, telling the story of India's next generation of builders.
 
@@ -15,8 +19,12 @@ Zod · Lucide icons · optional Supabase (PostgreSQL) and Resend.
 
 ```bash
 npm install
+cp .env.example .env.local
 npm run dev          # http://localhost:3000
 ```
+
+`.env.local` is git-ignored. Set real credentials there for local admin, storage and email testing; never
+commit it or expose Supabase elevated keys in browser code.
 
 In development, form submissions are stored as JSON lines in `.data/` (git-ignored), so every form
 works with no setup.
@@ -39,7 +47,7 @@ works with no setup.
 ```
 src/
   content/          ← built-in default content (the admin dashboard overrides it per section)
-    copy.ts           Every heading, paragraph and label on every page, plus layout image slots
+    copy.ts           Every heading, paragraph, SEO copy and label on every page, plus layout image slots
     event.ts          Chapter 2 config: status, dates, venue, team size, prizes, partners, contact
     chapter1.ts       Chapter 1 historical archive (kept separate from Chapter 2)
     domains.ts        The two official competition domains
@@ -47,7 +55,7 @@ src/
     updates.ts        Build Log articles
     mumbai-map.ts     Section 09 map: rail lines, labelled stations, numbered landmarks
     faq.ts, rules.ts, navigation.ts
-  app/              ← routes (17 public pages + 4 API routes, sitemap, robots, OG image)
+  app/              ← routes (public pages, API routes, sitemap, robots and OG image)
   components/
     illustrations/    Original SVG artwork: taxi, BEST bus, local train, autorickshaw,
                       heritage architecture, Marine Drive, Kala Ghoda, street food, AI & startup
@@ -179,7 +187,8 @@ notification emails are sent only after a successful write.
   most load balancers). If you serve Node directly to the internet, strip incoming `x-forwarded-for` first.
 - Security headers (HSTS, `X-Frame-Options`, `nosniff`, Referrer and Permissions policies) are set in
   `next.config.ts`.
-- There is no admin interface. If you add one, protect it with real server-side authentication.
+- The admin interface is protected by server-side authentication. Keep the default credentials out of
+  production and rotate them before launch.
 
 ---
 
@@ -194,6 +203,12 @@ notification emails are sent only after a successful write.
 ### Search visibility
 
 - Set `NEXT_PUBLIC_SITE_URL` to the final public HTTPS domain so canonical URLs, Open Graph URLs and the sitemap all use the same host.
+- Every public page gets a canonical URL, page-specific title and description, Open Graph and Twitter card
+  metadata, and the shared SEO keyword set from `src/lib/seo.ts`.
+- The public shell emits `WebSite` and `Organization` JSON-LD. Page headers emit breadcrumb JSON-LD;
+  the FAQ and published Build Log articles emit their relevant structured data as well.
+- `/robots.txt` allows public pages while excluding `/api/` and `/admin`; `/sitemap.xml` includes only
+  public routes and published articles, never drafts.
 - To verify the site in Google Search Console, set `GOOGLE_SITE_VERIFICATION` to the token from the HTML-tag verification method, then redeploy.
 - After verification, submit `https://<your-domain>/sitemap.xml` in Search Console and use URL Inspection to check the homepage and the two domain pages.
 
