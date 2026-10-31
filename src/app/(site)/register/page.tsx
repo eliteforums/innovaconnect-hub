@@ -8,7 +8,7 @@ import { pageMeta } from "@/lib/seo";
 
 export async function generateMetadata() {
   const { copy } = await getSiteContent();
-  return pageMeta("/register", copy.register.meta.title, copy.register.meta.description);
+  return pageMeta("/register", copy.register.seo.title, copy.register.seo.description);
 }
 
 export default async function RegisterPage() {

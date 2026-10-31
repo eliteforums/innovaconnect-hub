@@ -342,6 +342,16 @@ insert into public.site_content (key, value) values ('event', $seed${
       "note": "Any participation fee will be published in the official rules before registration opens."
     }
   },
+  "dates": {
+    "start": {
+      "value": null,
+      "status": "unconfirmed"
+    },
+    "end": {
+      "value": null,
+      "status": "unconfirmed"
+    }
+  },
   "venue": {
     "value": null,
     "status": "unconfirmed",
@@ -752,10 +762,6 @@ insert into public.site_content (key, value) values ('chapter1', $seed${
   "judgesAndMentors": [],
   "gallery": [],
   "links": [
-    {
-      "label": "Original Chapter 1 website",
-      "url": "https://innovahack.eliteforums.in/"
-    },
     {
       "label": "Chapter 1 event page on Devnovate",
       "url": "https://devnovate.co/event/innovahack-chapter-1"
@@ -1871,7 +1877,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.global', $seed${
   "seo": {
     "title": "InnovaHack 2027 | AI & Startup Hackathon in India",
-    "description": "Explore InnovaHack Chapter 2, a pan-India AI and startup hackathon planned for 2027 by Elite Forums. See tracks, timeline, prizes and registration updates.",
+    "description": "InnovaHack Chapter 2 is a pan-India hybrid hackathon planned for 2027 by Elite Forums. Explore the AI and startup tracks, ₹1,00,000 in cash awards and updates.",
     "imageAlt": "InnovaHack Chapter 2, a planned pan-India hackathon for AI and startup innovation"
   },
   "header": {
@@ -1943,8 +1949,13 @@ on conflict (key) do nothing;
 
 -- Homepage
 insert into public.site_content (key, value) values ('copy.home', $seed${
+  "seo": {
+    "title": "InnovaHack 2027: National AI & Startup Hackathon in India",
+    "description": "InnovaHack Chapter 2 is a pan-India hybrid hackathon planned for 2027 by Elite Forums. Explore the AI and startup tracks, ₹1,00,000 in cash awards and updates."
+  },
   "masthead": {
     "wordmark": "INNOVAHACK",
+    "headingSuffix": "Chapter 2: a national AI and startup hackathon in India, 2027",
     "themes": [
       "Innovation",
       "Ideas",
@@ -2202,9 +2213,9 @@ on conflict (key) do nothing;
 
 -- The Story (About)
 insert into public.site_content (key, value) values ('copy.about', $seed${
-  "meta": {
-    "title": "About the National Hackathon",
-    "description": "Learn about InnovaHack, the national hackathon organized by Elite Forums. Chapter 2 is planned as a pan-India hybrid event in 2027."
+  "seo": {
+    "title": "About the National AI & Startup Hackathon",
+    "description": "InnovaHack is the national hackathon organized by Elite Forums. Learn why Chapter 2 is rooted in Mumbai, built for India and planned as a 2027 hybrid event."
   },
   "section": "The Story",
   "title": "India's next generation of builders. *One national stage.*",
@@ -2263,7 +2274,7 @@ insert into public.site_content (key, value) values ('copy.about', $seed${
   },
   "organizerNumber": "02",
   "organizerKicker": "The organizer",
-  "organizerBody": "{organizer} is a community-driven organization that connects builders with opportunities through tech meetups, hackathons and industry events. InnovaHack is its national hackathon.",
+  "organizerBody": "Where Founder Ambition Meets Opportunity.\nElite Forums is a startup ecosystem initiative that began in Mumbai with a vision to make India a stronger hub for entrepreneurship and innovation.\nWe bring together aspiring founders, students, working professionals, first-time builders, college communities, mentors, and ecosystem partners through a connected network built around ideas, people, and possibilities.\nOur mission is rooted in a simple belief: Entrepreneurship should be a community, not a solo journey.\nThrough our communities, college partnerships, workshops, hackathons, founder conversations, and collaborative experiences, we create opportunities for individuals to learn, connect, experiment, and build.\nWith our Innovation Laboratory, we take this mission further by helping transform promising ideas into working technology, products, and new ventures.\nFrom Mumbai to all of India, Elite Forums is building a connected ecosystem where ambition finds its people and ideas find opportunities.",
   "archiveCta": "The Chapter 1 archive",
   "contactCta": "Contact us"
 }$seed$::jsonb)
@@ -2271,7 +2282,7 @@ on conflict (key) do nothing;
 
 -- The Tracks
 insert into public.site_content (key, value) values ('copy.tracks', $seed${
-  "meta": {
+  "seo": {
     "title": "AI & Startup Hackathon Tracks 2027",
     "description": "Explore the two InnovaHack Chapter 2 domains: Artificial Intelligence and Open Innovation / Startup. Both are planned for the 2027 pan-India hybrid hackathon."
   },
@@ -2309,6 +2320,16 @@ on conflict (key) do nothing;
 
 -- Domain pages
 insert into public.site_content (key, value) values ('copy.domainDetail', $seed${
+  "seo": {
+    "artificial-intelligence": {
+      "title": "AI Hackathon in India 2027: The AI Track",
+      "description": "Enter the InnovaHack Chapter 2 AI track: build with generative AI, LLMs, AI agents, machine learning or computer vision to solve real-world problems."
+    },
+    "open-innovation": {
+      "title": "Startup & Open Innovation Hackathon 2027",
+      "description": "Enter the InnovaHack Chapter 2 startup track: build original products, services or business concepts that solve real problems. AI is welcome, never required."
+    }
+  },
   "sectionSuffix": "Official competition domain",
   "areasKicker": "What you can build",
   "areasTitle": "Potential areas",
@@ -2331,9 +2352,9 @@ on conflict (key) do nothing;
 
 -- Chapter 1 page
 insert into public.site_content (key, value) values ('copy.chapter1Page', $seed${
-  "meta": {
-    "title": "Chapter 1 Archive: 2026",
-    "description": "Explore the InnovaHack Chapter 1 archive, including historical competition structure and figures clearly labelled as reported or advertised."
+  "seo": {
+    "title": "Chapter 1 Archive: 2026 Hackathon Figures",
+    "description": "How InnovaHack Chapter 1 ran in 2026: 10,000+ applications and 170 finalist teams reported, plus its tracks, rounds and event photo gallery."
   },
   "title": "InnovaHack Chapter 1\n*The first edition, 2026*",
   "deck": "The inaugural InnovaHack laid the foundation for everything Chapter 2 is building on. This archive records what was reported after the event and what was advertised before it — and labels each clearly.",
@@ -2385,10 +2406,6 @@ on conflict (key) do nothing;
 
 -- Homepage journey
 insert into public.site_content (key, value) values ('copy.timeline', $seed${
-  "meta": {
-    "title": "Hackathon Timeline 2027",
-    "description": "See the proposed InnovaHack Chapter 2 competition journey. Official dates will be published here once they are confirmed."
-  },
   "section": "Timeline",
   "title": "From first idea to final stage.",
   "deck": "These are the proposed Chapter 2 stages, subject to the organizer's final rules. No dates have been confirmed yet — each will be added here when it is.",
@@ -2418,9 +2435,9 @@ on conflict (key) do nothing;
 
 -- Prizes
 insert into public.site_content (key, value) values ('copy.prizes', $seed${
-  "meta": {
-    "title": "InnovaHack Chapter 2 Prize Pool",
-    "description": "Explore the InnovaHack Chapter 2 prize pool: three tiers of cash awards for 18 winning teams, from ₹4,000 to ₹10,000 per team."
+  "seo": {
+    "title": "Hackathon Prizes 2027: ₹1,00,000 in Cash",
+    "description": "InnovaHack Chapter 2 awards ₹1,00,000 in cash across three tiers: ₹10,000, ₹6,000 and ₹4,000 per team, for 18 winning teams in total."
   },
   "section": "Prize Pool",
   "title": "Three tiers. *Eighteen winning teams.*",
@@ -2438,14 +2455,18 @@ insert into public.site_content (key, value) values ('copy.prizes', $seed${
     "incubation-consideration": "Incubation consideration",
     "investor-introduction": "Investor introduction"
   },
-  "awardNote": "All amounts are per winning team. There are 18 winning teams across the three tiers."
+  "awardNote": "All amounts are per winning team. There are 18 winning teams across the three tiers.",
+  "breakdownTitle": "How the ₹1,00,000 prize pool adds up",
+  "breakdownBody": "Tier 1 pays ₹30,000 in total (3 teams × ₹10,000), Tier 2 pays ₹30,000 (5 teams × ₹6,000) and Tier 3 pays ₹40,000 (10 teams × ₹4,000). Together that is ₹1,00,000 in cash awards across 18 winning teams.",
+  "nextTitle": "Competing for a prize",
+  "nextBody": "Start by choosing one of the [two official domains](/tracks), then read the [rules and eligibility](/rules) and the [FAQ](/faq). You can also [get registration updates](/register#updates) as soon as dates are confirmed."
 }$seed$::jsonb)
 on conflict (key) do nothing;
 
 -- Partners
 insert into public.site_content (key, value) values ('copy.partners', $seed${
-  "meta": {
-    "title": "Hackathon Sponsorship & Partnerships",
+  "seo": {
+    "title": "Sponsor a National Hackathon in India",
     "description": "Explore sponsorship and partnership opportunities with InnovaHack Chapter 2, a planned pan-India hackathon for AI innovators and startup builders."
   },
   "section": "Partners & industry",
@@ -2467,7 +2488,7 @@ on conflict (key) do nothing;
 
 -- Updates
 insert into public.site_content (key, value) values ('copy.updates', $seed${
-  "meta": {
+  "seo": {
     "title": "Event Updates & Announcements",
     "description": "Follow official InnovaHack Chapter 2 announcements, confirmed event details and guides for the planned 2027 AI and startup hackathon in India."
   },
@@ -2489,8 +2510,8 @@ on conflict (key) do nothing;
 
 -- Register
 insert into public.site_content (key, value) values ('copy.register', $seed${
-  "meta": {
-    "title": "Registration & Event Updates",
+  "seo": {
+    "title": "Hackathon Registration 2027 & Updates",
     "description": "Check InnovaHack Chapter 2 registration status and join the update list for official signup dates, rules and announcements for the planned 2027 hackathon."
   },
   "section": "Registration",
@@ -2516,7 +2537,7 @@ on conflict (key) do nothing;
 
 -- Contact
 insert into public.site_content (key, value) values ('copy.contact', $seed${
-  "meta": {
+  "seo": {
     "title": "Contact the Organizers",
     "description": "Contact Elite Forums about InnovaHack Chapter 2, the planned 2027 national hackathon, for event questions and partnership inquiries."
   },
@@ -2536,8 +2557,8 @@ on conflict (key) do nothing;
 
 -- FAQ page
 insert into public.site_content (key, value) values ('copy.faq', $seed${
-  "meta": {
-    "title": "Hackathon FAQs",
+  "seo": {
+    "title": "Hackathon FAQs: Eligibility, Prizes & Tracks",
     "description": "Get answers about InnovaHack Chapter 2 registration, eligibility, AI and startup tracks, prizes, partners and the planned 2027 event timeline."
   },
   "section": "FAQ",
@@ -2550,9 +2571,9 @@ on conflict (key) do nothing;
 
 -- Rules page
 insert into public.site_content (key, value) values ('copy.rules', $seed${
-  "meta": {
+  "seo": {
     "title": "Hackathon Rules & Eligibility",
-    "description": "Read confirmed competition principles for InnovaHack Chapter 2, including its Artificial Intelligence and Open Innovation / Startup domains. Full rules are pending."
+    "description": "Read the confirmed competition principles for InnovaHack Chapter 2, covering its AI and Open Innovation / Startup domains. Full rules are still to come."
   },
   "section": "Official rules",
   "title": "The rulebook.",
@@ -2570,9 +2591,9 @@ on conflict (key) do nothing;
 
 -- Privacy
 insert into public.site_content (key, value) values ('copy.privacy', $seed${
-  "meta": {
+  "seo": {
     "title": "Privacy Notice",
-    "description": "What information the InnovaHack Chapter 2 website collects through its forms, and how it is used."
+    "description": "What information the InnovaHack Chapter 2 website collects through its registration, update, contact and partnership forms, and how it is used."
   },
   "section": "Privacy",
   "title": "Privacy notice.",
@@ -2668,9 +2689,9 @@ on conflict (key) do nothing;
 
 -- Terms
 insert into public.site_content (key, value) values ('copy.terms', $seed${
-  "meta": {
+  "seo": {
     "title": "Terms & Conditions",
-    "description": "Terms for using the InnovaHack Chapter 2 website."
+    "description": "Terms for using the InnovaHack Chapter 2 website and its forms, including how to read planned event details and historical Chapter 1 figures."
   },
   "section": "Terms",
   "title": "Terms & conditions.",

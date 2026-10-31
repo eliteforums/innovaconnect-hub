@@ -6,7 +6,7 @@ import { pageMeta } from "@/lib/seo";
 
 export async function generateMetadata() {
   const { copy } = await getSiteContent();
-  return pageMeta("/faq", copy.faq.meta.title, copy.faq.meta.description);
+  return pageMeta("/faq", copy.faq.seo.title, copy.faq.seo.description);
 }
 
 export default async function FaqPage() {

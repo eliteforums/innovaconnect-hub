@@ -7,7 +7,7 @@ import { pageMeta } from "@/lib/seo";
 
 export async function generateMetadata() {
   const { copy } = await getSiteContent();
-  return pageMeta("/prizes", copy.prizes.meta.title, copy.prizes.meta.description);
+  return pageMeta("/prizes", copy.prizes.seo.title, copy.prizes.seo.description);
 }
 
 export default async function PrizesPage() {
@@ -79,6 +79,16 @@ export default async function PrizesPage() {
               })}
             </ul>
             <p className="mt-5 text-sm text-muted">{x.awardNote}</p>
+            <div className="mt-12 grid gap-8 border-t-2 border-ink pt-8 md:grid-cols-2">
+              <section aria-labelledby="prize-breakdown-title">
+                <h2 id="prize-breakdown-title" className="headline text-3xl">{x.breakdownTitle}</h2>
+                <p className="mt-3 text-charcoal"><Rich text={x.breakdownBody} /></p>
+              </section>
+              <section aria-labelledby="prize-next-title">
+                <h2 id="prize-next-title" className="headline text-3xl">{x.nextTitle}</h2>
+                <p className="mt-3 text-charcoal"><Rich text={x.nextBody} /></p>
+              </section>
+            </div>
           </>
         )}
       </Container>

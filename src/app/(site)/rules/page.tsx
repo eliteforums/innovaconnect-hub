@@ -6,7 +6,7 @@ import { fill } from "@/lib/site";
 
 export async function generateMetadata() {
   const { copy } = await getSiteContent();
-  return pageMeta("/rules", copy.rules.meta.title, copy.rules.meta.description);
+  return pageMeta("/rules", copy.rules.seo.title, copy.rules.seo.description);
 }
 
 export default async function RulesPage() {

@@ -22,8 +22,13 @@ export const siteKeywords = [
 ];
 
 /** Unique title, description, canonical URL and Open Graph data for a page. */
-export function pageMeta(path: string, title: string, description: string): Metadata {
-  const socialTitle = `${title} | InnovaHack`;
+export function pageMeta(
+  path: string,
+  title: string,
+  description: string,
+  { absoluteTitle = false }: { absoluteTitle?: boolean } = {},
+): Metadata {
+  const socialTitle = absoluteTitle ? title : `${title} | InnovaHack`;
   const socialImage = {
     url: "/opengraph-image",
     width: 1200,
@@ -32,7 +37,7 @@ export function pageMeta(path: string, title: string, description: string): Meta
   };
 
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     keywords: siteKeywords,
     category: "Technology",

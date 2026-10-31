@@ -1,6 +1,6 @@
 import { siteUrl } from "@/content/event";
 import { getSiteContent } from "@/lib/content";
-import { primaryCta } from "@/lib/site";
+import { primaryCta, t } from "@/lib/site";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 
@@ -13,8 +13,12 @@ export async function SiteChrome({ children }: { children: React.ReactNode }) {
     "@id": `${siteUrl}/#organizer`,
     name: c.event.organizer,
     url: siteUrl,
-    logo: `${siteUrl}/icon.svg`,
-    description: c.copy.about.organizerBody.replace(/\n/g, " "),
+    logo: `${siteUrl}/icon-512.png`,
+    description: t(c, c.copy.about.organizerBody).replace(/\n/g, " "),
+    sameAs: c.event.social.length ? c.event.social.map((s) => s.url) : undefined,
+    contactPoint: c.event.contact.partnerships.value
+      ? { "@type": "ContactPoint", contactType: "partnerships", email: c.event.contact.partnerships.value }
+      : undefined,
     areaServed: {
       "@type": "Country",
       name: "India",

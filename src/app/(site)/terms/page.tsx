@@ -4,7 +4,7 @@ import { pageMeta } from "@/lib/seo";
 
 export async function generateMetadata() {
   const { copy } = await getSiteContent();
-  return pageMeta("/terms", copy.terms.meta.title, copy.terms.meta.description);
+  return pageMeta("/terms", copy.terms.seo.title, copy.terms.seo.description);
 }
 
 export default async function TermsPage() {

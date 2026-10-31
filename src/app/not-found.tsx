@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { getSiteContent } from "@/lib/content";
 import { Auto } from "@/components/illustrations";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 import { ButtonLink, Container, Rich } from "@/components/ui";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  description: "This page doesn't exist on the InnovaHack Chapter 2 website.",
+  robots: { index: false, follow: true },
+};
 
 export default async function NotFound() {
   const { copy } = await getSiteContent();

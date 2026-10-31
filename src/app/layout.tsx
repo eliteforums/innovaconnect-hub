@@ -48,11 +48,6 @@ export async function generateMetadata(): Promise<Metadata> {
     category: "Technology",
     referrer: "origin-when-cross-origin",
     formatDetection: { email: false, address: false, telephone: false },
-    icons: {
-      icon: "/icon.svg",
-      shortcut: "/icon.svg",
-    },
-    alternates: { canonical: "/" },
     robots: {
       index: true,
       follow: true,

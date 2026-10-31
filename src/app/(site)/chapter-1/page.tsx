@@ -8,7 +8,7 @@ import { t } from "@/lib/site";
 
 export async function generateMetadata() {
   const { copy } = await getSiteContent();
-  return pageMeta("/chapter-1", copy.chapter1Page.meta.title, copy.chapter1Page.meta.description);
+  return pageMeta("/chapter-1", copy.chapter1Page.seo.title, copy.chapter1Page.seo.description);
 }
 
 export default async function ChapterOnePage() {

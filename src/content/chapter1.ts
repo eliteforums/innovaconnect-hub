@@ -142,7 +142,6 @@ export const chapter1 = {
   gallery: [] as { src: string; alt: string; credit: string }[],
 
   links: [
-    { label: "Original Chapter 1 website", url: "https://innovahack.eliteforums.in/" },
     {
       label: "Chapter 1 event page on Devnovate",
       url: "https://devnovate.co/event/innovahack-chapter-1",

@@ -13,7 +13,13 @@ import {
 } from "@/components/home/Sections";
 import { UpdatesForm } from "@/components/forms/UpdatesForm";
 import { Container, Rich } from "@/components/ui";
+import { pageMeta } from "@/lib/seo";
 import { registrationState } from "@/lib/site";
+
+export async function generateMetadata() {
+  const { copy } = await getSiteContent();
+  return pageMeta("/", copy.home.seo.title, copy.home.seo.description, { absoluteTitle: true });
+}
 
 export default async function HomePage() {
   const c = await getSiteContent();
@@ -29,12 +35,41 @@ export default async function HomePage() {
     inLanguage: "en-IN",
     publisher: { "@id": `${siteUrl}/#organizer` },
   };
+  // Search engines require a real date and place, so this appears only once both are confirmed.
+  const { start, end } = c.event.dates;
+  const venue = c.event.venue.value;
+  const eventJsonLd =
+    start.value && venue
+      ? {
+          "@context": "https://schema.org",
+          "@type": "Event",
+          name: c.event.fullName,
+          description: c.event.description,
+          url: `${siteUrl}/`,
+          image: [`${siteUrl}/opengraph-image`],
+          startDate: start.value,
+          endDate: end.value ?? undefined,
+          eventStatus: "https://schema.org/EventScheduled",
+          eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
+          location: [
+            { "@type": "VirtualLocation", url: `${siteUrl}/` },
+            { "@type": "Place", name: venue, address: venue },
+          ],
+          organizer: { "@type": "Organization", name: c.event.organizer, url: siteUrl },
+        }
+      : null;
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }}
       />
+      {eventJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd).replace(/</g, "\\u003c") }}
+        />
+      )}
       <Hero />
       <Rooted />
       <DomainsSection />

@@ -27,9 +27,11 @@ export async function ArticleMeta({ article }: { article: Article }) {
 export function ArticleCard({
   article,
   variant = "standard",
+  heading: Heading = "h3",
 }: {
   article: Article;
   variant?: "lead" | "standard" | "compact";
+  heading?: "h2" | "h3";
 }) {
   const href = `/updates/${article.slug}`;
   if (variant === "compact") {
@@ -57,13 +59,13 @@ export function ArticleCard({
       />
       <div className="mt-4">
         <ArticleMeta article={article} />
-        <h3
+        <Heading
           className={`headline mt-3 group-hover:text-burgundy ${variant === "lead" ? "text-[clamp(2rem,4vw,3.25rem)]" : "text-2xl"}`}
         >
           <Link href={href} className="after:absolute after:inset-0">
             {article.headline}
           </Link>
-        </h3>
+        </Heading>
         <p className={`mt-3 text-charcoal ${variant === "lead" ? "prose-news" : "text-sm"}`}>{article.summary}</p>
       </div>
     </article>

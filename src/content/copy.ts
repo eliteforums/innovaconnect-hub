@@ -20,7 +20,7 @@ export const copy = {
     seo: {
       title: "InnovaHack 2027 | AI & Startup Hackathon in India",
       description:
-        "Explore InnovaHack Chapter 2, a pan-India AI and startup hackathon planned for 2027 by Elite Forums. See tracks, timeline, prizes and registration updates.",
+        "InnovaHack Chapter 2 is a pan-India hybrid hackathon planned for 2027 by Elite Forums. Explore the AI and startup tracks, ₹1,00,000 in cash awards and updates.",
       imageAlt: "InnovaHack Chapter 2, a planned pan-India hackathon for AI and startup innovation",
     },
     header: {
@@ -92,8 +92,13 @@ export const copy = {
   },
 
   home: {
+    seo: meta(
+      "InnovaHack 2027: National AI & Startup Hackathon in India",
+      "InnovaHack Chapter 2 is a pan-India hybrid hackathon planned for 2027 by Elite Forums. Explore the AI and startup tracks, ₹1,00,000 in cash awards and updates.",
+    ),
     masthead: {
       wordmark: "INNOVAHACK",
+      headingSuffix: "Chapter 2: a national AI and startup hackathon in India, 2027",
       themes: ["Innovation", "Ideas", "Technology", "Startups", "For a brighter India"],
       ticketTop: "Chapter 02",
       ticketMain: "2027",
@@ -242,9 +247,9 @@ export const copy = {
   },
 
   about: {
-    meta: meta(
-      "About the National Hackathon",
-      "Learn about InnovaHack, the national hackathon organized by Elite Forums. Chapter 2 is planned as a pan-India hybrid event in 2027.",
+    seo: meta(
+      "About the National AI & Startup Hackathon",
+      "InnovaHack is the national hackathon organized by Elite Forums. Learn why Chapter 2 is rooted in Mumbai, built for India and planned as a 2027 hybrid event.",
     ),
     section: "The Story",
     title: "India's next generation of builders. *One national stage.*",
@@ -297,7 +302,7 @@ export const copy = {
   },
 
   tracks: {
-    meta: meta(
+    seo: meta(
       "AI & Startup Hackathon Tracks 2027",
       "Explore the two InnovaHack Chapter 2 domains: Artificial Intelligence and Open Innovation / Startup. Both are planned for the 2027 pan-India hybrid hackathon.",
     ),
@@ -329,6 +334,16 @@ export const copy = {
   },
 
   domainDetail: {
+    seo: {
+      "artificial-intelligence": meta(
+        "AI Hackathon in India 2027: The AI Track",
+        "Enter the InnovaHack Chapter 2 AI track: build with generative AI, LLMs, AI agents, machine learning or computer vision to solve real-world problems.",
+      ),
+      "open-innovation": meta(
+        "Startup & Open Innovation Hackathon 2027",
+        "Enter the InnovaHack Chapter 2 startup track: build original products, services or business concepts that solve real problems. AI is welcome, never required.",
+      ),
+    },
     sectionSuffix: "Official competition domain",
     areasKicker: "What you can build",
     areasTitle: "Potential areas",
@@ -350,9 +365,9 @@ export const copy = {
   },
 
   chapter1Page: {
-    meta: meta(
-      "Chapter 1 Archive: 2026",
-      "Explore the InnovaHack Chapter 1 archive, including historical competition structure and figures clearly labelled as reported or advertised.",
+    seo: meta(
+      "Chapter 1 Archive: 2026 Hackathon Figures",
+      "How InnovaHack Chapter 1 ran in 2026: 10,000+ applications and 170 finalist teams reported, plus its tracks, rounds and event photo gallery.",
     ),
     title: "InnovaHack Chapter 1\n*The first edition, 2026*",
     deck: "The inaugural InnovaHack laid the foundation for everything Chapter 2 is building on. This archive records what was reported after the event and what was advertised before it — and labels each clearly.",
@@ -398,10 +413,6 @@ export const copy = {
   },
 
   timeline: {
-    meta: meta(
-      "Hackathon Timeline 2027",
-      "See the proposed InnovaHack Chapter 2 competition journey. Official dates will be published here once they are confirmed.",
-    ),
     section: "Timeline",
     title: "From first idea to final stage.",
     deck: "These are the proposed Chapter 2 stages, subject to the organizer's final rules. No dates have been confirmed yet — each will be added here when it is.",
@@ -429,9 +440,9 @@ export const copy = {
   },
 
   prizes: {
-    meta: meta(
-      "InnovaHack Chapter 2 Prize Pool",
-      "Explore the InnovaHack Chapter 2 prize pool: three tiers of cash awards for 18 winning teams, from ₹4,000 to ₹10,000 per team.",
+    seo: meta(
+      "Hackathon Prizes 2027: ₹1,00,000 in Cash",
+      "InnovaHack Chapter 2 awards ₹1,00,000 in cash across three tiers: ₹10,000, ₹6,000 and ₹4,000 per team, for 18 winning teams in total.",
     ),
     section: "Prize Pool",
     title: "Three tiers. *Eighteen winning teams.*",
@@ -450,11 +461,17 @@ export const copy = {
       "investor-introduction": "Investor introduction",
     },
     awardNote: "All amounts are per winning team. There are 18 winning teams across the three tiers.",
+    breakdownTitle: "How the ₹1,00,000 prize pool adds up",
+    breakdownBody:
+      "Tier 1 pays ₹30,000 in total (3 teams × ₹10,000), Tier 2 pays ₹30,000 (5 teams × ₹6,000) and Tier 3 pays ₹40,000 (10 teams × ₹4,000). Together that is ₹1,00,000 in cash awards across 18 winning teams.",
+    nextTitle: "Competing for a prize",
+    nextBody:
+      "Start by choosing one of the [two official domains](/tracks), then read the [rules and eligibility](/rules) and the [FAQ](/faq). You can also [get registration updates](/register#updates) as soon as dates are confirmed.",
   },
 
   partners: {
-    meta: meta(
-      "Hackathon Sponsorship & Partnerships",
+    seo: meta(
+      "Sponsor a National Hackathon in India",
       "Explore sponsorship and partnership opportunities with InnovaHack Chapter 2, a planned pan-India hackathon for AI innovators and startup builders.",
     ),
     section: "Partners & industry",
@@ -476,7 +493,7 @@ export const copy = {
   },
 
   updates: {
-    meta: meta(
+    seo: meta(
       "Event Updates & Announcements",
       "Follow official InnovaHack Chapter 2 announcements, confirmed event details and guides for the planned 2027 AI and startup hackathon in India.",
     ),
@@ -497,8 +514,8 @@ export const copy = {
   },
 
   register: {
-    meta: meta(
-      "Registration & Event Updates",
+    seo: meta(
+      "Hackathon Registration 2027 & Updates",
       "Check InnovaHack Chapter 2 registration status and join the update list for official signup dates, rules and announcements for the planned 2027 hackathon.",
     ),
     section: "Registration",
@@ -523,7 +540,7 @@ export const copy = {
   },
 
   contact: {
-    meta: meta(
+    seo: meta(
       "Contact the Organizers",
       "Contact Elite Forums about InnovaHack Chapter 2, the planned 2027 national hackathon, for event questions and partnership inquiries.",
     ),
@@ -542,8 +559,8 @@ export const copy = {
   },
 
   faq: {
-    meta: meta(
-      "Hackathon FAQs",
+    seo: meta(
+      "Hackathon FAQs: Eligibility, Prizes & Tracks",
       "Get answers about InnovaHack Chapter 2 registration, eligibility, AI and startup tracks, prizes, partners and the planned 2027 event timeline.",
     ),
     section: "FAQ",
@@ -554,9 +571,9 @@ export const copy = {
   },
 
   rules: {
-    meta: meta(
+    seo: meta(
       "Hackathon Rules & Eligibility",
-      "Read confirmed competition principles for InnovaHack Chapter 2, including its Artificial Intelligence and Open Innovation / Startup domains. Full rules are pending.",
+      "Read the confirmed competition principles for InnovaHack Chapter 2, covering its AI and Open Innovation / Startup domains. Full rules are still to come.",
     ),
     section: "Official rules",
     title: "The rulebook.",
@@ -573,9 +590,9 @@ export const copy = {
   },
 
   privacy: {
-    meta: meta(
+    seo: meta(
       "Privacy Notice",
-      "What information the InnovaHack Chapter 2 website collects through its forms, and how it is used.",
+      "What information the InnovaHack Chapter 2 website collects through its registration, update, contact and partnership forms, and how it is used.",
     ),
     section: "Privacy",
     title: "Privacy notice.",
@@ -655,7 +672,10 @@ export const copy = {
   },
 
   terms: {
-    meta: meta("Terms & Conditions", "Terms for using the InnovaHack Chapter 2 website."),
+    seo: meta(
+      "Terms & Conditions",
+      "Terms for using the InnovaHack Chapter 2 website and its forms, including how to read planned event details and historical Chapter 1 figures.",
+    ),
     section: "Terms",
     title: "Terms & conditions.",
     deck: "The terms for using the {fullName} website.",

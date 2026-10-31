@@ -6,7 +6,7 @@ import { pageMeta } from "@/lib/seo";
 
 export async function generateMetadata() {
   const { copy } = await getSiteContent();
-  return pageMeta("/contact", copy.contact.meta.title, copy.contact.meta.description);
+  return pageMeta("/contact", copy.contact.seo.title, copy.contact.seo.description);
 }
 
 const linkClass = "text-burgundy underline underline-offset-4";

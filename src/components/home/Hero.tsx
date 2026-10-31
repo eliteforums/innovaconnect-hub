@@ -56,7 +56,7 @@ function Masthead({ c }: { c: SiteContent }) {
       <div className="@container min-w-0">
         <h1 className="headline whitespace-nowrap text-center text-[14.6cqw] font-black leading-[0.8] tracking-[-0.025em] lg:text-left">
           {m.wordmark}
-          <span className="sr-only"> {c.event.fullName}</span>
+          <span className="sr-only"> {m.headingSuffix}</span>
         </h1>
         <p className="mt-3 border-t border-ink pt-2 text-center kicker text-[0.625rem] lg:text-left">
           {m.themes.map((theme, i) => (

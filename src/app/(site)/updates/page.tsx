@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { copy, articles } = await getSiteContent();
   const hasPublished = articles.some((a) => !a.draft && a.publishedOn !== null);
   return {
-    ...pageMeta("/updates", copy.updates.meta.title, copy.updates.meta.description),
+    ...pageMeta("/updates", copy.updates.seo.title, copy.updates.seo.description),
     ...(!hasPublished ? { robots: { index: false, follow: true } } : {}),
   };
 }
@@ -42,12 +42,12 @@ export default async function UpdatesPage() {
         )}
         {lead ? (
           <div className="grid gap-10">
-            <ArticleCard article={lead} variant="lead" />
+            <ArticleCard article={lead} variant="lead" heading="h2" />
             {rest.length > 0 && (
               <ul className="grid gap-8 border-t-2 border-ink pt-8 md:grid-cols-2 lg:grid-cols-3">
                 {rest.map((a) => (
                   <li key={a.slug}>
-                    <ArticleCard article={a} />
+                    <ArticleCard article={a} heading="h2" />
                   </li>
                 ))}
               </ul>

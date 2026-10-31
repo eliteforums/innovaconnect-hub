@@ -6,7 +6,7 @@ import { pageMeta } from "@/lib/seo";
 
 export async function generateMetadata() {
   const { copy } = await getSiteContent();
-  return pageMeta("/tracks", copy.tracks.meta.title, copy.tracks.meta.description);
+  return pageMeta("/tracks", copy.tracks.seo.title, copy.tracks.seo.description);
 }
 
 export default async function TracksPage() {

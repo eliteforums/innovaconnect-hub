@@ -64,6 +64,12 @@ export const event = {
     } as Fact<string>,
   },
 
+  /** ISO dates of the event, e.g. "2027-02-20". With `venue`, these publish the Event search result. */
+  dates: {
+    start: { value: null, status: "unconfirmed" } as Fact<string>,
+    end: { value: null, status: "unconfirmed" } as Fact<string>,
+  },
+
   venue: {
     value: null,
     status: "unconfirmed",

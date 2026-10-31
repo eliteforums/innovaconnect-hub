@@ -4,7 +4,7 @@ import { pageMeta } from "@/lib/seo";
 
 export async function generateMetadata() {
   const { copy } = await getSiteContent();
-  return pageMeta("/privacy", copy.privacy.meta.title, copy.privacy.meta.description);
+  return pageMeta("/privacy", copy.privacy.seo.title, copy.privacy.seo.description);
 }
 
 export default async function PrivacyPage() {

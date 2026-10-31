@@ -13,7 +13,7 @@ const ip = `10.${Math.floor(Math.random() * 250)}.${Math.floor(Math.random() * 2
 
 const routes = [
   "/", "/about", "/chapter-1", "/tracks", "/tracks/artificial-intelligence", "/tracks/open-innovation",
-  "/timeline", "/prizes", "/partners", "/updates", "/register", "/contact", "/faq", "/rules", "/privacy", "/terms",
+  "/prizes", "/partners", "/updates", "/register", "/contact", "/faq", "/rules", "/privacy", "/terms",
 ];
 
 function post(path, body, headers = {}) {
@@ -63,12 +63,48 @@ test("all internal links resolve", async () => {
   }
 });
 
+test("search metadata: lengths, uniqueness, retired routes and the 404 page", async () => {
+  const descriptions = new Set();
+  for (const r of routes) {
+    const html = await (await fetch(`${BASE}${r}`)).text();
+    const title = html.match(/<title>([^<]*)<\/title>/)[1].replace(/&amp;/g, "&");
+    const description = html.match(/<meta name="description" content="([^"]*)"/)[1].replace(/&#x27;/g, "'").replace(/&amp;/g, "&");
+    assert.ok(title.length <= 60, `${r} title is ${title.length} characters: ${title}`);
+    assert.ok(description.length >= 110 && description.length <= 160, `${r} description is ${description.length} characters`);
+    assert.ok(!descriptions.has(description), `${r} description is unique`);
+    descriptions.add(description);
+    assert.match(html, /<link rel="canonical"/, `${r} has a canonical URL`);
+  }
+  const home = await (await fetch(`${BASE}/`)).text();
+  const structuredData = [...home.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map((m) => m[1]).join();
+  assert.ok(structuredData.length > 0, "the homepage has structured data");
+  assert.ok(!/\{organizer\}/.test(structuredData), "structured data has no unfilled placeholders");
+  const visibleText = home.replace(/<script.*?<\/script>|<style.*?<\/style>/gs, "").replace(/<[^>]+>/g, " ");
+  assert.ok(!/\{organizer\}/.test(visibleText), "visible text has no unfilled placeholders");
+
+  const retired = await fetch(`${BASE}/timeline`, { redirect: "manual" });
+  assert.equal(retired.status, 308);
+  assert.equal(new URL(retired.headers.get("location"), BASE).pathname, "/prizes");
+
+  const missing = await fetch(`${BASE}/no-such-page`);
+  assert.equal(missing.status, 404);
+  const missingHtml = await missing.text();
+  assert.match(missingHtml, /<title>Page not found/);
+  assert.match(missingHtml, /<meta name="robots" content="noindex/);
+  assert.ok(!/<link rel="canonical"/.test(missingHtml), "the 404 page has no canonical URL");
+});
+
 test("sitemap, robots and OG image are served", async () => {
   const sitemap = await fetch(`${BASE}/sitemap.xml`);
   assert.equal(sitemap.status, 200);
   assert.match(await sitemap.text(), /<loc>[^<]+\/chapter-1<\/loc>/);
   const robots = await (await fetch(`${BASE}/robots.txt`)).text();
   assert.match(robots, /Disallow: \/api\//);
+  assert.match(robots, /Allow: \/api\/media\//);
+  const manifest = await fetch(`${BASE}/manifest.webmanifest`);
+  assert.equal(manifest.status, 200);
+  for (const { src } of (await manifest.json()).icons) assert.equal((await fetch(`${BASE}${src}`)).status, 200, src);
+  assert.equal((await fetch(`${BASE}/favicon.ico`)).status, 200);
   const og = await fetch(`${BASE}/opengraph-image`);
   assert.equal(og.status, 200);
   assert.equal(og.headers.get("content-type"), "image/png");

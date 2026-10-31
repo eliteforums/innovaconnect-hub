@@ -203,12 +203,19 @@ notification emails are sent only after a successful write.
 ### Search visibility
 
 - Set `NEXT_PUBLIC_SITE_URL` to the final public HTTPS domain so canonical URLs, Open Graph URLs and the sitemap all use the same host.
-- Every public page gets a canonical URL, page-specific title and description, Open Graph and Twitter card
-  metadata, and the shared SEO keyword set from `src/lib/seo.ts`.
-- The public shell emits `WebSite` and `Organization` JSON-LD. Page headers emit breadcrumb JSON-LD;
-  the FAQ and published Build Log articles emit their relevant structured data as well.
-- `/robots.txt` allows public pages while excluding `/api/` and `/admin`; `/sitemap.xml` includes only
-  public routes and published articles, never drafts.
+- Every public page gets a canonical URL, page-specific title and description (the `seo` field of its section
+  in `src/content/copy.ts`, editable in the dashboard), Open Graph and Twitter card metadata, and the shared
+  SEO keyword set from `src/lib/seo.ts`. `tests/smoke.test.mjs` checks their length and uniqueness.
+- A section saved in the database, by the seed or the dashboard, overrides the same field in `src/content/`.
+  Only new fields are filled in from code. To publish a code edit to an existing field, use "Reset to default"
+  on that section or make the same edit in the dashboard.
+- The public shell emits `Organization` JSON-LD and the homepage emits `WebSite`. Page headers emit breadcrumb
+  JSON-LD; the FAQ and published Build Log articles emit their relevant structured data as well.
+- The homepage emits `Event` JSON-LD, which is what qualifies for event search results, once `event.dates.start`
+  and `event.venue` are both set. Add official profile URLs to `event.social` to publish them as `sameAs`.
+- `/robots.txt` allows public pages and uploaded images while excluding the rest of `/api/`. Admin routes stay
+  crawlable so search engines can read their `noindex` tag. `/sitemap.xml` includes only public routes and
+  published articles, never drafts.
 - To verify the site in Google Search Console, set `GOOGLE_SITE_VERIFICATION` to the token from the HTML-tag verification method, then redeploy.
 - After verification, submit `https://<your-domain>/sitemap.xml` in Search Console and use URL Inspection to check the homepage and the two domain pages.
 
