@@ -434,10 +434,10 @@ export const copy = {
 
   prizes: {
     meta: meta(
-      "Hackathon Prizes & Awards",
-      "InnovaHack Chapter 2 has three tiers of cash awards for 18 winning teams, from ₹4,000 to ₹10,000 per team.",
+      "InnovaHack Chapter 2 Prize Pool",
+      "Explore the InnovaHack Chapter 2 prize pool: three tiers of cash awards for 18 winning teams, from ₹4,000 to ₹10,000 per team.",
     ),
-    section: "Cash awards by tier",
+    section: "Prize Pool",
     title: "Three tiers. *Eighteen winning teams.*",
     deck: "₹1,00,000 in confirmed cash awards. Each amount is per team, and the winner counts below refer to teams.",
     pendingTitle: "Tier details are being updated.",

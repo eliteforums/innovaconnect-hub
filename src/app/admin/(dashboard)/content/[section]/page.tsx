@@ -27,7 +27,7 @@ const livePaths: Record<string, string> = {
   "copy.tracks": "/tracks",
   "copy.domainDetail": "/tracks/artificial-intelligence",
   "copy.chapter1Page": "/chapter-1",
-  "copy.timeline": "/timeline",
+  "copy.timeline": "/#journey-title",
   "copy.prizes": "/prizes",
   "copy.partners": "/partners",
   "copy.updates": "/updates",

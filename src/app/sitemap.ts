@@ -9,7 +9,6 @@ const routes = [
   "/tracks/artificial-intelligence",
   "/tracks/open-innovation",
   "/chapter-1",
-  "/timeline",
   "/prizes",
   "/partners",
   "/register",

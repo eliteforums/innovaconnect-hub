@@ -15,7 +15,7 @@ export const faq: FaqGroup[] = [
       },
       {
         q: "When and where is Chapter 2?",
-        a: "Dates and the grand finale venue have not been confirmed yet. They will be published on the Timeline page and announced to the update list.",
+        a: "Dates and the grand finale venue have not been confirmed yet. Once confirmed, they will be published on this site and announced to the update list.",
       },
       {
         q: "Who organizes InnovaHack?",

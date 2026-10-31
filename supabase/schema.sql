@@ -952,7 +952,7 @@ insert into public.site_content (key, value) values ('faq', $seed$[
       },
       {
         "q": "When and where is Chapter 2?",
-        "a": "Dates and the grand finale venue have not been confirmed yet. They will be published on the Timeline page and announced to the update list."
+        "a": "Dates and the grand finale venue have not been confirmed yet. Once confirmed, they will be published on this site and announced to the update list."
       },
       {
         "q": "Who organizes InnovaHack?",
@@ -1770,8 +1770,8 @@ insert into public.site_content (key, value) values ('navigation', $seed${
       "href": "/chapter-1"
     },
     {
-      "label": "Timeline",
-      "href": "/timeline"
+      "label": "Prize Pool",
+      "href": "/prizes"
     },
     {
       "label": "Partners",
@@ -1795,11 +1795,7 @@ insert into public.site_content (key, value) values ('navigation', $seed${
           "href": "/about"
         },
         {
-          "label": "Timeline",
-          "href": "/timeline"
-        },
-        {
-          "label": "Prizes",
+          "label": "Prize Pool",
           "href": "/prizes"
         },
         {
@@ -2391,7 +2387,7 @@ insert into public.site_content (key, value) values ('copy.chapter1Page', $seed$
 }$seed$::jsonb)
 on conflict (key) do nothing;
 
--- Timeline
+-- Homepage journey
 insert into public.site_content (key, value) values ('copy.timeline', $seed${
   "meta": {
     "title": "Hackathon Timeline 2027",
@@ -2427,10 +2423,10 @@ on conflict (key) do nothing;
 -- Prizes
 insert into public.site_content (key, value) values ('copy.prizes', $seed${
   "meta": {
-    "title": "Hackathon Prizes & Awards",
-    "description": "InnovaHack Chapter 2 has three tiers of cash awards for 18 winning teams, from ₹4,000 to ₹10,000 per team."
+    "title": "InnovaHack Chapter 2 Prize Pool",
+    "description": "Explore the InnovaHack Chapter 2 prize pool: three tiers of cash awards for 18 winning teams, from ₹4,000 to ₹10,000 per team."
   },
-  "section": "Cash awards by tier",
+  "section": "Prize Pool",
   "title": "Three tiers. *Eighteen winning teams.*",
   "deck": "₹1,00,000 in confirmed cash awards. Each amount is per team, and the winner counts below refer to teams.",
   "pendingTitle": "Tier details are being updated.",

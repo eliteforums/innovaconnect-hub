@@ -70,7 +70,6 @@ export async function JourneySection() {
           id="journey-title"
           title={j.title}
           deck={j.deck}
-          action={<TextLink href="/timeline">{j.action}</TextLink>}
         />
         <div className="mt-10">
           <RailwayJourney />

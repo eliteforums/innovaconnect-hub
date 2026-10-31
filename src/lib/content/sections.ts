@@ -75,7 +75,7 @@ export const sectionInfo: Record<SectionKey, { label: string; group: string; des
   "copy.tracks": { label: "The Tracks", group: "Page text", description: "Tracks overview page and comparison table." },
   "copy.domainDetail": { label: "Domain pages", group: "Page text", description: "Shared labels on both domain detail pages." },
   "copy.chapter1Page": { label: "Chapter 1 page", group: "Page text", description: "Chapter 1 archive page text." },
-  "copy.timeline": { label: "Timeline", group: "Page text", description: "Timeline page and railway journey labels." },
+  "copy.timeline": { label: "Homepage journey", group: "Page text", description: "Homepage competition journey and railway journey labels." },
   "copy.prizes": { label: "Prizes", group: "Page text", description: "Prizes page text and award labels." },
   "copy.partners": { label: "Partners", group: "Page text", description: "Partners page text." },
   "copy.updates": { label: "Updates", group: "Page text", description: "Build Log listing and article page labels." },
