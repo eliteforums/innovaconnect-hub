@@ -10,7 +10,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "node --test tests/smoke.test.mjs",
     "test:browser": "node --test --test-concurrency=1 tests/browser.test.mjs",
-    "test:admin": "node --test --test-concurrency=1 tests/admin.test.mjs"
+    "test:admin": "node --test --test-concurrency=1 tests/admin.test.mjs",
+    "db:seed-sql": "tsx scripts/supabase/generate-seed.ts"
   },
   "dependencies": {
     "lucide-react": "^1.63.0",
@@ -29,6 +30,7 @@
     "eslint-config-next": "16.4.3",
     "playwright-core": "^1.64.1",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

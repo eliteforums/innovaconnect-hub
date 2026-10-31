@@ -5,7 +5,7 @@ import { MumbaiMap } from "@/components/map/MumbaiMap";
 import { Figure } from "@/components/media/Figure";
 import { ButtonLink, Container, Rich, SectionHeader, StatusTag, TextLink } from "@/components/ui";
 import { DomainPanels } from "./DomainPanels";
-import { Journey } from "./Journey";
+import { RailwayJourney } from "@/components/timeline/RailwayJourney";
 
 export async function DomainsSection() {
   const { copy } = await getSiteContent();
@@ -72,8 +72,8 @@ export async function JourneySection() {
           deck={j.deck}
           action={<TextLink href="/timeline">{j.action}</TextLink>}
         />
-        <div className="mt-12">
-          <Journey />
+        <div className="mt-10">
+          <RailwayJourney />
         </div>
       </Container>
     </section>

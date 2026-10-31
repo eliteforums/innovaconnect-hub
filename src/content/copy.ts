@@ -185,8 +185,6 @@ export const copy = {
       title: "From first idea to final stage.",
       deck: "The proposed Chapter 2 stages, subject to the organizer's final rules. Dates will be added as they are confirmed.",
       action: "Full timeline",
-      stopLabel: "Stop",
-      dateTba: "Date TBA",
     },
     prizes: {
       number: "06",

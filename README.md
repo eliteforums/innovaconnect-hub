@@ -30,6 +30,7 @@ works with no setup.
 | `npm test` | End-to-end smoke tests against `BASE_URL` (default `http://localhost:3000`) |
 | `npm run test:browser` | Browser tests (Playwright core); set `CHROME_PATH` to a local Chrome |
 | `npm run test:admin` | Admin dashboard tests (needs writable storage) |
+| `npm run db:seed-sql` | Regenerates the content seed in `supabase/schema.sql` from `src/content/` |
 
 ---
 
@@ -152,7 +153,14 @@ It's safe to run again after updates and never deletes data. It creates:
 - `site_content` for dashboard edits and `admin_sessions` for sign-ins (expired sessions are purged
   automatically);
 - the public `site-media` bucket for uploaded images (5 MB limit, JPEG/PNG/WebP/GIF/AVIF);
-- read-only `*_view` views that flatten submissions into columns for the Supabase Table Editor.
+- read-only `*_view` views that flatten submissions into columns for the Supabase Table Editor;
+- **seed data:** every editable section of the website (26 rows in `site_content`), so the database holds the
+  complete site content from day one. Seed rows use `on conflict do nothing`, so re-running the file never
+  overwrites dashboard edits.
+
+The seed is generated from the built-in content in `src/content/`. If you change those files, run
+`npm run db:seed-sql` to refresh the seed block in `schema.sql`. Already-seeded databases keep their rows; use
+**Reset to default** in the dashboard and re-run the SQL to pick up a new version of a section.
 
 Row-level security is on with no policies, and the `anon`/`authenticated` roles have no privileges, so the
 public anon key can't read or write anything. The site uses the service-role key from the server only. Then set
