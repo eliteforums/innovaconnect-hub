@@ -296,7 +296,7 @@ export const copy = {
     organizerNumber: "02",
     organizerKicker: "The organizer",
     organizerBody:
-      "{organizer} is a community-driven organization that connects builders with opportunities through tech meetups, hackathons and industry events. InnovaHack is its national hackathon.",
+      "Where Founder Ambition Meets Opportunity.\nElite Forums is a startup ecosystem initiative that began in Mumbai with a vision to make India a stronger hub for entrepreneurship and innovation.\nWe bring together aspiring founders, students, working professionals, first-time builders, college communities, mentors, and ecosystem partners through a connected network built around ideas, people, and possibilities.\nOur mission is rooted in a simple belief: Entrepreneurship should be a community, not a solo journey.\nThrough our communities, college partnerships, workshops, hackathons, founder conversations, and collaborative experiences, we create opportunities for individuals to learn, connect, experiment, and build.\nWith our Innovation Laboratory, we take this mission further by helping transform promising ideas into working technology, products, and new ventures.\nFrom Mumbai to all of India, Elite Forums is building a connected ecosystem where ambition finds its people and ideas find opportunities.",
     archiveCta: "The Chapter 1 archive",
     contactCta: "Contact us",
   },
