@@ -194,13 +194,28 @@ body {
     animation-range: entry 60% exit 30%;
   }
 }
+/* The local's wheels turn in step with the train's travel. */
+@supports (animation-timeline: view()) {
+  .journey-line .train-wheel {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wheel-spin linear both;
+    animation-timeline: --journey;
+    animation-range: entry 60% exit 30%;
+  }
+}
+@keyframes wheel-spin {
+  to {
+    transform: rotate(8640deg);
+  }
+}
 @keyframes train-run {
   from {
     transform: translateX(0);
   }
   to {
     /* The track is the element's own width; stop with the train at the last station. */
-    transform: translateX(calc(100% - 430px));
+    transform: translateX(calc(100% - 550px));
   }
 }
 
@@ -246,7 +261,8 @@ details > summary::-webkit-details-marker {
     transition-duration: 0.001ms !important;
   }
   .in-view,
-  .train-run {
+  .train-run,
+  .train-wheel {
     animation: none !important;
   }
 }

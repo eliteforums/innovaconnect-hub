@@ -1,5 +1,5 @@
 import { getSiteContent, type SiteContent } from "@/lib/content";
-import { ContentImage } from "@/components/media/ContentImage";
+import { LocalTrain } from "./LocalTrain";
 import { StatusTag } from "@/components/ui";
 import { fill, formatDate, registrationState } from "@/lib/site";
 
@@ -8,16 +8,16 @@ type RailCopy = SiteContent["copy"]["timeline"]["rail"];
 
 /**
  * The competition journey as a Mumbai suburban line: each stage is a station
- * with an Indian Railways–style name board, joined by a railway track. A local
- * train runs along the track as the section scrolls (where supported); it is
- * decorative and does not indicate progress.
+ * with an Indian Railways–style name board, joined by a railway track. A 2D
+ * model of a Mumbai local runs along the track as the section scrolls, its
+ * wheels turning (where supported); it is decorative and does not indicate
+ * progress.
  */
 export async function RailwayJourney() {
   const c = await getSiteContent();
   const stages = c.event.journey;
   const status = registrationState(c).badge;
   const r = c.copy.timeline.rail;
-  const train = c.images.timelineTrain;
   return (
     <div>
       <p className="flex flex-wrap items-center gap-x-4 gap-y-2 border-y border-ink py-2 kicker text-[0.6875rem]">
@@ -56,9 +56,10 @@ export async function RailwayJourney() {
         {/* The local, on the near rail */}
         <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[104px] h-[210px]">
           <div className="train-run absolute inset-0">
-            <div className="absolute bottom-[2px] left-[-12px] w-[440px]">
+            {/* Wheels sit on the near rail (its top edge is 19px above the lane bottom). */}
+            <div className="absolute bottom-[19px] left-[-12px] w-[560px]">
               <TrainTag label={r.trainTag} />
-              <ContentImage src={train} alt="" sizes="440px" className="h-auto w-full drop-shadow-[0_6px_6px_rgba(23,23,23,0.25)]" />
+              <LocalTrain className="block h-auto w-full drop-shadow-[0_5px_4px_rgba(23,23,23,0.22)]" />
             </div>
           </div>
         </div>
@@ -66,9 +67,13 @@ export async function RailwayJourney() {
 
       {/* Mobile & tablet: the line runs down the page */}
       <div className="mt-8 lg:hidden">
-        <div aria-hidden className="relative mb-2 w-full max-w-[440px]">
-          <TrainTag label={r.trainTag} />
-          <ContentImage src={train} alt="" sizes="(min-width: 640px) 440px, 92vw" className="h-auto w-full" />
+        <div aria-hidden className="relative mb-4 w-full max-w-[520px] pt-8">
+          <TrainTag label={r.trainTag} className="right-0 top-0" />
+          <LocalTrain className="relative z-[1] block h-auto w-full" />
+          <div className="relative -mt-[3px] h-[12px]">
+            <div className="absolute inset-x-0 top-0 h-[5px] border-y border-ink bg-[linear-gradient(#c9c4ba,#6b675f)]" />
+            <div className="absolute inset-x-0 top-[5px] h-[7px] bg-[repeating-linear-gradient(90deg,#5b4636_0_8px,transparent_8px_20px)]" />
+          </div>
         </div>
         <ol className="relative">
           <VerticalTrack />
@@ -140,9 +145,9 @@ function StageDetails({ stage, r, align = "center" }: { stage: Stage; r: RailCop
   );
 }
 
-function TrainTag({ label }: { label: string }) {
+function TrainTag({ label, className = "-top-3 right-[6%]" }: { label: string; className?: string }) {
   return (
-    <span className="absolute -top-3 right-[6%] z-10 whitespace-nowrap border-2 border-ink bg-ink px-2 py-0.5 font-mono text-[0.625rem] font-semibold tracking-[0.12em] text-taxi">
+    <span className={`absolute z-10 whitespace-nowrap ${className} border-2 border-ink bg-ink px-2 py-0.5 font-mono text-[0.625rem] font-semibold tracking-[0.12em] text-taxi`}>
       {label}
     </span>
   );

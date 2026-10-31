@@ -748,6 +748,5 @@ export const siteImages = {
   mastheadSketch: "cutout-gateway",
   domainAiArt: "cutout-ai",
   domainStartupArt: "cutout-bulb",
-  timelineTrain: "cutout-train-cr",
   footerSkyline: "footerSkyline",
 };

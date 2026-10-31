@@ -67,7 +67,7 @@ export const sectionInfo: Record<SectionKey, { label: string; group: string; des
   chapter1: { label: "Chapter 1 archive", group: "Event", description: "Historical figures, domains, structure, winners, partners, judges and gallery." },
   city: { label: "Mumbai stories", group: "Mumbai & media", description: "The hero sidebar stories and the city feature grid." },
   map: { label: "Mumbai map", group: "Mumbai & media", description: "Rail lines, stations, landmarks and labels on the Section 09 map." },
-  images: { label: "Layout images", group: "Mumbai & media", description: "Hero collage layers, domain artwork, timeline train and footer skyline." },
+  images: { label: "Layout images", group: "Mumbai & media", description: "Hero collage layers, domain artwork and footer skyline." },
   navigation: { label: "Navigation", group: "Site", description: "Header menu and footer link columns." },
   "copy.global": { label: "Global text & SEO", group: "Site", description: "Header, footer, registration messages, status labels, SEO and the 404 page." },
   "copy.home": { label: "Homepage", group: "Page text", description: "Every heading, paragraph and label on the homepage." },

@@ -80,7 +80,7 @@ use. Anyone who signs in can rewrite pages and read registrants' personal detail
 | Overview | Submission counts, latest submissions, storage/email status, recently edited sections |
 | Form submissions | Registrations, update list, partner inquiries, contact messages: search, expand, delete, export CSV |
 | Edit · Event | Event settings (registration status, dates, venue, team size, fee, prizes, awards, partners, contacts, journey, participation figures), domains, Build Log articles, FAQ, rules, Chapter 1 archive |
-| Edit · Mumbai & media | Hero sidebar and city stories, the Mumbai map, every layout image (hero collage layers, domain artwork, timeline train, footer skyline) |
+| Edit · Mumbai & media | Hero sidebar and city stories, the Mumbai map, every layout image (hero collage layers, domain artwork, footer skyline) |
 | Edit · Site | Header and footer navigation; global text, SEO title and description, status labels, 404 page |
 | Edit · Page text | Every heading, paragraph, button and label on every page |
 | Image library | Upload, preview, copy and delete images |
