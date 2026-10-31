@@ -24,7 +24,24 @@ export async function SiteChrome({ children }: { children: React.ReactNode }) {
         "@type": "Organization",
         "@id": `${siteUrl}/#organizer`,
         name: c.event.organizer,
-        description: "Organizer of InnovaHack, a national hackathon in India.",
+        url: siteUrl,
+        logo: `${siteUrl}/icon.svg`,
+        description: c.copy.about.organizerBody.replace(/\n/g, " "),
+        areaServed: {
+          "@type": "Country",
+          name: "India",
+        },
+        foundingLocation: {
+          "@type": "Place",
+          name: "Mumbai, India",
+        },
+        knowsAbout: [
+          "Entrepreneurship",
+          "Innovation",
+          "Technology",
+          "Hackathons",
+          "Startup ecosystems",
+        ],
       },
     ],
   };
