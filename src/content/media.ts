@@ -93,12 +93,12 @@ export const photos = {
     position: "50% 30%",
   },
   autorickshaw: {
-    src: "autorickshaw",
-    alt: "A black-and-yellow autorickshaw.",
-    credit: "Photo · Autorickshaw",
+    src: "autorickshawQueue",
+    alt: "A line of black-and-yellow autorickshaws parked along a wet roadside, one being pushed forward by its driver.",
+    credit: "Photo · Autorickshaws waiting in line",
     license: SUPPLIED,
     approved: true,
-    fit: "contain",
+    position: "62% 55%",
   },
   aiDomain: {
     src: "aiDomain",

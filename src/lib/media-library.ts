@@ -2,6 +2,7 @@ import type { StaticImageData } from "next/image";
 
 import aiDomain from "@/assets/photos/ai-domain.jpg";
 import bestBuses from "@/assets/photos/best-buses.jpg";
+import autorickshawQueue from "@/assets/photos/autorickshaw-queue.jpg";
 import bmcTaxi from "@/assets/photos/bmc-taxi.jpg";
 import csmt from "@/assets/photos/csmt.jpg";
 import footerSkyline from "@/assets/photos/footer-skyline.webp";
@@ -44,6 +45,7 @@ export const mediaLibrary: Record<string, { file: StaticImageData; label: string
   aiDomain: { file: aiDomain, label: "AI domain artwork", group: "Photo" },
   startupDomain: { file: startupDomain, label: "Startup domain artwork", group: "Photo" },
   footerSkyline: { file: footerSkyline, label: "Footer skyline", group: "Photo" },
+  autorickshawQueue: { file: autorickshawQueue, label: "Autorickshaws in a queue", group: "Photo" },
   autorickshaw: { file: cutoutAuto, label: "Autorickshaw (cutout)", group: "Cutout" },
   "cutout-bmc": { file: cutoutBmc, label: "BMC building (cutout)", group: "Cutout" },
   "cutout-taxi": { file: cutoutTaxi, label: "Taxi (cutout)", group: "Cutout" },
