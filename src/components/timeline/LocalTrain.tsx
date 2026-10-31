@@ -1,9 +1,9 @@
 import { useId } from "react";
 
 /**
- * A 2D side-view model of a Mumbai suburban "local" (Central Railway EMU
+ * A 2D side-view model of a Mumbai suburban "local" (Western Railway EMU
  * livery): silver roof, white body with a magenta lower band and door frames,
- * open doorways, "CR" lettering, red pantograph and a yellow driving cab.
+ * open doorways, "WR" lettering, red pantograph and a yellow driving cab.
  * Facing right. Wheels carry the `train-wheel` class so CSS can spin them.
  */
 
@@ -122,10 +122,10 @@ function Car({ x, pantograph = false, cab = false }: { x: number; pantograph?: b
 
       {/* Lettering */}
       <text x="70" y="88" fontFamily="Arial, Helvetica, sans-serif" fontWeight="700" fontSize="19" fill={C.white}>
-        CR
+        WR
       </text>
       <text x="182" y="88" fontFamily="Arial, Helvetica, sans-serif" fontWeight="700" fontSize="19" fill={C.white}>
-        CR
+        WR
       </text>
       <text x="64" y="32.5" fontFamily="Arial, Helvetica, sans-serif" fontWeight="700" fontSize="5" fill="#7C8590">
         III

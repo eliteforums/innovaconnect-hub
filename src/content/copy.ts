@@ -134,7 +134,7 @@ export const copy = {
       title: "Rooted in Mumbai. *Built for India.*",
       body: "From the speed of its local trains to the ambition of its builders, Mumbai represents movement, resilience, diversity, and possibility. InnovaHack brings that spirit to a national platform for technology and entrepreneurship.",
       stops: ["Movement", "Resilience", "Diversity", "Possibility"],
-      stopLabel: "Stop",
+      stopLabel: "Station",
       venueNote: "Chapter 2 is a pan-India event. The grand finale venue has not yet been announced.",
       tiles: [
         { illustration: "train", alt: "Illustration of a suburban local train.", credit: "Local train", photo: photos.localTrain },
@@ -435,7 +435,7 @@ export const copy = {
       stationsLabel: "{count} stations · Online → In person",
       trainTag: "CH-02 FAST · GRAND FINALE",
       terminusLabel: "Terminus",
-      stopLabel: "Stop",
+      stopLabel: "Station",
       platformLabel: "PF",
       dateTba: "Date TBA",
       footnote: "Proposed stages, subject to the organizer's final rules. The train is decorative and does not show progress.",

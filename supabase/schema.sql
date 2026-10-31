@@ -1963,7 +1963,7 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
       "Diversity",
       "Possibility"
     ],
-    "stopLabel": "Stop",
+    "stopLabel": "Station",
     "venueNote": "Chapter 2 is a pan-India event. The grand finale venue has not yet been announced.",
     "tiles": [
       {
@@ -2379,7 +2379,7 @@ insert into public.site_content (key, value) values ('copy.timeline', $seed${
     "stationsLabel": "{count} stations · Online → In person",
     "trainTag": "CH-02 FAST · GRAND FINALE",
     "terminusLabel": "Terminus",
-    "stopLabel": "Stop",
+    "stopLabel": "Station",
     "platformLabel": "PF",
     "dateTba": "Date TBA",
     "footnote": "Proposed stages, subject to the organizer's final rules. The train is decorative and does not show progress."
