@@ -21,7 +21,7 @@ export type SubmissionRow = {
 
 class StorageUnavailableError extends Error {
   constructor() {
-    super("Storage is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (see README).");
+    super("Storage is not configured. Set SUPABASE_URL and SUPABASE_SECRET_KEY (see README).");
   }
 }
 

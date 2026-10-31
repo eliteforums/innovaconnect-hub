@@ -7,8 +7,9 @@ import path from "node:path";
  * Persistence adapter for form submissions (and, via ./admin-store.ts, for
  * editable content, admin sessions and uploaded media).
  *
- *  - "supabase": used when SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set.
- *    Writes through the PostgREST API with the service-role key (server only).
+ *  - "supabase": used when SUPABASE_URL and an elevated Supabase key are set.
+ *    Writes through the PostgREST API with a secret key (preferred) or legacy
+ *    service-role key (server only).
  *    Tables are defined in supabase/schema.sql.
  *  - "file": newline-delimited JSON under .data/ — for local development, or
  *    for self-hosting on a persistent disk when STORAGE_DRIVER=file.
@@ -25,7 +26,12 @@ export type InsertResult =
 type Driver = "supabase" | "file" | "none";
 
 export function storageDriver(): Driver {
-  if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) return "supabase";
+  if (
+    process.env.SUPABASE_URL &&
+    (process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY)
+  ) {
+    return "supabase";
+  }
   if (process.env.STORAGE_DRIVER === "file") return "file";
   if (process.env.NODE_ENV !== "production") return "file";
   return "none";
@@ -51,13 +57,20 @@ export function dataDir() {
   return process.env.LOCAL_STORE_DIR ?? path.join(process.cwd(), ".data");
 }
 
-/** Authenticated request to the Supabase REST/Storage APIs with the service-role key. */
+/** Authenticated request to Supabase REST/Storage using a server-only elevated key. */
 export function supabase(pathAndQuery: string, init: RequestInit & { headers?: Record<string, string> } = {}) {
   const base = process.env.SUPABASE_URL!.replace(/\/$/, "");
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+  const secretKey = process.env.SUPABASE_SECRET_KEY;
+  const key = secretKey || process.env.SUPABASE_SERVICE_ROLE_KEY!;
   return fetch(`${base}${pathAndQuery}`, {
     ...init,
-    headers: { apikey: key, Authorization: `Bearer ${key}`, ...init.headers },
+    headers: {
+      apikey: key,
+      // New sb_secret keys are not JWTs. Only legacy service-role keys belong
+      // in Authorization; Supabase resolves new keys from the apikey header.
+      ...(secretKey ? {} : { Authorization: `Bearer ${key}` }),
+      ...init.headers,
+    },
     cache: "no-store",
     signal: AbortSignal.timeout(10000),
   });

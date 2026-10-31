@@ -7,14 +7,14 @@
 --    It is idempotent: safe to run again after updates, and it never deletes
 --    data. Then set these environment variables on the website (e.g. Vercel):
 --      SUPABASE_URL               = Project Settings → API → Project URL
---      SUPABASE_SERVICE_ROLE_KEY  = Project Settings → API → service_role key
+--      SUPABASE_SECRET_KEY        = Project Settings → API Keys → secret key
 --      ADMIN_USERNAME / ADMIN_PASSWORD  (dashboard login; defaults admin/admin)
 --
 --  SECURITY MODEL
---    The website talks to Supabase only from the server, with the service-role
---    key. Every table has row-level security ON and NO policies, and the anon /
---    authenticated roles have no table privileges — so the public anon key can
---    neither read nor write anything. Never expose the service-role key in the
+--    The website talks to Supabase only from the server, with the secret key
+--    (or legacy service_role key). Every table has row-level security ON and NO policies, and the anon /
+--    authenticated roles have no table privileges — so the public publishable key can
+--    neither read nor write anything. Never expose an elevated key in the
 --    browser.
 --
 --  WHAT IT CREATES

@@ -37,7 +37,7 @@ export async function loginAction(_prev: ActionResult, formData: FormData): Prom
   if (storageDriver() === "none") {
     return {
       ok: false,
-      message: "Admin needs storage to keep you signed in. Configure SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (see README).",
+      message: "Admin needs storage to keep you signed in. Configure SUPABASE_URL and SUPABASE_SECRET_KEY (see README).",
     };
   }
   await createSession(username);

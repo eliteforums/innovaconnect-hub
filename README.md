@@ -142,7 +142,7 @@ are rejected with a clear message.
 
 | Storage driver | When it's used |
 | --- | --- |
-| Supabase | `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are set |
+| Supabase | `SUPABASE_URL` and `SUPABASE_SECRET_KEY` (or legacy `SUPABASE_SERVICE_ROLE_KEY`) are set |
 | File (JSON lines) | Development, or `STORAGE_DRIVER=file` on a persistent disk |
 | None | Production with nothing configured — forms answer **503 "nothing was saved"** |
 
@@ -162,9 +162,11 @@ The seed is generated from the built-in content in `src/content/`. If you change
 `npm run db:seed-sql` to refresh the seed block in `schema.sql`. Already-seeded databases keep their rows; use
 **Reset to default** in the dashboard and re-run the SQL to pick up a new version of a section.
 
-Row-level security is on with no policies, and the `anon`/`authenticated` roles have no privileges, so the
-public anon key can't read or write anything. The site uses the service-role key from the server only. Then set
-`SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (Project Settings → API) in your environment.
+Row-level security is on with no policies, and the `anon`/`authenticated` roles have no privileges, so a
+publishable key can't read or write anything. The site uses an elevated Supabase secret key from the server
+only. Set `SUPABASE_URL` and `SUPABASE_SECRET_KEY` (Project Settings → API Keys) in your environment. The
+legacy `SUPABASE_SERVICE_ROLE_KEY` variable is also supported during migration. Never expose either elevated
+key in browser code.
 
 **Email (optional):** set `RESEND_API_KEY`, `EMAIL_FROM` and `NOTIFY_EMAIL`. Confirmation and organizer
 notification emails are sent only after a successful write.
@@ -186,7 +188,7 @@ notification emails are sent only after a successful write.
 1. Import the repository in Vercel. `vercel.json` pins the framework to Next.js, which overrides any older
    dashboard setting such as a Vite preset with a `dist` output directory.
 2. Add environment variables from `.env.example`: at minimum `NEXT_PUBLIC_SITE_URL`,
-   `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`.
+   `SUPABASE_URL` and `SUPABASE_SECRET_KEY` (or the legacy `SUPABASE_SERVICE_ROLE_KEY`).
 3. Deploy. After changing `REGISTRATION_STATUS` or any content file, redeploy.
 
 ### Search visibility
