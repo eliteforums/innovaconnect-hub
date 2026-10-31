@@ -81,8 +81,9 @@ export async function JourneySection() {
 }
 
 export async function PrizesSection() {
-  const { copy } = await getSiteContent();
-  const p = copy.home.prizes;
+  const c = await getSiteContent();
+  const p = c.copy.home.prizes;
+  const awards = c.event.awards;
   return (
     <section aria-labelledby="prizes-title" className="mt-24">
       <Container>
@@ -97,9 +98,9 @@ export async function PrizesSection() {
               <h2 id="prizes-title" className="headline mt-4 text-[clamp(2.5rem,5.5vw,4.5rem)] uppercase">
                 <Rich text={p.title} accent="text-taxi" />
               </h2>
-              {p.pending && (
+              {p.summary && (
                 <p className="mt-8 inline-block border-2 border-taxi px-4 py-3 headline text-2xl uppercase text-taxi md:text-3xl">
-                  {p.pending}
+                  {p.summary}
                 </p>
               )}
               <p className="mt-5 max-w-lg text-paper/80">
@@ -113,10 +114,13 @@ export async function PrizesSection() {
               <Rich text={p.howBody} />
             </p>
             <ul className="mt-5 divide-y divide-rule border-y border-ink">
-              {p.kinds.map((k, i) => (
-                <li key={`${k}-${i}`} className="flex items-center justify-between py-2.5">
-                  <span className="font-display text-lg">{k}</span>
-                  <StatusTag status="unconfirmed" />
+              {awards.map((a) => (
+                <li key={a.title} className="flex items-center justify-between gap-4 py-2.5">
+                  <span>
+                    <span className="block font-display text-lg">{a.title}</span>
+                    <span className="text-xs text-muted">{a.winnerCount ? `${a.winnerCount} winning teams` : a.eligibility}</span>
+                  </span>
+                  <span className="shrink-0 text-right font-display text-lg text-burgundy">{a.value}</span>
                 </li>
               ))}
             </ul>

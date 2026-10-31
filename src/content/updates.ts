@@ -49,7 +49,7 @@ export const allArticles: Article[] = [
       { type: "h2", text: "What is still to be announced" },
       {
         type: "p",
-        text: "Dates, the grand finale venue, team-size rules, the Chapter 2 prize pool and partners will be published once they are confirmed. Join the update list to hear first.",
+        text: "The event dates, grand finale venue, team-size rules and partners will be published once they are confirmed. Join the update list to hear first.",
       },
     ],
   },

@@ -1,6 +1,8 @@
 import { getSiteContent } from "@/lib/content";
+import { resolveImage } from "@/lib/media-library";
+import { ContentImage } from "@/components/media/ContentImage";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { ButtonLink, Container, PendingNotice, Rich, SectionHeader, StatusTag } from "@/components/ui";
+import { ButtonLink, Container, PendingNotice, Rich } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
 
 export async function generateMetadata() {
@@ -27,57 +29,58 @@ export default async function PrizesPage() {
             </ButtonLink>
           </PendingNotice>
         ) : (
-          <ul className="grid gap-6 md:grid-cols-2">
-            {awards.map((a, i) => (
-              <li key={`${a.title}-${i}`} className="border-2 border-ink bg-paper-white p-6">
-                <p className="kicker text-burgundy">{kindLabels[a.kind] ?? a.kind}</p>
-                <p className="headline mt-2 text-3xl">{a.title}</p>
-                <p className="mt-2 font-display text-2xl text-burgundy">{a.value}</p>
-                <dl className="mt-4 space-y-2 text-sm">
-                  <div>
-                    <dt className="label text-[0.6875rem]">{x.eligibilityLabel}</dt>
-                    <dd className="text-charcoal">
-                      <Rich text={a.eligibility} />
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="label text-[0.6875rem]">{x.conditionsLabel}</dt>
-                    <dd className="text-charcoal">
-                      <Rich text={a.conditions} />
-                    </dd>
-                  </div>
-                </dl>
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className="grid gap-6 lg:grid-cols-3">
+              {awards.map((a, i) => {
+                const venue = a.venue ?? a.title;
+                const image = a.image;
+                const hasImage = Boolean(resolveImage(image?.src));
+                const teamCount = a.winnerCount ? `${a.winnerCount} teams` : a.eligibility;
+                return (
+                  <li key={a.title} className="overflow-hidden border-2 border-ink bg-paper-white">
+                    <div className="relative aspect-[4/3] overflow-hidden border-b-2 border-ink bg-ink">
+                      {hasImage ? (
+                        <ContentImage
+                          src={image?.src}
+                          alt={image?.alt ?? venue}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, 100vw"
+                          className="object-cover"
+                          style={image?.position ? { objectPosition: image.position } : undefined}
+                        />
+                      ) : (
+                        <div className="halftone absolute inset-0 opacity-30 invert" />
+                      )}
+                      <span className="absolute left-4 top-4 border-2 border-ink bg-taxi px-3 py-1 kicker text-ink">
+                        Tier {i + 1}{teamCount ? ` · ${teamCount}` : ""}
+                      </span>
+                      {!hasImage && (
+                        <p className="absolute inset-x-5 bottom-5 font-display text-3xl text-paper-white">{venue}</p>
+                      )}
+                    </div>
+                    <div className="p-5 sm:p-6">
+                      <p className="kicker text-burgundy">{kindLabels[a.kind] ?? a.kind}</p>
+                      <h2 className="headline mt-2 text-3xl">{venue}</h2>
+                      <p className="mt-3 font-display text-2xl text-burgundy">{a.value}</p>
+                      {a.story && <p className="mt-4 text-sm leading-relaxed text-charcoal"><Rich text={a.story} /></p>}
+                      <dl className="mt-4 space-y-3 border-t border-rule pt-3 text-sm">
+                        <div>
+                          <dt className="label text-[0.6875rem]">{x.eligibilityLabel}</dt>
+                          <dd className="font-semibold">{a.eligibility ?? teamCount}</dd>
+                        </div>
+                        <div>
+                          <dt className="label text-[0.6875rem]">{x.conditionsLabel}</dt>
+                          <dd className="text-charcoal"><Rich text={a.conditions ?? "Cash award per winning team."} /></dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="mt-5 text-sm text-muted">{x.awardNote}</p>
+          </>
         )}
-
-        <section aria-labelledby="types-title" className="mt-20 grid gap-10 lg:grid-cols-2">
-          <div>
-            <SectionHeader number="01" kicker={x.typesKicker} id="types-title" title={x.typesTitle} />
-            <ul className="mt-6 divide-y divide-rule border-y border-ink">
-              {c.copy.home.prizes.kinds.map((k, i) => (
-                <li key={`${k}-${i}`} className="flex items-center justify-between py-3">
-                  <span className="font-display text-xl">{k}</span>
-                  <StatusTag status="unconfirmed" />
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <SectionHeader number="02" kicker={x.commitmentsKicker} title={x.commitmentsTitle} />
-            <ul className="mt-6 space-y-4">
-              {x.principles.map((p, i) => (
-                <li key={`${p}-${i}`} className="flex gap-3 text-lg">
-                  <span aria-hidden className="mt-2 size-2.5 shrink-0 rotate-45 bg-taxi ring-1 ring-ink" />
-                  <span>
-                    <Rich text={p} />
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
       </Container>
     </>
   );

@@ -62,7 +62,7 @@ export const faq: FaqGroup[] = [
     items: [
       {
         q: "What are the Chapter 2 prizes?",
-        a: "Chapter 2 prize details are to be announced. Chapter 1's advertised reward pool does not apply to Chapter 2.",
+        a: "There are three cash tiers: 3 winning teams receive ₹10,000 each, 5 receive ₹6,000 each, and 10 receive ₹4,000 each. Amounts are per team.",
       },
       {
         q: "Are Chapter 1 sponsors part of Chapter 2?",

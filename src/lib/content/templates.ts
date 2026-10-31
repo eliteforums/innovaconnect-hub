@@ -1,6 +1,16 @@
 /** Templates for "Add item" when a list starts empty (keyed by the list's field name). */
 export const listTemplates: Record<string, unknown> = {
-  awards: { title: "", kind: "cash", value: "", eligibility: "", conditions: "" },
+  awards: {
+    title: "",
+    kind: "cash",
+    value: "",
+    winnerCount: 0,
+    venue: "",
+    story: "",
+    image: { src: "", alt: "", position: "" },
+    eligibility: "",
+    conditions: "",
+  },
   partners: { name: "", category: "", url: "", logo: "", challenge: "", verified: true },
   winners: { team: "", award: "", project: "" },
   judgesAndMentors: { name: "", role: "" },

@@ -81,16 +81,63 @@ export const event = {
   formTeamMemberLimit: 8,
 
   prizePool: {
-    value: null,
-    status: "unconfirmed",
-    note: "Chapter 2 prize details to be announced.",
+    value: "₹1,00,000",
+    status: "confirmed",
+    note: "Total of the three confirmed per-team cash tiers.",
   } as Fact<string>,
 
   /**
    * Published awards. Keep cash, sponsor benefits, credits, hardware,
    * mentorship, incubation consideration and investor introductions separate.
    */
-  awards: [] as {
+  awards: [
+    {
+      title: "Tier 1",
+      kind: "cash",
+      value: "₹10,000 per team",
+      winnerCount: 3,
+      venue: "The Taj Mahal Palace",
+      story: "A defining Mumbai landmark on the waterfront.",
+      image: {
+        src: "tajPalace",
+        alt: "The Taj Mahal Palace in Mumbai, with its red domes and ornate waterfront facade.",
+        position: "50% 60%",
+      },
+      eligibility: "3 winning teams",
+      conditions: "₹10,000 is awarded to each winning team.",
+    },
+    {
+      title: "Tier 2",
+      kind: "cash",
+      value: "₹6,000 per team",
+      winnerCount: 5,
+      venue: "Leopold Cafe",
+      story:
+        "Leopold Cafe in Colaba was among the places targeted during the [26/11 Mumbai attacks](https://www.pib.gov.in/newsite/erelcontent.aspx?lang=2&reg=48&relid=45446). Its [bullet marks](https://indianexpress.com/article/cities/mumbai/a-new-wing-at-leopold-for-extra-rush-since-attack/) became a reminder of those affected and of Mumbai's resilience.",
+      image: {
+        src: "leopoldCafe",
+        alt: "The red Leopold Cafe and Bar sign above its entrance in Colaba, Mumbai.",
+        position: "50% 35%",
+      },
+      eligibility: "5 winning teams",
+      conditions: "₹6,000 is awarded to each winning team.",
+    },
+    {
+      title: "Tier 3",
+      kind: "cash",
+      value: "₹4,000 per team",
+      winnerCount: 10,
+      venue: "Jain Chawal Wale · Juhu",
+      story: "One of Juhu's best-known places for Mumbai street food.",
+      image: {
+        src: "jainChawalWale",
+        alt: "The Jain Chawal Wale food stall in Juhu, Mumbai, lit up at night.",
+        position: "50% 40%",
+      },
+      eligibility: "10 winning teams",
+      conditions: "₹4,000 is awarded to each winning team.",
+    },
+  ] as {
     title: string;
     kind:
       | "cash"
@@ -101,8 +148,12 @@ export const event = {
       | "incubation-consideration"
       | "investor-introduction";
     value: string;
-    eligibility: string;
-    conditions: string;
+    winnerCount?: number;
+    venue?: string;
+    story?: string;
+    image?: { src: string; alt: string; position?: string };
+    eligibility?: string;
+    conditions?: string;
   }[],
 
   /** Only confirmed Chapter 2 partners. Chapter 1 partners belong in chapter1.ts. */

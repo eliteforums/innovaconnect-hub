@@ -355,11 +355,57 @@ insert into public.site_content (key, value) values ('event', $seed${
   },
   "formTeamMemberLimit": 8,
   "prizePool": {
-    "value": null,
-    "status": "unconfirmed",
-    "note": "Chapter 2 prize details to be announced."
+    "value": "₹1,00,000",
+    "status": "confirmed",
+    "note": "Total of the three confirmed per-team cash tiers."
   },
-  "awards": [],
+  "awards": [
+    {
+      "title": "Tier 1",
+      "kind": "cash",
+      "value": "₹10,000 per team",
+      "winnerCount": 3,
+      "venue": "The Taj Mahal Palace",
+      "story": "A defining Mumbai landmark on the waterfront.",
+      "image": {
+        "src": "tajPalace",
+        "alt": "The Taj Mahal Palace in Mumbai, with its red domes and ornate waterfront facade.",
+        "position": "50% 60%"
+      },
+      "eligibility": "3 winning teams",
+      "conditions": "₹10,000 is awarded to each winning team."
+    },
+    {
+      "title": "Tier 2",
+      "kind": "cash",
+      "value": "₹6,000 per team",
+      "winnerCount": 5,
+      "venue": "Leopold Cafe",
+      "story": "Leopold Cafe in Colaba was among the places targeted during the [26/11 Mumbai attacks](https://www.pib.gov.in/newsite/erelcontent.aspx?lang=2&reg=48&relid=45446). Its [bullet marks](https://indianexpress.com/article/cities/mumbai/a-new-wing-at-leopold-for-extra-rush-since-attack/) became a reminder of those affected and of Mumbai's resilience.",
+      "image": {
+        "src": "leopoldCafe",
+        "alt": "The red Leopold Cafe and Bar sign above its entrance in Colaba, Mumbai.",
+        "position": "50% 35%"
+      },
+      "eligibility": "5 winning teams",
+      "conditions": "₹6,000 is awarded to each winning team."
+    },
+    {
+      "title": "Tier 3",
+      "kind": "cash",
+      "value": "₹4,000 per team",
+      "winnerCount": 10,
+      "venue": "Jain Chawal Wale · Juhu",
+      "story": "One of Juhu's best-known places for Mumbai street food.",
+      "image": {
+        "src": "jainChawalWale",
+        "alt": "The Jain Chawal Wale food stall in Juhu, Mumbai, lit up at night.",
+        "position": "50% 40%"
+      },
+      "eligibility": "10 winning teams",
+      "conditions": "₹4,000 is awarded to each winning team."
+    }
+  ],
   "partners": [],
   "contact": {
     "general": {
@@ -785,7 +831,7 @@ insert into public.site_content (key, value) values ('articles', $seed$[
       },
       {
         "type": "p",
-        "text": "Dates, the grand finale venue, team-size rules, the Chapter 2 prize pool and partners will be published once they are confirmed. Join the update list to hear first."
+        "text": "The event dates, grand finale venue, team-size rules and partners will be published once they are confirmed. Join the update list to hear first."
       }
     ]
   },
@@ -953,7 +999,7 @@ insert into public.site_content (key, value) values ('faq', $seed$[
     "items": [
       {
         "q": "What are the Chapter 2 prizes?",
-        "a": "Chapter 2 prize details are to be announced. Chapter 1's advertised reward pool does not apply to Chapter 2."
+        "a": "There are three cash tiers: 3 winning teams receive ₹10,000 each, 5 receive ₹6,000 each, and 10 receive ₹4,000 each. Amounts are per team."
       },
       {
         "q": "Are Chapter 1 sponsors part of Chapter 2?",
@@ -2095,22 +2141,13 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
   },
   "prizes": {
     "number": "06",
-    "kicker": "Prizes & opportunities",
-    "title": "Build something worth recognizing.",
-    "pending": "Chapter 2 prize details to be announced.",
-    "body": "The Chapter 2 prize pool has not been confirmed. Chapter 1's advertised reward pool does not apply to this edition.",
-    "howTitle": "How awards will be published",
-    "howBody": "When awards are confirmed, each type is listed separately with its eligibility and conditions — and only cash is ever counted as cash.",
-    "kinds": [
-      "Cash prizes",
-      "Sponsor-provided benefits",
-      "Software or cloud credits",
-      "Hardware & products",
-      "Mentorship",
-      "Incubation consideration",
-      "Investor introductions"
-    ],
-    "link": "Prizes & awards"
+    "kicker": "Tiered cash awards",
+    "title": "Three tiers. *Eighteen winning teams.*",
+    "summary": "₹1,00,000 in tiered cash awards",
+    "body": "Each amount is awarded per winning team. Tier 1 has 3 teams, Tier 2 has 5, and Tier 3 has 10.",
+    "howTitle": "The three tiers",
+    "howBody": "Cash awards are paid per team, not per individual.",
+    "link": "Explore all tiers"
   },
   "partners": {
     "number": "07",
@@ -2391,15 +2428,15 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.prizes', $seed${
   "meta": {
     "title": "Hackathon Prizes & Awards",
-    "description": "InnovaHack Chapter 2 prize details are not announced yet. Published awards will include their type, eligibility and conditions for the planned 2027 event."
+    "description": "InnovaHack Chapter 2 has three tiers of cash awards for 18 winning teams, from ₹4,000 to ₹10,000 per team."
   },
-  "section": "Prizes & opportunities",
-  "title": "Build something worth recognizing.",
-  "deck": "The Chapter 2 prize pool has not been confirmed. Chapter 1's advertised reward pool does not apply to this edition.",
-  "pendingTitle": "Chapter 2 prize details to be announced.",
-  "pendingBody": "Awards will be published here once they are officially confirmed. Join the update list to hear when they are.",
-  "eligibilityLabel": "Eligibility",
-  "conditionsLabel": "Conditions",
+  "section": "Cash awards by tier",
+  "title": "Three tiers. *Eighteen winning teams.*",
+  "deck": "₹1,00,000 in confirmed cash awards. Each amount is per team, and the winner counts below refer to teams.",
+  "pendingTitle": "Tier details are being updated.",
+  "pendingBody": "The three cash award tiers will be listed here.",
+  "eligibilityLabel": "Winning teams",
+  "conditionsLabel": "Per team",
   "kindLabels": {
     "cash": "Cash prize",
     "sponsor-benefit": "Sponsor-provided benefit",
@@ -2409,17 +2446,7 @@ insert into public.site_content (key, value) values ('copy.prizes', $seed${
     "incubation-consideration": "Incubation consideration",
     "investor-introduction": "Investor introduction"
   },
-  "typesKicker": "Award types",
-  "typesTitle": "How awards are listed",
-  "commitmentsKicker": "Our commitments",
-  "commitmentsTitle": "Plain-language prizes",
-  "principles": [
-    "Cash prizes are listed separately from every other benefit.",
-    "Sponsor benefits, credits and hardware are never counted as cash.",
-    "Investor introductions are introductions — not confirmed investments.",
-    "Incubation is listed as consideration, not a guaranteed place.",
-    "Every award states its eligibility and conditions."
-  ]
+  "awardNote": "All amounts are per winning team. There are 18 winning teams across the three tiers."
 }$seed$::jsonb)
 on conflict (key) do nothing;
 
@@ -2510,7 +2537,7 @@ insert into public.site_content (key, value) values ('copy.contact', $seed${
   "partnershipsBody": "Use the [partnership inquiry form](/partners#inquiry)",
   "partnershipsEmail": "or write to",
   "beforeTitle": "Before you write",
-  "beforeBody": "Many answers are in the [FAQ](/faq). Dates, venue and prizes have not been announced yet — they will appear on the site as soon as they are confirmed.",
+  "beforeBody": "Many answers are in the [FAQ](/faq). The event dates, finale venue and full rules will appear here as they are confirmed.",
   "followTitle": "Follow"
 }$seed$::jsonb)
 on conflict (key) do nothing;

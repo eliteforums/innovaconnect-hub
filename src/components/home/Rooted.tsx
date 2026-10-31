@@ -1,12 +1,13 @@
 import { getSiteContent } from "@/lib/content";
 import { Figure } from "@/components/media/Figure";
 import { Container, Rich } from "@/components/ui";
+import { TrainPortal } from "./TrainPortal";
 
 export async function Rooted() {
   const { copy } = await getSiteContent();
   const r = copy.home.rooted;
   return (
-    <section aria-labelledby="rooted-title" className="mt-24">
+    <section aria-labelledby="rooted-title" className="mt-24 overflow-x-clip">
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
           <div className="in-view">
@@ -40,8 +41,10 @@ export async function Rooted() {
           </div>
           <div className="in-view grid grid-cols-2 gap-3 sm:grid-cols-4">
             {r.tiles.map((t, i) => (
-              <div key={i} className={i === 0 ? "col-span-2 sm:col-span-4" : "col-span-1"}>
+              <div key={i} className={i === 0 ? "relative col-span-2 sm:col-span-4" : "col-span-1"}>
                 <Figure media={t} aspect={i === 0 ? "aspect-[16/6]" : "aspect-square"} showCredit={false} />
+                {/* A 3D local drives out of the train photo as the section scrolls. */}
+                {i === 0 && <TrainPortal />}
               </div>
             ))}
             <p className="col-span-2 kicker text-[0.625rem] text-muted sm:col-span-4">

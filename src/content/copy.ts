@@ -188,23 +188,13 @@ export const copy = {
     },
     prizes: {
       number: "06",
-      kicker: "Prizes & opportunities",
-      title: "Build something worth recognizing.",
-      pending: "Chapter 2 prize details to be announced.",
-      body: "The Chapter 2 prize pool has not been confirmed. Chapter 1's advertised reward pool does not apply to this edition.",
-      howTitle: "How awards will be published",
-      howBody:
-        "When awards are confirmed, each type is listed separately with its eligibility and conditions — and only cash is ever counted as cash.",
-      kinds: [
-        "Cash prizes",
-        "Sponsor-provided benefits",
-        "Software or cloud credits",
-        "Hardware & products",
-        "Mentorship",
-        "Incubation consideration",
-        "Investor introductions",
-      ],
-      link: "Prizes & awards",
+      kicker: "Tiered cash awards",
+      title: "Three tiers. *Eighteen winning teams.*",
+      summary: "₹1,00,000 in tiered cash awards",
+      body: "Each amount is awarded per winning team. Tier 1 has 3 teams, Tier 2 has 5, and Tier 3 has 10.",
+      howTitle: "The three tiers",
+      howBody: "Cash awards are paid per team, not per individual.",
+      link: "Explore all tiers",
     },
     partners: {
       number: "07",
@@ -445,15 +435,15 @@ export const copy = {
   prizes: {
     meta: meta(
       "Hackathon Prizes & Awards",
-      "InnovaHack Chapter 2 prize details are not announced yet. Published awards will include their type, eligibility and conditions for the planned 2027 event.",
+      "InnovaHack Chapter 2 has three tiers of cash awards for 18 winning teams, from ₹4,000 to ₹10,000 per team.",
     ),
-    section: "Prizes & opportunities",
-    title: "Build something worth recognizing.",
-    deck: "The Chapter 2 prize pool has not been confirmed. Chapter 1's advertised reward pool does not apply to this edition.",
-    pendingTitle: "Chapter 2 prize details to be announced.",
-    pendingBody: "Awards will be published here once they are officially confirmed. Join the update list to hear when they are.",
-    eligibilityLabel: "Eligibility",
-    conditionsLabel: "Conditions",
+    section: "Cash awards by tier",
+    title: "Three tiers. *Eighteen winning teams.*",
+    deck: "₹1,00,000 in confirmed cash awards. Each amount is per team, and the winner counts below refer to teams.",
+    pendingTitle: "Tier details are being updated.",
+    pendingBody: "The three cash award tiers will be listed here.",
+    eligibilityLabel: "Winning teams",
+    conditionsLabel: "Per team",
     kindLabels: {
       cash: "Cash prize",
       "sponsor-benefit": "Sponsor-provided benefit",
@@ -463,17 +453,7 @@ export const copy = {
       "incubation-consideration": "Incubation consideration",
       "investor-introduction": "Investor introduction",
     },
-    typesKicker: "Award types",
-    typesTitle: "How awards are listed",
-    commitmentsKicker: "Our commitments",
-    commitmentsTitle: "Plain-language prizes",
-    principles: [
-      "Cash prizes are listed separately from every other benefit.",
-      "Sponsor benefits, credits and hardware are never counted as cash.",
-      "Investor introductions are introductions — not confirmed investments.",
-      "Incubation is listed as consideration, not a guaranteed place.",
-      "Every award states its eligibility and conditions.",
-    ],
+    awardNote: "All amounts are per winning team. There are 18 winning teams across the three tiers.",
   },
 
   partners: {
@@ -561,7 +541,7 @@ export const copy = {
     partnershipsEmail: "or write to",
     beforeTitle: "Before you write",
     beforeBody:
-      "Many answers are in the [FAQ](/faq). Dates, venue and prizes have not been announced yet — they will appear on the site as soon as they are confirmed.",
+      "Many answers are in the [FAQ](/faq). The event dates, finale venue and full rules will appear here as they are confirmed.",
     followTitle: "Follow",
   },
 

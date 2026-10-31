@@ -51,9 +51,9 @@ function enumFor(path: Path, key: string | number): string[] | null {
 
 /** Keys whose empty value means "not set" (stored as null). */
 const NULLABLE = new Set(["value", "date", "publishedOn", "author", "version", "effectiveFrom", "min", "max"]);
-const NUMERIC = new Set(["min", "max", "n", "lat", "lon", "rotate", "year", "chapterNumber", "formTeamMemberLimit"]);
+const NUMERIC = new Set(["min", "max", "n", "lat", "lon", "rotate", "year", "chapterNumber", "formTeamMemberLimit", "winnerCount"]);
 const LONG = new Set([
-  "description", "summary", "body", "text", "caption", "context", "note", "a", "deck", "message",
+  "description", "summary", "body", "text", "caption", "context", "note", "a", "deck", "message", "story",
   "pendingBody", "draftNote", "conditions", "eligibility", "challenge",
 ]);
 const TITLE_KEYS = ["title", "name", "label", "headline", "q", "station", "team", "slug", "text", "id", "kicker"];
