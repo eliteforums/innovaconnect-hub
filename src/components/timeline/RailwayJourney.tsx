@@ -77,10 +77,10 @@ export async function RailwayJourney() {
           </div>
           <ol className="relative">
             {stages.map((s, i) => (
-              <li key={s.id} className="relative grid grid-cols-[64px_1fr] gap-3 pb-10 last:pb-2">
+              <li key={s.id} className="relative grid grid-cols-[88px_minmax(0,1fr)] gap-3 pb-10 last:pb-2">
                 <span
                   aria-hidden
-                  className="relative z-10 mt-5 ml-[19px] flex size-7 items-center justify-center border-2 border-ink bg-taxi font-mono text-xs font-bold"
+                  className="relative z-10 mt-5 ml-[58px] flex size-7 items-center justify-center border-2 border-ink bg-taxi font-mono text-xs font-bold"
                 >
                   {i + 1}
                 </span>

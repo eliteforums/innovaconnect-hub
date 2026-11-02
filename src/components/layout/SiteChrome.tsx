@@ -19,10 +19,7 @@ export async function SiteChrome({ children }: { children: React.ReactNode }) {
     contactPoint: c.event.contact.partnerships.value
       ? { "@type": "ContactPoint", contactType: "partnerships", email: c.event.contact.partnerships.value }
       : undefined,
-    areaServed: {
-      "@type": "Country",
-      name: "India",
-    },
+    areaServed: "International",
     foundingLocation: {
       "@type": "Place",
       name: "Mumbai, India",

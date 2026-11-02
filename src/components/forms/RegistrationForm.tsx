@@ -106,7 +106,7 @@ export function RegistrationForm({
             name="lead.state"
             autoComplete="address-level1"
             maxLength={80}
-            hint="For participants in India, enter your state or union territory."
+            hint="Enter your state, province, or region if applicable."
             error={e["lead.state"]}
           />
         </div>

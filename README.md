@@ -6,7 +6,7 @@ hub for entrepreneurship and innovation. The site introduces its communities, co
 hackathons, founder conversations and Innovation Laboratory alongside the Chapter 2 event.
 
 Design concept: *The Innovation Times* — a premium newspaper special edition inspired by Mumbai's streets,
-heritage and culture, telling the story of India's next generation of builders.
+heritage and culture, bringing builders from around the world onto one international stage.
 
 > "Rooted in Mumbai. Open to the world. Designed for the future."
 

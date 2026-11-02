@@ -314,7 +314,7 @@ insert into public.site_content (key, value) values ('event', $seed${
     "note": "Round 1 is online and free to enter. Round 2, the final, is a hybrid round with offline and online teams."
   },
   "tagline": "Rooted in Mumbai. Open to the world. Designed for the future.",
-  "description": "InnovaHack Chapter 2 is an international hybrid hackathon planned for 2027, bringing AI innovators and startup builders together to turn ideas into useful solutions.",
+  "description": "InnovaHack Chapter 2 is an international hybrid hackathon planned for 2027, welcoming teams from around the world to build useful AI and startup solutions.",
   "announcement": [
     "Elite Forums presents",
     "International",
@@ -1997,7 +1997,7 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
       "Ideas",
       "Technology",
       "Startups",
-      "For a brighter India"
+      "For a brighter world"
     ],
     "ticketTop": "Chapter 02",
     "ticketMain": "2027",
@@ -2023,7 +2023,7 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
       "People",
       "Culture",
       "Technology",
-      "A brighter India"
+      "A brighter world"
     ],
     "caption": "Collage · A taxi, a BEST bus and a suburban local train before the Brihanmumbai Municipal Corporation headquarters",
     "buildingAlt": "The Brihanmumbai Municipal Corporation headquarters, a Victorian Gothic building with a tall central dome.",
@@ -2216,13 +2216,13 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
       },
       {
         "title": "Reach builders",
-        "body": "Connect with India's student and early-career builder community."
+        "body": "Connect with student and early-career builders from around the world."
       }
     ]
   },
   "city": {
     "number": "08",
-    "kicker": "The Mumbai edition",
+    "kicker": "Mumbai roots · international stage",
     "title": "The city behind the inspiration.",
     "deck": "The colours, routes and textures of this edition come from Mumbai's everyday life. These features are the inspiration for the design — not competition categories."
   },
@@ -2286,7 +2286,7 @@ insert into public.site_content (key, value) values ('copy.about', $seed${
     },
     {
       "type": "p",
-      "text": "\"The Innovation Times\" is the design concept behind this website: a special newspaper edition about India's innovators. It is not a separate news publication, and the illustrations are original artwork inspired by the city."
+      "text": "\"The Innovation Times\" is the design concept behind this website: a special newspaper edition about innovation without borders. It is not a separate news publication, and the illustrations are original artwork inspired by the city."
     }
   ],
   "factsTitle": "Edition facts",
@@ -2314,7 +2314,7 @@ insert into public.site_content (key, value) values ('copy.about', $seed${
   },
   "organizerNumber": "02",
   "organizerKicker": "The organizer",
-  "organizerBody": "Where Founder Ambition Meets Opportunity.\nElite Forums is a startup ecosystem initiative that began in Mumbai with a vision to make India a stronger hub for entrepreneurship and innovation.\nWe bring together aspiring founders, students, working professionals, first-time builders, college communities, mentors, and ecosystem partners through a connected network built around ideas, people, and possibilities.\nOur mission is rooted in a simple belief: Entrepreneurship should be a community, not a solo journey.\nThrough our communities, college partnerships, workshops, hackathons, founder conversations, and collaborative experiences, we create opportunities for individuals to learn, connect, experiment, and build.\nWith our Innovation Laboratory, we take this mission further by helping transform promising ideas into working technology, products, and new ventures.\nFrom Mumbai to all of India, Elite Forums is building a connected ecosystem where ambition finds its people and ideas find opportunities.",
+  "organizerBody": "Where Founder Ambition Meets Opportunity.\nElite Forums is a startup ecosystem initiative that began in Mumbai with a vision to make India a stronger hub for entrepreneurship and innovation.\nWe bring together aspiring founders, students, working professionals, first-time builders, college communities, mentors, and ecosystem partners through a connected network built around ideas, people, and possibilities.\nOur mission is rooted in a simple belief: Entrepreneurship should be a community, not a solo journey.\nThrough our communities, college partnerships, workshops, hackathons, founder conversations, and collaborative experiences, we create opportunities for individuals to learn, connect, experiment, and build.\nWith our Innovation Laboratory, we take this mission further by helping transform promising ideas into working technology, products, and new ventures.\nInnovaHack Chapter 2 carries that spirit onto an international stage, welcoming builders from around the world.",
   "archiveCta": "The Chapter 1 archive",
   "contactCta": "Contact us"
 }$seed$::jsonb)
@@ -2513,7 +2513,7 @@ insert into public.site_content (key, value) values ('copy.partners', $seed${
   },
   "section": "Partners & industry",
   "title": "Real problems. *Real builders.*",
-  "deck": "InnovaHack works with organizations that bring real challenges, tools and expertise to India's builders.",
+  "deck": "InnovaHack works with organizations that bring real challenges, tools and expertise to builders from around the world.",
   "confirmedKicker": "Chapter 2 partners",
   "confirmedTitle": "Confirmed partners",
   "pendingTitle": "Chapter 2 partners will be announced here.",
