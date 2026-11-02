@@ -193,6 +193,22 @@ body {
     animation-timeline: --journey;
     animation-range: entry 60% exit 30%;
   }
+  .journey-mobile-line {
+    view-timeline-name: --journey-mobile;
+    view-timeline-axis: block;
+  }
+  .mobile-train-run {
+    animation: mobile-train-run linear both;
+    animation-timeline: --journey-mobile;
+    animation-range: entry 60% exit 30%;
+  }
+  .journey-mobile-line .train-wheel {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wheel-spin linear both;
+    animation-timeline: --journey-mobile;
+    animation-range: entry 60% exit 30%;
+  }
 }
 /* The local's wheels turn in step with the train's travel. */
 @supports (animation-timeline: view()) {
@@ -216,6 +232,15 @@ body {
   to {
     /* The track is the element's own width; stop with the train at the last station. */
     transform: translateX(calc(100% - 550px));
+  }
+}
+@keyframes mobile-train-run {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    /* The rotated train is 260px long; keep it on the vertical line. */
+    transform: translateY(calc(100% - 260px));
   }
 }
 
@@ -281,6 +306,7 @@ details > summary::-webkit-details-marker {
   }
   .in-view,
   .train-run,
+  .mobile-train-run,
   .train-wheel,
   .chapter-one-gallery-track {
     animation: none !important;

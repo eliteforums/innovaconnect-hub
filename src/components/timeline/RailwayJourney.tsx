@@ -65,33 +65,33 @@ export async function RailwayJourney() {
         </div>
       </div>
 
-      {/* Mobile & tablet: the line runs down the page */}
+      {/* Mobile & tablet: the local turns onto the vertical line and follows it down. */}
       <div className="mt-8 lg:hidden">
-        <div aria-hidden className="relative mb-4 w-full max-w-[520px] pt-8">
+        <div className="relative h-8">
           <TrainTag label={r.trainTag} className="right-0 top-0" />
-          <LocalTrain className="relative z-[1] block h-auto w-full" />
-          <div className="relative -mt-[3px] h-[12px]">
-            <div className="absolute inset-x-0 top-0 h-[5px] border-y border-ink bg-[linear-gradient(#c9c4ba,#6b675f)]" />
-            <div className="absolute inset-x-0 top-[5px] h-[7px] bg-[repeating-linear-gradient(90deg,#5b4636_0_8px,transparent_8px_20px)]" />
-          </div>
         </div>
-        <ol className="relative">
+        <div className="journey-mobile-line relative">
           <VerticalTrack />
-          {stages.map((s, i) => (
-            <li key={s.id} className="relative grid grid-cols-[64px_1fr] gap-3 pb-10 last:pb-2">
-              <span
-                aria-hidden
-                className="relative z-10 mt-5 ml-[19px] flex size-7 items-center justify-center border-2 border-ink bg-taxi font-mono text-xs font-bold"
-              >
-                {i + 1}
-              </span>
-              <div>
-                <StationBoard stage={s} index={i} r={r} compact />
-                <StageDetails stage={s} r={r} align="start" />
-              </div>
-            </li>
-          ))}
-        </ol>
+          <div aria-hidden className="mobile-train-run pointer-events-none absolute bottom-0 left-[33px] top-0 z-[5] w-px">
+            <LocalTrain className="absolute left-[18px] top-0 block w-[260px] origin-top-left rotate-90 drop-shadow-[3px_4px_3px_rgba(23,23,23,0.22)]" />
+          </div>
+          <ol className="relative">
+            {stages.map((s, i) => (
+              <li key={s.id} className="relative grid grid-cols-[64px_1fr] gap-3 pb-10 last:pb-2">
+                <span
+                  aria-hidden
+                  className="relative z-10 mt-5 ml-[19px] flex size-7 items-center justify-center border-2 border-ink bg-taxi font-mono text-xs font-bold"
+                >
+                  {i + 1}
+                </span>
+                <div>
+                  <StationBoard stage={s} index={i} r={r} compact />
+                  <StageDetails stage={s} r={r} align="start" />
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
 
       <p className="mt-6 text-xs text-muted">
