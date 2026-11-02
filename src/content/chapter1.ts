@@ -155,8 +155,8 @@ export const chapter1 = {
       body: "Chapter 1 ran several sector tracks. Chapter 2 focuses on two official domains — Artificial Intelligence, and Open Innovation / Startup — with sector themes living inside them.",
     },
     {
-      title: "A national journey",
-      body: "Chapter 2 is planned as a pan-India hybrid event: nationwide online participation and selection, followed by an offline national grand finale.",
+      title: "An international stage",
+      body: "Chapter 2 is planned as an international hybrid event: a free online first round, then a hybrid final with offline and online teams.",
     },
     {
       title: "Clear stages, clearly labelled",

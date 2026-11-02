@@ -305,26 +305,26 @@ insert into public.site_content (key, value) values ('event', $seed${
     "status": "planned"
   },
   "scope": {
-    "value": "Pan-India",
-    "status": "planned"
+    "value": "International",
+    "status": "confirmed"
   },
   "format": {
-    "value": "Hybrid national hackathon",
-    "status": "planned",
-    "note": "Nationwide online participation and selection, followed by an offline national grand finale."
+    "value": "Hybrid international hackathon",
+    "status": "confirmed",
+    "note": "Round 1 is online and free to enter. Round 2, the final, is a hybrid round with offline and online teams."
   },
-  "tagline": "Rooted in Mumbai. Built for India. Designed for the future.",
-  "description": "InnovaHack Chapter 2 is a pan-India hybrid hackathon planned for 2027, bringing AI innovators and startup builders together to turn ideas into useful solutions.",
+  "tagline": "Rooted in Mumbai. Open to the world. Designed for the future.",
+  "description": "InnovaHack Chapter 2 is an international hybrid hackathon planned for 2027, bringing AI innovators and startup builders together to turn ideas into useful solutions.",
   "announcement": [
     "Elite Forums presents",
-    "India",
+    "International",
     "Chapter 02",
     "2027"
   ],
   "editionLine": [
-    "India",
+    "International",
     "2027",
-    "Hybrid national hackathon"
+    "Hybrid international hackathon"
   ],
   "registration": {
     "status": "interest",
@@ -337,9 +337,9 @@ insert into public.site_content (key, value) values ('event', $seed${
       "status": "unconfirmed"
     },
     "fee": {
-      "value": null,
-      "status": "unconfirmed",
-      "note": "Any participation fee will be published in the official rules before registration opens."
+      "value": "Round 1: free · Round 2 (final): ₹1,000 per team",
+      "status": "confirmed",
+      "note": "Round 1 is free to enter. Teams that reach Round 2, the hybrid final, pay ₹1,000 per team."
     }
   },
   "dates": {
@@ -355,26 +355,39 @@ insert into public.site_content (key, value) values ('event', $seed${
   "venue": {
     "value": null,
     "status": "unconfirmed",
-    "note": "The grand finale venue has not been announced."
+    "note": "The venue for the offline part of the final has not been announced."
   },
   "teamSize": {
     "min": null,
-    "max": null,
-    "status": "unconfirmed",
+    "max": 4,
+    "status": "confirmed",
     "note": "Team-size rules will be published in the official rules."
   },
   "formTeamMemberLimit": 8,
   "prizePool": {
-    "value": "₹1,00,000",
+    "value": "₹50 Lakh",
     "status": "confirmed",
-    "note": "Total of the three confirmed per-team cash tiers."
+    "note": "Total value of the prize pool, including ₹1,00,000 in cash awards."
   },
+  "prizePoolIncludes": [
+    "Cash awards",
+    "Goodies",
+    "AI credits",
+    "Workshops",
+    "Incubation opportunities",
+    "Hiring opportunities",
+    "Certification courses"
+  ],
   "awards": [
     {
       "title": "Tier 1",
       "kind": "cash",
       "value": "₹10,000 per team",
       "winnerCount": 3,
+      "split": {
+        "offline": 2,
+        "online": 1
+      },
       "venue": "The Taj Mahal Palace",
       "story": "A defining Mumbai landmark on the waterfront.",
       "image": {
@@ -382,7 +395,7 @@ insert into public.site_content (key, value) values ('event', $seed${
         "alt": "The Taj Mahal Palace in Mumbai, with its red domes and ornate waterfront facade.",
         "position": "50% 60%"
       },
-      "eligibility": "3 winning teams",
+      "eligibility": "3 winning teams: 2 offline and 1 online",
       "conditions": "₹10,000 is awarded to each winning team."
     },
     {
@@ -390,6 +403,10 @@ insert into public.site_content (key, value) values ('event', $seed${
       "kind": "cash",
       "value": "₹6,000 per team",
       "winnerCount": 5,
+      "split": {
+        "offline": 3,
+        "online": 2
+      },
       "venue": "Leopold Cafe",
       "story": "Leopold Cafe in Colaba was among the places targeted during the [26/11 Mumbai attacks](https://www.pib.gov.in/newsite/erelcontent.aspx?lang=2&reg=48&relid=45446). Its [bullet marks](https://indianexpress.com/article/cities/mumbai/a-new-wing-at-leopold-for-extra-rush-since-attack/) became a reminder of those affected and of Mumbai's resilience.",
       "image": {
@@ -397,7 +414,7 @@ insert into public.site_content (key, value) values ('event', $seed${
         "alt": "The red Leopold Cafe and Bar sign above its entrance in Colaba, Mumbai.",
         "position": "50% 35%"
       },
-      "eligibility": "5 winning teams",
+      "eligibility": "5 winning teams: 3 offline and 2 online",
       "conditions": "₹6,000 is awarded to each winning team."
     },
     {
@@ -405,6 +422,10 @@ insert into public.site_content (key, value) values ('event', $seed${
       "kind": "cash",
       "value": "₹4,000 per team",
       "winnerCount": 10,
+      "split": {
+        "offline": 5,
+        "online": 5
+      },
       "venue": "Jain Chawal Wale · Juhu",
       "story": "One of Juhu's best-known places for Mumbai street food.",
       "image": {
@@ -412,7 +433,7 @@ insert into public.site_content (key, value) values ('event', $seed${
         "alt": "The Jain Chawal Wale food stall in Juhu, Mumbai, lit up at night.",
         "position": "50% 40%"
       },
-      "eligibility": "10 winning teams",
+      "eligibility": "10 winning teams: 5 offline and 5 online",
       "conditions": "₹4,000 is awarded to each winning team."
     }
   ],
@@ -434,7 +455,7 @@ insert into public.site_content (key, value) values ('event', $seed${
       "id": "register",
       "station": "Registration",
       "title": "Registration & team formation",
-      "description": "Sign up, form your team and choose one of the two official domains.",
+      "description": "Sign up, form a team of up to four and choose one of the two official domains. Round 1 is free to enter.",
       "mode": "Online",
       "date": null,
       "status": "proposed"
@@ -470,7 +491,7 @@ insert into public.site_content (key, value) values ('event', $seed${
       "id": "semifinal",
       "station": "Semifinal",
       "title": "Semifinal selection",
-      "description": "Teams are selected to advance to the national finale.",
+      "description": "Teams are selected to advance to Round 2, the final.",
       "mode": "Online",
       "date": null,
       "status": "proposed"
@@ -478,9 +499,9 @@ insert into public.site_content (key, value) values ('event', $seed${
     {
       "id": "finale",
       "station": "Grand Finale",
-      "title": "Offline national grand finale",
-      "description": "Finalists build, demo and present in person. Venue to be announced.",
-      "mode": "In person",
+      "title": "Round 2: hybrid grand finale",
+      "description": "Finalist teams build, demo and present, either in person or online. Entry is ₹1,000 per team. Venue to be announced.",
+      "mode": "Hybrid",
       "date": null,
       "status": "proposed"
     },
@@ -512,6 +533,11 @@ insert into public.site_content (key, value) values ('event', $seed${
     },
     {
       "label": "Colleges represented",
+      "value": null,
+      "status": "unconfirmed"
+    },
+    {
+      "label": "Countries represented",
       "value": null,
       "status": "unconfirmed"
     },
@@ -773,8 +799,8 @@ insert into public.site_content (key, value) values ('chapter1', $seed${
       "body": "Chapter 1 ran several sector tracks. Chapter 2 focuses on two official domains — Artificial Intelligence, and Open Innovation / Startup — with sector themes living inside them."
     },
     {
-      "title": "A national journey",
-      "body": "Chapter 2 is planned as a pan-India hybrid event: nationwide online participation and selection, followed by an offline national grand finale."
+      "title": "An international stage",
+      "body": "Chapter 2 is planned as an international hybrid event: a free online first round, then a hybrid final with offline and online teams."
     },
     {
       "title": "Clear stages, clearly labelled",
@@ -788,8 +814,8 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('articles', $seed$[
   {
     "slug": "introducing-innovahack-chapter-2",
-    "headline": "Two domains. One national stage.",
-    "summary": "InnovaHack returns for its second edition as a pan-India hybrid hackathon focused on Artificial Intelligence and Open Innovation.",
+    "headline": "Two domains. One international stage.",
+    "summary": "InnovaHack returns for its second edition as an international hybrid hackathon focused on Artificial Intelligence and Open Innovation.",
     "category": "Announcement",
     "publishedOn": null,
     "author": "Elite Forums",
@@ -810,7 +836,7 @@ insert into public.site_content (key, value) values ('articles', $seed$[
     "body": [
       {
         "type": "p",
-        "text": "InnovaHack, the national hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 is designed as a pan-India hybrid event: nationwide online participation and selection, followed by an offline national grand finale."
+        "text": "InnovaHack, the international hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 is designed as an international hybrid event in two rounds: a free online first round, then a hybrid final in which teams compete offline or online."
       },
       {
         "type": "h2",
@@ -950,11 +976,11 @@ insert into public.site_content (key, value) values ('faq', $seed$[
     "items": [
       {
         "q": "What is InnovaHack Chapter 2?",
-        "a": "The second edition of InnovaHack, a national hackathon organized by Elite Forums. It is planned for 2027 as a pan-India hybrid event, combining nationwide online participation and selection with an offline national grand finale."
+        "a": "The second edition of InnovaHack, an international hackathon organized by Elite Forums. It is planned for 2027 as a hybrid event in two rounds: a free online first round, then a hybrid final in which teams compete offline or online."
       },
       {
         "q": "Is InnovaHack only for people in Mumbai?",
-        "a": "No. Mumbai inspires the visual identity of this edition, but InnovaHack Chapter 2 is a pan-India event designed for builders across the country. The grand finale venue has not been announced."
+        "a": "No. Mumbai inspires the visual identity of this edition, but InnovaHack Chapter 2 is an international event, open to builders from around the world. The venue for the offline part of the final has not been announced."
       },
       {
         "q": "When and where is Chapter 2?",
@@ -988,15 +1014,15 @@ insert into public.site_content (key, value) values ('faq', $seed$[
     "items": [
       {
         "q": "Who can participate, and how big can teams be?",
-        "a": "Eligibility and team-size rules have not been published yet. They will be set out in the official rules before registration opens."
+        "a": "Teams can have up to four members, including the lead. Other eligibility rules will be set out in the official rules before registration opens."
       },
       {
         "q": "Will InnovaHack Chapter 2 include hiring opportunities?",
-        "a": "Hiring opportunities are planned, but no hiring partners have been announced yet. Participation does not guarantee a job or internship, and any opportunity will be published with its terms once it is confirmed."
+        "a": "Yes. Hiring opportunities are part of the ₹50 Lakh prize pool, but no hiring partners have been announced yet. Participation does not guarantee a job or internship, and each opportunity will be published with its terms once it is confirmed."
       },
       {
         "q": "Is there a participation fee?",
-        "a": "Any fee will be published in the official rules before registration opens. Nothing is charged to join the update list."
+        "a": "Round 1 is free. Teams that reach Round 2, the hybrid final, pay ₹1,000 per team. Nothing is charged to join the update list."
       },
       {
         "q": "How do I register?",
@@ -1009,7 +1035,7 @@ insert into public.site_content (key, value) values ('faq', $seed$[
     "items": [
       {
         "q": "What are the Chapter 2 prizes?",
-        "a": "There are three cash tiers: 3 winning teams receive ₹10,000 each, 5 receive ₹6,000 each, and 10 receive ₹4,000 each. Amounts are per team."
+        "a": "The prize pool is worth ₹50 Lakh, including ₹1,00,000 in cash, goodies, AI credits, workshops, incubation opportunities, hiring opportunities and certification courses. Cash goes to three tiers: 3 teams receive ₹10,000 each (2 offline, 1 online), 5 receive ₹6,000 each (3 offline, 2 online) and 10 receive ₹4,000 each (5 offline, 5 online)."
       },
       {
         "q": "Are Chapter 1 sponsors part of Chapter 2?",
@@ -1033,7 +1059,9 @@ insert into public.site_content (key, value) values ('rules', $seed${
     "InnovaHack Chapter 2 has exactly two official competition domains: Artificial Intelligence, and Open Innovation / Startup Track.",
     "Each team enters one domain.",
     "AI may be used in both domains. In the Open Innovation / Startup Track, AI is permitted but not compulsory.",
-    "Sector themes (for example FinTech, education, agriculture, cybersecurity, climate and civic technology) are challenge themes within the two domains, not additional domains."
+    "Sector themes (for example FinTech, education, agriculture, cybersecurity, climate and civic technology) are challenge themes within the two domains, not additional domains.",
+    "Teams can have up to four members, including the lead.",
+    "Round 1 is free to enter. Round 2, the hybrid final, costs ₹1,000 per team."
   ],
   "pendingTopics": [
     {
@@ -1042,11 +1070,11 @@ insert into public.site_content (key, value) values ('rules', $seed${
     },
     {
       "title": "Teams",
-      "body": "Minimum and maximum team size, and whether changes are allowed after registration."
+      "body": "Any minimum team size, and whether changes are allowed after registration."
     },
     {
       "title": "Fees",
-      "body": "Whether any participation fee applies, and at which stage."
+      "body": "How and when the Round 2 fee is paid, and any refund terms."
     },
     {
       "title": "Stages & deadlines",
@@ -1880,9 +1908,9 @@ on conflict (key) do nothing;
 -- Global text & SEO
 insert into public.site_content (key, value) values ('copy.global', $seed${
   "seo": {
-    "title": "InnovaHack 2027: Hiring & Startup Hackathon in India",
-    "description": "InnovaHack Chapter 2 is a pan-India hackathon planned for 2027, with AI and startup tracks, ₹1,00,000 in cash awards and planned hiring opportunities.",
-    "imageAlt": "InnovaHack Chapter 2, a planned pan-India hackathon for AI and startup innovation"
+    "title": "InnovaHack 2027: International Hiring & Startup Hackathon",
+    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon from Mumbai, with a ₹50 Lakh prize pool, a free first round and hiring opportunities.",
+    "imageAlt": "InnovaHack Chapter 2, a planned international hackathon for AI and startup innovation"
   },
   "header": {
     "wordmark": "INNOVAHACK",
@@ -1932,7 +1960,7 @@ insert into public.site_content (key, value) values ('copy.global', $seed${
   },
   "footer": {
     "wordmark": "INNOVAHACK",
-    "organizedBy": "A national hackathon organized by {organizer}.",
+    "organizedBy": "An international hackathon organized by {organizer}.",
     "partnershipsLabel": "Partnerships:",
     "copyright": "© {organizer}. InnovaHack is organized by {organizer}.",
     "note": "Illustrations are original artwork inspired by Mumbai · Not a news publication",
@@ -1954,12 +1982,12 @@ on conflict (key) do nothing;
 -- Homepage
 insert into public.site_content (key, value) values ('copy.home', $seed${
   "seo": {
-    "title": "InnovaHack 2027: Hiring & Startup Hackathon in India",
-    "description": "InnovaHack Chapter 2 is a pan-India hackathon planned for 2027, with AI and startup tracks, ₹1,00,000 in cash awards and planned hiring opportunities."
+    "title": "InnovaHack 2027: International Hiring & Startup Hackathon",
+    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon from Mumbai, with a ₹50 Lakh prize pool, a free first round and hiring opportunities."
   },
   "masthead": {
     "wordmark": "INNOVAHACK",
-    "headingSuffix": "Chapter 2: a national hiring and startup hackathon in India, 2027",
+    "headingSuffix": "Chapter 2: an international hiring and startup hackathon, 2027",
     "themes": [
       "Innovation",
       "Ideas",
@@ -1969,16 +1997,16 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
     ],
     "ticketTop": "Chapter 02",
     "ticketMain": "2027",
-    "ticketBottom": "A national hackathon\nby {organizer}",
+    "ticketBottom": "An international hackathon\nby {organizer}",
     "sideNote": "India's next generation of builders creating real impact."
   },
   "lead": {
     "tag": "The lead story",
     "headline": "*Mumbai*\nbuilds\nthe future.",
-    "subhead": "Two domains. One national stage.",
+    "subhead": "Two domains. One international stage.",
     "primaryCta": "Explore the tracks",
     "meta": [
-      "India wide",
+      "International",
       "Hybrid format",
       "2027",
       "By {organizer}"
@@ -2007,8 +2035,8 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
   "rooted": {
     "number": "02",
     "kicker": "Mumbai inspires. India innovates.",
-    "title": "Rooted in Mumbai. *Built for India.*",
-    "body": "From the speed of its local trains to the ambition of its builders, Mumbai represents movement, resilience, diversity, and possibility. InnovaHack brings that spirit to a national platform for technology and entrepreneurship.",
+    "title": "Rooted in Mumbai. *Built for the world.*",
+    "body": "From the speed of its local trains to the ambition of its builders, Mumbai represents movement, resilience, diversity, and possibility. InnovaHack brings that spirit to an international platform for technology and entrepreneurship.",
     "stops": [
       "Movement",
       "Resilience",
@@ -2016,7 +2044,7 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
       "Possibility"
     ],
     "stopLabel": "Station",
-    "venueNote": "Chapter 2 is a pan-India event. The grand finale venue has not yet been announced.",
+    "venueNote": "Chapter 2 is an international event. The venue for the offline part of the final has not yet been announced.",
     "tiles": [
       {
         "illustration": "train",
@@ -2086,7 +2114,7 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
   "domains": {
     "number": "03",
     "kicker": "The official domains",
-    "title": "Two domains. *One national stage.*",
+    "title": "Two domains. *One international stage.*",
     "deck": "Every team enters one of exactly two official competition domains. AI is welcome in both.",
     "action": "Compare the tracks",
     "areasLabel": "Potential areas",
@@ -2137,8 +2165,8 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
       }
     ],
     "hiring": {
-      "title": "Hiring opportunities are planned",
-      "body": "InnovaHack Chapter 2 is planned as a hiring and startup hackathon, where teams can show what they have built to companies looking for talent. Hiring partners have not been announced yet. [Companies interested in hiring can get in touch](/partners#inquiry)."
+      "title": "Hiring opportunities are part of the prize pool",
+      "body": "InnovaHack Chapter 2 is an international hiring and startup hackathon: hiring opportunities are part of its ₹50 Lakh prize pool, so teams can show what they have built to companies looking for talent. Hiring partners have not been announced yet. [Companies interested in hiring can get in touch](/partners#inquiry)."
     },
     "disclaimer": "Participation does not guarantee employment, funding, incubation or investment. Any partner opportunity will be published with its terms once it is confirmed."
   },
@@ -2151,11 +2179,11 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
   },
   "prizes": {
     "number": "06",
-    "kicker": "Tiered cash awards",
+    "kicker": "The prize pool",
     "title": "Three tiers. *Eighteen winning teams.*",
-    "summary": "₹1,00,000 in tiered cash awards",
-    "body": "Each amount is awarded per winning team. Tier 1 has 3 teams, Tier 2 has 5, and Tier 3 has 10.",
-    "howTitle": "The three tiers",
+    "summary": "₹50 Lakh prize pool",
+    "body": "The pool includes ₹1,00,000 in cash awards, goodies, AI credits, workshops, incubation opportunities, hiring opportunities, certification courses and more. Cash is awarded per winning team, to both offline and online teams.",
+    "howTitle": "The three cash tiers",
     "howBody": "Cash awards are paid per team, not per individual.",
     "link": "Explore all tiers"
   },
@@ -2196,9 +2224,9 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
   },
   "national": {
     "number": "09",
-    "kicker": "National participation",
-    "title": "Rooted in Mumbai. *Open to India.*",
-    "body": "The city on the map inspires this edition's identity — its trains, streets and shoreline. InnovaHack Chapter 2 itself is designed for builders from across the country, not only from Mumbai. Eligibility details will be published in the official rules.",
+    "kicker": "International participation",
+    "title": "Mumbai on the map. *Open to the world.*",
+    "body": "The city on the map inspires this edition's identity — its trains, streets and shoreline. InnovaHack Chapter 2 itself is an international hackathon, open to builders from around the world, not only from Mumbai. Eligibility details will be published in the official rules.",
     "mapTitle": "The city map · Mumbai",
     "mapSubtitle": "Island city & suburbs",
     "mapCaption": "Mumbai City and Mumbai Suburban districts. Rail lines are drawn station to station and positions are approximate. The Chapter 2 finale venue has not been announced and is not shown.",
@@ -2222,19 +2250,19 @@ on conflict (key) do nothing;
 -- The Story (About)
 insert into public.site_content (key, value) values ('copy.about', $seed${
   "seo": {
-    "title": "About the National Hiring & Startup Hackathon",
-    "description": "InnovaHack is the national hackathon organized by Elite Forums. Learn why Chapter 2 is rooted in Mumbai, built for India and planned as a 2027 hybrid event."
+    "title": "About the International Hackathon",
+    "description": "InnovaHack is the international hackathon organized by Elite Forums. Learn why Chapter 2 is rooted in Mumbai, open to the world and planned for 2027."
   },
   "section": "The Story",
-  "title": "India's next generation of builders. *One national stage.*",
+  "title": "The next generation of builders. *One international stage.*",
   "article": [
     {
       "type": "p",
-      "text": "InnovaHack is a national hackathon organized by {organizer}. Its first edition took place in {chapter1Year}. The second edition — Chapter 2 — is planned for {year} as a larger national platform for technology innovation, AI development, original products, startup ideas and practical problem-solving."
+      "text": "InnovaHack is an international hackathon organized by {organizer}. Its first edition took place in {chapter1Year}. The second edition — Chapter 2 — is planned for {year} as a larger, international platform for technology innovation, AI development, original products, startup ideas and practical problem-solving."
     },
     {
       "type": "p",
-      "text": "Chapter 2 combines nationwide online participation and selection with an offline national grand finale. It focuses on exactly two official competition domains: Artificial Intelligence, and Open Innovation / Startup Track."
+      "text": "Chapter 2 runs in two rounds: a free online first round, then a hybrid final in which teams of up to four compete offline or online, at ₹1,000 per team. It focuses on exactly two official competition domains: Artificial Intelligence, and Open Innovation / Startup Track."
     },
     {
       "type": "h2",
@@ -2246,7 +2274,7 @@ insert into public.site_content (key, value) values ('copy.about', $seed${
     },
     {
       "type": "p",
-      "text": "The event itself is pan-India. Builders from across the country are welcome, and the grand finale venue has not yet been announced."
+      "text": "The event itself is international. Builders from around the world are welcome, and the venue for the offline part of the final has not yet been announced."
     },
     {
       "type": "h2",
@@ -2292,10 +2320,10 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.tracks', $seed${
   "seo": {
     "title": "AI & Startup Hackathon Tracks 2027",
-    "description": "Explore the two InnovaHack Chapter 2 domains: Artificial Intelligence and Open Innovation / Startup. Both are planned for the 2027 pan-India hybrid hackathon."
+    "description": "Explore the two InnovaHack Chapter 2 domains: Artificial Intelligence and Open Innovation / Startup, for the 2027 international hybrid hackathon."
   },
   "section": "The Tracks",
-  "title": "Two domains. *One national stage.*",
+  "title": "Two domains. *One international stage.*",
   "deck": "Every team enters one of exactly two official competition domains. AI may be used in both — the difference is what sits at the core of your innovation.",
   "compareNumber": "03",
   "compareKicker": "Side by side",
@@ -2330,7 +2358,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.domainDetail', $seed${
   "seo": {
     "artificial-intelligence": {
-      "title": "AI Hackathon in India 2027: The AI Track",
+      "title": "International AI Hackathon 2027: The AI Track",
       "description": "Enter the InnovaHack Chapter 2 AI track: build with generative AI, LLMs, AI agents, machine learning or computer vision to solve real-world problems."
     },
     "open-innovation": {
@@ -2407,7 +2435,7 @@ insert into public.site_content (key, value) values ('copy.chapter1Page', $seed$
   "forwardTitle": "What changes next",
   "transitionKicker": "Chapter 01 → Chapter 02",
   "transitionTitle": "The first chapter built the foundation. *The next chapter builds what comes next.*",
-  "transitionBody": "Chapter 2 brings a sharper focus — two official domains, Artificial Intelligence and Open Innovation / Startup — on a pan-India hybrid stage.",
+  "transitionBody": "Chapter 2 brings a sharper focus — two official domains, Artificial Intelligence and Open Innovation / Startup — on an international hybrid stage.",
   "enterCta": "Enter Chapter 2"
 }$seed$::jsonb)
 on conflict (key) do nothing;
@@ -2444,12 +2472,12 @@ on conflict (key) do nothing;
 -- Prizes
 insert into public.site_content (key, value) values ('copy.prizes', $seed${
   "seo": {
-    "title": "Hackathon Prizes 2027: ₹1,00,000 in Cash",
-    "description": "InnovaHack Chapter 2 awards ₹1,00,000 in cash across three tiers: ₹10,000, ₹6,000 and ₹4,000 per team, for 18 winning teams in total."
+    "title": "Hackathon Prizes 2027: ₹50 Lakh Prize Pool",
+    "description": "InnovaHack Chapter 2 has a ₹50 Lakh prize pool: ₹1,00,000 in cash for 18 teams, plus goodies, AI credits, workshops, incubation and hiring opportunities."
   },
   "section": "Prize Pool",
   "title": "Three tiers. *Eighteen winning teams.*",
-  "deck": "₹1,00,000 in confirmed cash awards. Each amount is per team, and the winner counts below refer to teams.",
+  "deck": "A ₹50 Lakh prize pool, including ₹1,00,000 in cash awards. Each cash amount is per team, and winners include both offline and online teams.",
   "pendingTitle": "Tier details are being updated.",
   "pendingBody": "The three cash award tiers will be listed here.",
   "eligibilityLabel": "Winning teams",
@@ -2463,9 +2491,11 @@ insert into public.site_content (key, value) values ('copy.prizes', $seed${
     "incubation-consideration": "Incubation consideration",
     "investor-introduction": "Investor introduction"
   },
-  "awardNote": "All amounts are per winning team. There are 18 winning teams across the three tiers.",
-  "breakdownTitle": "How the ₹1,00,000 prize pool adds up",
-  "breakdownBody": "Tier 1 pays ₹30,000 in total (3 teams × ₹10,000), Tier 2 pays ₹30,000 (5 teams × ₹6,000) and Tier 3 pays ₹40,000 (10 teams × ₹4,000). Together that is ₹1,00,000 in cash awards across 18 winning teams.",
+  "awardNote": "All amounts are per winning team. There are 18 winning teams across the three tiers: 10 offline and 8 online.",
+  "includesTitle": "What the ₹50 Lakh prize pool includes",
+  "includesNote": "And more, announced as partners are confirmed.",
+  "breakdownTitle": "How the ₹1,00,000 in cash adds up",
+  "breakdownBody": "Tier 1 pays ₹30,000 (3 teams × ₹10,000: 2 offline, 1 online), Tier 2 pays ₹30,000 (5 teams × ₹6,000: 3 offline, 2 online) and Tier 3 pays ₹40,000 (10 teams × ₹4,000: 5 offline, 5 online). Together that is ₹1,00,000 in cash across 18 winning teams.",
   "nextTitle": "Competing for a prize",
   "nextBody": "Start by choosing one of the [two official domains](/tracks), then read the [rules and eligibility](/rules) and the [FAQ](/faq). You can also [get registration updates](/register#updates) as soon as dates are confirmed."
 }$seed$::jsonb)
@@ -2474,8 +2504,8 @@ on conflict (key) do nothing;
 -- Partners
 insert into public.site_content (key, value) values ('copy.partners', $seed${
   "seo": {
-    "title": "Hire & Sponsor at a National Hackathon in India",
-    "description": "Hire from or sponsor InnovaHack Chapter 2, a planned pan-India hiring and startup hackathon. Explore challenge, mentoring, tooling and talent partnerships."
+    "title": "Hire & Sponsor at an International Hackathon",
+    "description": "Hire from or sponsor InnovaHack Chapter 2, an international hiring and startup hackathon. Explore challenge, mentoring, tooling and talent partnerships."
   },
   "section": "Partners & industry",
   "title": "Real problems. *Real builders.*",
@@ -2488,7 +2518,7 @@ insert into public.site_content (key, value) values ('copy.partners', $seed${
   "waysTitle": "Shape the edition",
   "waysDeck": "Partnership options are discussed individually with each organization.",
   "hiringTitle": "Hire from the hackathon",
-  "hiringBody": "Hiring is a planned part of Chapter 2. Companies looking for AI and product talent can [start an inquiry](/partners#inquiry) about meeting the teams. Hiring partners have not been announced yet.",
+  "hiringBody": "Hiring opportunities are part of the Chapter 2 prize pool. Companies looking for AI and product talent can [start an inquiry](/partners#inquiry) about meeting the teams. Hiring partners have not been announced yet.",
   "inquiryKicker": "Partnership inquiry",
   "inquiryTitle": "Partner with InnovaHack",
   "inquiryBody": "Tell us about your organization and what you'd like to bring to Chapter 2. Inquiries are private and are only seen by the organizing team.",
@@ -2522,7 +2552,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.register', $seed${
   "seo": {
     "title": "Hackathon Registration 2027 & Updates",
-    "description": "Check InnovaHack Chapter 2 registration status and join the update list for official signup dates, rules and announcements for the planned 2027 hackathon."
+    "description": "InnovaHack Chapter 2 registration: Round 1 is free, the hybrid final costs ₹1,000 per team, and teams have up to four members. Join the update list."
   },
   "section": "Registration",
   "statusBoard": "Status board",
@@ -2549,7 +2579,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.contact', $seed${
   "seo": {
     "title": "Contact the Organizers",
-    "description": "Contact Elite Forums about InnovaHack Chapter 2, the planned 2027 national hackathon, for event questions and partnership inquiries."
+    "description": "Contact Elite Forums about InnovaHack Chapter 2, the planned 2027 international hackathon, for event questions and partnership inquiries."
   },
   "section": "Contact",
   "title": "Get in touch.",

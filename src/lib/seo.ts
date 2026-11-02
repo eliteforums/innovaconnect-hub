@@ -6,8 +6,8 @@ export const siteKeywords = [
   "Elite Forums",
   "Elite Forums India",
   "hackathon India 2027",
-  "national hackathon India",
-  "pan-India hackathon",
+  "international hackathon",
+  "international hackathon India",
   "AI hackathon India",
   "startup hackathon India",
   "hiring hackathon India",
@@ -35,7 +35,7 @@ export function pageMeta(
     url: "/opengraph-image",
     width: 1200,
     height: 630,
-    alt: "InnovaHack Chapter 2, a planned pan-India hackathon for AI and startup innovation",
+    alt: "InnovaHack Chapter 2, a planned international hackathon for AI and startup innovation",
   };
 
   return {

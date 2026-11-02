@@ -118,8 +118,9 @@ test("content rules: exactly two domains, and Chapter 1 figures only in the arch
   has(home, /Domain 01/, "Domain 01");
   has(home, /Domain 02/, "Domain 02");
   assert.ok(!/Domain 03/.test(home), "there is no third domain");
-  has(home, /₹1,00,000 in tiered cash awards/, "the Chapter 2 cash awards");
-  has(home, /Hiring opportunities are planned/, "hiring labelled as planned");
+  has(home, /₹50 Lakh prize pool/, "the Chapter 2 prize pool");
+  has(home, /2 offline, 1 online/, "the offline and online split of the cash tiers");
+  has(home, /Hiring opportunities are part of the prize pool/, "hiring as part of the prize pool");
   for (const re of [/Finalist teams reported/i, /Applications reported/i, /Advertised total reward pool/i, /Explore Chapter 1/i]) {
     assert.ok(!re.test(home), `the homepage must not show Chapter 1 information: ${re}`);
   }

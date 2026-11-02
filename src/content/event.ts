@@ -30,20 +30,20 @@ export const event = {
   chapterNumber: 2,
   chapterLabel: "Chapter 02",
   year: { value: 2027, status: "planned" } satisfies Fact<number>,
-  scope: { value: "Pan-India", status: "planned" } satisfies Fact<string>,
+  scope: { value: "International", status: "confirmed" } satisfies Fact<string>,
   format: {
-    value: "Hybrid national hackathon",
-    status: "planned",
-    note: "Nationwide online participation and selection, followed by an offline national grand finale.",
+    value: "Hybrid international hackathon",
+    status: "confirmed",
+    note: "Round 1 is online and free to enter. Round 2, the final, is a hybrid round with offline and online teams.",
   } satisfies Fact<string>,
-  tagline: "Rooted in Mumbai. Built for India. Designed for the future.",
+  tagline: "Rooted in Mumbai. Open to the world. Designed for the future.",
   description:
-    "InnovaHack Chapter 2 is a pan-India hybrid hackathon planned for 2027, bringing AI innovators and startup builders together to turn ideas into useful solutions.",
+    "InnovaHack Chapter 2 is an international hybrid hackathon planned for 2027, bringing AI innovators and startup builders together to turn ideas into useful solutions.",
 
   /** Strip at the very top of every page. */
-  announcement: ["Elite Forums presents", "India", "Chapter 02", "2027"],
+  announcement: ["Elite Forums presents", "International", "Chapter 02", "2027"],
   /** Compact strip on the homepage masthead. */
-  editionLine: ["India", "2027", "Hybrid national hackathon"],
+  editionLine: ["International", "2027", "Hybrid international hackathon"],
 
   registration: {
     /**
@@ -58,9 +58,9 @@ export const event = {
     opensOn: { value: null, status: "unconfirmed" } as Fact<string>,
     closesOn: { value: null, status: "unconfirmed" } as Fact<string>,
     fee: {
-      value: null,
-      status: "unconfirmed",
-      note: "Any participation fee will be published in the official rules before registration opens.",
+      value: "Round 1: free · Round 2 (final): ₹1,000 per team",
+      status: "confirmed",
+      note: "Round 1 is free to enter. Teams that reach Round 2, the hybrid final, pay ₹1,000 per team.",
     } as Fact<string>,
   },
 
@@ -73,13 +73,13 @@ export const event = {
   venue: {
     value: null,
     status: "unconfirmed",
-    note: "The grand finale venue has not been announced.",
+    note: "The venue for the offline part of the final has not been announced.",
   } as Fact<string>,
 
   teamSize: {
     min: null as number | null,
-    max: null as number | null,
-    status: "unconfirmed" as Fact<number>["status"],
+    max: 4 as number | null,
+    status: "confirmed" as Fact<number>["status"],
     note: "Team-size rules will be published in the official rules.",
   },
 
@@ -87,10 +87,21 @@ export const event = {
   formTeamMemberLimit: 8,
 
   prizePool: {
-    value: "₹1,00,000",
+    value: "₹50 Lakh",
     status: "confirmed",
-    note: "Total of the three confirmed per-team cash tiers.",
+    note: "Total value of the prize pool, including ₹1,00,000 in cash awards.",
   } as Fact<string>,
+
+  /** What the prize pool is made of. Cash amounts are listed per tier in `awards`. */
+  prizePoolIncludes: [
+    "Cash awards",
+    "Goodies",
+    "AI credits",
+    "Workshops",
+    "Incubation opportunities",
+    "Hiring opportunities",
+    "Certification courses",
+  ],
 
   /**
    * Published awards. Keep cash, sponsor benefits, credits, hardware,
@@ -102,6 +113,7 @@ export const event = {
       kind: "cash",
       value: "₹10,000 per team",
       winnerCount: 3,
+      split: { offline: 2, online: 1 },
       venue: "The Taj Mahal Palace",
       story: "A defining Mumbai landmark on the waterfront.",
       image: {
@@ -109,7 +121,7 @@ export const event = {
         alt: "The Taj Mahal Palace in Mumbai, with its red domes and ornate waterfront facade.",
         position: "50% 60%",
       },
-      eligibility: "3 winning teams",
+      eligibility: "3 winning teams: 2 offline and 1 online",
       conditions: "₹10,000 is awarded to each winning team.",
     },
     {
@@ -117,6 +129,7 @@ export const event = {
       kind: "cash",
       value: "₹6,000 per team",
       winnerCount: 5,
+      split: { offline: 3, online: 2 },
       venue: "Leopold Cafe",
       story:
         "Leopold Cafe in Colaba was among the places targeted during the [26/11 Mumbai attacks](https://www.pib.gov.in/newsite/erelcontent.aspx?lang=2&reg=48&relid=45446). Its [bullet marks](https://indianexpress.com/article/cities/mumbai/a-new-wing-at-leopold-for-extra-rush-since-attack/) became a reminder of those affected and of Mumbai's resilience.",
@@ -125,7 +138,7 @@ export const event = {
         alt: "The red Leopold Cafe and Bar sign above its entrance in Colaba, Mumbai.",
         position: "50% 35%",
       },
-      eligibility: "5 winning teams",
+      eligibility: "5 winning teams: 3 offline and 2 online",
       conditions: "₹6,000 is awarded to each winning team.",
     },
     {
@@ -133,6 +146,7 @@ export const event = {
       kind: "cash",
       value: "₹4,000 per team",
       winnerCount: 10,
+      split: { offline: 5, online: 5 },
       venue: "Jain Chawal Wale · Juhu",
       story: "One of Juhu's best-known places for Mumbai street food.",
       image: {
@@ -140,7 +154,7 @@ export const event = {
         alt: "The Jain Chawal Wale food stall in Juhu, Mumbai, lit up at night.",
         position: "50% 40%",
       },
-      eligibility: "10 winning teams",
+      eligibility: "10 winning teams: 5 offline and 5 online",
       conditions: "₹4,000 is awarded to each winning team.",
     },
   ] as {
@@ -155,6 +169,8 @@ export const event = {
       | "investor-introduction";
     value: string;
     winnerCount?: number;
+    /** How many of the winning teams compete offline and online in the final. */
+    split?: { offline: number; online: number };
     venue?: string;
     story?: string;
     image?: { src: string; alt: string; position?: string };
@@ -187,7 +203,7 @@ export const event = {
       station: "Registration",
       title: "Registration & team formation",
       description:
-        "Sign up, form your team and choose one of the two official domains.",
+        "Sign up, form a team of up to four and choose one of the two official domains. Round 1 is free to enter.",
       mode: "Online",
       date: null as string | null,
       status: "proposed" as FactStatus,
@@ -226,7 +242,7 @@ export const event = {
       id: "semifinal",
       station: "Semifinal",
       title: "Semifinal selection",
-      description: "Teams are selected to advance to the national finale.",
+      description: "Teams are selected to advance to Round 2, the final.",
       mode: "Online",
       date: null as string | null,
       status: "proposed" as FactStatus,
@@ -234,10 +250,10 @@ export const event = {
     {
       id: "finale",
       station: "Grand Finale",
-      title: "Offline national grand finale",
+      title: "Round 2: hybrid grand finale",
       description:
-        "Finalists build, demo and present in person. Venue to be announced.",
-      mode: "In person",
+        "Finalist teams build, demo and present, either in person or online. Entry is ₹1,000 per team. Venue to be announced.",
+      mode: "Hybrid",
       date: null as string | null,
       status: "proposed" as FactStatus,
     },
@@ -254,7 +270,7 @@ export const event = {
   ],
 
   /**
-   * National participation metrics. Leave `value` null until real data
+   * Participation metrics. Leave `value` null until real data
    * exists. Planning targets must use status "target".
    */
   participation: [
@@ -262,6 +278,7 @@ export const event = {
     { label: "Team registrations", value: null, status: "unconfirmed" },
     { label: "Completed submissions", value: null, status: "unconfirmed" },
     { label: "Colleges represented", value: null, status: "unconfirmed" },
+    { label: "Countries represented", value: null, status: "unconfirmed" },
     { label: "States & UTs represented", value: null, status: "unconfirmed" },
     { label: "Finalist teams", value: null, status: "unconfirmed" },
     { label: "Confirmed partners", value: null, status: "unconfirmed" },

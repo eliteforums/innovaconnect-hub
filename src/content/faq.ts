@@ -7,11 +7,11 @@ export const faq: FaqGroup[] = [
     items: [
       {
         q: "What is InnovaHack Chapter 2?",
-        a: "The second edition of InnovaHack, a national hackathon organized by Elite Forums. It is planned for 2027 as a pan-India hybrid event, combining nationwide online participation and selection with an offline national grand finale.",
+        a: "The second edition of InnovaHack, an international hackathon organized by Elite Forums. It is planned for 2027 as a hybrid event in two rounds: a free online first round, then a hybrid final in which teams compete offline or online.",
       },
       {
         q: "Is InnovaHack only for people in Mumbai?",
-        a: "No. Mumbai inspires the visual identity of this edition, but InnovaHack Chapter 2 is a pan-India event designed for builders across the country. The grand finale venue has not been announced.",
+        a: "No. Mumbai inspires the visual identity of this edition, but InnovaHack Chapter 2 is an international event, open to builders from around the world. The venue for the offline part of the final has not been announced.",
       },
       {
         q: "When and where is Chapter 2?",
@@ -45,15 +45,15 @@ export const faq: FaqGroup[] = [
     items: [
       {
         q: "Who can participate, and how big can teams be?",
-        a: "Eligibility and team-size rules have not been published yet. They will be set out in the official rules before registration opens.",
+        a: "Teams can have up to four members, including the lead. Other eligibility rules will be set out in the official rules before registration opens.",
       },
       {
         q: "Will InnovaHack Chapter 2 include hiring opportunities?",
-        a: "Hiring opportunities are planned, but no hiring partners have been announced yet. Participation does not guarantee a job or internship, and any opportunity will be published with its terms once it is confirmed.",
+        a: "Yes. Hiring opportunities are part of the ₹50 Lakh prize pool, but no hiring partners have been announced yet. Participation does not guarantee a job or internship, and each opportunity will be published with its terms once it is confirmed.",
       },
       {
         q: "Is there a participation fee?",
-        a: "Any fee will be published in the official rules before registration opens. Nothing is charged to join the update list.",
+        a: "Round 1 is free. Teams that reach Round 2, the hybrid final, pay ₹1,000 per team. Nothing is charged to join the update list.",
       },
       {
         q: "How do I register?",
@@ -66,7 +66,7 @@ export const faq: FaqGroup[] = [
     items: [
       {
         q: "What are the Chapter 2 prizes?",
-        a: "There are three cash tiers: 3 winning teams receive ₹10,000 each, 5 receive ₹6,000 each, and 10 receive ₹4,000 each. Amounts are per team.",
+        a: "The prize pool is worth ₹50 Lakh, including ₹1,00,000 in cash, goodies, AI credits, workshops, incubation opportunities, hiring opportunities and certification courses. Cash goes to three tiers: 3 teams receive ₹10,000 each (2 offline, 1 online), 5 receive ₹6,000 each (3 offline, 2 online) and 10 receive ₹4,000 each (5 offline, 5 online).",
       },
       {
         q: "Are Chapter 1 sponsors part of Chapter 2?",

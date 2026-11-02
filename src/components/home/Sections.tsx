@@ -51,7 +51,7 @@ export async function MoreThanSection() {
           ))}
         </ol>
         <div className="mt-6 border-2 border-ink bg-paper-white p-6">
-          <StatusTag status="planned" />
+          <StatusTag status="confirmed" />
           <h3 className="headline mt-3 text-2xl">{m.hiring.title}</h3>
           <p className="mt-2 max-w-3xl text-[0.9375rem] text-charcoal">
             <Rich text={m.hiring.body} />
@@ -124,7 +124,10 @@ export async function PrizesSection() {
                 <li key={a.title} className="flex items-center justify-between gap-4 py-2.5">
                   <span>
                     <span className="block font-display text-lg">{a.title}</span>
-                    <span className="text-xs text-muted">{a.winnerCount ? `${a.winnerCount} winning teams` : a.eligibility}</span>
+                    <span className="text-xs text-muted">
+                      {a.winnerCount ? `${a.winnerCount} winning teams` : a.eligibility}
+                      {a.split && ` · ${a.split.offline} offline, ${a.split.online} online`}
+                    </span>
                   </span>
                   <span className="shrink-0 text-right font-display text-lg text-burgundy">{a.value}</span>
                 </li>

@@ -79,6 +79,18 @@ export default async function PrizesPage() {
               })}
             </ul>
             <p className="mt-5 text-sm text-muted">{x.awardNote}</p>
+            <section aria-labelledby="prize-includes-title" className="mt-12 border-2 border-ink bg-paper-white p-6 sm:p-8">
+              <p className="kicker text-burgundy">{c.event.prizePool.value}</p>
+              <h2 id="prize-includes-title" className="headline mt-2 text-3xl">{x.includesTitle}</h2>
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {c.event.prizePoolIncludes.map((item) => (
+                  <li key={item} className="border-2 border-ink bg-taxi px-3 py-1.5 label text-[0.75rem]">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm text-muted">{x.includesNote}</p>
+            </section>
             <div className="mt-12 grid gap-8 border-t-2 border-ink pt-8 md:grid-cols-2">
               <section aria-labelledby="prize-breakdown-title">
                 <h2 id="prize-breakdown-title" className="headline text-3xl">{x.breakdownTitle}</h2>

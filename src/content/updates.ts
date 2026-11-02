@@ -12,9 +12,9 @@ import type { Article } from "./types";
 export const allArticles: Article[] = [
   {
     slug: "introducing-innovahack-chapter-2",
-    headline: "Two domains. One national stage.",
+    headline: "Two domains. One international stage.",
     summary:
-      "InnovaHack returns for its second edition as a pan-India hybrid hackathon focused on Artificial Intelligence and Open Innovation.",
+      "InnovaHack returns for its second edition as an international hybrid hackathon focused on Artificial Intelligence and Open Innovation.",
     category: "Announcement",
     publishedOn: null,
     author: "Elite Forums",
@@ -28,7 +28,7 @@ export const allArticles: Article[] = [
     body: [
       {
         type: "p",
-        text: "InnovaHack, the national hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 is designed as a pan-India hybrid event: nationwide online participation and selection, followed by an offline national grand finale.",
+        text: "InnovaHack, the international hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 is designed as an international hybrid event in two rounds: a free online first round, then a hybrid final in which teams compete offline or online.",
       },
       { type: "h2", text: "Two official domains" },
       {
