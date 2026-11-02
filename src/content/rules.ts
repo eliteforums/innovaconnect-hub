@@ -17,7 +17,7 @@ export const rules = {
     "Each team enters one domain.",
     "AI may be used in both domains. In the Open Innovation / Startup Track, AI is permitted but not compulsory.",
     "Sector themes (for example FinTech, education, agriculture, cybersecurity, climate and civic technology) are challenge themes within the two domains, not additional domains.",
-    "Teams can have up to four members, including the lead.",
+    "Teams can have up to 4 people, including the team lead.",
     "Round 1 is free to enter. Round 2, the hybrid final, costs ₹1,000 per team.",
   ],
 

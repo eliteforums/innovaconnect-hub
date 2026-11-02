@@ -45,7 +45,7 @@ export const faq: FaqGroup[] = [
     items: [
       {
         q: "Who can participate, and how big can teams be?",
-        a: "Teams can have up to four members, including the lead. Other eligibility rules will be set out in the official rules before registration opens.",
+        a: "Teams can have up to 4 people, including the team lead. Other eligibility rules will be set out in the official rules before registration opens.",
       },
       {
         q: "Will InnovaHack Chapter 2 include hiring opportunities?",

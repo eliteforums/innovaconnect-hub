@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "InnovaHack Chapter 2 international hackathon: ₹50 Lakh prize pool, free Round 1, ₹1,000 per team for the hybrid final, and teams of up to four.";
+export const alt = "InnovaHack Chapter 2 international hackathon: ₹50 Lakh prize pool, free Round 1, ₹1,000 per team for the hybrid final, and teams of up to 4 people.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -31,7 +31,7 @@ export default function OpengraphImage() {
             <span style={{ fontSize: 74, fontWeight: 900, lineHeight: 1 }}>BORDERS.</span>
             <span style={{ fontSize: 30, marginTop: 18 }}>₹50 Lakh prize pool</span>
             <span style={{ fontSize: 22, marginTop: 8 }}>Round 1 free · Round 2 ₹1,000 per team</span>
-            <span style={{ fontSize: 20, marginTop: 6 }}>Hybrid final · Teams of up to four</span>
+            <span style={{ fontSize: 20, marginTop: 6 }}>Hybrid final · Teams of up to 4 people</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", border: "4px solid #171717", background: "#F4C430", padding: "16px 28px" }}>
             <span style={{ fontSize: 22, letterSpacing: 4 }}>CHAPTER 02</span>

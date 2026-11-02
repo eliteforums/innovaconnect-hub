@@ -80,7 +80,7 @@ export const event = {
     min: null as number | null,
     max: 4 as number | null,
     status: "confirmed" as Fact<number>["status"],
-    note: "Teams may include up to four members, including the team lead.",
+    note: "Teams may include up to 4 people, including the team lead.",
   },
 
   /** Hard technical limit on team rows in the form, used only while `teamSize.max` is unset. */
@@ -203,7 +203,7 @@ export const event = {
       station: "Registration",
       title: "Registration & team formation",
       description:
-        "Sign up, form a team of up to four and choose one of the two official domains. Round 1 is free to enter.",
+        "Sign up, form a team of up to 4 people and choose one of the two official domains. Round 1 is free to enter.",
       mode: "Online",
       date: null as string | null,
       status: "proposed" as FactStatus,

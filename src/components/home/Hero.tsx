@@ -60,7 +60,7 @@ export async function Hero() {
           <div className="bg-paper-white p-4 sm:p-5">
             <dt className="kicker text-[0.625rem] text-muted">Team size</dt>
             <dd className="headline mt-2 text-xl sm:text-2xl">
-              Up to {c.event.teamSize.max ?? c.event.formTeamMemberLimit} members
+              Up to {c.event.teamSize.max ?? c.event.formTeamMemberLimit} people
             </dd>
           </div>
         </dl>

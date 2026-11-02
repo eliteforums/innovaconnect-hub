@@ -20,7 +20,7 @@ export const copy = {
     seo: {
       title: "InnovaHack 2027: International AI & Startup Hackathon",
       description:
-        "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to four.",
+        "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to 4 people.",
       imageAlt: "InnovaHack Chapter 2, a planned international hackathon for AI and startup innovation",
     },
     header: {
@@ -94,7 +94,7 @@ export const copy = {
   home: {
     seo: meta(
       "InnovaHack 2027: International AI & Startup Hackathon",
-      "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to four.",
+      "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to 4 people.",
     ),
     masthead: {
       wordmark: "INNOVAHACK",
@@ -264,7 +264,7 @@ export const copy = {
       },
       {
         type: "p",
-        text: "Chapter 2 runs in two rounds: a free online first round, then a hybrid final in which teams of up to four compete offline or online, at ₹1,000 per team. It focuses on exactly two official competition domains: Artificial Intelligence, and Open Innovation / Startup Track.",
+        text: "Chapter 2 runs in two rounds: a free online first round, then a hybrid final in which teams of up to 4 people compete offline or online, at ₹1,000 per team. It focuses on exactly two official competition domains: Artificial Intelligence, and Open Innovation / Startup Track.",
       },
       { type: "h2", text: "Why Mumbai?" },
       {
@@ -525,7 +525,7 @@ export const copy = {
   register: {
     seo: meta(
       "Hackathon Registration 2027 & Updates",
-      "Join InnovaHack 2027, an international hackathon. Round 1 is free and online; Round 2 is a ₹1,000-per-team hybrid final. Teams can have up to four members.",
+      "Join InnovaHack 2027, an international hackathon. Round 1 is free and online; Round 2 is a ₹1,000-per-team hybrid final. Teams can have up to 4 people.",
     ),
     section: "Registration",
     statusBoard: "Status board",
@@ -536,9 +536,9 @@ export const copy = {
       dates: "Registration dates",
     },
     teamSizeValue: "Up to {max}",
-    teamSizeNoteFixed: "Teams can have up to {max} members, including the lead.",
+    teamSizeNoteFixed: "Teams can have up to {max} people, including the team lead.",
     teamSizeNoteMin: "Minimum {min}.",
-    teamSizeNoteOpen: "{note} The form accepts up to {max} members in total.",
+    teamSizeNoteOpen: "{note} The form accepts up to {max} people in total.",
     registerKicker: "Team registration",
     registerTitle: "Register your team",
     registerDeck: "Read the [official rules](/rules) before you start. Fields marked * are required.",
@@ -570,7 +570,7 @@ export const copy = {
   faq: {
     seo: meta(
       "Hackathon FAQs: Eligibility, Prizes & Tracks",
-      "Answers about InnovaHack's international participation, free online Round 1, ₹1,000-per-team hybrid final, four-person teams, AI and startup tracks, and ₹50 Lakh prizes.",
+      "Answers about InnovaHack's international participation, free online Round 1, ₹1,000-per-team hybrid final, teams of up to 4 people, AI and startup tracks, and ₹50 Lakh prizes.",
     ),
     section: "FAQ",
     title: "Questions, answered.",

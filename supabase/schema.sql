@@ -361,7 +361,7 @@ insert into public.site_content (key, value) values ('event', $seed${
     "min": null,
     "max": 4,
     "status": "confirmed",
-    "note": "Teams may include up to four members, including the team lead."
+    "note": "Teams may include up to 4 people, including the team lead."
   },
   "formTeamMemberLimit": 4,
   "prizePool": {
@@ -455,7 +455,7 @@ insert into public.site_content (key, value) values ('event', $seed${
       "id": "register",
       "station": "Registration",
       "title": "Registration & team formation",
-      "description": "Sign up, form a team of up to four and choose one of the two official domains. Round 1 is free to enter.",
+      "description": "Sign up, form a team of up to 4 people and choose one of the two official domains. Round 1 is free to enter.",
       "mode": "Online",
       "date": null,
       "status": "proposed"
@@ -836,7 +836,7 @@ insert into public.site_content (key, value) values ('articles', $seed$[
     "body": [
       {
         "type": "p",
-        "text": "InnovaHack, the international hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 runs in two rounds: a free online Round 1, followed by a ₹1,000-per-team hybrid final in Round 2. Teams may have up to four members, and finalists can compete offline or online."
+        "text": "InnovaHack, the international hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 runs in two rounds: a free online Round 1, followed by a ₹1,000-per-team hybrid final in Round 2. Teams may have up to 4 people, and finalists can compete offline or online."
       },
       {
         "type": "p",
@@ -1018,7 +1018,7 @@ insert into public.site_content (key, value) values ('faq', $seed$[
     "items": [
       {
         "q": "Who can participate, and how big can teams be?",
-        "a": "Teams can have up to four members, including the lead. Other eligibility rules will be set out in the official rules before registration opens."
+        "a": "Teams can have up to 4 people, including the team lead. Other eligibility rules will be set out in the official rules before registration opens."
       },
       {
         "q": "Will InnovaHack Chapter 2 include hiring opportunities?",
@@ -1064,7 +1064,7 @@ insert into public.site_content (key, value) values ('rules', $seed${
     "Each team enters one domain.",
     "AI may be used in both domains. In the Open Innovation / Startup Track, AI is permitted but not compulsory.",
     "Sector themes (for example FinTech, education, agriculture, cybersecurity, climate and civic technology) are challenge themes within the two domains, not additional domains.",
-    "Teams can have up to four members, including the lead.",
+    "Teams can have up to 4 people, including the team lead.",
     "Round 1 is free to enter. Round 2, the hybrid final, costs ₹1,000 per team."
   ],
   "pendingTopics": [
@@ -1913,7 +1913,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.global', $seed${
   "seo": {
     "title": "InnovaHack 2027: International AI & Startup Hackathon",
-    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to four.",
+    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to 4 people.",
     "imageAlt": "InnovaHack Chapter 2, a planned international hackathon for AI and startup innovation"
   },
   "header": {
@@ -1987,7 +1987,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.home', $seed${
   "seo": {
     "title": "InnovaHack 2027: International AI & Startup Hackathon",
-    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to four."
+    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to 4 people."
   },
   "masthead": {
     "wordmark": "INNOVAHACK",
@@ -2266,7 +2266,7 @@ insert into public.site_content (key, value) values ('copy.about', $seed${
     },
     {
       "type": "p",
-      "text": "Chapter 2 runs in two rounds: a free online first round, then a hybrid final in which teams of up to four compete offline or online, at ₹1,000 per team. It focuses on exactly two official competition domains: Artificial Intelligence, and Open Innovation / Startup Track."
+      "text": "Chapter 2 runs in two rounds: a free online first round, then a hybrid final in which teams of up to 4 people compete offline or online, at ₹1,000 per team. It focuses on exactly two official competition domains: Artificial Intelligence, and Open Innovation / Startup Track."
     },
     {
       "type": "h2",
@@ -2556,7 +2556,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.register', $seed${
   "seo": {
     "title": "Hackathon Registration 2027 & Updates",
-    "description": "Join InnovaHack 2027, an international hackathon. Round 1 is free and online; Round 2 is a ₹1,000-per-team hybrid final. Teams can have up to four members."
+    "description": "Join InnovaHack 2027, an international hackathon. Round 1 is free and online; Round 2 is a ₹1,000-per-team hybrid final. Teams can have up to 4 people."
   },
   "section": "Registration",
   "statusBoard": "Status board",
@@ -2567,9 +2567,9 @@ insert into public.site_content (key, value) values ('copy.register', $seed${
     "dates": "Registration dates"
   },
   "teamSizeValue": "Up to {max}",
-  "teamSizeNoteFixed": "Teams can have up to {max} members, including the lead.",
+  "teamSizeNoteFixed": "Teams can have up to {max} people, including the team lead.",
   "teamSizeNoteMin": "Minimum {min}.",
-  "teamSizeNoteOpen": "{note} The form accepts up to {max} members in total.",
+  "teamSizeNoteOpen": "{note} The form accepts up to {max} people in total.",
   "registerKicker": "Team registration",
   "registerTitle": "Register your team",
   "registerDeck": "Read the [official rules](/rules) before you start. Fields marked * are required.",
@@ -2603,7 +2603,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.faq', $seed${
   "seo": {
     "title": "Hackathon FAQs: Eligibility, Prizes & Tracks",
-    "description": "Answers about InnovaHack's international participation, free online Round 1, ₹1,000-per-team hybrid final, four-person teams, AI and startup tracks, and ₹50 Lakh prizes."
+    "description": "Answers about InnovaHack's international participation, free online Round 1, ₹1,000-per-team hybrid final, teams of up to 4 people, AI and startup tracks, and ₹50 Lakh prizes."
   },
   "section": "FAQ",
   "title": "Questions, answered.",

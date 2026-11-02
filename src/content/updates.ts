@@ -28,7 +28,7 @@ export const allArticles: Article[] = [
     body: [
       {
         type: "p",
-        text: "InnovaHack, the international hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 runs in two rounds: a free online Round 1, followed by a ₹1,000-per-team hybrid final in Round 2. Teams may have up to four members, and finalists can compete offline or online.",
+        text: "InnovaHack, the international hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 runs in two rounds: a free online Round 1, followed by a ₹1,000-per-team hybrid final in Round 2. Teams may have up to 4 people, and finalists can compete offline or online.",
       },
       {
         type: "p",
