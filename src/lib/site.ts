@@ -9,6 +9,11 @@ export function isRegistrationOpen(c: SiteContent) {
   return c.event.registration.status === "open";
 }
 
+/** Confirmed maximum team size; protects public behavior from stale saved content. */
+export function teamSizeLimit(c: SiteContent) {
+  return Math.min(c.event.teamSize.max ?? c.event.formTeamMemberLimit, 4);
+}
+
 /** The primary site-wide call to action, based on the registration status. */
 export function primaryCta(c: SiteContent) {
   if (isRegistrationOpen(c)) return { label: c.copy.global.cta.register, href: "/register" };

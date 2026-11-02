@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Building2, CalendarDays, Layers, MapPin } from "lucide-react";
 import type { CityFeature } from "@/content/city";
 import { getSiteContent, type SiteContent } from "@/lib/content";
-import { isRegistrationOpen, registrationState, t } from "@/lib/site";
+import { isRegistrationOpen, registrationState, t, teamSizeLimit } from "@/lib/site";
 import { ContentImage } from "@/components/media/ContentImage";
 import { Figure } from "@/components/media/Figure";
 import { ButtonLink, Container, Rich, Tag } from "@/components/ui";
@@ -60,7 +60,7 @@ export async function Hero() {
           <div className="bg-paper-white p-4 sm:p-5">
             <dt className="kicker text-[0.625rem] text-muted">Team size</dt>
             <dd className="headline mt-2 text-xl sm:text-2xl">
-              Up to {c.event.teamSize.max ?? c.event.formTeamMemberLimit} people
+              Up to {teamSizeLimit(c)} people
             </dd>
           </div>
         </dl>

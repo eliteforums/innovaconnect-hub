@@ -3,7 +3,7 @@ import { RegistrationForm } from "@/components/forms/RegistrationForm";
 import { UpdatesForm } from "@/components/forms/UpdatesForm";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Container, Rich, SectionHeader, StatusTag } from "@/components/ui";
-import { fill, formatDate, isRegistrationOpen, registrationState } from "@/lib/site";
+import { fill, formatDate, isRegistrationOpen, registrationState, teamSizeLimit } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 
 export async function generateMetadata() {
@@ -17,7 +17,7 @@ export default async function RegisterPage() {
   const x = c.copy.register;
   const state = registrationState(c);
   const open = isRegistrationOpen(c);
-  const maxTeamSize = event.teamSize.max ?? event.formTeamMemberLimit;
+  const maxTeamSize = teamSizeLimit(c);
   const teamSizeNote = event.teamSize.max
     ? [fill(x.teamSizeNoteFixed, { max: event.teamSize.max }), event.teamSize.min ? fill(x.teamSizeNoteMin, { min: event.teamSize.min }) : ""]
         .filter(Boolean)
@@ -38,7 +38,7 @@ export default async function RegisterPage() {
               <Row label={x.rows.status} value={state.badge} status="confirmed" />
               <Row
                 label={x.rows.teamSize}
-                value={event.teamSize.max ? fill(x.teamSizeValue, { max: event.teamSize.max }) : null}
+                value={fill(x.teamSizeValue, { max: maxTeamSize })}
                 status={event.teamSize.status}
               />
               <Row label={x.rows.fee} value={event.registration.fee.value} status={event.registration.fee.status} />

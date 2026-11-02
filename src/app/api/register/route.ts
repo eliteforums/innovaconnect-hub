@@ -1,7 +1,7 @@
 import { getSiteContent } from "@/lib/content";
 import { notifyOrganizer, sendEmail } from "@/lib/server/email";
 import { createFormHandler } from "@/lib/server/form-handler";
-import { registrationState } from "@/lib/site";
+import { registrationState, teamSizeLimit } from "@/lib/site";
 import { registrationSchema } from "@/lib/validation";
 
 export const POST = createFormHandler({
@@ -13,11 +13,12 @@ export const POST = createFormHandler({
     return c.event.registration.status === "open" ? null : { ok: false, message: registrationState(c).body };
   },
   refine: async (d): Promise<Record<string, string> | null> => {
-    const { event, domains } = await getSiteContent();
+    const c = await getSiteContent();
+    const { event, domains } = c;
     if (!domains.list.some((x) => x.slug === d.domain)) return { domain: "Please choose one of the official domains." };
     const size = d.team.members.length + 1;
-    const { min, max } = event.teamSize;
-    const cap = max ?? event.formTeamMemberLimit;
+    const { min } = event.teamSize;
+    const cap = teamSizeLimit(c);
     if (size > cap) return { "team.members": `Teams can have at most ${cap} members, including the lead.` };
     if (min && size < min) return { "team.members": `Teams need at least ${min} members, including the lead.` };
     return null;
