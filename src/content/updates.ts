@@ -28,7 +28,11 @@ export const allArticles: Article[] = [
     body: [
       {
         type: "p",
-        text: "InnovaHack, the international hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 is designed as an international hybrid event in two rounds: a free online first round, then a hybrid final in which teams compete offline or online.",
+        text: "InnovaHack, the international hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 runs in two rounds: a free online Round 1, followed by a ₹1,000-per-team hybrid final in Round 2. Teams may have up to four members, and finalists can compete offline or online.",
+      },
+      {
+        type: "p",
+        text: "The prize pool is valued at ₹50 Lakh and includes ₹1,00,000 in cash awards, goodies, AI credits, workshops, incubation opportunities, hiring opportunities and certification courses. The cash awards are split across three tiers and 18 winning teams.",
       },
       { type: "h2", text: "Two official domains" },
       {
@@ -49,7 +53,7 @@ export const allArticles: Article[] = [
       { type: "h2", text: "What is still to be announced" },
       {
         type: "p",
-        text: "The event dates, grand finale venue, team-size rules and partners will be published once they are confirmed. Join the update list to hear first.",
+        text: "Event dates, the offline final venue, full eligibility rules and partner announcements are still to come. The four-member team limit, round structure, fee and prize pool are confirmed. Join the update list to hear when new details are published.",
       },
     ],
   },

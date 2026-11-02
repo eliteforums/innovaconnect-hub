@@ -5,7 +5,6 @@ import {
   interestCategories,
   partnerCategories,
   partnershipInterests,
-  statesAndUts,
 } from "./options";
 
 export * from "./options";
@@ -91,7 +90,8 @@ export const registrationSchema = z
         .regex(/^\+?[0-9\s-]{8,16}$/, "Please enter a valid phone number."),
       organization: z.string().trim().min(2, "Please enter your college or organization.").max(160),
       city: z.string().trim().min(2, "Please enter your city.").max(80),
-      state: z.enum(statesAndUts, { error: "Please choose your state or union territory." }),
+      country: z.string().trim().min(2, "Please enter your country.").max(80, "Country name is too long."),
+      state: optionalText(80),
     }),
     team: z.object({
       name: z.string().trim().min(2, "Please enter a team name.").max(80),

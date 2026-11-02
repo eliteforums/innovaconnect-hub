@@ -174,7 +174,7 @@ test("partner inquiry and contact forms store valid submissions", async () => {
 
 test("registration respects the configured status", async () => {
   const registration = {
-    lead: { fullName: "Lead Person", email: `lead-${run}@example.com`, phone: "+91 98765 43210", organization: "Test College", city: "Pune", state: "Maharashtra" },
+    lead: { fullName: "Lead Person", email: `lead-${run}@example.com`, phone: "+91 98765 43210", organization: "Test College", city: "Pune", country: "India", state: "Maharashtra" },
     team: { name: `Team ${run}`, members: [{ fullName: "Member Two", email: `m2-${run}@example.com` }] },
     domain: "open-innovation",
     project: { title: "Queue-free clinics", summary: "A booking system that removes queues at small clinics for patients and staff alike." },

@@ -361,9 +361,9 @@ insert into public.site_content (key, value) values ('event', $seed${
     "min": null,
     "max": 4,
     "status": "confirmed",
-    "note": "Team-size rules will be published in the official rules."
+    "note": "Teams may include up to four members, including the team lead."
   },
-  "formTeamMemberLimit": 8,
+  "formTeamMemberLimit": 4,
   "prizePool": {
     "value": "₹50 Lakh",
     "status": "confirmed",
@@ -836,7 +836,11 @@ insert into public.site_content (key, value) values ('articles', $seed$[
     "body": [
       {
         "type": "p",
-        "text": "InnovaHack, the international hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 is designed as an international hybrid event in two rounds: a free online first round, then a hybrid final in which teams compete offline or online."
+        "text": "InnovaHack, the international hackathon organized by Elite Forums, is planning its second edition for 2027. Chapter 2 runs in two rounds: a free online Round 1, followed by a ₹1,000-per-team hybrid final in Round 2. Teams may have up to four members, and finalists can compete offline or online."
+      },
+      {
+        "type": "p",
+        "text": "The prize pool is valued at ₹50 Lakh and includes ₹1,00,000 in cash awards, goodies, AI credits, workshops, incubation opportunities, hiring opportunities and certification courses. The cash awards are split across three tiers and 18 winning teams."
       },
       {
         "type": "h2",
@@ -863,7 +867,7 @@ insert into public.site_content (key, value) values ('articles', $seed$[
       },
       {
         "type": "p",
-        "text": "The event dates, grand finale venue, team-size rules and partners will be published once they are confirmed. Join the update list to hear first."
+        "text": "Event dates, the offline final venue, full eligibility rules and partner announcements are still to come. The four-member team limit, round structure, fee and prize pool are confirmed. Join the update list to hear when new details are published."
       }
     ]
   },
@@ -1908,8 +1912,8 @@ on conflict (key) do nothing;
 -- Global text & SEO
 insert into public.site_content (key, value) values ('copy.global', $seed${
   "seo": {
-    "title": "InnovaHack 2027: International Hiring & Startup Hackathon",
-    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon from Mumbai, with a ₹50 Lakh prize pool, a free first round and hiring opportunities.",
+    "title": "InnovaHack 2027: International AI & Startup Hackathon",
+    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to four.",
     "imageAlt": "InnovaHack Chapter 2, a planned international hackathon for AI and startup innovation"
   },
   "header": {
@@ -1982,12 +1986,12 @@ on conflict (key) do nothing;
 -- Homepage
 insert into public.site_content (key, value) values ('copy.home', $seed${
   "seo": {
-    "title": "InnovaHack 2027: International Hiring & Startup Hackathon",
-    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon from Mumbai, with a ₹50 Lakh prize pool, a free first round and hiring opportunities."
+    "title": "InnovaHack 2027: International AI & Startup Hackathon",
+    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to four."
   },
   "masthead": {
     "wordmark": "INNOVAHACK",
-    "headingSuffix": "Chapter 2: an international hiring and startup hackathon, 2027",
+    "headingSuffix": "Chapter 2: an international AI and startup hackathon, 2027",
     "themes": [
       "Innovation",
       "Ideas",
@@ -1998,12 +2002,12 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
     "ticketTop": "Chapter 02",
     "ticketMain": "2027",
     "ticketBottom": "An international hackathon\nby {organizer}",
-    "sideNote": "India's next generation of builders creating real impact."
+    "sideNote": "Builders from around the world creating real impact."
   },
   "lead": {
     "tag": "The lead story",
-    "headline": "*Mumbai*\nbuilds\nthe future.",
-    "subhead": "Two domains. One international stage.",
+    "headline": "*Build*\nwithout\nborders.",
+    "subhead": "Two official domains. One international stage.",
     "primaryCta": "Explore the tracks",
     "meta": [
       "International",
@@ -2034,7 +2038,7 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
   "stripLabel": "The city edition · Four stories",
   "rooted": {
     "number": "02",
-    "kicker": "Mumbai inspires. India innovates.",
+    "kicker": "Mumbai inspires. The world innovates.",
     "title": "Rooted in Mumbai. *Built for the world.*",
     "body": "From the speed of its local trains to the ambition of its builders, Mumbai represents movement, resilience, diversity, and possibility. InnovaHack brings that spirit to an international platform for technology and entrepreneurship.",
     "stops": [
@@ -2473,7 +2477,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.prizes', $seed${
   "seo": {
     "title": "Hackathon Prizes 2027: ₹50 Lakh Prize Pool",
-    "description": "InnovaHack Chapter 2 has a ₹50 Lakh prize pool: ₹1,00,000 in cash for 18 teams, plus goodies, AI credits, workshops, incubation and hiring opportunities."
+    "description": "₹50 Lakh total prize pool: ₹1,00,000 cash across 18 winning teams, plus goodies, AI credits, workshops, incubation, hiring opportunities and certification courses."
   },
   "section": "Prize Pool",
   "title": "Three tiers. *Eighteen winning teams.*",
@@ -2530,7 +2534,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.updates', $seed${
   "seo": {
     "title": "Event Updates & Announcements",
-    "description": "Follow official InnovaHack Chapter 2 announcements, confirmed event details and guides for the planned 2027 AI and startup hackathon in India."
+    "description": "Follow InnovaHack Chapter 2 updates for the 2027 international AI and startup hackathon, including confirmed dates, round details, prizes and partners."
   },
   "section": "Updates & announcements",
   "crumb": "Build Log",
@@ -2552,7 +2556,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.register', $seed${
   "seo": {
     "title": "Hackathon Registration 2027 & Updates",
-    "description": "InnovaHack Chapter 2 registration: Round 1 is free, the hybrid final costs ₹1,000 per team, and teams have up to four members. Join the update list."
+    "description": "Join InnovaHack 2027, an international hackathon. Round 1 is free and online; Round 2 is a ₹1,000-per-team hybrid final. Teams can have up to four members."
   },
   "section": "Registration",
   "statusBoard": "Status board",
@@ -2599,7 +2603,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.faq', $seed${
   "seo": {
     "title": "Hackathon FAQs: Eligibility, Prizes & Tracks",
-    "description": "Get answers about InnovaHack Chapter 2 registration, eligibility, AI and startup tracks, prizes, partners and the planned 2027 event timeline."
+    "description": "Answers about InnovaHack's international participation, free online Round 1, ₹1,000-per-team hybrid final, four-person teams, AI and startup tracks, and ₹50 Lakh prizes."
   },
   "section": "FAQ",
   "title": "Questions, answered.",
@@ -2659,7 +2663,7 @@ insert into public.site_content (key, value) values ('copy.privacy', $seed${
           "type": "list",
           "items": [
             "Event updates: your name, email, and optionally your college or organization and area of interest.",
-            "Registration (when open): team lead contact details, city and state, team name, team members' names and emails, your chosen domain, project details and optional links.",
+            "Registration (when open): team lead contact details, city, country and optional state or province, team name, team members' names and emails, your chosen domain, project details and optional links.",
             "Partnership inquiries: your organization, name, role, business email and the details of your inquiry.",
             "Contact messages: your name, email, topic and message."
           ]

@@ -80,11 +80,11 @@ export const event = {
     min: null as number | null,
     max: 4 as number | null,
     status: "confirmed" as Fact<number>["status"],
-    note: "Team-size rules will be published in the official rules.",
+    note: "Teams may include up to four members, including the team lead.",
   },
 
   /** Hard technical limit on team rows in the form, used only while `teamSize.max` is unset. */
-  formTeamMemberLimit: 8,
+  formTeamMemberLimit: 4,
 
   prizePool: {
     value: "₹50 Lakh",

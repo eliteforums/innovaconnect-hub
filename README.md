@@ -1,6 +1,6 @@
-# InnovaHack Chapter 2 — Mumbai Edition
+# InnovaHack Chapter 2 — International Hybrid Hackathon
 
-The official website for **InnovaHack Chapter 2**, the national hackathon organized by **Elite Forums**.
+The official website for **InnovaHack Chapter 2**, the international hackathon organized by **Elite Forums**.
 Elite Forums is a startup ecosystem initiative that began in Mumbai with a vision to make India a stronger
 hub for entrepreneurship and innovation. The site introduces its communities, college partnerships, workshops,
 hackathons, founder conversations and Innovation Laboratory alongside the Chapter 2 event.
@@ -8,7 +8,7 @@ hackathons, founder conversations and Innovation Laboratory alongside the Chapte
 Design concept: *The Innovation Times* — a premium newspaper special edition inspired by Mumbai's streets,
 heritage and culture, telling the story of India's next generation of builders.
 
-> "Rooted in Mumbai. Built for India. Designed for the future."
+> "Rooted in Mumbai. Open to the world. Designed for the future."
 
 **Stack:** Next.js 16 (App Router, Cache Components, Turbopack) · React 19 · TypeScript · Tailwind CSS v4 ·
 Zod · Lucide icons · optional Supabase (PostgreSQL) and Resend.
@@ -264,8 +264,8 @@ All results below come from a local production server (`next start`):
 ## Needs organizer input before launch
 
 - [ ] Set `ADMIN_USERNAME` and `ADMIN_PASSWORD` (the defaults are admin / admin)
-- [ ] Chapter 2 dates, finale venue, team-size rules, eligibility, any fee, prize pool and awards (all editable in
-      the dashboard under Event settings)
+- [ ] Chapter 2 dates, offline finale venue and remaining eligibility rules (all editable in
+      the dashboard under Event settings). Team limit, round fees and prize tiers are confirmed.
 - [ ] Official rulebook (`src/content/rules.ts`, `published: true`) and evaluation criteria per domain
 - [ ] General contact email and social links (`event.contact`, `event.social`). The partnership address
       `sponsors@eliteforums.in` was taken from the Chapter 1 site; confirm it for Chapter 2.

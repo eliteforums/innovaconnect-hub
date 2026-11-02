@@ -18,9 +18,9 @@ const meta = (title: string, description: string) => ({ title, description });
 export const copy = {
   global: {
     seo: {
-      title: "InnovaHack 2027: International Hiring & Startup Hackathon",
+      title: "InnovaHack 2027: International AI & Startup Hackathon",
       description:
-        "InnovaHack Chapter 2 is an international AI and startup hackathon from Mumbai, with a ₹50 Lakh prize pool, a free first round and hiring opportunities.",
+        "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to four.",
       imageAlt: "InnovaHack Chapter 2, a planned international hackathon for AI and startup innovation",
     },
     header: {
@@ -93,22 +93,22 @@ export const copy = {
 
   home: {
     seo: meta(
-      "InnovaHack 2027: International Hiring & Startup Hackathon",
-      "InnovaHack Chapter 2 is an international AI and startup hackathon from Mumbai, with a ₹50 Lakh prize pool, a free first round and hiring opportunities.",
+      "InnovaHack 2027: International AI & Startup Hackathon",
+      "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to four.",
     ),
     masthead: {
       wordmark: "INNOVAHACK",
-      headingSuffix: "Chapter 2: an international hiring and startup hackathon, 2027",
+      headingSuffix: "Chapter 2: an international AI and startup hackathon, 2027",
       themes: ["Innovation", "Ideas", "Technology", "Startups", "For a brighter India"],
       ticketTop: "Chapter 02",
       ticketMain: "2027",
       ticketBottom: "An international hackathon\nby {organizer}",
-      sideNote: "India's next generation of builders creating real impact.",
+      sideNote: "Builders from around the world creating real impact.",
     },
     lead: {
       tag: "The lead story",
-      headline: "*Mumbai*\nbuilds\nthe future.",
-      subhead: "Two domains. One international stage.",
+      headline: "*Build*\nwithout\nborders.",
+      subhead: "Two official domains. One international stage.",
       primaryCta: "Explore the tracks",
       meta: ["International", "Hybrid format", "2027", "By {organizer}"],
     },
@@ -130,7 +130,7 @@ export const copy = {
     stripLabel: "The city edition · Four stories",
     rooted: {
       number: "02",
-      kicker: "Mumbai inspires. India innovates.",
+      kicker: "Mumbai inspires. The world innovates.",
       title: "Rooted in Mumbai. *Built for the world.*",
       body: "From the speed of its local trains to the ambition of its builders, Mumbai represents movement, resilience, diversity, and possibility. InnovaHack brings that spirit to an international platform for technology and entrepreneurship.",
       stops: ["Movement", "Resilience", "Diversity", "Possibility"],
@@ -446,7 +446,7 @@ export const copy = {
   prizes: {
     seo: meta(
       "Hackathon Prizes 2027: ₹50 Lakh Prize Pool",
-      "InnovaHack Chapter 2 has a ₹50 Lakh prize pool: ₹1,00,000 in cash for 18 teams, plus goodies, AI credits, workshops, incubation and hiring opportunities.",
+      "₹50 Lakh total prize pool: ₹1,00,000 cash across 18 winning teams, plus goodies, AI credits, workshops, incubation, hiring opportunities and certification courses.",
     ),
     section: "Prize Pool",
     title: "Three tiers. *Eighteen winning teams.*",
@@ -504,7 +504,7 @@ export const copy = {
   updates: {
     seo: meta(
       "Event Updates & Announcements",
-      "Follow official InnovaHack Chapter 2 announcements, confirmed event details and guides for the planned 2027 AI and startup hackathon in India.",
+      "Follow InnovaHack Chapter 2 updates for the 2027 international AI and startup hackathon, including confirmed dates, round details, prizes and partners.",
     ),
     section: "Updates & announcements",
     crumb: "Build Log",
@@ -525,7 +525,7 @@ export const copy = {
   register: {
     seo: meta(
       "Hackathon Registration 2027 & Updates",
-      "InnovaHack Chapter 2 registration: Round 1 is free, the hybrid final costs ₹1,000 per team, and teams have up to four members. Join the update list.",
+      "Join InnovaHack 2027, an international hackathon. Round 1 is free and online; Round 2 is a ₹1,000-per-team hybrid final. Teams can have up to four members.",
     ),
     section: "Registration",
     statusBoard: "Status board",
@@ -570,7 +570,7 @@ export const copy = {
   faq: {
     seo: meta(
       "Hackathon FAQs: Eligibility, Prizes & Tracks",
-      "Get answers about InnovaHack Chapter 2 registration, eligibility, AI and startup tracks, prizes, partners and the planned 2027 event timeline.",
+      "Answers about InnovaHack's international participation, free online Round 1, ₹1,000-per-team hybrid final, four-person teams, AI and startup tracks, and ₹50 Lakh prizes.",
     ),
     section: "FAQ",
     title: "Questions, answered.",
@@ -616,7 +616,7 @@ export const copy = {
             type: "list",
             items: [
               "Event updates: your name, email, and optionally your college or organization and area of interest.",
-              "Registration (when open): team lead contact details, city and state, team name, team members' names and emails, your chosen domain, project details and optional links.",
+              "Registration (when open): team lead contact details, city, country and optional state or province, team name, team members' names and emails, your chosen domain, project details and optional links.",
               "Partnership inquiries: your organization, name, role, business email and the details of your inquiry.",
               "Contact messages: your name, email, topic and message.",
             ],

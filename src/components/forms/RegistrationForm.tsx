@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
-import { statesAndUts } from "@/lib/options";
-import { Checkbox, FormStatus, Honeypot, SelectField, SubmitButton, TextArea, TextField } from "./fields";
+import { Checkbox, FormStatus, Honeypot, SubmitButton, TextArea, TextField } from "./fields";
 import { formValues, useFormSubmit } from "./useFormSubmit";
 
 type DomainOption = { slug: string; number: string; name: string; summary: string };
@@ -37,7 +36,8 @@ export function RegistrationForm({
           phone: get("lead.phone"),
           organization: get("lead.organization"),
           city: get("lead.city"),
-          state: get("lead.state"),
+          country: get("lead.country"),
+          state: get("lead.state") || undefined,
         },
         team: {
           name: get("team.name"),
@@ -92,11 +92,21 @@ export function RegistrationForm({
             error={e["lead.organization"]}
           />
           <TextField label="City" name="lead.city" required autoComplete="address-level2" maxLength={80} error={e["lead.city"]} />
-          <SelectField
-            label="State or union territory"
-            name="lead.state"
+          <TextField
+            label="Country"
+            name="lead.country"
             required
-            options={statesAndUts}
+            autoComplete="country-name"
+            maxLength={80}
+            placeholder="Enter your country"
+            error={e["lead.country"]}
+          />
+          <TextField
+            label="State / province (optional)"
+            name="lead.state"
+            autoComplete="address-level1"
+            maxLength={80}
+            hint="For participants in India, enter your state or union territory."
             error={e["lead.state"]}
           />
         </div>

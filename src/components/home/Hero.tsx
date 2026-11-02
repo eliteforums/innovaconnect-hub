@@ -34,6 +34,42 @@ export async function Hero() {
         </aside>
       </div>
 
+      <section aria-labelledby="event-highlights-title" className="mt-8 border-2 border-ink bg-paper-white">
+        <div className="border-b-2 border-ink bg-ink px-4 py-2.5">
+          <h2 id="event-highlights-title" className="kicker text-taxi">
+            InnovaHack Chapter 2 · Event at a glance
+          </h2>
+        </div>
+        <dl className="grid gap-px bg-ink sm:grid-cols-3 xl:grid-cols-5">
+          <div className="bg-paper-white p-4 sm:p-5">
+            <dt className="kicker text-[0.625rem] text-muted">Participation</dt>
+            <dd className="headline mt-2 text-xl sm:text-2xl">{c.event.scope.value}</dd>
+          </div>
+          <div className="bg-paper-white p-4 sm:p-5">
+            <dt className="kicker text-[0.625rem] text-muted">Total prize pool</dt>
+            <dd className="headline mt-2 text-xl text-burgundy sm:text-2xl">{c.event.prizePool.value}</dd>
+          </div>
+          <div className="bg-paper-white p-4 sm:p-5">
+            <dt className="kicker text-[0.625rem] text-muted">Round 1 · Online</dt>
+            <dd className="headline mt-2 text-xl sm:text-2xl">Free</dd>
+          </div>
+          <div className="bg-paper-white p-4 sm:p-5">
+            <dt className="kicker text-[0.625rem] text-muted">Round 2 · Hybrid final</dt>
+            <dd className="headline mt-2 text-xl sm:text-2xl">₹1,000 per team</dd>
+          </div>
+          <div className="bg-paper-white p-4 sm:p-5">
+            <dt className="kicker text-[0.625rem] text-muted">Team size</dt>
+            <dd className="headline mt-2 text-xl sm:text-2xl">
+              Up to {c.event.teamSize.max ?? c.event.formTeamMemberLimit} members
+            </dd>
+          </div>
+        </dl>
+        <p className="border-t-2 border-ink px-4 py-3 text-xs leading-relaxed text-charcoal sm:px-5">
+          <span className="kicker mr-2 text-burgundy">Prize pool includes</span>
+          {c.event.prizePoolIncludes.join(" · ")} · and more.
+        </p>
+      </section>
+
       {/* Sidebar strip for tablet and mobile */}
       <div className="mt-10 border-t-2 border-ink pt-4 xl:hidden">
         <p className="kicker text-burgundy">{c.copy.home.stripLabel}</p>

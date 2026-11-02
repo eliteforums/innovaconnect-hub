@@ -88,7 +88,8 @@ test("team registration form submits when registration is open", { skip: process
   await form.getByRole("textbox", { name: /^Phone/ }).fill("+91 98765 43210");
   await box("College or organization").fill("Test Institute");
   await box("City").fill("Nagpur");
-  await form.getByRole("combobox", { name: "State or union territory" }).selectOption("Maharashtra");
+  await box("Country").fill("India");
+  await box("State / province (optional)").fill("Maharashtra");
   await box("Team name").fill(`Browser Team ${run}`);
   await form.getByRole("button", { name: "Add a team member" }).click();
   await box("Member 2 · full name").fill("Second Member");

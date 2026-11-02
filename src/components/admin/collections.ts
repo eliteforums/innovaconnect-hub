@@ -15,6 +15,8 @@ export const collectionLabels: Record<
       { label: "Domain", path: "domain" },
       { label: "Project", path: "project.title" },
       { label: "City", path: "lead.city" },
+      { label: "Country", path: "lead.country" },
+      { label: "State / province", path: "lead.state" },
     ],
   },
   interest_signups: {
