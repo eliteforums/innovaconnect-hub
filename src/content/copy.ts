@@ -18,10 +18,11 @@ const meta = (title: string, description: string) => ({ title, description });
 export const copy = {
   global: {
     seo: {
-      title: "InnovaHack 2027: International AI & Startup Hackathon",
+      title: "InnovaHack 2027: India's Largest International Hackathon",
       description:
-        "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to 4 people.",
-      imageAlt: "InnovaHack Chapter 2, a planned international hackathon for AI and startup innovation",
+        "InnovaHack Chapter 2 is building toward one of the biggest international hackathons and India's largest hackathon platform, with a ₹50 Lakh prize pool.",
+      imageAlt:
+        "InnovaHack Chapter 2, an international AI and startup hackathon building toward one of India's largest innovation platforms",
     },
     header: {
       wordmark: "INNOVAHACK",

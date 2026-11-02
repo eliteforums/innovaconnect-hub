@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "InnovaHack Chapter 2 international hackathon: ₹50 Lakh prize pool, free Round 1, ₹1,000 per team for the hybrid final, and teams of up to 4 people.";
+export const alt =
+  "InnovaHack Chapter 2, building toward one of the biggest international hackathons and India's largest hackathon platform, with a ₹50 Lakh prize pool.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -27,10 +28,11 @@ export default function OpengraphImage() {
         </div>
         <div style={{ display: "flex", borderTop: "4px solid #171717", marginTop: 18, paddingTop: 22, gap: 40, alignItems: "flex-end" }}>
           <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-            <span style={{ fontSize: 74, fontWeight: 900, color: "#941B45", lineHeight: 1 }}>BUILD BEYOND</span>
-            <span style={{ fontSize: 74, fontWeight: 900, lineHeight: 1 }}>BORDERS.</span>
+            <span style={{ fontSize: 66, fontWeight: 900, color: "#941B45", lineHeight: 1 }}>BUILD BEYOND</span>
+            <span style={{ fontSize: 66, fontWeight: 900, lineHeight: 1 }}>BORDERS.</span>
             <span style={{ fontSize: 30, marginTop: 18 }}>₹50 Lakh prize pool</span>
-            <span style={{ fontSize: 22, marginTop: 8 }}>Round 1 free · Round 2 ₹1,000 per team</span>
+            <span style={{ fontSize: 22, marginTop: 8 }}>Building India's largest hackathon platform</span>
+            <span style={{ fontSize: 20, marginTop: 8 }}>Round 1 free · Round 2 ₹1,000 per team</span>
             <span style={{ fontSize: 20, marginTop: 6 }}>Hybrid final · Teams of up to 4 people</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", border: "4px solid #171717", background: "#F4C430", padding: "16px 28px" }}>
