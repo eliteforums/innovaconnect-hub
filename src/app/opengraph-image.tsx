@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "InnovaHack Chapter 2, building toward one of the biggest international hackathons and India's largest hackathon platform, with a ₹50 Lakh prize pool.";
+  "InnovaHack Chapter 2 2027 graphic for an international AI and startup hackathon with a ₹50 Lakh prize pool.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

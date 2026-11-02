@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Caveat, IBM_Plex_Mono, Inter, Playfair_Display } from "next/font/google";
 import { siteUrl } from "@/content/event";
 import { getSiteContent } from "@/lib/content";
-import { siteKeywords } from "@/lib/seo";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -40,7 +39,6 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(siteUrl),
     title: { default: title, template: "%s | InnovaHack" },
     description,
-    keywords: siteKeywords,
     applicationName: "InnovaHack",
     authors: [{ name: c.event.organizer }],
     creator: c.event.organizer,

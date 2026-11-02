@@ -29,6 +29,11 @@ export async function SiteChrome({ children }: { children: React.ReactNode }) {
       "Innovation",
       "Technology",
       "Hackathons",
+      "International hackathons",
+      "Artificial intelligence",
+      "AI innovation",
+      "Open innovation",
+      "Startup development",
       "Startup ecosystems",
     ],
   };

@@ -314,7 +314,7 @@ insert into public.site_content (key, value) values ('event', $seed${
     "note": "Round 1 is online and free to enter. Round 2, the final, is a hybrid round with offline and online teams."
   },
   "tagline": "Rooted in Mumbai. Open to the world. Designed for the future.",
-  "description": "InnovaHack Chapter 2 is an international hybrid hackathon planned for 2027, welcoming teams from around the world to build useful AI and startup solutions.",
+  "description": "InnovaHack Chapter 2 is a 2027 international AI and startup innovation hackathon for teams worldwide, with a ₹50 Lakh prize pool. It is building toward one of the biggest international hackathons and India's largest hackathon platform.",
   "announcement": [
     "Elite Forums presents",
     "International",
@@ -1912,9 +1912,9 @@ on conflict (key) do nothing;
 -- Global text & SEO
 insert into public.site_content (key, value) values ('copy.global', $seed${
   "seo": {
-    "title": "InnovaHack 2027: International AI & Startup Hackathon",
-    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to 4 people.",
-    "imageAlt": "InnovaHack Chapter 2, a planned international hackathon for AI and startup innovation"
+    "title": "InnovaHack 2027 | International AI Hackathon & ₹50 Lakh Prize Pool",
+    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon with a ₹50 Lakh prize pool, building toward one of the biggest international hackathons and India's largest hackathon platform.",
+    "imageAlt": "InnovaHack Chapter 2 international AI and startup hackathon with a ₹50 Lakh prize pool and teams building new ideas"
   },
   "header": {
     "wordmark": "INNOVAHACK",
@@ -1987,7 +1987,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.home', $seed${
   "seo": {
     "title": "InnovaHack 2027: International AI & Startup Hackathon",
-    "description": "InnovaHack Chapter 2 is an international AI and startup hackathon in 2027: a ₹50 Lakh prize pool, free online Round 1, a ₹1,000-per-team hybrid final, and teams of up to 4 people."
+    "description": "Join teams worldwide to build practical AI and startup innovations for a ₹50 Lakh prize pool. InnovaHack is building toward one of the biggest international hackathons and India's largest hackathon platform."
   },
   "masthead": {
     "wordmark": "INNOVAHACK",
@@ -2007,7 +2007,7 @@ insert into public.site_content (key, value) values ('copy.home', $seed${
   "lead": {
     "tag": "The lead story",
     "headline": "*Build*\nwithout\nborders.",
-    "subhead": "Two official domains. One international stage.",
+    "subhead": "Building toward one of the biggest international hackathons—and India's largest hackathon platform.",
     "primaryCta": "Explore the tracks",
     "meta": [
       "International",
@@ -2255,7 +2255,7 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.about', $seed${
   "seo": {
     "title": "About the International Hackathon",
-    "description": "InnovaHack is the international hackathon organized by Elite Forums. Learn why Chapter 2 is rooted in Mumbai, open to the world and planned for 2027."
+    "description": "Meet InnovaHack Chapter 2, an international hackathon for AI, startup ideas and practical innovation. Discover its Mumbai roots, global participation and 2027 plans."
   },
   "section": "The Story",
   "title": "The next generation of builders. *One international stage.*",
@@ -2323,8 +2323,8 @@ on conflict (key) do nothing;
 -- The Tracks
 insert into public.site_content (key, value) values ('copy.tracks', $seed${
   "seo": {
-    "title": "AI & Startup Hackathon Tracks 2027",
-    "description": "Explore the two InnovaHack Chapter 2 domains: Artificial Intelligence and Open Innovation / Startup, for the 2027 international hybrid hackathon."
+    "title": "AI & Startup Innovation Tracks 2027",
+    "description": "Explore the two domains in this international hackathon: Artificial Intelligence and Open Innovation / Startup. Build practical solutions with teams from around the world."
   },
   "section": "The Tracks",
   "title": "Two domains. *One international stage.*",
@@ -2362,12 +2362,12 @@ on conflict (key) do nothing;
 insert into public.site_content (key, value) values ('copy.domainDetail', $seed${
   "seo": {
     "artificial-intelligence": {
-      "title": "International AI Hackathon 2027: The AI Track",
-      "description": "Enter the InnovaHack Chapter 2 AI track: build with generative AI, LLMs, AI agents, machine learning or computer vision to solve real-world problems."
+      "title": "International AI Hackathon 2027: AI Track",
+      "description": "Build with generative AI, large language models, AI agents, machine learning or computer vision in InnovaHack's international AI hackathon. Apply AI to a practical problem."
     },
     "open-innovation": {
-      "title": "Startup & Open Innovation Hackathon 2027",
-      "description": "Enter the InnovaHack Chapter 2 startup track: build original products, services or business concepts that solve real problems. AI is welcome, never required."
+      "title": "International Startup & Open Innovation Hackathon",
+      "description": "Turn an original product, service or startup idea into a practical solution in InnovaHack's international open innovation hackathon. AI is welcome, never required."
     }
   },
   "sectionSuffix": "Official competition domain",
@@ -2476,8 +2476,8 @@ on conflict (key) do nothing;
 -- Prizes
 insert into public.site_content (key, value) values ('copy.prizes', $seed${
   "seo": {
-    "title": "Hackathon Prizes 2027: ₹50 Lakh Prize Pool",
-    "description": "₹50 Lakh total prize pool: ₹1,00,000 cash across 18 winning teams, plus goodies, AI credits, workshops, incubation, hiring opportunities and certification courses."
+    "title": "₹50 Lakh Hackathon Prize Pool 2027",
+    "description": "Explore InnovaHack's ₹50 Lakh prize pool: ₹1,00,000 in cash awards across 18 teams, plus goodies, AI credits, workshops, incubation, hiring and certification opportunities."
   },
   "section": "Prize Pool",
   "title": "Three tiers. *Eighteen winning teams.*",
@@ -2508,8 +2508,8 @@ on conflict (key) do nothing;
 -- Partners
 insert into public.site_content (key, value) values ('copy.partners', $seed${
   "seo": {
-    "title": "Hire & Sponsor at an International Hackathon",
-    "description": "Hire from or sponsor InnovaHack Chapter 2, an international hiring and startup hackathon. Explore challenge, mentoring, tooling and talent partnerships."
+    "title": "International Hackathon Sponsorship",
+    "description": "Partner with InnovaHack Chapter 2 to support international AI and startup innovation. Explore hackathon sponsorship, challenges, mentoring, tools and hiring opportunities."
   },
   "section": "Partners & industry",
   "title": "Real problems. *Real builders.*",
@@ -2533,8 +2533,8 @@ on conflict (key) do nothing;
 -- Updates
 insert into public.site_content (key, value) values ('copy.updates', $seed${
   "seo": {
-    "title": "Event Updates & Announcements",
-    "description": "Follow InnovaHack Chapter 2 updates for the 2027 international AI and startup hackathon, including confirmed dates, round details, prizes and partners."
+    "title": "International Hackathon 2027 Updates",
+    "description": "Follow official InnovaHack announcements about the international AI and startup hackathon, including registration, dates, rules, the ₹50 Lakh prize pool and partners."
   },
   "section": "Updates & announcements",
   "crumb": "Build Log",
@@ -2555,8 +2555,8 @@ on conflict (key) do nothing;
 -- Register
 insert into public.site_content (key, value) values ('copy.register', $seed${
   "seo": {
-    "title": "Hackathon Registration 2027 & Updates",
-    "description": "Join InnovaHack 2027, an international hackathon. Round 1 is free and online; Round 2 is a ₹1,000-per-team hybrid final. Teams can have up to 4 people."
+    "title": "International Hackathon Registration 2027",
+    "description": "Get registration updates for InnovaHack, an international AI and startup hackathon. Round 1 is free and online; the hybrid final costs ₹1,000 per team, up to 4 people."
   },
   "section": "Registration",
   "statusBoard": "Status board",
@@ -2582,8 +2582,8 @@ on conflict (key) do nothing;
 -- Contact
 insert into public.site_content (key, value) values ('copy.contact', $seed${
   "seo": {
-    "title": "Contact the Organizers",
-    "description": "Contact Elite Forums about InnovaHack Chapter 2, the planned 2027 international hackathon, for event questions and partnership inquiries."
+    "title": "Contact the Hackathon Organizers",
+    "description": "Contact Elite Forums about InnovaHack Chapter 2, its international AI and startup hackathon, ₹50 Lakh prize pool, registration updates or partnership opportunities."
   },
   "section": "Contact",
   "title": "Get in touch.",
@@ -2602,8 +2602,8 @@ on conflict (key) do nothing;
 -- FAQ page
 insert into public.site_content (key, value) values ('copy.faq', $seed${
   "seo": {
-    "title": "Hackathon FAQs: Eligibility, Prizes & Tracks",
-    "description": "Answers about InnovaHack's international participation, free online Round 1, ₹1,000-per-team hybrid final, teams of up to 4 people, AI and startup tracks, and ₹50 Lakh prizes."
+    "title": "International Hackathon FAQs: Teams & Prizes",
+    "description": "Find answers about InnovaHack's international hackathon, teams of up to 4, AI and startup tracks, free online Round 1, ₹1,000 hybrid final and ₹50 Lakh prize pool."
   },
   "section": "FAQ",
   "title": "Questions, answered.",
@@ -2616,8 +2616,8 @@ on conflict (key) do nothing;
 -- Rules page
 insert into public.site_content (key, value) values ('copy.rules', $seed${
   "seo": {
-    "title": "Hackathon Rules & Eligibility",
-    "description": "Read the confirmed competition principles for InnovaHack Chapter 2, covering its AI and Open Innovation / Startup domains. Full rules are still to come."
+    "title": "Hackathon Rules & Eligibility 2027",
+    "description": "Read confirmed team, round and domain details for InnovaHack's international AI and startup hackathon. The complete competition rules will be published before registration opens."
   },
   "section": "Official rules",
   "title": "The rulebook.",

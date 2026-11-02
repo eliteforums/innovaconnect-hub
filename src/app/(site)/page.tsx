@@ -33,6 +33,7 @@ export default async function HomePage() {
     alternateName: [c.event.fullName, new URL(siteUrl).hostname],
     url: `${siteUrl}/`,
     inLanguage: "en-IN",
+    description: c.event.description,
     publisher: { "@id": `${siteUrl}/#organizer` },
   };
   // Search engines require a real date and place, so this appears only once both are confirmed.

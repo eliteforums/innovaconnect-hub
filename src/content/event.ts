@@ -38,7 +38,7 @@ export const event = {
   } satisfies Fact<string>,
   tagline: "Rooted in Mumbai. Open to the world. Designed for the future.",
   description:
-    "InnovaHack Chapter 2 is an international hybrid hackathon planned for 2027, welcoming teams from around the world to build useful AI and startup solutions.",
+    "InnovaHack Chapter 2 is a 2027 international AI and startup innovation hackathon for teams worldwide, with a ₹50 Lakh prize pool. It is building toward one of the biggest international hackathons and India's largest hackathon platform.",
 
   /** Strip at the very top of every page. */
   announcement: ["Elite Forums presents", "International", "Chapter 02", "2027"],

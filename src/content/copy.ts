@@ -18,11 +18,11 @@ const meta = (title: string, description: string) => ({ title, description });
 export const copy = {
   global: {
     seo: {
-      title: "InnovaHack 2027: India's Largest International Hackathon",
+      title: "InnovaHack 2027 | International AI Hackathon & ₹50 Lakh Prize Pool",
       description:
-        "InnovaHack Chapter 2 is building toward one of the biggest international hackathons and India's largest hackathon platform, with a ₹50 Lakh prize pool.",
+        "InnovaHack Chapter 2 is an international AI and startup hackathon with a ₹50 Lakh prize pool, building toward one of the biggest international hackathons and India's largest hackathon platform.",
       imageAlt:
-        "InnovaHack Chapter 2, an international AI and startup hackathon building toward one of India's largest innovation platforms",
+        "InnovaHack Chapter 2 international AI and startup hackathon with a ₹50 Lakh prize pool and teams building new ideas",
     },
     header: {
       wordmark: "INNOVAHACK",
@@ -94,8 +94,8 @@ export const copy = {
 
   home: {
     seo: meta(
-      "India's Largest International Hackathon: InnovaHack 2027",
-      "InnovaHack Chapter 2 is building toward one of the biggest international hackathons and India's largest hackathon platforms, with a ₹50 Lakh prize pool.",
+      "InnovaHack 2027: International AI & Startup Hackathon",
+      "Join teams worldwide to build practical AI and startup innovations for a ₹50 Lakh prize pool. InnovaHack is building toward one of the biggest international hackathons and India's largest hackathon platform.",
     ),
     masthead: {
       wordmark: "INNOVAHACK",
@@ -109,7 +109,7 @@ export const copy = {
     lead: {
       tag: "The lead story",
       headline: "*Build*\nwithout\nborders.",
-      subhead: "Two official domains. One international stage.",
+      subhead: "Building toward one of the biggest international hackathons—and India's largest hackathon platform.",
       primaryCta: "Explore the tracks",
       meta: ["International", "Hybrid format", "2027", "By {organizer}"],
     },
@@ -254,7 +254,7 @@ export const copy = {
   about: {
     seo: meta(
       "About the International Hackathon",
-      "InnovaHack is the international hackathon organized by Elite Forums. Learn why Chapter 2 is rooted in Mumbai, open to the world and planned for 2027.",
+      "Meet InnovaHack Chapter 2, an international hackathon for AI, startup ideas and practical innovation. Discover its Mumbai roots, global participation and 2027 plans.",
     ),
     section: "The Story",
     title: "The next generation of builders. *One international stage.*",
@@ -308,8 +308,8 @@ export const copy = {
 
   tracks: {
     seo: meta(
-      "AI & Startup Hackathon Tracks 2027",
-      "Explore the two InnovaHack Chapter 2 domains: Artificial Intelligence and Open Innovation / Startup, for the 2027 international hybrid hackathon.",
+      "AI & Startup Innovation Tracks 2027",
+      "Explore the two domains in this international hackathon: Artificial Intelligence and Open Innovation / Startup. Build practical solutions with teams from around the world.",
     ),
     section: "The Tracks",
     title: "Two domains. *One international stage.*",
@@ -341,12 +341,12 @@ export const copy = {
   domainDetail: {
     seo: {
       "artificial-intelligence": meta(
-        "International AI Hackathon 2027: The AI Track",
-        "Enter the InnovaHack Chapter 2 AI track: build with generative AI, LLMs, AI agents, machine learning or computer vision to solve real-world problems.",
+        "International AI Hackathon 2027: AI Track",
+        "Build with generative AI, large language models, AI agents, machine learning or computer vision in InnovaHack's international AI hackathon. Apply AI to a practical problem.",
       ),
       "open-innovation": meta(
-        "Startup & Open Innovation Hackathon 2027",
-        "Enter the InnovaHack Chapter 2 startup track: build original products, services or business concepts that solve real problems. AI is welcome, never required.",
+        "International Startup & Open Innovation Hackathon",
+        "Turn an original product, service or startup idea into a practical solution in InnovaHack's international open innovation hackathon. AI is welcome, never required.",
       ),
     },
     sectionSuffix: "Official competition domain",
@@ -446,8 +446,8 @@ export const copy = {
 
   prizes: {
     seo: meta(
-      "Hackathon Prizes 2027: ₹50 Lakh Prize Pool",
-      "₹50 Lakh total prize pool: ₹1,00,000 cash across 18 winning teams, plus goodies, AI credits, workshops, incubation, hiring opportunities and certification courses.",
+      "₹50 Lakh Hackathon Prize Pool 2027",
+      "Explore InnovaHack's ₹50 Lakh prize pool: ₹1,00,000 in cash awards across 18 teams, plus goodies, AI credits, workshops, incubation, hiring and certification opportunities.",
     ),
     section: "Prize Pool",
     title: "Three tiers. *Eighteen winning teams.*",
@@ -478,8 +478,8 @@ export const copy = {
 
   partners: {
     seo: meta(
-      "Hire & Sponsor at an International Hackathon",
-      "Hire from or sponsor InnovaHack Chapter 2, an international hiring and startup hackathon. Explore challenge, mentoring, tooling and talent partnerships.",
+      "International Hackathon Sponsorship",
+      "Partner with InnovaHack Chapter 2 to support international AI and startup innovation. Explore hackathon sponsorship, challenges, mentoring, tools and hiring opportunities.",
     ),
     section: "Partners & industry",
     title: "Real problems. *Real builders.*",
@@ -504,8 +504,8 @@ export const copy = {
 
   updates: {
     seo: meta(
-      "Event Updates & Announcements",
-      "Follow InnovaHack Chapter 2 updates for the 2027 international AI and startup hackathon, including confirmed dates, round details, prizes and partners.",
+      "International Hackathon 2027 Updates",
+      "Follow official InnovaHack announcements about the international AI and startup hackathon, including registration, dates, rules, the ₹50 Lakh prize pool and partners.",
     ),
     section: "Updates & announcements",
     crumb: "Build Log",
@@ -525,8 +525,8 @@ export const copy = {
 
   register: {
     seo: meta(
-      "Hackathon Registration 2027 & Updates",
-      "Join InnovaHack 2027, an international hackathon. Round 1 is free and online; Round 2 is a ₹1,000-per-team hybrid final. Teams can have up to 4 people.",
+      "International Hackathon Registration 2027",
+      "Get registration updates for InnovaHack, an international AI and startup hackathon. Round 1 is free and online; the hybrid final costs ₹1,000 per team, up to 4 people.",
     ),
     section: "Registration",
     statusBoard: "Status board",
@@ -551,8 +551,8 @@ export const copy = {
 
   contact: {
     seo: meta(
-      "Contact the Organizers",
-      "Contact Elite Forums about InnovaHack Chapter 2, the planned 2027 international hackathon, for event questions and partnership inquiries.",
+      "Contact the Hackathon Organizers",
+      "Contact Elite Forums about InnovaHack Chapter 2, its international AI and startup hackathon, ₹50 Lakh prize pool, registration updates or partnership opportunities.",
     ),
     section: "Contact",
     title: "Get in touch.",
@@ -570,8 +570,8 @@ export const copy = {
 
   faq: {
     seo: meta(
-      "Hackathon FAQs: Eligibility, Prizes & Tracks",
-      "Answers about InnovaHack's international participation, free online Round 1, ₹1,000-per-team hybrid final, teams of up to 4 people, AI and startup tracks, and ₹50 Lakh prizes.",
+      "International Hackathon FAQs: Teams & Prizes",
+      "Find answers about InnovaHack's international hackathon, teams of up to 4, AI and startup tracks, free online Round 1, ₹1,000 hybrid final and ₹50 Lakh prize pool.",
     ),
     section: "FAQ",
     title: "Questions, answered.",
@@ -582,8 +582,8 @@ export const copy = {
 
   rules: {
     seo: meta(
-      "Hackathon Rules & Eligibility",
-      "Read the confirmed competition principles for InnovaHack Chapter 2, covering its AI and Open Innovation / Startup domains. Full rules are still to come.",
+      "Hackathon Rules & Eligibility 2027",
+      "Read confirmed team, round and domain details for InnovaHack's international AI and startup hackathon. The complete competition rules will be published before registration opens.",
     ),
     section: "Official rules",
     title: "The rulebook.",
