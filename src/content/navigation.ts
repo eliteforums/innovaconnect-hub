@@ -16,6 +16,7 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
     links: [
       { label: "The Story", href: "/about" },
       { label: "Prize Pool", href: "/prizes" },
+      { label: "Live leaderboard", href: "/leaderboard" },
       { label: "Build Log", href: "/updates" },
     ],
   },
@@ -32,6 +33,7 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
     title: "Get involved",
     links: [
       { label: "Register", href: "/register" },
+      { label: "Finalist sign-in", href: "/portal/login" },
       { label: "Partners", href: "/partners" },
       { label: "Contact", href: "/contact" },
       { label: "FAQ", href: "/faq" },

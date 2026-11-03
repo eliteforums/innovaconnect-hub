@@ -13,7 +13,7 @@ const ip = `10.${Math.floor(Math.random() * 250)}.${Math.floor(Math.random() * 2
 
 const routes = [
   "/", "/about", "/chapter-1", "/tracks", "/tracks/artificial-intelligence", "/tracks/open-innovation",
-  "/prizes", "/partners", "/updates", "/register", "/contact", "/faq", "/rules", "/privacy", "/terms",
+  "/prizes", "/leaderboard", "/partners", "/updates", "/register", "/contact", "/faq", "/rules", "/privacy", "/terms",
 ];
 
 function post(path, body, headers = {}) {

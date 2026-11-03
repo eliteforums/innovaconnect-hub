@@ -10,6 +10,7 @@ const routes = [
   "/tracks/open-innovation",
   "/chapter-1",
   "/prizes",
+  "/leaderboard",
   "/partners",
   "/register",
   "/contact",

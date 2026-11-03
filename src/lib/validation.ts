@@ -122,6 +122,53 @@ export const registrationSchema = z
     }
   });
 
+// ── Live final ───────────────────────────────────────────────────────────────
+
+const urlOrEmpty = optionalUrl.transform((v) => v ?? "");
+
+/** A finalist team's solution (/portal/team). */
+export const solutionSchema = z
+  .object({
+    title: z.string().trim().min(3, "Please enter your project's title.").max(120),
+    summary: z.string().trim().min(40, "Please describe your solution in at least 40 characters.").max(3000),
+    techStack: z.string().trim().max(300, "Please keep this under 300 characters.").default(""),
+    repoUrl: urlOrEmpty,
+    demoUrl: urlOrEmpty,
+    videoUrl: urlOrEmpty,
+    deckUrl: urlOrEmpty,
+  })
+  .refine((v) => v.repoUrl || v.demoUrl || v.videoUrl || v.deckUrl, {
+    path: ["repoUrl"],
+    message: "Please add at least one link: repository, live demo, video or slides.",
+  });
+
+/** A finalist team created by the admin. */
+export const finalistTeamSchema = z.object({
+  name: z.string().trim().min(2, "Please enter a team name.").max(80),
+  domain: z.enum(domainValues, { error: "Please choose a domain." }),
+  mode: z.enum(["offline", "online"], { error: "Please choose offline or online." }),
+  email: z.union([z.literal(""), email]).default(""),
+  members: z.string().trim().max(500).default(""),
+  registrationId: z.string().trim().max(64).optional(),
+});
+
+export const moderatorSchema = z.object({
+  name: z.string().trim().min(2, "Please enter the moderator's name.").max(120),
+  affiliation: z.string().trim().max(160).default(""),
+});
+
+export const criteriaSchema = z
+  .array(
+    z.object({
+      key: z.string().trim().regex(/^[a-z0-9-]{1,32}$/, "Criterion keys use lower-case letters, digits and dashes."),
+      label: z.string().trim().min(2, "Every criterion needs a name.").max(80),
+      max: z.number().int().min(1, "Maximum marks must be at least 1.").max(100),
+    }),
+  )
+  .min(1, "Add at least one scoring criterion.")
+  .max(12)
+  .refine((list) => new Set(list.map((c) => c.key)).size === list.length, "Criterion keys must be unique.");
+
 export type InterestInput = z.infer<typeof interestSchema>;
 export type PartnerInput = z.infer<typeof partnerSchema>;
 export type ContactInput = z.infer<typeof contactSchema>;

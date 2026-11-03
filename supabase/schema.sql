@@ -25,7 +25,9 @@
 --    3. Storage:           public bucket "site-media" for uploaded images
 --    4. Read-only views:   *_view tables that flatten submissions for browsing
 --                          in the Supabase Table Editor
---    5. Seed data:         every page's content (26 sections) in site_content,
+--    5. Live final:        finals_teams, finals_moderators, finals_solutions,
+--                          finals_scores, finals_settings, portal_sessions
+--    6. Seed data:         every page's content (27 sections) in site_content,
 --                          so the whole site is editable in the admin panel.
 --                          Existing rows are never overwritten.
 -- ════════════════════════════════════════════════════════════════════════════
@@ -251,7 +253,106 @@ select
 from public.contact_messages;
 
 -- ────────────────────────────────────────────────────────────────────────────
--- 5. PRIVILEGES
+-- 5. LIVE FINAL — finalist teams, moderators, solutions, marks, leaderboard
+--    Teams and moderators sign in with a login ID and pass issued in the
+--    admin dashboard (only scrypt hashes are stored). Deleting a team or
+--    moderator removes its solution and marks through the foreign keys.
+-- ────────────────────────────────────────────────────────────────────────────
+
+create table if not exists public.finals_teams (
+  id               text        primary key,
+  login_id         text        not null unique,
+  pass_hash        text        not null,
+  name             text        not null,
+  domain           text        not null,
+  mode             text        not null check (mode in ('offline', 'online')),
+  email            text        not null default '',
+  members          text        not null default '',
+  registration_id  text,
+  tier             smallint    check (tier between 1 and 3),
+  created_at       timestamptz not null default now()
+);
+alter table public.finals_teams enable row level security;
+comment on table public.finals_teams is 'Finalist teams with their portal login (hashed pass) and winning tier.';
+
+create table if not exists public.finals_moderators (
+  id           text        primary key,
+  login_id     text        not null unique,
+  pass_hash    text        not null,
+  name         text        not null,
+  affiliation  text        not null default '',
+  created_at   timestamptz not null default now()
+);
+alter table public.finals_moderators enable row level security;
+comment on table public.finals_moderators is 'Moderators (judges) who mark solutions in the portal.';
+
+create table if not exists public.finals_solutions (
+  team_id       text        primary key references public.finals_teams (id) on delete cascade,
+  title         text        not null,
+  summary       text        not null,
+  tech_stack    text        not null default '',
+  repo_url      text        not null default '',
+  demo_url      text        not null default '',
+  video_url     text        not null default '',
+  deck_url      text        not null default '',
+  submitted_at  timestamptz not null default now(),
+  updated_at    timestamptz not null default now()
+);
+alter table public.finals_solutions enable row level security;
+comment on table public.finals_solutions is 'One solution per finalist team, editable while submissions are open.';
+
+create table if not exists public.finals_scores (
+  id            text        primary key,
+  team_id       text        not null references public.finals_teams (id) on delete cascade,
+  moderator_id  text        not null references public.finals_moderators (id) on delete cascade,
+  marks         jsonb       not null,
+  comment       text        not null default '',
+  updated_at    timestamptz not null default now(),
+  unique (team_id, moderator_id)
+);
+alter table public.finals_scores enable row level security;
+create index if not exists finals_scores_team_idx on public.finals_scores (team_id);
+comment on table public.finals_scores is 'Marks per criterion, one row per moderator per team.';
+
+create table if not exists public.finals_settings (
+  id          text        primary key,
+  value       jsonb       not null,
+  updated_at  timestamptz not null default now()
+);
+alter table public.finals_settings enable row level security;
+comment on table public.finals_settings is 'Leaderboard on/off, submissions open, winners published, live team and scoring criteria.';
+
+-- Team and moderator sessions (hashed tokens), like admin_sessions.
+create table if not exists public.portal_sessions (
+  token_hash  text        primary key,
+  role        text        not null check (role in ('team', 'moderator')),
+  subject_id  text        not null,
+  expires_at  timestamptz not null,
+  created_at  timestamptz not null default now()
+);
+alter table public.portal_sessions enable row level security;
+create index if not exists portal_sessions_subject_idx on public.portal_sessions (subject_id);
+create index if not exists portal_sessions_expires_idx on public.portal_sessions (expires_at);
+comment on table public.portal_sessions is 'Finalist and moderator portal sessions. Expired rows are purged automatically.';
+
+create or replace function public.portal_sessions_purge_on_insert()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  delete from public.portal_sessions where expires_at <= now();
+  return new;
+end;
+$$;
+
+drop trigger if exists portal_sessions_purge on public.portal_sessions;
+create trigger portal_sessions_purge
+  before insert on public.portal_sessions
+  for each statement execute function public.portal_sessions_purge_on_insert();
+
+-- ────────────────────────────────────────────────────────────────────────────
+-- 6. PRIVILEGES
 --    Lock everything to the server (service_role). RLS already blocks the
 --    public roles; revoking privileges is a second, independent barrier.
 -- ────────────────────────────────────────────────────────────────────────────
@@ -263,6 +364,7 @@ begin
   foreach obj in array array[
     'interest_signups', 'registrations', 'partner_inquiries', 'contact_messages',
     'site_content', 'admin_sessions',
+    'finals_teams', 'finals_moderators', 'finals_solutions', 'finals_scores', 'finals_settings', 'portal_sessions',
     'registrations_view', 'interest_signups_view', 'partner_inquiries_view', 'contact_messages_view'
   ] loop
     execute format('revoke all on public.%I from anon, authenticated', obj);
@@ -274,11 +376,12 @@ revoke all on function public.purge_expired_admin_sessions() from public, anon, 
 grant execute on function public.purge_expired_admin_sessions() to service_role;
 revoke all on function public.admin_sessions_purge_on_insert() from public, anon, authenticated;
 revoke all on function public.touch_updated_at() from public, anon, authenticated;
+revoke all on function public.portal_sessions_purge_on_insert() from public, anon, authenticated;
 
 commit;
 
 -- ────────────────────────────────────────────────────────────────────────────
--- 6. SEED DATA — the whole website's content
+-- 7. SEED DATA — the whole website's content
 -- ────────────────────────────────────────────────────────────────────────────
 
 -- >>> SEED: site content (generated by `npm run db:seed-sql` — do not edit by hand)
@@ -1841,6 +1944,10 @@ insert into public.site_content (key, value) values ('navigation', $seed${
           "href": "/prizes"
         },
         {
+          "label": "Live leaderboard",
+          "href": "/leaderboard"
+        },
+        {
           "label": "Build Log",
           "href": "/updates"
         }
@@ -1873,6 +1980,10 @@ insert into public.site_content (key, value) values ('navigation', $seed${
         {
           "label": "Register",
           "href": "/register"
+        },
+        {
+          "label": "Finalist sign-in",
+          "href": "/portal/login"
         },
         {
           "label": "Partners",
@@ -2502,6 +2613,44 @@ insert into public.site_content (key, value) values ('copy.prizes', $seed${
   "breakdownBody": "Tier 1 pays ₹30,000 (3 teams × ₹10,000: 2 offline, 1 online), Tier 2 pays ₹30,000 (5 teams × ₹6,000: 3 offline, 2 online) and Tier 3 pays ₹40,000 (10 teams × ₹4,000: 5 offline, 5 online). Together that is ₹1,00,000 in cash across 18 winning teams.",
   "nextTitle": "Competing for a prize",
   "nextBody": "Start by choosing one of the [two official domains](/tracks), then read the [rules and eligibility](/rules) and the [FAQ](/faq). You can also [get registration updates](/register#updates) as soon as dates are confirmed."
+}$seed$::jsonb)
+on conflict (key) do nothing;
+
+-- Leaderboard
+insert into public.site_content (key, value) values ('copy.leaderboard', $seed${
+  "seo": {
+    "title": "Live Hackathon Leaderboard & Winners",
+    "description": "Follow the InnovaHack Chapter 2 final live: moderator marks, team rankings and the Tier 1, 2 and 3 winners update in real time during the final round."
+  },
+  "section": "Leaderboard",
+  "title": "The final, *scored live.*",
+  "deck": "Every mark the moderators give appears here as soon as it is saved. Teams are ranked by the average of all moderators' totals.",
+  "offKicker": "Not live yet",
+  "offTitle": "The leaderboard opens with the live final.",
+  "offBody": "Scores appear here in real time once the offline round of the final begins. Finalist teams can already [sign in](/portal/login) to submit their solution.",
+  "liveLabel": "Live",
+  "updatedLabel": "Updated",
+  "nowReviewingLabel": "Now under review",
+  "winnersTitle": "Winners",
+  "standingsTitle": "Standings",
+  "formatLabel": "Format",
+  "domainLabel": "Domain",
+  "allLabel": "All",
+  "offlineLabel": "Offline",
+  "onlineLabel": "Online",
+  "rankLabel": "Rank",
+  "teamLabel": "Team",
+  "scoreLabel": "Average score",
+  "reviewsLabel": "Reviews",
+  "marksLabel": "Moderator marks",
+  "moderatorLabel": "Moderator",
+  "totalLabel": "Total",
+  "tierLabel": "Tier",
+  "noSubmission": "No solution submitted",
+  "notReviewed": "Awaiting review",
+  "emptyTitle": "No finalist teams yet.",
+  "emptyBody": "Finalist teams appear here once the organizers announce them.",
+  "methodNote": "Each moderator marks every criterion. A team's score is the average of its moderators' totals; equal averages share a rank. Winners are confirmed by the organizers."
 }$seed$::jsonb)
 on conflict (key) do nothing;
 

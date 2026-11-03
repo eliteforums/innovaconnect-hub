@@ -10,6 +10,11 @@ export type NavGroup = { title: string; items: { label: string; href: string }[]
 export function AdminNav({ groups }: { groups: NavGroup[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  // The most specific matching link is the current page (/admin/finals vs /admin/finals/teams).
+  const current = groups
+    .flatMap((g) => g.items.map((i) => i.href))
+    .filter((href) => (href === "/admin" ? pathname === "/admin" : pathname === href || pathname.startsWith(`${href}/`)))
+    .sort((a, b) => b.length - a.length)[0];
   return (
     <>
       <button
@@ -27,7 +32,7 @@ export function AdminNav({ groups }: { groups: NavGroup[] }) {
             <p className="px-2 kicker text-[0.5625rem] text-paper/50">{g.title}</p>
             <ul className="mt-1.5 space-y-0.5">
               {g.items.map((item) => {
-                const active = item.href === "/admin" ? pathname === "/admin" : pathname.startsWith(item.href);
+                const active = item.href === current;
                 return (
                   <li key={item.href}>
                     <Link

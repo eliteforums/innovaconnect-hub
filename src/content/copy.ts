@@ -476,6 +476,44 @@ export const copy = {
       "Start by choosing one of the [two official domains](/tracks), then read the [rules and eligibility](/rules) and the [FAQ](/faq). You can also [get registration updates](/register#updates) as soon as dates are confirmed.",
   },
 
+  leaderboard: {
+    seo: meta(
+      "Live Hackathon Leaderboard & Winners",
+      "Follow the InnovaHack Chapter 2 final live: moderator marks, team rankings and the Tier 1, 2 and 3 winners update in real time during the final round.",
+    ),
+    section: "Leaderboard",
+    title: "The final, *scored live.*",
+    deck: "Every mark the moderators give appears here as soon as it is saved. Teams are ranked by the average of all moderators' totals.",
+    offKicker: "Not live yet",
+    offTitle: "The leaderboard opens with the live final.",
+    offBody:
+      "Scores appear here in real time once the offline round of the final begins. Finalist teams can already [sign in](/portal/login) to submit their solution.",
+    liveLabel: "Live",
+    updatedLabel: "Updated",
+    nowReviewingLabel: "Now under review",
+    winnersTitle: "Winners",
+    standingsTitle: "Standings",
+    formatLabel: "Format",
+    domainLabel: "Domain",
+    allLabel: "All",
+    offlineLabel: "Offline",
+    onlineLabel: "Online",
+    rankLabel: "Rank",
+    teamLabel: "Team",
+    scoreLabel: "Average score",
+    reviewsLabel: "Reviews",
+    marksLabel: "Moderator marks",
+    moderatorLabel: "Moderator",
+    totalLabel: "Total",
+    tierLabel: "Tier",
+    noSubmission: "No solution submitted",
+    notReviewed: "Awaiting review",
+    emptyTitle: "No finalist teams yet.",
+    emptyBody: "Finalist teams appear here once the organizers announce them.",
+    methodNote:
+      "Each moderator marks every criterion. A team's score is the average of its moderators' totals; equal averages share a rank. Winners are confirmed by the organizers.",
+  },
+
   partners: {
     seo: meta(
       "International Hackathon Sponsorship",

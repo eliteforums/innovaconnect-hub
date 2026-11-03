@@ -22,6 +22,15 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const groups: NavGroup[] = [
     { title: "Dashboard", items: [{ label: "Overview", href: "/admin" }] },
     {
+      title: "Live final",
+      items: [
+        { label: "Controls & results", href: "/admin/finals" },
+        { label: "Finalist teams", href: "/admin/finals/teams" },
+        { label: "Moderators", href: "/admin/finals/moderators" },
+        { label: "Solutions & marks", href: "/admin/finals/solutions" },
+      ],
+    },
+    {
       title: "Form submissions",
       items: COLLECTIONS.map((c) => ({ label: collectionLabels[c].title, href: `/admin/submissions/${c}` })),
     },

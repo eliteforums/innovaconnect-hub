@@ -117,6 +117,38 @@ excluded from search engines.
 is refused with an explanation. Storage settings must also be available at **build time**, because pages are
 prerendered with the saved content. Vercel provides environment variables to builds by default.
 
+## Live final: finalist logins, moderators and the leaderboard
+
+The dashboard's **Live final** group runs the offline/online final round.
+
+| Page | What it does |
+| --- | --- |
+| **Finalist teams** (`/admin/finals/teams`) | Create a login for each finalist team, one at a time or by picking finalists from the registrations (with offline/online for each). Edit teams, issue a new pass, delete. |
+| **Moderators** (`/admin/finals/moderators`) | Add moderators (judges). Their name is shown next to their marks on the leaderboard. |
+| **Controls & results** (`/admin/finals`) | Switches for the public leaderboard, solution submissions, publishing winners and showing each moderator's marks; the team "now under review"; the scoring criteria; the ranking, with a Tier 1/2/3 picker that counts places against the awards in Event settings. |
+| **Solutions & marks** (`/admin/finals/solutions`) | Every team's solution, each moderator's marks and comments; remove marks given by mistake. |
+
+**Logins.** Each team and moderator gets a login ID (`TEAM-XXXXXX` / `MOD-XXXXXX`) and a pass (`XXXX-XXXX-XXXX`).
+Passes are shown **once**, when issued: download the CSV or print the pass cards straight away. Only a scrypt hash is
+stored, so a lost pass can't be recovered. Use **New pass**, which also signs out the old one. Both sign in at
+**`/portal/login`**:
+
+- **Teams** (`/portal/team`) submit and edit their solution (title, description, tech stack, repository / demo /
+  video / slides links) while submissions are open, and see their live standing.
+- **Moderators** (`/portal/moderator`) open each team, read the solution and give marks per criterion (half marks
+  allowed) with an optional private comment. **Show as live on leaderboard** puts the team "on stage". Moderators don't
+  see each other's marks in the portal.
+
+**Leaderboard** (`/leaderboard`). It is **off by default**: visitors see "opens with the live final". Switch it on in
+Controls when the offline round starts. While on, the page polls `/api/leaderboard` every 5 seconds, so marks appear
+without a reload. A team's score is the average of its moderators' totals (equal averages share a rank). Tiers stay
+private until you switch on **Publish winners**. The public data never includes logins, emails or comments.
+
+**Setup.** Re-run `supabase/schema.sql` to create the tables (`finals_teams`, `finals_moderators`, `finals_solutions`,
+`finals_scores`, `finals_settings`, `portal_sessions`). Locally they are JSON files in `.data/`. The footer links
+"Live leaderboard" and "Finalist sign-in" ship in the default navigation. If your navigation was already saved in the
+dashboard, add them under Edit · Site → Navigation (and to the header menu when the final starts).
+
 ## Built-in content (defaults)
 
 The files in `src/content/` are the **defaults** the dashboard starts from. Saved dashboard edits override them
@@ -162,7 +194,8 @@ It's safe to run again after updates and never deletes data. It creates:
   automatically);
 - the public `site-media` bucket for uploaded images (5 MB limit, JPEG/PNG/WebP/GIF/AVIF);
 - read-only `*_view` views that flatten submissions into columns for the Supabase Table Editor;
-- **seed data:** every editable section of the website (26 rows in `site_content`), so the database holds the
+- the live-final tables (finalist teams, moderators, solutions, marks, settings, portal sessions);
+- **seed data:** every editable section of the website (27 rows in `site_content`), so the database holds the
   complete site content from day one. Seed rows use `on conflict do nothing`, so re-running the file never
   overwrites dashboard edits.
 
