@@ -64,9 +64,15 @@ export async function getSiteContent(): Promise<SiteContent> {
   return buildContent(await readContentDocs());
 }
 
-/** Uncached read, for the proxy and the admin dashboard. */
+/** Uncached read, for the admin dashboard. */
 export async function getSiteContentFresh(): Promise<SiteContent> {
   return buildContent(await readContentDocs());
+}
+
+/** Fresh article slugs for the proxy's request-time 404 check. */
+export async function getArticleSlugsFresh(): Promise<string[]> {
+  const content = buildContent(await readContentDocs(["event", "articles"]));
+  return content.articles.map((article) => article.slug);
 }
 
 export { sectionDefaults, sectionInfo, sectionKeys, isSectionKey, type SectionKey } from "./sections";

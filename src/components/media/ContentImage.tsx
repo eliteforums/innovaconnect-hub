@@ -8,7 +8,7 @@ type Props = {
   sizes?: string;
   className?: string;
   style?: React.CSSProperties;
-  priority?: boolean;
+  preload?: boolean;
   fill?: boolean;
   placeholder?: "blur" | "empty";
 };
@@ -18,16 +18,32 @@ type Props = {
  * next/image; uploaded images are served as-is (they are already sized by
  * the upload limit and may live on another host).
  */
-export function ContentImage({ src, alt, sizes, className, style, priority, fill, placeholder = "empty" }: Props) {
+export function ContentImage({ src, alt, sizes, className, style, preload, fill, placeholder = "empty" }: Props) {
   const resolved = resolveImage(src);
   if (!resolved) return null;
   if (typeof resolved === "string") {
     return fill ? (
-      <Image src={resolved} alt={alt} fill sizes={sizes} className={className} style={style} priority={priority} unoptimized />
+      <Image
+        src={resolved}
+        alt={alt}
+        fill
+        sizes={sizes}
+        className={className}
+        style={style}
+        preload={preload}
+        unoptimized
+      />
     ) : (
       // Uploaded images have unknown dimensions; size them with CSS.
       // eslint-disable-next-line @next/next/no-img-element
-      <img src={resolved} alt={alt} className={className} style={style} loading={priority ? "eager" : "lazy"} />
+      <img
+        src={resolved}
+        alt={alt}
+        className={className}
+        style={style}
+        loading={preload ? "eager" : "lazy"}
+        fetchPriority={preload ? "high" : "auto"}
+      />
     );
   }
   return (
@@ -37,7 +53,7 @@ export function ContentImage({ src, alt, sizes, className, style, priority, fill
       sizes={sizes}
       className={className}
       style={style}
-      priority={priority}
+      preload={preload}
       fill={fill}
       placeholder={placeholder}
     />

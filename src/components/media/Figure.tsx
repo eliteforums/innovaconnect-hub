@@ -14,7 +14,7 @@ export function Figure({
   showCredit = true,
   sizes = "(min-width: 1024px) 33vw, 100vw",
   className = "",
-  priority = false,
+  preload = false,
   frame = true,
 }: {
   media: MediaSlot;
@@ -23,7 +23,7 @@ export function Figure({
   showCredit?: boolean;
   sizes?: string;
   className?: string;
-  priority?: boolean;
+  preload?: boolean;
   /** Turn off for cutouts that sit directly on the page, with no border or clipping. */
   frame?: boolean;
 }) {
@@ -37,7 +37,7 @@ export function Figure({
             alt={photo.alt ?? media.alt}
             fill
             sizes={sizes}
-            priority={priority}
+            preload={preload}
             placeholder={photo.fit === "contain" || !frame ? "empty" : "blur"}
             className={photo.fit === "contain" ? "bg-paper-deep object-contain p-[6%]" : "object-cover"}
             style={photo.position ? { objectPosition: photo.position } : undefined}

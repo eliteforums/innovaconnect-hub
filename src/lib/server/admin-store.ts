@@ -102,12 +102,13 @@ export async function deleteSubmission(collection: Collection, id: string) {
 
 export type ContentDoc = { key: string; value: unknown; updated_at: string };
 
-/** All saved content documents, keyed by section. Missing storage → none. */
-export async function readContentDocs(): Promise<Record<string, ContentDoc>> {
+/** Saved content docs, optionally narrowed to selected sections. Missing storage → none. */
+export async function readContentDocs(keys?: readonly string[]): Promise<Record<string, ContentDoc>> {
   const driver = storageDriver();
   if (driver === "none") return {};
   if (driver === "supabase") {
-    const res = await supabase(`/rest/v1/site_content?select=key,value,updated_at`);
+    const keyFilter = keys?.length ? `&key=in.(${keys.map(encodeURIComponent).join(",")})` : "";
+    const res = await supabase(`/rest/v1/site_content?select=key,value,updated_at${keyFilter}`);
     if (!res.ok) {
       console.error(`[content] reading site_content failed (${res.status})`);
       return {};
@@ -117,7 +118,13 @@ export async function readContentDocs(): Promise<Record<string, ContentDoc>> {
   }
   const file = path.join(dataDir(), "site_content.json");
   try {
-    return JSON.parse(await readFile(file, "utf8")) as Record<string, ContentDoc>;
+    const docs = JSON.parse(await readFile(file, "utf8")) as Record<string, ContentDoc>;
+    if (!keys?.length) return docs;
+    const selected: Record<string, ContentDoc> = {};
+    for (const key of keys) {
+      if (docs[key]) selected[key] = docs[key];
+    }
+    return selected;
   } catch {
     return {};
   }

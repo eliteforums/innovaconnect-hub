@@ -100,7 +100,7 @@ export default async function ArticlePage({ params }: PageProps<"/updates/[slug]
           media={article.media}
           aspect="aspect-[21/9]"
           className="mx-auto mt-10 max-w-5xl"
-          priority
+          preload
           sizes="(min-width: 1024px) 1024px, 100vw"
         />
         <ArticleBody blocks={article.body} className="prose-news mx-auto mt-10 max-w-3xl space-y-5 text-lg" />

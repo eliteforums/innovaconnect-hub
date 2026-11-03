@@ -209,7 +209,7 @@ function HeroCollage({ c }: { c: SiteContent }) {
         <ContentImage
           src={img.heroBuilding}
           alt={col.buildingAlt}
-          priority
+          preload
           sizes="(min-width: 1024px) 30vw, 70vw"
           className={`${layer} bottom-[24%] left-[13%] w-[76%]`}
         />
@@ -234,7 +234,6 @@ function HeroCollage({ c }: { c: SiteContent }) {
         <ContentImage
           src={img.heroTaxi}
           alt={col.taxiAlt}
-          priority
           sizes="(min-width: 1024px) 34vw, 75vw"
           className={`${layer} drift bottom-[0%] left-[20%] w-[64%]`}
         />

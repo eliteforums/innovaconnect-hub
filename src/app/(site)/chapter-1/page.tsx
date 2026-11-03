@@ -22,7 +22,7 @@ export default async function ChapterOnePage() {
         crumbs={[{ label: c.navigation.primary.find((n) => n.href === "/chapter-1")?.label ?? "Chapter 1", href: "/chapter-1" }]}
         title={x.title}
         deck={x.deck}
-        aside={<Figure media={x.figure} aspect="aspect-[4/3]" priority />}
+        aside={<Figure media={x.figure} aspect="aspect-[4/3]" preload />}
       />
 
       <Container className="mt-16 space-y-20">

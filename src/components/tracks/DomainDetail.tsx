@@ -36,7 +36,7 @@ export async function DomainDetail({ domain: d }: { domain: Domain }) {
             </p>
           </>
         }
-        aside={<Figure media={d.media} aspect="aspect-video" priority />}
+        aside={<Figure media={d.media} aspect="aspect-video" preload />}
       />
 
       <Container className="mt-16">

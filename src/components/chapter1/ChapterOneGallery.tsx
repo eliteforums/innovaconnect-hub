@@ -1,25 +1,25 @@
 import Image, { type StaticImageData } from "next/image";
-import img3024 from "@/assets/IMG_3024.jpg";
-import img3027 from "@/assets/IMG_3027.jpg";
-import mdy3964 from "@/assets/MDY_3964.jpg";
-import mdy4043 from "@/assets/MDY_4043.jpg";
-import mdy4106 from "@/assets/MDY_4106.jpg";
-import mdy4203 from "@/assets/MDY_4203.jpg";
-import mdy4222 from "@/assets/MDY_4222.jpg";
-import mdy4280 from "@/assets/MDY_4280.jpg";
-import mdy4288 from "@/assets/MDY_4288.jpg";
-import mdy4299 from "@/assets/MDY_4299.jpg";
-import mdy4376 from "@/assets/MDY_4376.jpg";
-import mdy4404 from "@/assets/MDY_4404.jpg";
-import mdy4420 from "@/assets/MDY_4420.jpg";
-import mdy4443 from "@/assets/MDY_4443.jpg";
-import mdy4454 from "@/assets/MDY_4454.jpg";
-import mdy4463 from "@/assets/MDY_4463.jpg";
-import mdy4468 from "@/assets/MDY_4468.jpg";
-import mdy4618 from "@/assets/MDY_4618.jpg";
-import mdy4629 from "@/assets/MDY_4629.jpg";
-import mdy4646 from "@/assets/MDY_4646.jpg";
-import mdy4693 from "@/assets/MDY_4693.jpg";
+import img3024 from "@/assets/chapter1-optimized/IMG_3024.webp";
+import img3027 from "@/assets/chapter1-optimized/IMG_3027.webp";
+import mdy3964 from "@/assets/chapter1-optimized/MDY_3964.webp";
+import mdy4043 from "@/assets/chapter1-optimized/MDY_4043.webp";
+import mdy4106 from "@/assets/chapter1-optimized/MDY_4106.webp";
+import mdy4203 from "@/assets/chapter1-optimized/MDY_4203.webp";
+import mdy4222 from "@/assets/chapter1-optimized/MDY_4222.webp";
+import mdy4280 from "@/assets/chapter1-optimized/MDY_4280.webp";
+import mdy4288 from "@/assets/chapter1-optimized/MDY_4288.webp";
+import mdy4299 from "@/assets/chapter1-optimized/MDY_4299.webp";
+import mdy4376 from "@/assets/chapter1-optimized/MDY_4376.webp";
+import mdy4404 from "@/assets/chapter1-optimized/MDY_4404.webp";
+import mdy4420 from "@/assets/chapter1-optimized/MDY_4420.webp";
+import mdy4443 from "@/assets/chapter1-optimized/MDY_4443.webp";
+import mdy4454 from "@/assets/chapter1-optimized/MDY_4454.webp";
+import mdy4463 from "@/assets/chapter1-optimized/MDY_4463.webp";
+import mdy4468 from "@/assets/chapter1-optimized/MDY_4468.webp";
+import mdy4618 from "@/assets/chapter1-optimized/MDY_4618.webp";
+import mdy4629 from "@/assets/chapter1-optimized/MDY_4629.webp";
+import mdy4646 from "@/assets/chapter1-optimized/MDY_4646.webp";
+import mdy4693 from "@/assets/chapter1-optimized/MDY_4693.webp";
 
 const photos: { src: StaticImageData; alt: string }[] = [
   { src: img3024, alt: "Chapter 1 participants seated together during an event session." },

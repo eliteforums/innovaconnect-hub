@@ -38,7 +38,7 @@ export function SiteHeader({
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/85">
+    <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper">
       <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
         <Link href="/" className="group flex items-baseline gap-2" onClick={() => setOpen(false)}>
           <span className="headline text-[1.6rem] leading-none tracking-tight">{labels.wordmark}</span>

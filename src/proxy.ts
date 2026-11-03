@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getSiteContentFresh } from "@/lib/content";
+import { getArticleSlugsFresh } from "@/lib/content";
 
 const ADMIN_COOKIE = "ih_admin";
 const PORTAL_COOKIE = "ih_portal";
@@ -32,8 +32,8 @@ export async function proxy(request: NextRequest) {
 
   const slug = pathname.split("/")[2];
   if (!slug) return NextResponse.next();
-  const { articles } = await getSiteContentFresh();
-  if (!articles.some((a) => a.slug === slug)) {
+  const articleSlugs = await getArticleSlugsFresh();
+  if (!articleSlugs.includes(slug)) {
     return NextResponse.rewrite(new URL("/__not-found", request.url));
   }
   return NextResponse.next();
