@@ -300,8 +300,8 @@ All results below come from a local production server (`next start`):
 - [ ] Chapter 2 dates, offline finale venue and remaining eligibility rules (all editable in
       the dashboard under Event settings). Team limit, round fees and prize tiers are confirmed.
 - [ ] Official rulebook (`src/content/rules.ts`, `published: true`) and evaluation criteria per domain
-- [ ] General contact email and social links (`event.contact`, `event.social`). The partnership address
-      `sponsors@eliteforums.in` was taken from the Chapter 1 site; confirm it for Chapter 2.
+- [ ] Social links (`event.social`). The general and partnership contact emails are
+      `innovahack@eliteforums.in`.
 - [ ] Verify the Chapter 1 figures against the organizer's records, especially the post-event recap's
       170 finalist teams and the advertised ₹1 crore+ funding opportunity
 - [ ] Verified Chapter 1 winners, partners (with correct roles), judges and mentors, and approved photos

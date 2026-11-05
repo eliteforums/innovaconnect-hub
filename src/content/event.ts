@@ -183,13 +183,12 @@ export const event = {
 
   contact: {
     general: {
-      value: null,
-      status: "unconfirmed",
+      value: "innovahack@eliteforums.in",
+      status: "confirmed",
     } as Fact<string>,
     partnerships: {
-      value: "sponsors@eliteforums.in",
-      status: "advertised",
-      note: "Partnership address published on the Chapter 1 website.",
+      value: "innovahack@eliteforums.in",
+      status: "confirmed",
     } as Fact<string>,
   },
 
