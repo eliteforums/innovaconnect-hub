@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import { siteUrl } from "@/content/event";
 import { getSiteContent } from "@/lib/content";
 import { Hero } from "@/components/home/Hero";
+import { HomeLeaderboard } from "@/components/home/HomeLeaderboard";
 import { Rooted } from "@/components/home/Rooted";
 import {
   CitySection,
@@ -80,6 +82,9 @@ export default async function HomePage() {
       <PartnersSection />
       <CitySection />
       <NationalSection />
+      <Suspense fallback={null}>
+        <HomeLeaderboard />
+      </Suspense>
 
       <section aria-labelledby="updates-title" className="mt-24" id="updates">
         <Container>

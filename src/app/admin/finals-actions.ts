@@ -238,7 +238,13 @@ export async function updateFinalsSettingsAction(
   try {
     const current = await readFinalsSettings();
     const next = { ...current };
-    for (const key of ["leaderboardEnabled", "submissionsOpen", "winnersPublished", "showModeratorMarks"] as const) {
+    for (const key of [
+      "leaderboardEnabled",
+      "homepageLeaderboardEnabled",
+      "submissionsOpen",
+      "winnersPublished",
+      "showModeratorMarks",
+    ] as const) {
       if (typeof patch[key] === "boolean") next[key] = patch[key];
     }
     if ("nowReviewing" in patch) {

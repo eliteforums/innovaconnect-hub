@@ -38,8 +38,8 @@ export default async function FinalsPage() {
       <p className="kicker text-burgundy">Live final</p>
       <h1 className="headline mt-2 text-5xl">Controls &amp; results</h1>
       <p className="mt-2 max-w-3xl text-charcoal">
-        Switch the public leaderboard on when the offline round starts, choose which team is being reviewed live, and
-        pick the Tier 1, 2 and 3 winners. Changes reach the{" "}
+        Switch on the public leaderboard, choose whether its top five appear on the homepage, select the team being
+        reviewed live, and pick the Tier 1, 2 and 3 winners. Changes reach the{" "}
         <a href="/leaderboard" target="_blank" className="underline underline-offset-4">
           leaderboard
         </a>{" "}

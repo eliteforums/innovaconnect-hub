@@ -23,13 +23,18 @@ export function LiveLeaderboard({
   labels: x,
   domains,
   offNotice,
+  compact = false,
+  initialHomepageEnabled = true,
 }: {
   initial: Leaderboard | null;
   labels: Labels;
   domains: Record<string, string>;
   offNotice: React.ReactNode;
+  compact?: boolean;
+  initialHomepageEnabled?: boolean;
 }) {
   const [board, setBoard] = useState(initial);
+  const [homepageVisible, setHomepageVisible] = useState(initialHomepageEnabled);
   const [mode, setMode] = useState<TeamMode | "all">("all");
   const [domain, setDomain] = useState<string>("all");
   const [open, setOpen] = useState<string | null>(null);
@@ -43,9 +48,14 @@ export function LiveLeaderboard({
     async function poll() {
       if (!document.hidden) {
         try {
-          const res = await fetch("/api/leaderboard", { cache: "no-store" });
+          const endpoint = compact ? "/api/leaderboard?homepage=1" : "/api/leaderboard";
+          const res = await fetch(endpoint, { cache: "no-store" });
           if (res.ok) {
-            const data = (await res.json()) as { enabled: boolean; board?: Leaderboard };
+            const data = (await res.json()) as {
+              enabled: boolean;
+              homepageEnabled?: boolean;
+              board?: Leaderboard | null;
+            };
             if (!stopped) {
               const next = data.enabled && data.board ? data.board : null;
               const changed = new Set<string>();
@@ -54,6 +64,9 @@ export function LiveLeaderboard({
                 const before = previous.current.get(e.id);
                 if (before !== undefined && before !== key) changed.add(e.id);
                 previous.current.set(e.id, key);
+              }
+              if (compact && typeof data.homepageEnabled === "boolean") {
+                setHomepageVisible(data.homepageEnabled);
               }
               setBoard(next);
               if (changed.size) {
@@ -73,9 +86,58 @@ export function LiveLeaderboard({
       stopped = true;
       clearTimeout(timer);
     };
-  }, [enabled]);
+  }, [compact, enabled]);
 
+  if (compact && !homepageVisible) return null;
   if (!board) return <>{offNotice}</>;
+
+  if (compact) {
+    return board.entries.length === 0 ? (
+      <div className="border-2 border-dashed border-ink/50 p-6">
+        <p className="headline text-2xl uppercase">{x.homeEmptyTitle}</p>
+        <p className="mt-2 text-charcoal">{x.homeEmptyBody}</p>
+      </div>
+    ) : (
+      <ol className="divide-y divide-rule border-2 border-ink bg-paper-white">
+        {board.entries.map((entry) => (
+          <li
+            key={entry.id}
+            className="grid grid-cols-[3rem_minmax(0,1fr)_auto] items-center gap-3 px-4 py-4 sm:grid-cols-[4rem_minmax(0,1fr)_auto] sm:gap-5 sm:px-6"
+          >
+            <span className="headline text-3xl text-burgundy">
+              <span className="sr-only">{x.rankLabel} </span>
+              {entry.rank ?? "—"}
+            </span>
+            <span className="min-w-0">
+              <span className="flex flex-wrap items-center gap-2 font-semibold">
+                {entry.name}
+                {entry.tier && (
+                  <span className="border border-ink bg-taxi px-1.5 py-0.5 kicker text-[0.5625rem]">
+                    {x.tierLabel} {entry.tier}
+                  </span>
+                )}
+              </span>
+              <span className="mt-0.5 block truncate text-sm text-charcoal">
+                {entry.title ?? x.noSubmission}
+              </span>
+              <span className="mt-0.5 block text-xs text-muted">
+                {domains[entry.domain] ?? entry.domain} · {entry.mode === "offline" ? x.offlineLabel : x.onlineLabel}
+              </span>
+            </span>
+            <span className="text-right">
+              <span className="block font-display text-2xl tabular-nums text-burgundy">
+                {entry.average === null ? "—" : fmt(entry.average)}
+                <span className="text-sm text-muted"> / {board.maxTotal}</span>
+              </span>
+              <span className="kicker text-[0.5625rem] text-muted">
+                {entry.average === null ? x.notReviewed : x.scoreLabel}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ol>
+    );
+  }
 
   const live = board.nowReviewing ? board.entries.find((e) => e.id === board.nowReviewing) : undefined;
   const winners = board.winnersPublished ? board.entries.filter((e) => e.tier) : [];

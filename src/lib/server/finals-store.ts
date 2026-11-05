@@ -230,6 +230,10 @@ export async function readFinalsSettings(): Promise<FinalsSettings> {
   return {
     ...defaultFinalsSettings,
     ...saved,
+    homepageLeaderboardEnabled:
+      typeof saved.homepageLeaderboardEnabled === "boolean"
+        ? saved.homepageLeaderboardEnabled
+        : defaultFinalsSettings.homepageLeaderboardEnabled,
     criteria: Array.isArray(saved.criteria) && saved.criteria.length ? saved.criteria : defaultFinalsSettings.criteria,
   };
 }
@@ -279,10 +283,47 @@ export async function loadFinals() {
   return { teams, moderators, solutions, scores, settings };
 }
 
+async function buildPublicLeaderboard(settings: FinalsSettings, preview = false) {
+  if (!settings.leaderboardEnabled) return null;
+  const [teams, moderators, solutions, scores] = await Promise.all([
+    listTeams(),
+    listModerators(),
+    listSolutions(),
+    listScores(),
+  ]);
+  const board = buildLeaderboard({
+    teams,
+    moderators,
+    solutions,
+    scores,
+    settings,
+    includeMarks: preview ? false : settings.showModeratorMarks,
+  });
+  return preview
+    ? { ...board, entries: board.entries.filter((entry) => entry.average !== null).slice(0, 5) }
+    : board;
+}
+
 /** The public leaderboard, or null while the admin has it switched off. */
 export async function publicLeaderboard() {
+  return buildPublicLeaderboard(await readFinalsSettings());
+}
+
+/** Public status for the leaderboard page and the optional homepage preview. */
+export async function publicLeaderboardStatus(preview = false) {
   const settings = await readFinalsSettings();
-  if (!settings.leaderboardEnabled) return null;
-  const data = await loadFinals();
-  return buildLeaderboard({ ...data, includeMarks: data.settings.showModeratorMarks });
+  const board = preview && !settings.homepageLeaderboardEnabled ? null : await buildPublicLeaderboard(settings, preview);
+  return {
+    enabled: settings.leaderboardEnabled,
+    homepageEnabled: settings.homepageLeaderboardEnabled,
+    board,
+  };
+}
+
+/** Homepage preview state; load score data only when both visibility switches are on. */
+export async function homepageLeaderboard() {
+  const settings = await readFinalsSettings();
+  if (!settings.homepageLeaderboardEnabled) return { visible: false as const, board: null };
+  const board = await buildPublicLeaderboard(settings, true);
+  return { visible: true as const, board };
 }

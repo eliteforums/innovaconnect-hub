@@ -484,6 +484,11 @@ export const copy = {
     section: "Leaderboard",
     title: "The final, *scored live.*",
     deck: "Every mark the moderators give appears here as soon as it is saved. Teams are ranked by the average of all moderators' totals.",
+    homeTitle: "Final standings",
+    homeDeck: "The latest scores from the final, ranked by the average of moderator marks.",
+    homeLinkLabel: "View full leaderboard",
+    homeEmptyTitle: "Scores will appear here.",
+    homeEmptyBody: "The top five teams will appear as moderators review their solutions.",
     offKicker: "Not live yet",
     offTitle: "The leaderboard opens with the live final.",
     offBody:

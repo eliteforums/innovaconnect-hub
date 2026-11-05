@@ -5,14 +5,25 @@ import { Plus, Trash2 } from "lucide-react";
 import { updateFinalsSettingsAction } from "@/app/admin/finals-actions";
 import type { Criterion, FinalsSettings } from "@/lib/finals";
 
-type Toggle = "leaderboardEnabled" | "submissionsOpen" | "winnersPublished" | "showModeratorMarks";
+type Toggle =
+  | "leaderboardEnabled"
+  | "homepageLeaderboardEnabled"
+  | "submissionsOpen"
+  | "winnersPublished"
+  | "showModeratorMarks";
 
 const toggles: { key: Toggle; label: string; on: string; off: string }[] = [
   {
     key: "leaderboardEnabled",
-    label: "Public leaderboard",
+    label: "Public leaderboard page",
     on: "Live at /leaderboard — scores update as moderators save them.",
     off: "Hidden. Visitors see “opens with the live final”. Turn on when the offline round starts.",
+  },
+  {
+    key: "homepageLeaderboardEnabled",
+    label: "Show leaderboard on homepage",
+    on: "A live top-five preview appears while the public leaderboard page is on.",
+    off: "The homepage preview is hidden. The full /leaderboard page is controlled separately.",
   },
   {
     key: "submissionsOpen",

@@ -13,6 +13,8 @@ export type Criterion = { key: string; label: string; max: number };
 export type FinalsSettings = {
   /** The public /leaderboard page shows scores only while this is on. */
   leaderboardEnabled: boolean;
+  /** A top-five leaderboard preview appears on the homepage while this is on. */
+  homepageLeaderboardEnabled: boolean;
   /** Finalist teams can create and edit their solution only while this is on. */
   submissionsOpen: boolean;
   /** Tier 1/2/3 winners appear on the leaderboard only once published. */
@@ -34,6 +36,7 @@ export const defaultCriteria: Criterion[] = [
 
 export const defaultFinalsSettings: FinalsSettings = {
   leaderboardEnabled: false,
+  homepageLeaderboardEnabled: false,
   submissionsOpen: true,
   winnersPublished: false,
   showModeratorMarks: true,
