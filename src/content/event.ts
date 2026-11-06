@@ -38,7 +38,7 @@ export const event = {
   } satisfies Fact<string>,
   tagline: "Rooted in Mumbai. Open to the world. Designed for the future.",
   description:
-    "InnovaHack Chapter 2 is a 2027 international AI and startup innovation hackathon for teams worldwide, with a ₹50 Lakh prize pool. It is building toward one of the biggest international hackathons and India's largest hackathon platform.",
+    "InnovaHack Chapter 2 is planned for 2027 as an international AI and startup innovation hackathon, with a ₹50 Lakh prize pool. Round 1 is free and online; the hybrid final welcomes online and offline teams.",
 
   /** Strip at the very top of every page. */
   announcement: ["Elite Forums presents", "International", "Chapter 02", "2027"],
@@ -293,7 +293,7 @@ export const siteUrl = (
   configuredSiteUrl ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
+    : process.env.VERCEL_ENV !== "preview" && process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : "https://innovahack.eliteforums.in")
 ).replace(/\/+$/, "");

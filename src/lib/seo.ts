@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+/** Keep temporary Vercel deployments out of search results. */
+export const searchIndexingAllowed = process.env.VERCEL_ENV !== "preview";
+
 /** Unique title, description, canonical URL and Open Graph data for a page. */
 export function pageMeta(
   path: string,
@@ -24,10 +27,10 @@ export function pageMeta(
     publisher: "Elite Forums",
     alternates: { canonical: path },
     robots: {
-      index: true,
+      index: searchIndexingAllowed,
       follow: true,
       googleBot: {
-        index: true,
+        index: searchIndexingAllowed,
         follow: true,
         "max-image-preview": "large",
         "max-snippet": -1,

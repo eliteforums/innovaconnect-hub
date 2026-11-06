@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { siteUrl } from "@/content/event";
 import { getSiteContent } from "@/lib/content";
 import { resolveImage } from "@/lib/media-library";
+import { searchIndexingAllowed } from "@/lib/seo";
 import { Figure } from "@/components/media/Figure";
 import { ArticleBody } from "@/components/updates/ArticleBody";
 import { ArticleCard, ArticleMeta } from "@/components/updates/ArticleCard";
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: PageProps<"/updates/[slug]">)
     title: article.headline,
     description: article.summary,
     alternates: { canonical: path },
-    robots: article.draft || !article.publishedOn ? { index: false, follow: true } : undefined,
+    robots: article.draft || !article.publishedOn || !searchIndexingAllowed ? { index: false, follow: true } : undefined,
     openGraph: {
       type: "article",
       siteName: "InnovaHack",

@@ -31,7 +31,7 @@ export default function OpengraphImage() {
             <span style={{ fontSize: 66, fontWeight: 900, color: "#941B45", lineHeight: 1 }}>BUILD BEYOND</span>
             <span style={{ fontSize: 66, fontWeight: 900, lineHeight: 1 }}>BORDERS.</span>
             <span style={{ fontSize: 30, marginTop: 18 }}>₹50 Lakh prize pool</span>
-            <span style={{ fontSize: 22, marginTop: 8 }}>Building India's largest hackathon platform</span>
+            <span style={{ fontSize: 22, marginTop: 8 }}>Practical AI & startup innovation</span>
             <span style={{ fontSize: 20, marginTop: 8 }}>Round 1 free · Round 2 ₹1,000 per team</span>
             <span style={{ fontSize: 20, marginTop: 6 }}>Hybrid final · Teams of up to 4 people</span>
           </div>

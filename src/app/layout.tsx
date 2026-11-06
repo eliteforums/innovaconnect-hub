@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Caveat, IBM_Plex_Mono, Inter, Playfair_Display } from "next/font/google";
 import { siteUrl } from "@/content/event";
 import { getSiteContent } from "@/lib/content";
+import { searchIndexingAllowed } from "@/lib/seo";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -47,10 +48,10 @@ export async function generateMetadata(): Promise<Metadata> {
     referrer: "origin-when-cross-origin",
     formatDetection: { email: false, address: false, telephone: false },
     robots: {
-      index: true,
+      index: searchIndexingAllowed,
       follow: true,
       googleBot: {
-        index: true,
+        index: searchIndexingAllowed,
         follow: true,
         "max-image-preview": "large",
         "max-snippet": -1,
