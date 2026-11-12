@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Caveat, IBM_Plex_Mono, Inter, Playfair_Display } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { siteUrl } from "@/content/event";
 import { getSiteContent } from "@/lib/content";
 import { searchIndexingAllowed } from "@/lib/seo";
@@ -90,7 +91,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en-IN"
       className={`${playfair.variable} ${inter.variable} ${plexMono.variable} ${caveat.variable} antialiased`}
     >
-      <body className="flex min-h-dvh flex-col">{children}</body>
+      <body className="flex min-h-dvh flex-col">
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
