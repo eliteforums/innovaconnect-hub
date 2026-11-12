@@ -14,6 +14,7 @@
     "db:seed-sql": "tsx scripts/supabase/generate-seed.ts"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^2.1.0",
     "lucide-react": "^1.63.0",
     "next": "16.4.3",
     "react": "19.3.0",
